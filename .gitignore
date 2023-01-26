@@ -1,0 +1,13 @@
+apps/api/node_modules
+apps/api/dist
+apps/api/.env
+
+apps/client/node_modules
+apps/client/dist
+apps/client/.env
+
+packages/components/node_modules
+packages/components/dist
+packages/components/.env
+
+node_modules

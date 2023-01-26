@@ -1,0 +1,27 @@
+{
+  "name": "@travel-manager/client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --watch"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@travel-manager/functions": "workspace:*",
+    "@travel-manager/hooks": "workspace:*",
+    "@types/node": "18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}
