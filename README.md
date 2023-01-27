@@ -27,5 +27,5 @@ POSTGRESQL_DATABASE_PASSWORD =
 
 ## Deployed environements
 
-- [API](https://travel-manager-api.vercel.app/)
+- [API](https://travel-manager-api.vercel.app/api/v1)
 - [Client](https://travel-manager-client.vercel.app/)
