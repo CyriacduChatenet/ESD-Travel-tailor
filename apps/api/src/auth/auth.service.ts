@@ -48,8 +48,6 @@ export class AuthService {
       signupUserInputDTO.email,
     );
 
-    console.log(user);
-
     if (user) {
       throw new HttpException(
         'User is already exist',
