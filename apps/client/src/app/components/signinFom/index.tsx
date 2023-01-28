@@ -1,18 +1,19 @@
 import { FC, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 
 import { AuthService } from "@/setup/services/auth.service";
 import { errorResponse } from "@/setup/types/errorApiResponse";
+import { changeEmail, changePassword, selectEmail, selectPassword } from "@/setup/redux/slices/auth/signin.slice";
 
 export const SigninForm: FC = () => {
-    const [credentials, setCredentials] = useState({});
     const [errorResponse, setErrorResponse] = useState<errorResponse>({ statusCode: 0, message:''});
 
-    const authService = new AuthService();
+    const email = useSelector(selectEmail);
+    const password = useSelector(selectPassword);
+    const dispatch = useDispatch();
 
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setCredentials({...credentials, [name]: value});
-    }
+    const authService = new AuthService();
+    const credentials = {email, password};
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -30,11 +31,11 @@ export const SigninForm: FC = () => {
             {handleErrorMessage()}
             <label htmlFor="">
                 <span>Email</span>
-                <input type="email" placeholder="Email" name="email" onChange={handleChange} />
+                <input type="email" placeholder="Email" name="email" onChange={(e) => dispatch(changeEmail(e.target.value))} />
             </label>
             <label htmlFor="">
                 <span>Password</span>
-                <input type="password" placeholder="Password" name="password" onChange={handleChange} />
+                <input type="password" placeholder="Password" name="password" onChange={(e) => dispatch(changePassword(e.target.value))} />
             </label>
             <input type="submit" value={'Signup'} />
         </form>

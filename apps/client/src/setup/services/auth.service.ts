@@ -17,7 +17,7 @@ export class AuthService {
         });
         const responseJSON = await response.json();
         
-        if(responseJSON.status !== 201) {
+        if(responseJSON.status >= 400) {
             setErrorState(responseJSON);
         }
     };
