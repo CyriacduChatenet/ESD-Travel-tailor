@@ -15,11 +15,13 @@ importers:
       '@nestjs/schematics': ^9.0.0
       '@nestjs/typeorm': ^9.0.1
       '@types/bcrypt': ^5.0.0
+      '@types/cors': ^2.8.13
       '@types/express': ^4.17.13
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': ^5.0.0
       '@typescript-eslint/parser': ^5.0.0
       bcrypt: ^5.1.0
+      cors: ^2.8.5
       dotenv: ^16.0.3
       eslint: ^8.0.1
       eslint-config-prettier: ^8.3.0
@@ -48,7 +50,9 @@ importers:
       '@nestjs/platform-express': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
       '@nestjs/typeorm': 9.0.1_hkapd3a3mi37wyf4vtt5y4i2ye
       '@types/bcrypt': 5.0.0
+      '@types/cors': 2.8.13
       bcrypt: 5.1.0
+      cors: 2.8.5
       dotenv: 16.0.3
       jwt-decode: 3.1.2
       passport: 0.6.0
@@ -1054,6 +1058,12 @@ packages:
     dependencies:
       '@types/node': 18.11.18
     dev: true
+
+  /@types/cors/2.8.13:
+    resolution: {integrity: sha512-RG8AStHlUiV5ysZQKq97copd2UmVYw3/pRMLefISZ3S1hK104Cwm7iLQ3fTKx+lsUH2CE8FlLaYeEA2LSeqYUA==}
+    dependencies:
+      '@types/node': 18.11.18
+    dev: false
 
   /@types/eslint-scope/3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
