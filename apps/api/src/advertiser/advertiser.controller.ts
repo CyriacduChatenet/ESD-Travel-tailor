@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 
+import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../auth/enums/roles.enum';
 import { AdvertiserService } from './advertiser.service';
 import { CreateAdvertiserDto } from './dto/create-advertiser.dto';
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
