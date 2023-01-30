@@ -8,13 +8,6 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(
-    cors({
-      origin: `${process.env.VITE_APP_URL}`,
-      methods: 'GET,POST,PUT,DELETE',
-      credentials: true,
-    }),
-  );
   app.setGlobalPrefix('api/v1');
   await app.listen(process.env.API_PORT);
 }
