@@ -78,6 +78,7 @@ importers:
   apps/client:
     specifiers:
       '@reduxjs/toolkit': ^1.9.1
+      '@travel-manager/functions': workspace:*
       '@travel-manager/hooks': workspace:*
       '@types/node': 18.11.18
       '@types/react': ^18.0.26
@@ -97,6 +98,7 @@ importers:
       react-redux: 8.0.5_fxtgt6bjwd6p4cwoordejim2zi
       react-router-dom: 6.8.0_biqbaboplfbrettd7655fr4n2y
     devDependencies:
+      '@travel-manager/functions': link:../../packages/functions
       '@travel-manager/hooks': link:../../packages/hooks
       '@types/node': 18.11.18
       '@types/react': 18.0.27
