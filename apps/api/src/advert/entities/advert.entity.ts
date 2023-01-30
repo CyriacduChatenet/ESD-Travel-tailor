@@ -1,4 +1,4 @@
-import { Advertiser } from 'src/advertiser/entities/advertiser.entity';
+import { Advertiser } from '../../advertiser/entities/advertiser.entity';
 import {
   Column,
   CreateDateColumn,
