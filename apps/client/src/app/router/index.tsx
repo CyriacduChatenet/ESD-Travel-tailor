@@ -14,12 +14,12 @@ export const Router: FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path={"/"} element={<HomePage />} />
-        <Route path={"signin"} element={<SigninPage />} />
-        <Route path={"signup"} element={<SignupPage />} />
-        <Route path={"create-advertiser"} element={<CreateAdvertiserPage />} />
-        <Route path={"advertiser/dashboard"} element={<AdvertiserDashboardPage />} />
-        <Route path={"advertiser/create-advert"} element={<CreateAdvertPage />} />
-        <Route path={"advertiser/edit-advert/:id"} element={<EditAdvertPage />} />
+        <Route path={"/signin"} element={<SigninPage />} />
+        <Route path={"/signup"} element={<SignupPage />} />
+        <Route path={"/create-advertiser"} element={<CreateAdvertiserPage />} />
+        <Route path={"/advertiser/dashboard"} element={<AdvertiserDashboardPage />} />
+        <Route path={"/advertiser/create-advert"} element={<CreateAdvertPage />} />
+        <Route path={"/advertiser/edit-advert/:id"} element={<EditAdvertPage />} />
       </Routes>
     </BrowserRouter>
   );
