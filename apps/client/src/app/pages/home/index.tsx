@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 
 export const HomePage:FC = () => {
   const [count, setCount] = useState(0)
+  const [string, setString] = useState('')
 
   const apiService = new ApiService();
 
-  apiService.sayHello();
+  apiService.sayHello(setString);
 
   return (
     <div className="App">
@@ -34,6 +35,8 @@ export const HomePage:FC = () => {
         Click on the Vite and React logos to learn more
       </p>
       <Link to={'/signin'}>Signin</Link>
+      <br />
+      <p>{string}</p>
     </div>
   )
 }
