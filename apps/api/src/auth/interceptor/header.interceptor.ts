@@ -18,7 +18,10 @@ export class HeaderInterceptor implements NestInterceptor {
         context
           .switchToHttp()
           .getResponse()
-          .header('Access-Control-Allow-Origin', process.env.VITE_APP_URL);
+          .header(
+            'Access-Control-Allow-Origin',
+            'https://travel-manager-client.vercel.app',
+          );
       }),
     );
   }
