@@ -1,8 +1,10 @@
 import { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { ApiService } from '@/setup/services/hello.service';
+import { ROUTES } from '@/setup/constants';
 
 import reactLogo from '@/app/assets/react.svg';
-import { ApiService } from '@/setup/services/hello.service';
-import { Link } from 'react-router-dom';
 
 export const HomePage:FC = () => {
   const [count, setCount] = useState(0)
@@ -34,7 +36,7 @@ export const HomePage:FC = () => {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <Link to={'/signin'}>Signin</Link>
+      <Link to={ROUTES.AUTH.SIGNIN}>Signin</Link>
       <br />
       <p>{string}</p>
     </div>

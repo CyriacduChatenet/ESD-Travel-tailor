@@ -7,6 +7,7 @@ import { Role } from "@travel-manager/functions";
 import { selectLocation, selectName, changeName, changeLocation } from "@/setup/redux/slices/advertiser/createAdvertiserRequest.slice";
 import { TokenService } from "@/setup/services/token.service";
 import { AdvertiserService } from "@/setup/services/advertiser.service";
+import { ROUTES } from "@/setup/constants";
 
 export const CreateAdvertiserForm: FC = () => {
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const CreateAdvertiserForm: FC = () => {
         // navigate('/advertiser/dashboard');
     };
 
-    useIsAuthenticated(tokenService.find(), "/signin", Role.Advertiser);
+    useIsAuthenticated(tokenService.find(), ROUTES.AUTH.SIGNIN, Role.Advertiser);
   return (
     <form action="" onSubmit={(e) => {
         e.preventDefault();

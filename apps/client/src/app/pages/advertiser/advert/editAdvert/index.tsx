@@ -1,10 +1,10 @@
 import { FC } from "react";
+import { useParams } from "react-router-dom";
 import { Role } from "@travel-manager/functions";
 import { useIsAuthenticated } from "@travel-manager/hooks";
 
 import { TokenService } from "@/setup/services/token.service";
 import { EditAdvertForm } from "@/app/components/advert/editAdvertForm";
-import { useParams } from "react-router-dom";
 
 export const EditAdvertPage: FC = () => {
   const params = useParams();

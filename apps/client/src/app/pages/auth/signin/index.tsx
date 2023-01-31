@@ -1,14 +1,15 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 import { SigninForm } from "@/app/components/auth/signinFom";
-import { Link } from "react-router-dom";
+import { ROUTES } from "@/setup/constants";
 
 export const SigninPage: FC = () => {
     return (
         <div>
             <h1>Signin page</h1>
             <SigninForm/>
-            <p>no account <Link to={'/signup'}>Signup</Link></p>
+            <p>no account <Link to={ROUTES.AUTH.SIGNUP}>Signup</Link></p>
         </div>
     );
 };
