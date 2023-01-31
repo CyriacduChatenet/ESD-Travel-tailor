@@ -10,7 +10,7 @@ export class AdvertService {
 
   public async findAll() {
       try {
-          const response = await fetch(`https://travel-manager-api.vercel.appapi/v1/advert`)
+          const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert`)
           const responseJSON = await response.json();
           console.log(responseJSON);
           this.dispatch(refreshFromAPI(responseJSON));
@@ -21,7 +21,7 @@ export class AdvertService {
   
   public async findOne(id: string) {
       try {
-          const response = await fetch(`https://travel-manager-api.vercel.appapi/v1/advert/${id}`)
+          const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert/${id}`)
           const responseJSON = await response.json();
           console.log(responseJSON);
           this.dispatch(createSingle(responseJSON));
@@ -32,7 +32,7 @@ export class AdvertService {
 
   public async create(credentials: CreateAdvertCredentials) {
       try {
-          const response = await fetch(`https://travel-manager-api.vercel.appapi/v1/advert`, {
+          const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert`, {
               headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export class AdvertService {
 
   public async update(id: string, credentials: CreateAdvertCredentials) {
       try {
-          const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advert/${id}`, {
+          const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert/${id}`, {
               headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export class AdvertService {
 
   public async delete(id: string) {
       try {
-          const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advert/${id}`, {
+          const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert/${id}`, {
               headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ export class AuthService {
     tokenService = new TokenService;
 
     public async signup(credentials: Object, setErrorState: Dispatch<SetStateAction<errorResponse>>) {
-        const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/auth/signup`, {
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/signup`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export class AuthService {
     };
 
     public async signin(credentials: Object, setErrorState: Dispatch<SetStateAction<errorResponse>>) {
-        const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/auth/signin`, {
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/signin`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
