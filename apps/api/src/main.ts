@@ -11,6 +11,7 @@ async function bootstrap() {
     allowedHeaders: '*',
     origin: '*',
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
   app.setGlobalPrefix('api/v1');
   await app.listen(process.env.API_PORT);
