@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.ts",
+      "src": "src/main.ts",
       "use": "@vercel/node",
       "config": {
         "env": {
@@ -16,10 +16,11 @@
       "src": "/(.*)",
       "headers": {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Authorization, Content-Type"
       },
-      "dest": "app.ts"
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     }
   ]
 }
