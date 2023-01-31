@@ -10,7 +10,7 @@ export class AdvertiserService {
 
     public async findAll() {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`)
+            const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advertiser`)
             const responseJSON = await response.json();
             this.dispatch(findAll(responseJSON));
             console.log(responseJSON);
@@ -21,7 +21,7 @@ export class AdvertiserService {
     
     public async findOne(id: string) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`)
+            const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advertiser/${id}`)
             const responseJSON = await response.json();
             console.log(responseJSON);
             this.dispatch(findOne(id));
@@ -32,7 +32,7 @@ export class AdvertiserService {
 
     public async create(credentials: CreateAdvertiserCredentials) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`, {
+            const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advertiser`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export class AdvertiserService {
 
     public async update(id: string, credentials: CreateAdvertiserCredentials) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`, {
+            const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advertiser/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export class AdvertiserService {
 
     public async delete(id: string) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`, {
+            const response = await fetch(`https://travel-manager-api.vercel.app/api/v1/advertiser/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
