@@ -6,8 +6,10 @@ import {
   Put,
   Param,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 
+import { HeaderInterceptor } from '../auth/interceptor/header.interceptor';
 import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { AdvertiserService } from './advertiser.service';
@@ -15,6 +17,7 @@ import { CreateAdvertiserDto } from './dto/create-advertiser.dto';
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
 
 @Controller('advertiser')
+@UseInterceptors(HeaderInterceptor)
 export class AdvertiserController {
   constructor(private readonly advertiserService: AdvertiserService) {}
   @Post()

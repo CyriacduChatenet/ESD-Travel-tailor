@@ -6,13 +6,17 @@ import {
   Param,
   Delete,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
+
+import { HeaderInterceptor } from '../auth/interceptor/header.interceptor';
 import { SignupUserInputDTO } from './dto/signup-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @Controller('user')
+@UseInterceptors(HeaderInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
