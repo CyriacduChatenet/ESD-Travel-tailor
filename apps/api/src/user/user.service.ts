@@ -15,15 +15,19 @@ export class UserService {
   }
 
   findAll(): Promise<User[]> {
-    return this.userRepository.find();
-  }
-
-  findOne(id: string): Promise<User> {
-    return this.userRepository.findOneBy({ id });
+    return this.userRepository.find({
+      relations: {
+        traveler: true,
+        advertiser: true,
+      },
+    });
   }
 
   findOneByEmail(email: string): Promise<User> {
-    return this.userRepository.findOneBy({ email });
+    return this.userRepository.findOne({
+      where: { email },
+      relations: ['traveler', 'advertiser'],
+    });
   }
 
   update(id: string, signupUserDto: SignupUserInputDTO): Promise<UpdateResult> {

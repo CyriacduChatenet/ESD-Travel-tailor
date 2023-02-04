@@ -27,13 +27,8 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<User> {
-    return this.userService.findOne(id);
-  }
-
-  @Get(':username')
-  findOneByUsername(@Param('email') email: string): Promise<User> {
+  @Get(':email')
+  findOneByEmail(@Param('email') email: string): Promise<User> {
     return this.userService.findOneByEmail(email);
   }
 

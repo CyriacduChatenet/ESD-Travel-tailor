@@ -26,7 +26,13 @@ export class AdvertiserService {
   }
 
   findOne(id: string) {
-    return this.advertiserRepository.findOneBy({ id });
+    return this.advertiserRepository.findOne({
+      where: { id },
+      relations: {
+        adverts: true,
+        user: true,
+      },
+    });
   }
 
   update(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AdvertiserModule } from './advertiser/advertiser.module';
 import { AdvertModule } from './advert/advert.module';
+import { TravelerModule } from './traveler/traveler.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AdvertModule } from './advert/advert.module';
     UserModule,
     AdvertiserModule,
     AdvertModule,
+    TravelerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

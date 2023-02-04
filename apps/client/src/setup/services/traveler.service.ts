@@ -1,20 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 import { CreateAdvertiserCredentials } from "@/setup/types/advertiser.type";
-import { findAll, findOne, create, update, remove, selectAdvertisers } from "@/setup/redux/slices/advertiser/advertiser.slice";
-import { UserService } from "@/setup/services/user.service";
+import { findAll, findOne, create, update, remove, selectTravelers } from "@/setup/redux/slices/traveler/traveler.slice";
 
-export class AdvertiserService {
+export class TravelerService {
     dispatch = useDispatch();
-    params = useParams();
-    advertisers = useSelector(selectAdvertisers)
-    userService = new UserService;
+    advertisers = useSelector(selectTravelers)
 
     public async findAll() {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`)
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler`)
             const responseJSON = await response.json();
             this.dispatch(findAll(responseJSON));
             console.log(responseJSON);
@@ -25,7 +20,7 @@ export class AdvertiserService {
     
     public async findOne(id: string) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`)
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler/${id}`)
             const responseJSON = await response.json();
             console.log(responseJSON);
             this.dispatch(findOne(id));
@@ -34,35 +29,19 @@ export class AdvertiserService {
         }
     }
 
-    public async create(credentials: any) {
+    public async create() {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-                body: JSON.stringify(credentials)
             });
-            const responseAdvertiserJSON = await response.json();
-            this.dispatch(create(responseAdvertiserJSON));
-
-            const advertiserId = responseAdvertiserJSON.id;
-            const userId = this.params.id;
-
-            console.log('advertiserId', advertiserId);
-            console.log('userId', userId);
-
-            const userQuery = {
-                advertiser: advertiserId,
-            }
-
-            const advertiserQuery = {
-                user: userId,
-            }
-
-            this.userService.update(String(userId), userQuery);
-            this.update(advertiserId, advertiserQuery);
+            const responseJSON = await response.json();
+            console.log(responseJSON);
+            this.dispatch(create(responseJSON));
+            return responseJSON;
         } catch (err) {
             console.error(err);
         }
@@ -70,7 +49,7 @@ export class AdvertiserService {
 
     public async update(id: string, credentials: any) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -88,7 +67,7 @@ export class AdvertiserService {
 
     public async delete(id: string) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

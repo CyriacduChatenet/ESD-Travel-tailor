@@ -21,7 +21,7 @@ export const CreateAdvertiserForm: FC = () => {
 
     const handleSubmit = () => {
         advertiserService.create(credentials);
-        // navigate('/advertiser/dashboard');
+        navigate(ROUTES.AUTH.SIGNIN);
     };
 
     useIsAuthenticated(tokenService.find(), ROUTES.AUTH.SIGNIN, Role.Advertiser);

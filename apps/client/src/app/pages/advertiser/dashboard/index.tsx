@@ -7,7 +7,9 @@ import { useIsAuthenticated } from "@travel-manager/hooks";
 import { TokenService } from "@/setup/services/token.service";
 import { AdvertService } from "@/setup/services/advert.service";
 import { selectAdverts } from "@/setup/redux/slices/adverts/advert.slice";
+import { UserService } from "@/setup/services/user.service";
 import { ROUTES } from "@/setup/constants";
+import { AdvertiserService } from "@/setup/services/advertiser.service";
 
 import "./style.css";
 
@@ -17,9 +19,11 @@ export const AdvertiserDashboardPage: FC = () => {
 
   const tokenService = new TokenService();
   const advertService = new AdvertService();
+  const advertiserService = new AdvertiserService();
+  const userService = new UserService();
 
   const handleRedirect = (id: string) => {
-    navigate(ROUTES.ADVERTISER.ADVERT.UPDATE_WITHOUT_ID+id)
+    navigate(ROUTES.ADVERTISER.ADVERT.UPDATE_WITHOUT_ID + id);
   };
 
   const handleDelete = (id: string) => {
@@ -28,7 +32,7 @@ export const AdvertiserDashboardPage: FC = () => {
 
   const handleLogout = () => {
     tokenService.delete();
-    navigate(ROUTES.AUTH.SIGNIN)
+    navigate(ROUTES.AUTH.SIGNIN);
   };
 
   useEffect(() => {
@@ -54,10 +58,18 @@ export const AdvertiserDashboardPage: FC = () => {
         <tbody>
           {adverts.advert.map((advert, index) => (
             <tr key={index}>
-              <td className="tg-0pky">{index+1}</td>
+              <td className="tg-0pky">{index + 1}</td>
               <td className="tg-0pky">{advert.name}</td>
-              <td className="tg-0pky"><button onClick={() => handleRedirect(String(advert.id))}>Update</button></td>
-              <td className="tg-0pky"><button onClick={() => handleDelete(String(advert.id))}>Delete</button></td>
+              <td className="tg-0pky">
+                <button onClick={() => handleRedirect(String(advert.id))}>
+                  Update
+                </button>
+              </td>
+              <td className="tg-0pky">
+                <button onClick={() => handleDelete(String(advert.id))}>
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

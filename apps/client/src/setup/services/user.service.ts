@@ -1,20 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 import { CreateAdvertiserCredentials } from "@/setup/types/advertiser.type";
-import { findAll, findOne, create, update, remove, selectAdvertisers } from "@/setup/redux/slices/advertiser/advertiser.slice";
-import { UserService } from "@/setup/services/user.service";
+import { findAll, findOne, create, update, remove, selectUsers } from "@/setup/redux/slices/user/user.slice";
 
-export class AdvertiserService {
+export class UserService {
     dispatch = useDispatch();
-    params = useParams();
-    advertisers = useSelector(selectAdvertisers)
-    userService = new UserService;
+    userss = useSelector(selectUsers)
 
     public async findAll() {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`)
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/user`)
             const responseJSON = await response.json();
             this.dispatch(findAll(responseJSON));
             console.log(responseJSON);
@@ -23,12 +18,13 @@ export class AdvertiserService {
         }
     }
     
-    public async findOne(id: string) {
+    public async findOne(email: string) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`)
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/user/${email}`)
             const responseJSON = await response.json();
             console.log(responseJSON);
-            this.dispatch(findOne(id));
+            this.dispatch(findOne(email));
+            return responseJSON;
         } catch (err) {
             console.error(err);
         }
@@ -36,7 +32,7 @@ export class AdvertiserService {
 
     public async create(credentials: any) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/user`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -44,25 +40,8 @@ export class AdvertiserService {
                 method: 'POST',
                 body: JSON.stringify(credentials)
             });
-            const responseAdvertiserJSON = await response.json();
-            this.dispatch(create(responseAdvertiserJSON));
-
-            const advertiserId = responseAdvertiserJSON.id;
-            const userId = this.params.id;
-
-            console.log('advertiserId', advertiserId);
-            console.log('userId', userId);
-
-            const userQuery = {
-                advertiser: advertiserId,
-            }
-
-            const advertiserQuery = {
-                user: userId,
-            }
-
-            this.userService.update(String(userId), userQuery);
-            this.update(advertiserId, advertiserQuery);
+            const responseJSON = await response.json();
+            this.dispatch(create(responseJSON));
         } catch (err) {
             console.error(err);
         }
@@ -70,7 +49,7 @@ export class AdvertiserService {
 
     public async update(id: string, credentials: any) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/user/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -88,7 +67,7 @@ export class AdvertiserService {
 
     public async delete(id: string) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/user/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
