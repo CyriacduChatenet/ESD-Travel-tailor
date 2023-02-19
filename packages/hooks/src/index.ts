@@ -1,5 +1,3 @@
-import { useFetchHook } from "./fetch";
-import { useIsAuthenticatedHook } from "./auth";
+import { UseFetchHook } from "./fetch";
 
-export const useFetch = useFetchHook;
-export const useIsAuthenticated = useIsAuthenticatedHook;
+export const useFetchHook = UseFetchHook;

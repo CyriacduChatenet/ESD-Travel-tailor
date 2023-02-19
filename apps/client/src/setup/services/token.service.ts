@@ -1,17 +1,17 @@
 export class TokenService {
-    public find() {
-        return window.localStorage.getItem('access_token');
+    public find(name: string) {
+        return window.localStorage.getItem(name);
     };
 
-    public create(value: string) {
-        return window.localStorage.setItem('access_token', value);
+    public create(name: string, value: string) {
+        return window.localStorage.setItem(name, value);
     };
 
-    public update(value: string) {
-        return window.localStorage.setItem('access_token', value);
+    public update(name: string, value: string) {
+        return window.localStorage.setItem(name, value);
     };
 
-    public delete() {
-        return window.localStorage.removeItem('access_token');
+    public delete(name: string) {
+        return window.localStorage.removeItem(name);
     };
 }

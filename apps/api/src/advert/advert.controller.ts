@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Put,
+  Patch,
   Param,
   Delete,
 } from '@nestjs/common';
@@ -34,7 +34,7 @@ export class AdvertController {
     return this.advertService.findOne(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @Roles(Role.Advertiser)
   update(@Param('id') id: string, @Body() updateAdvertDto: UpdateAdvertDto) {
     return this.advertService.update(id, updateAdvertDto);

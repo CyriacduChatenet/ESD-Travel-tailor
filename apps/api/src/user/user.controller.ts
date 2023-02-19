@@ -5,7 +5,7 @@ import {
   Body,
   Param,
   Delete,
-  Put,
+  Patch,
 } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
@@ -32,11 +32,8 @@ export class UserController {
     return this.userService.findOneByEmail(email);
   }
 
-  @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() signupUserDto: SignupUserInputDTO,
-  ): Promise<UpdateResult> {
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() signupUserDto: any) {
     return this.userService.update(id, signupUserDto);
   }
 

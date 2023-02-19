@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 import { SignupUserInputDTO } from './dto/signup-user.dto';
+import { UpdateUserDTO } from './dto/updateUser.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -19,6 +20,7 @@ export class UserService {
       relations: {
         traveler: true,
         advertiser: true,
+        resetPasswordToken: true,
       },
     });
   }
@@ -26,11 +28,11 @@ export class UserService {
   findOneByEmail(email: string): Promise<User> {
     return this.userRepository.findOne({
       where: { email },
-      relations: ['traveler', 'advertiser'],
+      relations: ['traveler', 'advertiser', 'resetPasswordToken'],
     });
   }
 
-  update(id: string, signupUserDto: SignupUserInputDTO): Promise<UpdateResult> {
+  update(id: string, signupUserDto: any) {
     return this.userRepository.update(id, signupUserDto);
   }
 

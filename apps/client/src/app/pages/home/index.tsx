@@ -1,18 +1,18 @@
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ApiService } from '@/setup/services/hello.service';
 import { ROUTES } from '@/setup/constants';
 
 import reactLogo from '@/app/assets/react.svg';
+import { useFetchHook } from '@travel-manager/hooks';
 
 export const HomePage:FC = () => {
   const [count, setCount] = useState(0)
   const [string, setString] = useState('')
 
-  const apiService = new ApiService();
+  const useFetch = new useFetchHook();
 
-  apiService.sayHello(setString);
+  useFetch.get(`${import.meta.env.VITE_APP_API_URL}`);
 
   return (
     <div className="App">

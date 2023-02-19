@@ -18,3 +18,9 @@ services:
     ports:
       - "${ADMINER_PORT}:8080"
     restart: always
+  maildev:
+    image: maildev/maildev
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - "${MAILDEV_PORT}:80"
+      - "${MAILER_PORT}:25"

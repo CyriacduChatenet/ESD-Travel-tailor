@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Put,
+  Patch,
   Param,
   Delete,
 } from '@nestjs/common';
@@ -29,8 +29,11 @@ export class TravelerController {
     return this.travelerService.findOne(id);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateTravelerDto: any) {
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateTravelerDto: CreateTravelerDto,
+  ) {
     return this.travelerService.update(id, updateTravelerDto);
   }
 

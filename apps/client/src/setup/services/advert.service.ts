@@ -12,7 +12,6 @@ export class AdvertService {
       try {
           const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert`)
           const responseJSON = await response.json();
-          console.log(responseJSON);
           this.dispatch(refreshFromAPI(responseJSON));
       } catch (err) {
           console.error(err);
@@ -23,7 +22,6 @@ export class AdvertService {
       try {
           const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert/${id}`)
           const responseJSON = await response.json();
-          console.log(responseJSON);
           this.dispatch(createSingle(responseJSON));
       } catch (err) {
           console.error(err);
@@ -41,7 +39,6 @@ export class AdvertService {
               body: JSON.stringify(credentials)
           });
           const responseJSON = await response.json();
-          console.log(responseJSON);
           this.dispatch(create(responseJSON));
       } catch (err) {
           console.error(err);
@@ -55,11 +52,11 @@ export class AdvertService {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
               },
-              method: 'PUT',
+              method: 'PATCH',
               body: JSON.stringify(credentials)
           });
           const responseJSON = await response.json();
-          console.log(responseJSON);
+          return responseJSON;
       } catch (err) {
           console.error(err);
       }
@@ -77,7 +74,7 @@ export class AdvertService {
           const responseJSON = await response.json();
           this.dispatch(remove(id));
           this.findAll();
-          console.log(responseJSON);
+          return responseJSON;
       } catch (err) {
           console.error(err);
       }

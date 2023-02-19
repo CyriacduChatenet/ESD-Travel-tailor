@@ -29,7 +29,6 @@ export const advertSlice = createSlice({
 
         update: (state, actions) => {
             let advert = state.filter(advert => advert.id === actions.payload.id);
-            console.log(advert);
         },
 
         remove: (state, actions) => {

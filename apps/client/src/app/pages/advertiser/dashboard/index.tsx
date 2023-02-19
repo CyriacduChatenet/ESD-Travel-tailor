@@ -1,15 +1,11 @@
 import { FC, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Role } from "@travel-manager/functions";
-import { useIsAuthenticated } from "@travel-manager/hooks";
 
 import { TokenService } from "@/setup/services/token.service";
 import { AdvertService } from "@/setup/services/advert.service";
 import { selectAdverts } from "@/setup/redux/slices/adverts/advert.slice";
-import { UserService } from "@/setup/services/user.service";
-import { ROUTES } from "@/setup/constants";
-import { AdvertiserService } from "@/setup/services/advertiser.service";
+import { ROUTES, TOKENS } from "@/setup/constants";
 
 import "./style.css";
 
@@ -19,8 +15,6 @@ export const AdvertiserDashboardPage: FC = () => {
 
   const tokenService = new TokenService();
   const advertService = new AdvertService();
-  const advertiserService = new AdvertiserService();
-  const userService = new UserService();
 
   const handleRedirect = (id: string) => {
     navigate(ROUTES.ADVERTISER.ADVERT.UPDATE_WITHOUT_ID + id);
@@ -31,15 +25,13 @@ export const AdvertiserDashboardPage: FC = () => {
   };
 
   const handleLogout = () => {
-    tokenService.delete();
+    tokenService.delete(TOKENS.ACCESS_TOKEN);
     navigate(ROUTES.AUTH.SIGNIN);
   };
 
   useEffect(() => {
     advertService.findAll();
   }, []);
-
-  useIsAuthenticated(tokenService.find(), ROUTES.AUTH.SIGNIN, Role.Advertiser);
   return (
     <div>
       <h1>Advertiser dashboard</h1>

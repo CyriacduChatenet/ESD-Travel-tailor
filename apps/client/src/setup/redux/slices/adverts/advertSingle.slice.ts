@@ -4,24 +4,23 @@ import { RootState } from "../../store";
 export interface advertSingleSlice {
     id: string;
     name: string;
-    createdAt: any;
-    updatedAt: any;
-    deletedAt: any;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date;
 };
 
 const initialState: advertSingleSlice = {
     id: '',
     name: '',
-    createdAt: '',
-    updatedAt: '',
-    deletedAt: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: new Date(),
 };
 
 export const advertSingleSlice = createSlice({
     name: 'advertSingle',
     initialState,
     reducers: {
-
         createSingle: (state, actions) => {
             state.id = actions.payload.id;
             state.name = actions.payload.name;

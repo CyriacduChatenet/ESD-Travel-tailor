@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode, Role } from "@travel-manager/functions";
@@ -8,7 +8,7 @@ import { errorResponse } from "@/setup/types/errorApiResponse";
 import { changeEmail, changePassword, selectEmail, selectPassword } from "@/setup/redux/slices/auth/signin.slice";
 import { TokenService } from "@/setup/services/token.service";
 import { Token } from "@/setup/types/token.type";
-import { ROUTES } from "@/setup/constants";
+import { ROUTES, TOKENS } from "@/setup/constants";
 
 export const SigninForm: FC = () => {
     const [errorResponse, setErrorResponse] = useState<errorResponse>({ statusCode: 0, message:''});
@@ -23,14 +23,13 @@ export const SigninForm: FC = () => {
     const credentials = {email, password};
 
     const handleFinduserRole = () => {
-        const token = tokenService.find();
+        const token = tokenService.find(TOKENS.ACCESS_TOKEN);
         const decodedToken = jwtDecode(String(token)) satisfies Token;
         return decodedToken.roles;
     };
 
     const handleRedirect = () => {
         const userRole = handleFinduserRole();
-        console.log(userRole);
 
         if(userRole === Role.Advertiser) {
             navigate(ROUTES.ADVERTISER.DASHBOARD);
@@ -39,7 +38,7 @@ export const SigninForm: FC = () => {
         }
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         authService.signin(credentials, setErrorResponse);
         handleRedirect();

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateTravelerDto } from './dto/create-traveler.dto';
 
 import { Traveler } from './entities/traveler.entity';
 
@@ -11,7 +12,7 @@ export class TravelerService {
     private travelerRepository: Repository<Traveler>,
   ) {}
 
-  create(createTravelerDto: any) {
+  create(createTravelerDto: CreateTravelerDto) {
     return this.travelerRepository.save(createTravelerDto);
   }
 
@@ -32,7 +33,7 @@ export class TravelerService {
     });
   }
 
-  update(id: string, updateTravelerDto: any) {
+  update(id: string, updateTravelerDto: CreateTravelerDto) {
     return this.travelerRepository.update(id, updateTravelerDto);
   }
 

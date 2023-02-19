@@ -12,7 +12,6 @@ export class TravelerService {
             const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler`)
             const responseJSON = await response.json();
             this.dispatch(findAll(responseJSON));
-            console.log(responseJSON);
         } catch (err) {
             console.error(err);
         }
@@ -22,7 +21,6 @@ export class TravelerService {
         try {
             const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler/${id}`)
             const responseJSON = await response.json();
-            console.log(responseJSON);
             this.dispatch(findOne(id));
         } catch (err) {
             console.error(err);
@@ -39,7 +37,6 @@ export class TravelerService {
                 method: 'POST',
             });
             const responseJSON = await response.json();
-            console.log(responseJSON);
             this.dispatch(create(responseJSON));
             return responseJSON;
         } catch (err) {
@@ -47,19 +44,18 @@ export class TravelerService {
         }
     };
 
-    public async update(id: string, credentials: any) {
+    public async update(id: string, credentials: { user: string}) {
         try {
             const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/traveler/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                method: 'PUT',
+                method: 'PATCH',
                 body: JSON.stringify(credentials)
             });
             const responseJSON = await response.json();
             this.dispatch(update({id, responseJSON}));
-            console.log(responseJSON);
         } catch (err) {
             console.error(err);
         }
@@ -76,7 +72,7 @@ export class TravelerService {
             });
             const responseJSON = await response.json();
             this.dispatch(remove(id));
-            console.log(responseJSON);
+
         } catch (err) {
             console.error(err);
         }
