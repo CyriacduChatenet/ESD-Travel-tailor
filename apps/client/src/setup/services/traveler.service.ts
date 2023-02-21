@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { CreateAdvertiserCredentials } from "@/setup/types/advertiser.type";
 import { findAll, findOne, create, update, remove, selectTravelers } from "@/setup/redux/slices/traveler/traveler.slice";
 
 export class TravelerService {

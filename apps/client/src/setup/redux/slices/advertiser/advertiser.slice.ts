@@ -1,16 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Advertiser } from "@travel-manager/types";
+
 import { RootState } from "../../store";
 
-export interface advertiserSlice {
-        id: string;
-        name: string;
-        location: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-};
-
-const initialState: advertiserSlice[] = [];
+const initialState: Advertiser[] = [];
 
 export const advertiserSlice = createSlice({
     name: 'advertiser',

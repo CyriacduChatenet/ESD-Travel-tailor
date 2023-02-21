@@ -1,9 +1,9 @@
 import { FC, FormEvent, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ErrorResponse, SignupDTO } from "@travel-manager/types";
 
 import { AuthService } from "@/setup/services/auth.service";
-import { errorResponse } from "@/setup/types/errorApiResponse";
 import {
   changeEmail,
   changePassword,
@@ -18,7 +18,7 @@ import {
 import { ROLES, ROUTES } from "@/setup/constants";
 
 export const SignupForm: FC = () => {
-  const [errorResponse, setErrorResponse] = useState<errorResponse>({
+  const [errorResponse, setErrorResponse] = useState<ErrorResponse>({
     statusCode: 0,
     message: "",
   });
@@ -30,7 +30,7 @@ export const SignupForm: FC = () => {
   const id = useSelector(selectId);
   const navigate = useNavigate();
 
-  const credentials = { username, email, password, roles };
+  const credentials: SignupDTO = { username, email, password, roles };
 
   const dispatch = useDispatch();
 
@@ -44,7 +44,7 @@ export const SignupForm: FC = () => {
     }
 
     if (roles[0] === ROLES.ADVERTISER) {
-        if(id.length > 0) {
+        if(String(id).length > 0) {
           navigate(`/create-advertiser/${id}`);
         }
     }

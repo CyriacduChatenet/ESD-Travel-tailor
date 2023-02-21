@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { CreateAdvertiserDTO } from "@travel-manager/types";
+
 import { RootState } from "../../store";
 
-export interface CreateAdvertiserRequestSlice {
-    name: string;
-    location: string;
-};
-
-const initialState: CreateAdvertiserRequestSlice = {
+const initialState: CreateAdvertiserDTO = {
     name: "",
     location: "",
 };

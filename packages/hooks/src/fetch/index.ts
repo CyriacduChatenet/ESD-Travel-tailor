@@ -1,8 +1,10 @@
+import { AccessToken } from "@travel-manager/types";
+
 export class UseFetchHook {
 	get = async (api_url: string) => {
 		const response = await fetch(api_url, {
 			headers: {
-				'Content-Type': 'application/json',
+				ContentType: 'application/json',
 				Accept: 'application/json',
 			},
 			method: 'GET',
@@ -11,11 +13,12 @@ export class UseFetchHook {
         return await response.json();
 	};
 
-	post = async (api_url: string, body?: Object) => {
+	post = async (api_url: string, body?: any,  token?: AccessToken) => {
         const response = await fetch(api_url, {
 			headers: {
-				'Content-Type': 'application/json',
+				ContentType: 'application/json',
 				Accept: 'application/json',
+				Authorization: `Bearer ${token}`,
 			},
 			method: 'POST',
             body: JSON.stringify(body!)
@@ -24,11 +27,12 @@ export class UseFetchHook {
         return await response.json();
     };
 
-	patch = async (api_url: string, body: Object) => {
+	patch = async (api_url: string, body: Object,  token?: AccessToken) => {
         const response = await fetch(api_url, {
 			headers: {
-				'Content-Type': 'application/json',
+				ContentType: 'application/json',
 				Accept: 'application/json',
+				Authorization: `Bearer ${token}`,
 			},
 			method: 'PATCH',
             body: JSON.stringify(body)
@@ -37,11 +41,12 @@ export class UseFetchHook {
         return await response.json();
     };
 
-	delete = async (api_url: string) => {
+	delete = async (api_url: string, token: AccessToken,) => {
         const response = await fetch(api_url, {
 			headers: {
-				'Content-Type': 'application/json',
+				ContentType: 'application/json',
 				Accept: 'application/json',
+				Authorization: `Bearer ${token}`,
 			},
 			method: 'DELETE'
 		});

@@ -1,4 +1,5 @@
 import { FC, FormEvent, useState } from "react";
+import { ForgotPasswordDTO } from "@travel-manager/types";
 
 import { AuthService } from "@/setup/services/auth.service";
 
@@ -7,7 +8,7 @@ export const ForgotPasswordForm: FC = () => {
 
     const authService = new AuthService();
 
-    const credentials = {email};
+    const credentials: ForgotPasswordDTO = {email};
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

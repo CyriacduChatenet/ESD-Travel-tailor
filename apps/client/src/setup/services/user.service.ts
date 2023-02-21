@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { SignupDTO } from '@travel-manager/types';
 
-import { CreateAdvertiserCredentials } from '@/setup/types/advertiser.type';
 import { findAll, findOne, create, update, remove, selectUsers } from '@/setup/redux/slices/user/user.slice';
-import { Signup } from '../types/signup.type';
 
 export class UserService {
 	dispatch = useDispatch();
@@ -29,7 +28,7 @@ export class UserService {
 		}
 	}
 
-	public async create(credentials: Signup) {
+	public async create(credentials: SignupDTO) {
 		try {
 			const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/user`, {
 				headers: {

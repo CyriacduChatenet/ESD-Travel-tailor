@@ -1,15 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import {
+  SigninDTO,
+  SignupDTO,
+  ForgotPasswordDTO,
+  ResetPasswordDTO,
+} from '@travel-manager/types';
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 
 import { MailService } from '../mail/mail.service';
 import { ResetPasswordTokenService } from '../reset-password-token/reset-password-token.service';
-import { LoginUserInputDTO } from '../user/dto/login-user.dto';
-import { SignupUserInputDTO } from '../user/dto/signup-user.dto';
 import { UserService } from '../user/user.service';
-import { ForgotPasswordDTO } from './dto/forgotPassword.dto';
-import { ResetPasswordDTO } from './dto/resetPassword.dto';
 
 dotenv.config();
 
@@ -36,7 +38,7 @@ export class AuthService {
     }
   }
 
-  public async signin(user: LoginUserInputDTO) {
+  public async signin(user: SigninDTO) {
     const findUser = await this.userService.findOneByEmail(user.email);
 
     if (!findUser) {
@@ -53,7 +55,7 @@ export class AuthService {
     };
   }
 
-  public async signup(signupUserInputDTO: SignupUserInputDTO) {
+  public async signup(signupUserInputDTO: SignupDTO) {
     const user = await this.userService.findOneByEmail(
       signupUserInputDTO.email,
     );
@@ -87,7 +89,7 @@ export class AuthService {
 
   public async resetPassword(
     resetToken: string,
-    resetPasswordDto: { password },
+    resetPasswordDto: ResetPasswordDTO,
   ) {
     const token = await this.resetPasswordTokenService.findOne(resetToken);
     const user = await this.userService.findOneByEmail(token.user.email);

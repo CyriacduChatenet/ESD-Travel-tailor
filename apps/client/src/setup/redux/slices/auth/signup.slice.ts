@@ -1,15 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { SignupDTO } from "@travel-manager/types";
+
 import { RootState } from "../../store";
 
-export interface SignupSlice {
-    id: string;
-    username: string;
-    email: string;
-    password: string;
-    roles: string[];
-};
-
-const initialState: SignupSlice = {
+const initialState: SignupDTO = {
     id: "",
     username: "",
     email: "",

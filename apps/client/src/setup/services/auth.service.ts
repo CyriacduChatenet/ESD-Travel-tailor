@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFetchHook } from '@travel-manager/hooks';
+import { SignupDTO, SigninDTO, ForgotPasswordDTO, ResetPasswordServiceDTO, ErrorResponse } from "@travel-manager/types";
 
 import { TokenService } from '@/setup/services/token.service';
-import { errorResponse } from '@/setup/types/errorApiResponse';
 import { TravelerService } from '@/setup/services/traveler.service';
 import { UserService } from '@/setup/services/user.service';
 import { ROLES, TOKENS } from '@/setup/constants';
@@ -17,7 +17,7 @@ export class AuthService {
 	userService = new UserService();
 	dispatch = useDispatch();
 
-	public async signup(credentials: Object, setErrorState: Dispatch<SetStateAction<errorResponse>>) {
+	public async signup(credentials: SignupDTO, setErrorState: Dispatch<SetStateAction<ErrorResponse>>) {
 		const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/signup`, {
 			headers: {
 				Accept: 'application/json',
@@ -50,7 +50,7 @@ export class AuthService {
 		}
 	}
 
-	public async signin(credentials: Object, setErrorState: Dispatch<SetStateAction<errorResponse>>) {
+	public async signin(credentials: SigninDTO, setErrorState: Dispatch<SetStateAction<ErrorResponse>>) {
 		const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/signin`, {
 			headers: {
 				Accept: 'application/json',
@@ -70,12 +70,12 @@ export class AuthService {
 		}
 	}
 
-	public async forgotPassword(credentials: { email: string }) {
+	public async forgotPassword(credentials: ForgotPasswordDTO) {
 		const resetToken = this.useFetch.post(`${import.meta.env.VITE_APP_API_URL}/auth/forgot-password/`, credentials);
 		return this.tokenService.create(TOKENS.RESET_TOKEN, await resetToken);
 	}
 
-	public async resetPassword(credentials: { password: string, token: string }) {
+	public async resetPassword(credentials: ResetPasswordServiceDTO) {
 		const resetToken = this.useFetch.post(`${import.meta.env.VITE_APP_API_URL}/auth/reset-password/${credentials.token}`, credentials);
 		return this.tokenService.create(TOKENS.RESET_TOKEN, await resetToken);
 	}

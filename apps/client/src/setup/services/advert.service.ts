@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { CreateAdvertCredentials } from "@/setup/types/advert.type";
+import { CreateAdvertDTO, UpdateAdvertDTO } from "@travel-manager/types";
+
 import { create, remove, selectAdverts, refreshFromAPI } from "@/setup/redux/slices/adverts/advert.slice";
 import { createSingle, selectAdvertSingle } from "@/setup/redux/slices/adverts/advertSingle.slice";
 
@@ -28,7 +29,7 @@ export class AdvertService {
       }
   }
 
-  public async create(credentials: CreateAdvertCredentials) {
+  public async create(credentials: CreateAdvertDTO) {
       try {
           const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert`, {
               headers: {
@@ -45,7 +46,7 @@ export class AdvertService {
       }
   };
 
-  public async update(id: string, credentials: CreateAdvertCredentials) {
+  public async update(id: string, credentials: UpdateAdvertDTO) {
       try {
           const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advert/${id}`, {
               headers: {

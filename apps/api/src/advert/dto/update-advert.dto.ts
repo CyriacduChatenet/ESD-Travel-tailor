@@ -1,6 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateAdvertDto } from './create-advert.dto';
+import { UpdateAdvertDTO } from '@travel-manager/types';
 
-export class UpdateAdvertDto extends PartialType(CreateAdvertDto) {
+export class UpdateAdvertDto implements UpdateAdvertDTO {
   name: string;
 }

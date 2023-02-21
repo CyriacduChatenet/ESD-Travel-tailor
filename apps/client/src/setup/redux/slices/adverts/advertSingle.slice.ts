@@ -1,15 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Advert } from "@travel-manager/types";
+
 import { RootState } from "../../store";
 
-export interface advertSingleSlice {
-    id: string;
-    name: string;
-    createdAt: Date;
-    updatedAt: Date;
-    deletedAt: Date;
-};
-
-const initialState: advertSingleSlice = {
+const initialState: Advert = {
     id: '',
     name: '',
     createdAt: new Date(),

@@ -1,16 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Traveler } from "@travel-manager/types";
+
 import { RootState } from "../../store";
 
-export interface travelerSlice {
-        id: string;
-        name: string;
-        location: string;
-        createdAt: Date;
-        updatedAt: Date;
-        deletedAt: Date | null;
-};
-
-const initialState: travelerSlice[] = [];
+const initialState: Traveler[] = [];
 
 export const travelerSlice = createSlice({
     name: 'traveler',

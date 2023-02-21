@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { CreateAdvertiserDTO } from "@travel-manager/types";
 
 import { findAll, findOne, create, update, remove, selectAdvertisers } from "@/setup/redux/slices/advertiser/advertiser.slice";
 import { UserService } from "@/setup/services/user.service";
-import { CreateAdvertiserCredentials } from "@/setup/types/advertiser.type";
 
 export class AdvertiserService {
     dispatch = useDispatch();
@@ -32,7 +32,7 @@ export class AdvertiserService {
         }
     }
 
-    public async create(credentials: CreateAdvertiserCredentials) {
+    public async create(credentials: CreateAdvertiserDTO) {
         try {
             const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/advertiser`, {
                 headers: {
