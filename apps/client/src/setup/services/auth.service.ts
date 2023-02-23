@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '@travel-manager/functions';
 import { useFetchHook } from '@travel-manager/hooks';
 import { SignupDTO, SigninDTO, ForgotPasswordDTO, ResetPasswordServiceDTO, ErrorResponse } from "@travel-manager/types";
 

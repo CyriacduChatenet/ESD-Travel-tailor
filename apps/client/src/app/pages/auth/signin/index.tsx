@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@travel-manager/functions";
 
 import { SigninForm } from "@/app/components/auth/signinFom";
 import { ROUTES } from "@/setup/constants";

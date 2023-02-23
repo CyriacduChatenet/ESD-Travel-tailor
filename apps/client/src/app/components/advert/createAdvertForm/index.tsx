@@ -1,6 +1,5 @@
 import { FC, FormEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector, useNavigate } from "@travel-manager/functions";
 
 import { changeName, selectName } from "@/setup/redux/slices/adverts/createAdvertRequest.slice";
 import { AdvertService } from "@/setup/services/advert.service";

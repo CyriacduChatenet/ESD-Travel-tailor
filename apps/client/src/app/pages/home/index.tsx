@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@travel-manager/functions';
 
 import { ROUTES } from '@/setup/constants';
 

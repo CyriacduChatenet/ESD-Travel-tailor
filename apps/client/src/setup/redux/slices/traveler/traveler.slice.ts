@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@travel-manager/functions";
 import { Traveler } from "@travel-manager/types";
 
 import { RootState } from "../../store";

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "@travel-manager/functions";
 
 import { EditAdvertForm } from "@/app/components/advert/editAdvertForm";
 

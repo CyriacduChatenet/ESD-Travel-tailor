@@ -1,5 +1,5 @@
 import { FC, FormEvent, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "@travel-manager/functions";
 
 import { AuthService } from "@/setup/services/auth.service";
 import { ROUTES } from "@/setup/constants";

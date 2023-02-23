@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@travel-manager/functions";
 
 import { findAll, findOne, create, update, remove, selectTravelers } from "@/setup/redux/slices/traveler/traveler.slice";
 

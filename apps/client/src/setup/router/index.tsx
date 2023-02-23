@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "@travel-manager/functions";
 
 import { HomePage } from "@/app/pages/home";
 import { SigninPage } from "@/app/pages/auth/signin";

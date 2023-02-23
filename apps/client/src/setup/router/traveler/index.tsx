@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Role } from '@travel-manager/functions';
+import { Role, Routes, Route } from '@travel-manager/functions';
 
 import { TravelerDashboardPage } from '@/app/pages/traveler/dashboard';
 import { ROUTES } from '@/setup/constants';

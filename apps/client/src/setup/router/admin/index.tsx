@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { Route, Routes } from "react-router-dom";
-import { Role } from "@travel-manager/functions";
+import { Role, Routes, Route } from "@travel-manager/functions";
 
 import { PrivateRoutes } from "@/setup/router/private";
 

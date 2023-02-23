@@ -15,7 +15,6 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
-    "@travel-manager/types": "workspace:*",
     "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
@@ -25,12 +24,13 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@travel-manager/functions": "workspace:*",
+    "@travel-manager/types": "workspace:*",
     "@types/bcrypt": "^5.0.0",
     "@types/nodemailer": "^6.4.7",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "i": "^0.3.7",
-    "jwt-decode": "^3.1.2",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",

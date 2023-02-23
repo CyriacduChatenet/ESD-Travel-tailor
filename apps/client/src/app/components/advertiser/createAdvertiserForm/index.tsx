@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useNavigate } from "@travel-manager/functions";
 
 import { selectLocation, selectName, changeName, changeLocation } from "@/setup/redux/slices/advertiser/createAdvertiserRequest.slice";
 import { TokenService } from "@/setup/services/token.service";

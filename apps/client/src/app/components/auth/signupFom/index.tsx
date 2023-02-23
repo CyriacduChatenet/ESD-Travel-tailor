@@ -1,6 +1,5 @@
 import { FC, FormEvent, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch, useNavigate } from "@travel-manager/functions";
 import { ErrorResponse, SignupDTO } from "@travel-manager/types";
 
 import { AuthService } from "@/setup/services/auth.service";

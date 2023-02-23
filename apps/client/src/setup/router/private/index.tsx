@@ -1,8 +1,7 @@
 import { FC } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, jwtDecode } from '@travel-manager/functions';
 
 import { TokenService } from '@/setup/services/token.service';
-import { jwtDecode } from '@travel-manager/functions';
 import { TOKENS } from '@/setup/constants';
 
 interface IProps {

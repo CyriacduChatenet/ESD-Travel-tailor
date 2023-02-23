@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector, useParams } from "@travel-manager/functions";
 import { CreateAdvertiserDTO } from "@travel-manager/types";
 
 import { findAll, findOne, create, update, remove, selectAdvertisers } from "@/setup/redux/slices/advertiser/advertiser.slice";

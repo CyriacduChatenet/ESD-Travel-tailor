@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@travel-manager/functions";
 
 import { ROUTES } from "@/setup/constants";
 import { ResetPasswordForm } from "@/app/components/auth/resetPasswordFom";

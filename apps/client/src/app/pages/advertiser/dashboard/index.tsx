@@ -1,6 +1,5 @@
 import { FC, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate, useSelector } from "@travel-manager/functions";
 
 import { TokenService } from "@/setup/services/token.service";
 import { AdvertService } from "@/setup/services/advert.service";
