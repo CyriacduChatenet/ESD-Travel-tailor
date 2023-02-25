@@ -15,30 +15,30 @@ export class TravelerController {
   constructor(private readonly travelerService: TravelerService) {}
 
   @Post()
-  create(@Body() createTravelerDto: CreateTravelerDto) {
-    return this.travelerService.create(createTravelerDto);
+  async create(@Body() createTravelerDto: CreateTravelerDto) {
+    return await this.travelerService.create(createTravelerDto);
   }
 
   @Get()
-  findAll() {
-    return this.travelerService.findAll();
+  async findAll() {
+    return await this.travelerService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.travelerService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.travelerService.findOne(id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateTravelerDto: CreateTravelerDto,
   ) {
-    return this.travelerService.update(id, updateTravelerDto);
+    return await this.travelerService.update(id, updateTravelerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.travelerService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.travelerService.remove(id);
   }
 }

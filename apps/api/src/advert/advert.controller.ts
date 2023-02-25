@@ -20,29 +20,29 @@ export class AdvertController {
 
   @Post()
   @Roles(Role.Advertiser)
-  create(@Body() createAdvertDto: CreateAdvertDto) {
-    return this.advertService.create(createAdvertDto);
+  async create(@Body() createAdvertDto: CreateAdvertDto) {
+    return await this.advertService.create(createAdvertDto);
   }
 
   @Get()
-  findAll() {
-    return this.advertService.findAll();
+  async findAll() {
+    return await this.advertService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.advertService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.advertService.findOne(id);
   }
 
   @Patch(':id')
   @Roles(Role.Advertiser)
-  update(@Param('id') id: string, @Body() updateAdvertDto: UpdateAdvertDto) {
-    return this.advertService.update(id, updateAdvertDto);
+  async update(@Param('id') id: string, @Body() updateAdvertDto: UpdateAdvertDto) {
+    return await this.advertService.update(id, updateAdvertDto);
   }
 
   @Delete(':id')
   @Roles(Role.Advertiser)
-  remove(@Param('id') id: string) {
-    return this.advertService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.advertService.remove(id);
   }
 }

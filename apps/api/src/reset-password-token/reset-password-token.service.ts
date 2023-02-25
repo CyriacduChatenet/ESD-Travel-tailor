@@ -13,27 +13,27 @@ export class ResetPasswordTokenService {
     private jwtService: JwtService,
   ) {}
 
-  create(userId: string) {
+  async create(userId: string) {
     const payload = {
       user: userId,
     };
     const token = this.jwtService.sign(payload);
     const tokenReplace = token.replace(/\./g, '');
-    return this.resetPasswordTokenRepository.save({
+    return await this.resetPasswordTokenRepository.save({
       token: tokenReplace,
     });
   }
 
-  findAll() {
-    return this.resetPasswordTokenRepository.find({
+  async findAll() {
+    return await this.resetPasswordTokenRepository.find({
       relations: {
         user: true,
       },
     });
   }
 
-  findOne(token: string) {
-    return this.resetPasswordTokenRepository.findOne({
+  async findOne(token: string) {
+    return await this.resetPasswordTokenRepository.findOne({
       where: { token },
       relations: {
         user: true,
@@ -41,14 +41,17 @@ export class ResetPasswordTokenService {
     });
   }
 
-  update(id: string, updateResetPasswordTokenDto: UpdateResetPasswordTokenDto) {
-    return this.resetPasswordTokenRepository.update(
-      id,
-      updateResetPasswordTokenDto,
-    );
+  async update(
+    id: string,
+    updateResetPasswordTokenDto: UpdateResetPasswordTokenDto,
+  ) {
+    const resetPasswordTokenInDB: any = await this.findOne(id);
+    resetPasswordTokenInDB.token = updateResetPasswordTokenDto.token;
+    resetPasswordTokenInDB.user = updateResetPasswordTokenDto.user;
+    return await this.resetPasswordTokenRepository.save(resetPasswordTokenInDB);
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return `This action removes a #${id} resetPasswordToken`;
   }
 }

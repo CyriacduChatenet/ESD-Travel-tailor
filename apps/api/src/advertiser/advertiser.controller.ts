@@ -24,27 +24,27 @@ export class AdvertiserController {
   }
 
   @Get()
-  findAll() {
-    return this.advertiserService.findAll();
+  async findAll() {
+    return await this.advertiserService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.advertiserService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.advertiserService.findOne(id);
   }
 
   @Patch(':id')
   @Roles(Role.Advertiser)
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateAdvertiserDto: UpdateAdvertiserDto,
   ) {
-    return this.advertiserService.update(id, updateAdvertiserDto);
+    return await this.advertiserService.update(id, updateAdvertiserDto);
   }
 
   @Delete(':id')
   @Roles(Role.Advertiser)
-  remove(@Param('id') id: string) {
-    return this.advertiserService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.advertiserService.remove(id);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTravelerDto } from './dto/create-traveler.dto';
+import { UpdateTravelerDTO } from './dto/update-traveler.dto';
 
 import { Traveler } from './entities/traveler.entity';
 
@@ -12,12 +13,12 @@ export class TravelerService {
     private travelerRepository: Repository<Traveler>,
   ) {}
 
-  create(createTravelerDto: CreateTravelerDto) {
-    return this.travelerRepository.save(createTravelerDto);
+  async create(createTravelerDto: CreateTravelerDto) {
+    return await this.travelerRepository.save(createTravelerDto);
   }
 
-  findAll() {
-    return this.travelerRepository.find({
+  async findAll() {
+    return await this.travelerRepository.find({
       relations: {
         user: true,
         tastes: true,
@@ -25,8 +26,8 @@ export class TravelerService {
     });
   }
 
-  findOne(id: string) {
-    return this.travelerRepository.findOne({
+  async findOne(id: string) {
+    return await this.travelerRepository.findOne({
       where: { id },
       relations: {
         user: true,
@@ -35,11 +36,14 @@ export class TravelerService {
     });
   }
 
-  update(id: string, updateTravelerDto: CreateTravelerDto) {
-    return this.travelerRepository.update(id, updateTravelerDto);
+  async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
+    const travelerInDB: any = await this.findOne(id);
+    travelerInDB.tastes = updateTravelerDto.tastes;
+    travelerInDB.user = updateTravelerDto.user;
+    return await this.travelerRepository.save(travelerInDB);
   }
 
-  remove(id: string) {
-    return this.travelerRepository.softDelete(id);
+  async remove(id: string) {
+    return await this.travelerRepository.softDelete(id);
   }
 }

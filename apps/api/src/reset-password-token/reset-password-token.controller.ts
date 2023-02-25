@@ -17,33 +17,33 @@ export class ResetPasswordTokenController {
   ) {}
 
   @Post()
-  create(@Body() userId: string) {
-    return this.resetPasswordTokenService.create(userId);
+  async create(@Body() userId: string) {
+    return await this.resetPasswordTokenService.create(userId);
   }
 
   @Get()
-  findAll() {
-    return this.resetPasswordTokenService.findAll();
+  async findAll() {
+    return await this.resetPasswordTokenService.findAll();
   }
 
   @Get(':token')
-  findOne(@Param('id') id: string) {
-    return this.resetPasswordTokenService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.resetPasswordTokenService.findOne(id);
   }
 
   @Patch(':token')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateResetPasswordTokenDto: UpdateResetPasswordTokenDto,
   ) {
-    return this.resetPasswordTokenService.update(
+    return await this.resetPasswordTokenService.update(
       id,
       updateResetPasswordTokenDto,
     );
   }
 
   @Delete(':token')
-  remove(@Param('id') id: string) {
-    return this.resetPasswordTokenService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.resetPasswordTokenService.remove(id);
   }
 }

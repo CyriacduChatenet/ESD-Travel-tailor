@@ -13,20 +13,20 @@ export class AdvertiserService {
     private advertiserRepository: Repository<Advertiser>,
   ) {}
 
-  create(createAdvertiserDto: CreateAdvertiserDto) {
-    return this.advertiserRepository.save(createAdvertiserDto);
+  async create(createAdvertiserDto: CreateAdvertiserDto) {
+    return await this.advertiserRepository.save(createAdvertiserDto);
   }
 
-  findAll() {
-    return this.advertiserRepository.find({
+  async findAll() {
+    return await this.advertiserRepository.find({
       relations: {
         adverts: true,
       },
     });
   }
 
-  findOne(id: string) {
-    return this.advertiserRepository.findOne({
+  async findOne(id: string) {
+    return await this.advertiserRepository.findOne({
       where: { id },
       relations: {
         adverts: true,
@@ -35,11 +35,16 @@ export class AdvertiserService {
     });
   }
 
-  update(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {
-    return this.advertiserRepository.update(id, updateAdvertiserDto);
+  async update(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {
+    const advertiserInDB: any = await this.findOne(id);
+    advertiserInDB.name = updateAdvertiserDto.name;
+    advertiserInDB.location = updateAdvertiserDto.location;
+    advertiserInDB.user = updateAdvertiserDto.user;
+    advertiserInDB.adverts = updateAdvertiserDto.adverts;
+    return await this.advertiserRepository.save(advertiserInDB);
   }
 
-  remove(id: string) {
-    return this.advertiserRepository.softDelete(id);
+  async remove(id: string) {
+    return await this.advertiserRepository.softDelete(id);
   }
 }

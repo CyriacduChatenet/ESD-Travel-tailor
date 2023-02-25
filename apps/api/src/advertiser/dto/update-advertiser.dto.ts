@@ -6,4 +6,5 @@ export class UpdateAdvertiserDto extends PartialType(CreateAdvertiserDto) {
   name: string;
   location: string;
   adverts: Advert[];
+  user: any;
 }
