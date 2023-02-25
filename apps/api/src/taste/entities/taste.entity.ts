@@ -1,26 +1,24 @@
-import { Taste } from 'src/taste/entities/taste.entity';
+import { Traveler } from 'src/traveler/entities/traveler.entity';
 import {
+  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToOne,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
-
 @Entity()
-export class Traveler {
+export class Taste {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, (user) => user.traveler)
-  user: User;
+  @Column()
+  name: string;
 
-  @OneToMany(() => Taste, (taste) => taste.traveler)
-  tastes: Taste;
+  @ManyToOne(() => Traveler, (traveler) => traveler.tastes)
+  traveler: Traveler;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -20,6 +20,7 @@ export class TravelerService {
     return this.travelerRepository.find({
       relations: {
         user: true,
+        tastes: true,
       },
     });
   }
@@ -29,6 +30,7 @@ export class TravelerService {
       where: { id },
       relations: {
         user: true,
+        tastes: true,
       },
     });
   }
