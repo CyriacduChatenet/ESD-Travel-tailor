@@ -9,6 +9,9 @@
 [![redux](https://img.shields.io/badge/Redux_Toolkit-7649BD?style=for-the-badge&logo=redux&logoColor=FFFFFF)](https://nextjs.org/)
 [![Tailwind.CSS](https://img.shields.io/badge/TailwindCSS-16a1ba?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://www.typescriptlang.org/docs/)
 
+[![docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![vercel](https://img.shields.io/badge/Vercel-323330?style=for-the-badge&logo=vercel&logoColor=FFF)](https://vercel.com/)
+
 <br/>
 
 ## .env example
