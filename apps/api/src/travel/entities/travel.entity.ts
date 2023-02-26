@@ -1,3 +1,4 @@
+import { Activity } from 'src/activity/entities/activity.entity';
 import { Traveler } from 'src/traveler/entities/traveler.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,6 +30,9 @@ export class Travel {
 
   @ManyToOne(() => Traveler, (traveler) => traveler.travels)
   traveler: Traveler;
+
+  @OneToMany(() => Activity, (activity) => activity.travel)
+  activities: Activity[];
 
   @CreateDateColumn()
   createdAt: Date;

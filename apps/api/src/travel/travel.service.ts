@@ -20,6 +20,7 @@ export class TravelService {
     return await this.travelRepository.find({
       relations: {
         traveler: true,
+        activities: true,
       },
     });
   }
@@ -29,6 +30,7 @@ export class TravelService {
       where: { id },
       relations: {
         traveler: true,
+        activities: true,
       },
     });
   }
@@ -40,6 +42,10 @@ export class TravelService {
     travelInDB.destinationCity = updateTravelDto.destinationCity;
     travelInDB.departureDate = updateTravelDto.departureDate;
     travelInDB.returnDate = updateTravelDto.returnDate;
+    travelInDB.activities = [
+      ...travelInDB.activities,
+      ...updateTravelDto.activities,
+    ];
     return this.travelRepository.save(travelInDB);
   }
 
