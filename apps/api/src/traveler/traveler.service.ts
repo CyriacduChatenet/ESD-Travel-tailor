@@ -38,7 +38,7 @@ export class TravelerService {
 
   async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
     const travelerInDB: any = await this.findOne(id);
-    travelerInDB.tastes = updateTravelerDto.tastes;
+    travelerInDB.tastes = [updateTravelerDto.tastes];
     travelerInDB.user = updateTravelerDto.user;
     return await this.travelerRepository.save(travelerInDB);
   }

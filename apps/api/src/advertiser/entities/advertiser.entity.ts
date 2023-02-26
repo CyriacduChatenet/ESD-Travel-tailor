@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -24,6 +25,7 @@ export class Advertiser {
   location: string;
 
   @OneToOne(() => User, (user) => user.advertiser)
+  @JoinColumn()
   user: User;
 
   @OneToMany(() => Advert, (advert) => advert.advertiser)

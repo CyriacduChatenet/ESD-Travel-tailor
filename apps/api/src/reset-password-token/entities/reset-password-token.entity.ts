@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -19,6 +20,7 @@ export class ResetPasswordToken {
   token: string;
 
   @OneToOne(() => User, (user) => user.resetPasswordToken)
+  @JoinColumn()
   user: User;
 
   @CreateDateColumn()

@@ -4,9 +4,10 @@ import {
   DeleteDateColumn,
   Entity,
   OneToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 import { User } from '../../user/entities/user.entity';
@@ -17,10 +18,11 @@ export class Traveler {
   id: string;
 
   @OneToOne(() => User, (user) => user.traveler)
+  @JoinColumn()
   user: User;
 
   @OneToMany(() => Taste, (taste) => taste.traveler)
-  tastes: Taste;
+  tastes: Taste[];
 
   @CreateDateColumn()
   createdAt: Date;
