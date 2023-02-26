@@ -22,6 +22,7 @@ export class TravelerService {
       relations: {
         user: true,
         tastes: true,
+        travels: true,
       },
     });
   }
@@ -32,14 +33,16 @@ export class TravelerService {
       relations: {
         user: true,
         tastes: true,
+        travels: true,
       },
     });
   }
 
   async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
     const travelerInDB: any = await this.findOne(id);
-    travelerInDB.tastes = [updateTravelerDto.tastes];
+    travelerInDB.tastes = [...travelerInDB.tastes, updateTravelerDto.tastes];
     travelerInDB.user = updateTravelerDto.user;
+    travelerInDB.travels = [...travelerInDB.travels, updateTravelerDto.travels];
     return await this.travelerRepository.save(travelerInDB);
   }
 

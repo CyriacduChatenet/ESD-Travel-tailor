@@ -40,7 +40,10 @@ export class AdvertiserService {
     advertiserInDB.name = updateAdvertiserDto.name;
     advertiserInDB.location = updateAdvertiserDto.location;
     advertiserInDB.user = updateAdvertiserDto.user;
-    advertiserInDB.adverts = [updateAdvertiserDto.adverts];
+    advertiserInDB.adverts = [
+      ...advertiserInDB.adverts,
+      updateAdvertiserDto.adverts,
+    ];
     return await this.advertiserRepository.save(advertiserInDB);
   }
 

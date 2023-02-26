@@ -1,4 +1,5 @@
 import { Taste } from 'src/taste/entities/taste.entity';
+import { Travel } from 'src/travel/entities/travel.entity';
 import {
   CreateDateColumn,
   DeleteDateColumn,
@@ -23,6 +24,9 @@ export class Traveler {
 
   @OneToMany(() => Taste, (taste) => taste.traveler)
   tastes: Taste[];
+
+  @OneToMany(() => Travel, (travel) => travel.traveler)
+  travels: Travel[];
 
   @CreateDateColumn()
   createdAt: Date;
