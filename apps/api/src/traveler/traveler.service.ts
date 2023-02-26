@@ -23,6 +23,7 @@ export class TravelerService {
         user: true,
         tastes: true,
         travels: true,
+        comments: true,
       },
     });
   }
@@ -34,6 +35,7 @@ export class TravelerService {
         user: true,
         tastes: true,
         travels: true,
+        comments: true,
       },
     });
   }
@@ -43,6 +45,10 @@ export class TravelerService {
     travelerInDB.tastes = [...travelerInDB.tastes, updateTravelerDto.tastes];
     travelerInDB.user = updateTravelerDto.user;
     travelerInDB.travels = [...travelerInDB.travels, updateTravelerDto.travels];
+    travelerInDB.comments = [
+      ...travelerInDB.comments,
+      updateTravelerDto.comments,
+    ];
     return await this.travelerRepository.save(travelerInDB);
   }
 

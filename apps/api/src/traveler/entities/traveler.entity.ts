@@ -1,3 +1,4 @@
+import { Comment } from 'src/comment/entities/comment.entity';
 import { Taste } from 'src/taste/entities/taste.entity';
 import { Travel } from 'src/travel/entities/travel.entity';
 import {
@@ -27,6 +28,9 @@ export class Traveler {
 
   @OneToMany(() => Travel, (travel) => travel.traveler)
   travels: Travel[];
+
+  @OneToMany(() => Comment, (comment) => comment.traveler)
+  comments: Comment[];
 
   @CreateDateColumn()
   createdAt: Date;

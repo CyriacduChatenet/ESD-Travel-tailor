@@ -13,6 +13,7 @@ import { ResetPasswordTokenModule } from './reset-password-token/reset-password-
 import { MailModule } from './mail/mail.module';
 import { TasteModule } from './taste/taste.module';
 import { TravelModule } from './travel/travel.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { TravelModule } from './travel/travel.module';
     MailModule,
     TasteModule,
     TravelModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

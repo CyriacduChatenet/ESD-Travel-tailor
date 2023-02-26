@@ -14,3 +14,4 @@ export type { Traveler, CreateTravelerDTO, UpdateTravelerDTO } from './traveler'
 export type { User, CreateUserDTO, UpdateUserDTO } from './user';
 export type { Taste, CreateTasteDTO, UpdateTasteDTO } from './taste';
 export type { Travel, CreateTravelDTO, UpdateTravelDTO } from './travel';
+export type { Comment, CreateCommentDTO, UpdateCommentDTO } from './comment';
