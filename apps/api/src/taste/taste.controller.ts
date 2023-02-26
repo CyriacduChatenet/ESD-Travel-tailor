@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TasteService } from './taste.service';
 import { CreateTasteDto } from './dto/create-taste.dto';
 import { UpdateTasteDto } from './dto/update-taste.dto';
@@ -23,7 +31,10 @@ export class TasteController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateTasteDto: UpdateTasteDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateTasteDto: UpdateTasteDto,
+  ) {
     return this.tasteService.update(id, updateTasteDto);
   }
 

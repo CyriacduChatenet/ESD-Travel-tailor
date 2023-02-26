@@ -1,7 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateTasteDto } from './create-taste.dto';
+import { UpdateTasteDTO } from '@travel-manager/types';
 
-export class UpdateTasteDto extends PartialType(CreateTasteDto) {
-  name: string;
+export class UpdateTasteDto implements UpdateTasteDTO {
   traveler: string;
+  name: string;
 }

@@ -1,7 +1,7 @@
 import { UpdateTravelDTO } from '@travel-manager/types';
 
 export class UpdateTravelDto implements UpdateTravelDTO {
-  traveler: string;
+  traveler?: string;
   departureCity: string;
   destinationCity: string;
   departureDate: Date;
