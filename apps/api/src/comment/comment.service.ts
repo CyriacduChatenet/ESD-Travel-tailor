@@ -25,11 +25,12 @@ export class CommentService {
 
   async findAll() {
     try {
-      return await this.commentRepository.find({
-        relations: {
-          traveler: true,
-        },
-      });
+      return await this.commentRepository
+        .createQueryBuilder('comment')
+        .leftJoinAndSelect('comment.traveler', 'traveler')
+        .leftJoinAndSelect('comment.activity', 'traveler')
+        .orderBy('comment.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -37,12 +38,12 @@ export class CommentService {
 
   async findOne(id: string) {
     try {
-      return await this.commentRepository.findOne({
-        where: { id },
-        relations: {
-          traveler: true,
-        },
-      });
+      return await this.commentRepository
+        .createQueryBuilder('comment')
+        .where('comment.id = :id', { id })
+        .leftJoinAndSelect('comment.traveler', 'traveler')
+        .leftJoinAndSelect('comment.activity', 'traveler')
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

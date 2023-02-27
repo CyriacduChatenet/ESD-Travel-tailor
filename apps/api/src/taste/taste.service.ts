@@ -26,11 +26,11 @@ export class TasteService {
 
   async findAll() {
     try {
-      return this.tasteRepository.find({
-        relations: {
-          traveler: true,
-        },
-      });
+      return this.tasteRepository
+        .createQueryBuilder('taste')
+        .leftJoinAndSelect('taste.traveler', 'traveler')
+        .orderBy('taste.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -38,12 +38,11 @@ export class TasteService {
 
   async findOne(id: string) {
     try {
-      return this.tasteRepository.findOne({
-        where: { id },
-        relations: {
-          traveler: true,
-        },
-      });
+      return this.tasteRepository
+        .createQueryBuilder('taste')
+        .where('taste.id = :id', { id })
+        .leftJoinAndSelect('taste.traveler', 'traveler')
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

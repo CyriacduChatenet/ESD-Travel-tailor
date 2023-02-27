@@ -25,11 +25,11 @@ export class AdvertService {
 
   async findAll() {
     try {
-      return await this.advertRepository.find({
-        relations: {
-          advertiser: true,
-        },
-      });
+      return await this.advertRepository
+        .createQueryBuilder('advert')
+        .leftJoinAndSelect('advert.advertiser', 'advertiser')
+        .orderBy('advert.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -37,7 +37,11 @@ export class AdvertService {
 
   async findOne(id: string) {
     try {
-      return await this.advertRepository.findOneBy({ id });
+      return await this.advertRepository
+        .createQueryBuilder('advert')
+        .where('advert.id = :id', { id })
+        .leftJoinAndSelect('advert.advertiser', 'advertiser')
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

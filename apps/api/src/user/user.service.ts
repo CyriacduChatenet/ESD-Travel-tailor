@@ -24,13 +24,13 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     try {
-      return await this.userRepository.find({
-        relations: {
-          traveler: true,
-          advertiser: true,
-          resetPasswordToken: true,
-        },
-      });
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('user.advertiser', 'advertiser')
+        .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
+        .orderBy('user.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -38,10 +38,13 @@ export class UserService {
 
   async findOneByEmail(email: string): Promise<User> {
     try {
-      return await this.userRepository.findOne({
-        where: { email },
-        relations: ['traveler', 'advertiser', 'resetPasswordToken'],
-      });
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .where('user.email = :email', { email })
+        .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('user.advertiser', 'advertiser')
+        .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

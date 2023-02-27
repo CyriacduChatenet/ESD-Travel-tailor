@@ -27,14 +27,14 @@ export class TravelerService {
 
   async findAll() {
     try {
-      return await this.travelerRepository.find({
-        relations: {
-          user: true,
-          tastes: true,
-          travels: true,
-          comments: true,
-        },
-      });
+      return await this.travelerRepository
+        .createQueryBuilder('traveler')
+        .leftJoinAndSelect('traveler.user', 'user')
+        .leftJoinAndSelect('traveler.tastes', 'tastes')
+        .leftJoinAndSelect('traveler.travels', 'travels')
+        .leftJoinAndSelect('traveler.comments', 'comments')
+        .orderBy('traveler.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -42,15 +42,14 @@ export class TravelerService {
 
   async findOne(id: string) {
     try {
-      return await this.travelerRepository.findOne({
-        where: { id },
-        relations: {
-          user: true,
-          tastes: true,
-          travels: true,
-          comments: true,
-        },
-      });
+      return await this.travelerRepository
+        .createQueryBuilder('traveler')
+        .where('traveler.id = :id', { id })
+        .leftJoinAndSelect('traveler.user', 'user')
+        .leftJoinAndSelect('traveler.tastes', 'tastes')
+        .leftJoinAndSelect('traveler.travels', 'travels')
+        .leftJoinAndSelect('traveler.comments', 'comments')
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

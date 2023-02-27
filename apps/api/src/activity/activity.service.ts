@@ -26,11 +26,12 @@ export class ActivityService {
 
   async findAll() {
     try {
-      return await this.activityRepository.find({
-        relations: {
-          travel: true,
-        },
-      });
+      return await this.activityRepository
+        .createQueryBuilder('activity')
+        .leftJoinAndSelect('activity.travel', 'travel')
+        .leftJoinAndSelect('activity.comments', 'comments')
+        .orderBy('activity.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -38,12 +39,12 @@ export class ActivityService {
 
   async findOne(id: string) {
     try {
-      return await this.activityRepository.findOne({
-        where: { id },
-        relations: {
-          travel: true,
-        },
-      });
+      return await this.activityRepository
+        .createQueryBuilder('activity')
+        .leftJoinAndSelect('activity.travel', 'travel')
+        .leftJoinAndSelect('activity.comments', 'comments')
+        .where('activity.id = :id', { id })
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

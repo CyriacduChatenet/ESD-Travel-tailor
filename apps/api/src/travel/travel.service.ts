@@ -26,12 +26,12 @@ export class TravelService {
 
   async findAll() {
     try {
-      return await this.travelRepository.find({
-        relations: {
-          traveler: true,
-          activities: true,
-        },
-      });
+      return await this.travelRepository
+        .createQueryBuilder('travel')
+        .leftJoinAndSelect('travel.traveler', 'traveler')
+        .leftJoinAndSelect('travel.activities', 'traveler')
+        .orderBy('travel.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -39,13 +39,12 @@ export class TravelService {
 
   async findOne(id: string) {
     try {
-      return await this.travelRepository.findOne({
-        where: { id },
-        relations: {
-          traveler: true,
-          activities: true,
-        },
-      });
+      return await this.travelRepository
+        .createQueryBuilder('travel')
+        .where('travel.id = :id', { id })
+        .leftJoinAndSelect('travel.traveler', 'traveler')
+        .leftJoinAndSelect('travel.activities', 'traveler')
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }

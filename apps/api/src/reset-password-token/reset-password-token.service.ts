@@ -35,11 +35,11 @@ export class ResetPasswordTokenService {
 
   async findAll() {
     try {
-      return await this.resetPasswordTokenRepository.find({
-        relations: {
-          user: true,
-        },
-      });
+      return await this.resetPasswordTokenRepository
+        .createQueryBuilder('resetPasswordToken')
+        .leftJoinAndSelect('resetPasswordToken.user', 'user')
+        .orderBy('resetPasswordToken.createdAt', 'DESC')
+        .getMany();
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -47,12 +47,11 @@ export class ResetPasswordTokenService {
 
   async findOne(token: string) {
     try {
-      return await this.resetPasswordTokenRepository.findOne({
-        where: { token },
-        relations: {
-          user: true,
-        },
-      });
+      return await this.resetPasswordTokenRepository
+        .createQueryBuilder('resetPasswordToken')
+        .leftJoinAndSelect('resetPasswordToken.user', 'user')
+        .where('resetPasswordToken.token = :token', { token })
+        .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }
