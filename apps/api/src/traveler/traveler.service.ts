@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -21,7 +22,7 @@ export class TravelerService {
     try {
       return await this.travelerRepository.save(createTravelerDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new BadRequestException(error);
     }
   }
 

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -18,7 +19,7 @@ export class UserService {
     try {
       return await this.userRepository.save(signupUserDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new BadRequestException(error);
     }
   }
 
@@ -54,7 +55,7 @@ export class UserService {
     try {
       return await this.userRepository.update(email, signupUserDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new BadRequestException(error);
     }
   }
 

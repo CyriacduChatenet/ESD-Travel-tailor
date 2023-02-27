@@ -1,7 +1,7 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -29,7 +29,7 @@ export class ResetPasswordTokenService {
         token: tokenReplace,
       });
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new BadRequestException(error);
     }
   }
 
@@ -67,7 +67,7 @@ export class ResetPasswordTokenService {
         updateResetPasswordTokenDto,
       );
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new BadRequestException(error);
     }
   }
 
@@ -75,7 +75,7 @@ export class ResetPasswordTokenService {
     try {
       return this.resetPasswordTokenRepository.softDelete(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new BadRequestException(error);
     }
   }
 }
