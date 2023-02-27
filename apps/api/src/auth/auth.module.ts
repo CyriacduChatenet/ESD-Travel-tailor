@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import * as dotenv from 'dotenv';
+import { ConfigModule } from '@nestjs/config';
 
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -11,10 +11,9 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { ResetPasswordTokenModule } from '../reset-password-token/reset-password-token.module';
 import { MailModule } from '../mail/mail.module';
 
-dotenv.config();
-
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,

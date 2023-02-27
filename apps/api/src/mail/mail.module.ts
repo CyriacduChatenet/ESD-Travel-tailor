@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
-import * as dotenv from 'dotenv';
 
 import { MailService } from './mail.service';
 
-dotenv.config();
-
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MailerModule.forRoot({
       transport: {
         host: process.env.MAILER_HOST,

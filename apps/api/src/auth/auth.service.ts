@@ -7,13 +7,10 @@ import {
   ResetPasswordDTO,
 } from '@travel-manager/types';
 import * as bcrypt from 'bcrypt';
-import * as dotenv from 'dotenv';
 
 import { MailService } from '../mail/mail.service';
 import { ResetPasswordTokenService } from '../reset-password-token/reset-password-token.service';
 import { UserService } from '../user/user.service';
-
-dotenv.config();
 
 @Injectable()
 export class AuthService {
