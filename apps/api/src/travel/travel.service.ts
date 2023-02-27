@@ -36,17 +36,7 @@ export class TravelService {
   }
 
   async update(id: string, updateTravelDto: UpdateTravelDto) {
-    const travelInDB: any = await this.travelRepository.findOneById(id);
-    travelInDB.traveler = updateTravelDto.traveler;
-    travelInDB.departureCity = updateTravelDto.departureCity;
-    travelInDB.destinationCity = updateTravelDto.destinationCity;
-    travelInDB.departureDate = updateTravelDto.departureDate;
-    travelInDB.returnDate = updateTravelDto.returnDate;
-    travelInDB.activities = [
-      ...travelInDB.activities,
-      ...updateTravelDto.activities,
-    ];
-    return this.travelRepository.save(travelInDB);
+    return this.travelRepository.update(id, updateTravelDto);
   }
 
   async remove(id: string) {

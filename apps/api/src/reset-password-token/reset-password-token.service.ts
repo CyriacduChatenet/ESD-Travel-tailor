@@ -45,10 +45,10 @@ export class ResetPasswordTokenService {
     id: string,
     updateResetPasswordTokenDto: UpdateResetPasswordTokenDto,
   ) {
-    const resetPasswordTokenInDB: any = await this.findOne(id);
-    resetPasswordTokenInDB.token = updateResetPasswordTokenDto.token;
-    resetPasswordTokenInDB.user = updateResetPasswordTokenDto.user;
-    return await this.resetPasswordTokenRepository.save(resetPasswordTokenInDB);
+    return this.resetPasswordTokenRepository.update(
+      id,
+      updateResetPasswordTokenDto,
+    );
   }
 
   async remove(id: string) {

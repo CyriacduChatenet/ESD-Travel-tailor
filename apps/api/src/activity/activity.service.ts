@@ -34,11 +34,7 @@ export class ActivityService {
   }
 
   async update(id: string, updateActivityDto: UpdateActivityDto) {
-    const activityInDB: any = await this.activityRepository.findOneById(id);
-    activityInDB.name = updateActivityDto.name;
-    activityInDB.mark = updateActivityDto.mark;
-    activityInDB.travel = updateActivityDto.travel;
-    return this.activityRepository.save(activityInDB);
+    return this.activityRepository.update(id, updateActivityDto);
   }
 
   async remove(id: string) {

@@ -34,10 +34,7 @@ export class TasteService {
   }
 
   async update(id: string, updateTasteDto: UpdateTasteDto) {
-    const tasteInDB: any = await this.tasteRepository.findOneById(id);
-    tasteInDB.name = updateTasteDto.name;
-    tasteInDB.traveler = updateTasteDto.traveler;
-    return this.tasteRepository.save(tasteInDB);
+    return this.tasteRepository.update(id, updateTasteDto);
   }
 
   async remove(id: string) {

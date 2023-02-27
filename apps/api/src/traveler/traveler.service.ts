@@ -40,16 +40,8 @@ export class TravelerService {
     });
   }
 
-  async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
-    const travelerInDB: any = await this.findOne(id);
-    travelerInDB.tastes = [...travelerInDB.tastes, updateTravelerDto.tastes];
-    travelerInDB.user = updateTravelerDto.user;
-    travelerInDB.travels = [...travelerInDB.travels, updateTravelerDto.travels];
-    travelerInDB.comments = [
-      ...travelerInDB.comments,
-      updateTravelerDto.comments,
-    ];
-    return await this.travelerRepository.save(travelerInDB);
+  async update(id: string, updateTravelerDto: any) {
+    return this.travelerRepository.update(id, updateTravelerDto);
   }
 
   async remove(id: string) {

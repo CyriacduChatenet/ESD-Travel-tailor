@@ -32,11 +32,7 @@ export class CommentService {
   }
 
   async update(id: string, updateCommentDto: UpdateCommentDto) {
-    const commentInDB: any = await this.commentRepository.findOneById(id);
-    commentInDB.content = updateCommentDto.content;
-    commentInDB.likes = updateCommentDto.likes;
-    commentInDB.traveler = updateCommentDto.traveler;
-    return this.commentRepository.save(commentInDB);
+    return this.commentRepository.update(id, updateCommentDto);
   }
 
   async remove(id: string) {
