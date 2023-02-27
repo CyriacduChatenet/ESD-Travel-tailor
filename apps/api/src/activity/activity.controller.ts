@@ -6,8 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
 import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { ActivityService } from './activity.service';
@@ -19,6 +21,7 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @Post()
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   create(@Body() createActivityDto: CreateActivityDto) {
@@ -36,6 +39,7 @@ export class ActivityController {
   }
 
   @Patch(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   update(
@@ -46,6 +50,7 @@ export class ActivityController {
   }
 
   @Delete(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   remove(@Param('id') id: string) {

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 
 import { TasteService } from './taste.service';
@@ -13,12 +14,14 @@ import { CreateTasteDto } from './dto/create-taste.dto';
 import { UpdateTasteDto } from './dto/update-taste.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/decorators/role.enum';
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 
 @Controller('taste')
 export class TasteController {
   constructor(private readonly tasteService: TasteService) {}
 
   @Post()
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
   async create(@Body() createTasteDto: CreateTasteDto) {
@@ -36,6 +39,7 @@ export class TasteController {
   }
 
   @Patch(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
   async update(
@@ -46,6 +50,7 @@ export class TasteController {
   }
 
   @Delete(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
   async remove(@Param('id') id: string) {

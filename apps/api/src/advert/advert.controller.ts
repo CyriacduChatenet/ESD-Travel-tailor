@@ -6,8 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
 import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { AdvertService } from './advert.service';
@@ -19,6 +21,7 @@ export class AdvertController {
   constructor(private readonly advertService: AdvertService) {}
 
   @Post()
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   async create(@Body() createAdvertDto: CreateAdvertDto) {
@@ -36,6 +39,7 @@ export class AdvertController {
   }
 
   @Patch(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   @Roles(Role.Advertiser)
@@ -47,6 +51,7 @@ export class AdvertController {
   }
 
   @Delete(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   async remove(@Param('id') id: string) {

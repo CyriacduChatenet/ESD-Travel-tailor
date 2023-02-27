@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 
 import { TravelerService } from './traveler.service';
@@ -13,6 +14,7 @@ import { CreateTravelerDto } from './dto/create-traveler.dto';
 import { UpdateTravelerDTO } from './dto/update-traveler.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/decorators/role.enum';
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
 
 @Controller('traveler')
 export class TravelerController {
@@ -34,6 +36,7 @@ export class TravelerController {
   }
 
   @Patch(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Admin)
   async update(
     @Param('id') id: string,
@@ -43,6 +46,7 @@ export class TravelerController {
   }
 
   @Delete(':id')
+  @UseGuards(LocalAuthGuard)
   @Roles(Role.Admin)
   async remove(@Param('id') id: string) {
     return await this.travelerService.remove(id);
