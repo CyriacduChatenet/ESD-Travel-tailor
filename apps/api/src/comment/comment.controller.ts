@@ -7,6 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+
+import { Role } from '../auth/decorators/role.enum';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -16,6 +19,9 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
+  @Roles(Role.Traveler)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   create(@Body() createCommentDto: CreateCommentDto) {
     return this.commentService.create(createCommentDto);
   }
@@ -31,11 +37,17 @@ export class CommentController {
   }
 
   @Patch(':id')
+  @Roles(Role.Traveler)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
     return this.commentService.update(id, updateCommentDto);
   }
 
   @Delete(':id')
+  @Roles(Role.Traveler)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   remove(@Param('id') id: string) {
     return this.commentService.remove(id);
   }

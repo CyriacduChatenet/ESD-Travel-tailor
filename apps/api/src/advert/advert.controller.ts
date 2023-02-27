@@ -20,6 +20,7 @@ export class AdvertController {
 
   @Post()
   @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   async create(@Body() createAdvertDto: CreateAdvertDto) {
     return await this.advertService.create(createAdvertDto);
   }
@@ -36,12 +37,18 @@ export class AdvertController {
 
   @Patch(':id')
   @Roles(Role.Advertiser)
-  async update(@Param('id') id: string, @Body() updateAdvertDto: UpdateAdvertDto) {
+  @Roles(Role.Admin)
+  @Roles(Role.Advertiser)
+  async update(
+    @Param('id') id: string,
+    @Body() updateAdvertDto: UpdateAdvertDto,
+  ) {
     return await this.advertService.update(id, updateAdvertDto);
   }
 
   @Delete(':id')
   @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   async remove(@Param('id') id: string) {
     return await this.advertService.remove(id);
   }

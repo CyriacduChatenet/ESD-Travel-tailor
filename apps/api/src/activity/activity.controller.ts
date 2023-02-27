@@ -7,6 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+
+import { Role } from '../auth/decorators/role.enum';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { ActivityService } from './activity.service';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
@@ -16,6 +19,8 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @Post()
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   create(@Body() createActivityDto: CreateActivityDto) {
     return this.activityService.create(createActivityDto);
   }
@@ -31,6 +36,8 @@ export class ActivityController {
   }
 
   @Patch(':id')
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   update(
     @Param('id') id: string,
     @Body() updateActivityDto: UpdateActivityDto,
@@ -39,6 +46,8 @@ export class ActivityController {
   }
 
   @Delete(':id')
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   remove(@Param('id') id: string) {
     return this.activityService.remove(id);
   }

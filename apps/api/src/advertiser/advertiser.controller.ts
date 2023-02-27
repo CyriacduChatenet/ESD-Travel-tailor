@@ -19,6 +19,7 @@ export class AdvertiserController {
   constructor(private readonly advertiserService: AdvertiserService) {}
   @Post()
   @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   create(@Body() createAdvertiserDto: CreateAdvertiserDto) {
     return this.advertiserService.create(createAdvertiserDto);
   }
@@ -35,6 +36,7 @@ export class AdvertiserController {
 
   @Patch(':id')
   @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   async update(
     @Param('id') id: string,
     @Body() updateAdvertiserDto: UpdateAdvertiserDto,
@@ -44,6 +46,7 @@ export class AdvertiserController {
 
   @Delete(':id')
   @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   async remove(@Param('id') id: string) {
     return await this.advertiserService.remove(id);
   }

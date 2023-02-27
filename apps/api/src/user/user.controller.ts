@@ -12,6 +12,8 @@ import { DeleteResult } from 'typeorm';
 import { SignupUserInputDTO } from './dto/signup-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
+import { Role } from '../auth/decorators/role.enum';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('user')
 export class UserController {
@@ -38,6 +40,9 @@ export class UserController {
   }
 
   @Delete(':id')
+  @Roles(Role.Traveler)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     return await this.userService.remove(id);
   }
