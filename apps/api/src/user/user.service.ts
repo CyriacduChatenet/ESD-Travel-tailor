@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 
@@ -11,34 +15,51 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
   async create(signupUserDto: SignupUserInputDTO): Promise<User> {
-    return await this.userRepository.save(signupUserDto);
+    try {
+      return await this.userRepository.save(signupUserDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll(): Promise<User[]> {
-    return await this.userRepository.find({
-      relations: {
-        traveler: true,
-        advertiser: true,
-        resetPasswordToken: true,
-      },
-    });
+    try {
+      return await this.userRepository.find({
+        relations: {
+          traveler: true,
+          advertiser: true,
+          resetPasswordToken: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne({
-      where: { email },
-      relations: ['traveler', 'advertiser', 'resetPasswordToken'],
-    });
+    try {
+      return await this.userRepository.findOne({
+        where: { email },
+        relations: ['traveler', 'advertiser', 'resetPasswordToken'],
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(email: string, signupUserDto: any) {
-    const userInDB: any = await this.findOneByEmail(email);
-    userInDB.tastes = [...userInDB.tastes, signupUserDto.tastes];
-    userInDB.user = signupUserDto.user;
-    return await this.userRepository.save(userInDB);
+    try {
+      return await this.userRepository.update(email, signupUserDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string): Promise<DeleteResult> {
-    return await this.userRepository.softDelete(id);
+    try {
+      return await this.userRepository.softDelete(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

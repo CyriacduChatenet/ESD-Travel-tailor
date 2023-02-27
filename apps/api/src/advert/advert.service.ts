@@ -1,6 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CreateAdvertDto } from './dto/create-advert.dto';
 import { UpdateAdvertDto } from './dto/update-advert.dto';
 import { Advert } from './entities/advert.entity';
@@ -11,26 +16,46 @@ export class AdvertService {
     @InjectRepository(Advert) private advertRepository: Repository<Advert>,
   ) {}
   create(createAdvertDto: CreateAdvertDto) {
-    return this.advertRepository.save(createAdvertDto);
+    try {
+      return this.advertRepository.save(createAdvertDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return await this.advertRepository.find({
-      relations: {
-        advertiser: true,
-      },
-    });
+    try {
+      return await this.advertRepository.find({
+        relations: {
+          advertiser: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOne(id: string) {
-    return await this.advertRepository.findOneBy({ id });
+    try {
+      return await this.advertRepository.findOneBy({ id });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(id: string, updateAdvertDto: UpdateAdvertDto) {
-    return this.advertRepository.update(id, updateAdvertDto);
+    try {
+      return this.advertRepository.update(id, updateAdvertDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return await this.advertRepository.softDelete({ id });
+    try {
+      return await this.advertRepository.softDelete({ id });
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

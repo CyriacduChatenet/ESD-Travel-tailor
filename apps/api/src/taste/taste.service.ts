@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -13,31 +17,51 @@ export class TasteService {
   ) {}
 
   async create(createTasteDto: CreateTasteDto) {
-    return this.tasteRepository.save(createTasteDto);
+    try {
+      return this.tasteRepository.save(createTasteDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return this.tasteRepository.find({
-      relations: {
-        traveler: true,
-      },
-    });
+    try {
+      return this.tasteRepository.find({
+        relations: {
+          traveler: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOne(id: string) {
-    return this.tasteRepository.findOne({
-      where: { id },
-      relations: {
-        traveler: true,
-      },
-    });
+    try {
+      return this.tasteRepository.findOne({
+        where: { id },
+        relations: {
+          traveler: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(id: string, updateTasteDto: UpdateTasteDto) {
-    return this.tasteRepository.update(id, updateTasteDto);
+    try {
+      return this.tasteRepository.update(id, updateTasteDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return this.tasteRepository.softDelete(id);
+    try {
+      return this.tasteRepository.softDelete(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

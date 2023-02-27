@@ -1,7 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { UpdateResetPasswordTokenDto } from './dto/update-reset-password-token.dto';
 import { ResetPasswordToken } from './entities/reset-password-token.entity';
 
@@ -14,44 +19,64 @@ export class ResetPasswordTokenService {
   ) {}
 
   async create(userId: string) {
-    const payload = {
-      user: userId,
-    };
-    const token = this.jwtService.sign(payload);
-    const tokenReplace = token.replace(/\./g, '');
-    return await this.resetPasswordTokenRepository.save({
-      token: tokenReplace,
-    });
+    try {
+      const payload = {
+        user: userId,
+      };
+      const token = this.jwtService.sign(payload);
+      const tokenReplace = token.replace(/\./g, '');
+      return await this.resetPasswordTokenRepository.save({
+        token: tokenReplace,
+      });
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return await this.resetPasswordTokenRepository.find({
-      relations: {
-        user: true,
-      },
-    });
+    try {
+      return await this.resetPasswordTokenRepository.find({
+        relations: {
+          user: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOne(token: string) {
-    return await this.resetPasswordTokenRepository.findOne({
-      where: { token },
-      relations: {
-        user: true,
-      },
-    });
+    try {
+      return await this.resetPasswordTokenRepository.findOne({
+        where: { token },
+        relations: {
+          user: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(
     id: string,
     updateResetPasswordTokenDto: UpdateResetPasswordTokenDto,
   ) {
-    return this.resetPasswordTokenRepository.update(
-      id,
-      updateResetPasswordTokenDto,
-    );
+    try {
+      return this.resetPasswordTokenRepository.update(
+        id,
+        updateResetPasswordTokenDto,
+      );
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} resetPasswordToken`;
+    try {
+      return this.resetPasswordTokenRepository.softDelete(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

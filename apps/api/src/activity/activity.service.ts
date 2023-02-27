@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -13,31 +17,51 @@ export class ActivityService {
     private activityRepository: Repository<Activity>,
   ) {}
   async create(createActivityDto: CreateActivityDto) {
-    return await this.activityRepository.save(createActivityDto);
+    try {
+      return await this.activityRepository.save(createActivityDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return await this.activityRepository.find({
-      relations: {
-        travel: true,
-      },
-    });
+    try {
+      return await this.activityRepository.find({
+        relations: {
+          travel: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOne(id: string) {
-    return await this.activityRepository.findOne({
-      where: { id },
-      relations: {
-        travel: true,
-      },
-    });
+    try {
+      return await this.activityRepository.findOne({
+        where: { id },
+        relations: {
+          travel: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(id: string, updateActivityDto: UpdateActivityDto) {
-    return this.activityRepository.update(id, updateActivityDto);
+    try {
+      return this.activityRepository.update(id, updateActivityDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return await this.activityRepository.softDelete(id);
+    try {
+      return await this.activityRepository.softDelete(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

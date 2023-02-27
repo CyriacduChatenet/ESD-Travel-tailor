@@ -1,6 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
@@ -11,31 +16,51 @@ export class CommentService {
     @InjectRepository(Comment) private commentRepository: Repository<Comment>,
   ) {}
   async create(createCommentDto: CreateCommentDto) {
-    return await this.commentRepository.save(createCommentDto);
+    try {
+      return await this.commentRepository.save(createCommentDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return await this.commentRepository.find({
-      relations: {
-        traveler: true,
-      },
-    });
+    try {
+      return await this.commentRepository.find({
+        relations: {
+          traveler: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOne(id: string) {
-    return await this.commentRepository.findOne({
-      where: { id },
-      relations: {
-        traveler: true,
-      },
-    });
+    try {
+      return await this.commentRepository.findOne({
+        where: { id },
+        relations: {
+          traveler: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(id: string, updateCommentDto: UpdateCommentDto) {
-    return this.commentRepository.update(id, updateCommentDto);
+    try {
+      return this.commentRepository.update(id, updateCommentDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return await this.commentRepository.softDelete(id);
+    try {
+      return await this.commentRepository.softDelete(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }

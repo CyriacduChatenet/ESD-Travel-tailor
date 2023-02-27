@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -14,32 +18,52 @@ export class AdvertiserService {
   ) {}
 
   async create(createAdvertiserDto: CreateAdvertiserDto) {
-    return await this.advertiserRepository.save(createAdvertiserDto);
+    try {
+      return await this.advertiserRepository.save(createAdvertiserDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return await this.advertiserRepository.find({
-      relations: {
-        adverts: true,
-      },
-    });
+    try {
+      return await this.advertiserRepository.find({
+        relations: {
+          adverts: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async findOne(id: string) {
-    return await this.advertiserRepository.findOne({
-      where: { id },
-      relations: {
-        adverts: true,
-        user: true,
-      },
-    });
+    try {
+      return await this.advertiserRepository.findOne({
+        where: { id },
+        relations: {
+          adverts: true,
+          user: true,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 
   async update(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {
-    return this.advertiserRepository.update(id, updateAdvertiserDto);
+    try {
+      return await this.advertiserRepository.update(id, updateAdvertiserDto);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return await this.advertiserRepository.softDelete(id);
+    try {
+      return await this.advertiserRepository.softDelete(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }
