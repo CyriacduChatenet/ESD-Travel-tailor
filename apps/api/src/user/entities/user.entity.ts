@@ -10,9 +10,9 @@ import {
 } from 'typeorm';
 
 import { Role } from '../../auth/decorators/role.enum';
-import { Advertiser } from '../../advertiser/entities/advertiser.entity';
-import { Traveler } from '../../traveler/entities/traveler.entity';
-import { ResetPasswordToken } from 'src/reset-password-token/entities/reset-password-token.entity';
+import { Advertiser } from '../advertiser/entities/advertiser.entity';
+import { Traveler } from '../traveler/entities/traveler.entity';
+import { ResetPasswordToken } from 'src/auth/reset-password-token/entities/reset-password-token.entity';
 
 @Entity()
 export class User {

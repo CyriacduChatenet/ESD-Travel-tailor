@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UserModule } from '../user/user.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { ResetPasswordTokenModule } from '../reset-password-token/reset-password-token.module';
+import { ResetPasswordTokenModule } from './reset-password-token/reset-password-token.module';
 import { MailModule } from '../mail/mail.module';
 
 @Module({

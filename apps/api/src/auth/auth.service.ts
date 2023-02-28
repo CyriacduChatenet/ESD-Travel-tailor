@@ -9,7 +9,7 @@ import {
 import * as bcrypt from 'bcrypt';
 
 import { MailService } from '../mail/mail.service';
-import { ResetPasswordTokenService } from '../reset-password-token/reset-password-token.service';
+import { ResetPasswordTokenService } from './reset-password-token/reset-password-token.service';
 import { UserService } from '../user/user.service';
 
 @Injectable()

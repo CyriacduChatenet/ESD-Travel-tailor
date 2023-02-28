@@ -12,9 +12,9 @@ import {
 import { TravelerService } from './traveler.service';
 import { CreateTravelerDto } from './dto/create-traveler.dto';
 import { UpdateTravelerDTO } from './dto/update-traveler.dto';
-import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../auth/decorators/role.enum';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Roles } from '../../auth/decorators/roles.decorator';
+import { Role } from '../../auth/decorators/role.enum';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @Controller('traveler')
 export class TravelerController {

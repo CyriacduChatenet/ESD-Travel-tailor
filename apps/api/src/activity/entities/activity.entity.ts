@@ -1,4 +1,4 @@
-import { Travel } from 'src/travel/entities/travel.entity';
+import { Travel } from 'src/user/traveler/travel/entities/travel.entity';
 import {
   Column,
   CreateDateColumn,

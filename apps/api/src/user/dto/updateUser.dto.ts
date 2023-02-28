@@ -1,5 +1,5 @@
-import { Advertiser } from '../../advertiser/entities/advertiser.entity';
-import { Traveler } from '../../traveler/entities/traveler.entity';
+import { Advertiser } from '../advertiser/entities/advertiser.entity';
+import { Traveler } from '../traveler/entities/traveler.entity';
 
 export class UpdateUserDTO {
   username?: string;

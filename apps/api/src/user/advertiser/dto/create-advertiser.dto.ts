@@ -1,4 +1,4 @@
-import { Advert } from '../../advert/entities/advert.entity';
+import { Advert } from '../advert/entities/advert.entity';
 
 export class CreateAdvertiserDto {
   name: string;

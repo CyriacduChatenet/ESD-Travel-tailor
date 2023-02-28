@@ -10,8 +10,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Advert } from '../../advert/entities/advert.entity';
-import { User } from '../../user/entities/user.entity';
+import { Advert } from '../advert/entities/advert.entity';
+import { User } from '../../entities/user.entity';
 
 @Entity()
 export class Advertiser {

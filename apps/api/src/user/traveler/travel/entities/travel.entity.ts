@@ -1,5 +1,5 @@
 import { Activity } from 'src/activity/entities/activity.entity';
-import { Traveler } from 'src/traveler/entities/traveler.entity';
+import { Traveler } from 'src/user/traveler/entities/traveler.entity';
 import {
   Column,
   CreateDateColumn,

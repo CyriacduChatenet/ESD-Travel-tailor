@@ -1,6 +1,6 @@
 import { Comment } from 'src/comment/entities/comment.entity';
-import { Taste } from 'src/taste/entities/taste.entity';
-import { Travel } from 'src/travel/entities/travel.entity';
+import { Taste } from 'src/user/traveler/taste/entities/taste.entity';
+import { Travel } from 'src/user/traveler/travel/entities/travel.entity';
 import {
   CreateDateColumn,
   DeleteDateColumn,
@@ -12,7 +12,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../entities/user.entity';
 
 @Entity()
 export class Traveler {

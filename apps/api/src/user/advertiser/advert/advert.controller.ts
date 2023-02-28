@@ -9,12 +9,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { Role } from '../auth/decorators/role.enum';
-import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../../../auth/decorators/role.enum';
+import { Roles } from '../../../auth/decorators/roles.decorator';
 import { AdvertService } from './advert.service';
 import { CreateAdvertDto } from './dto/create-advert.dto';
 import { UpdateAdvertDto } from './dto/update-advert.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 
 @Controller('advert')
 export class AdvertController {
