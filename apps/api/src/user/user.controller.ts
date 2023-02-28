@@ -15,7 +15,7 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -42,7 +42,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)

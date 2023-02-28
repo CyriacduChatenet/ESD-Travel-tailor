@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { AdvertiserService } from './advertiser.service';
@@ -20,7 +20,7 @@ import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
 export class AdvertiserController {
   constructor(private readonly advertiserService: AdvertiserService) {}
   @Post()
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   create(@Body() createAdvertiserDto: CreateAdvertiserDto) {
@@ -38,7 +38,7 @@ export class AdvertiserController {
   }
 
   @Patch(':id')
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   async update(
@@ -49,7 +49,7 @@ export class AdvertiserController {
   }
 
   @Delete(':id')
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
   async remove(@Param('id') id: string) {

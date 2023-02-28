@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Role } from '../auth/decorators/role.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CommentService } from './comment.service';
@@ -21,7 +21,7 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
@@ -40,7 +40,7 @@ export class CommentController {
   }
 
   @Patch(':id')
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
@@ -49,7 +49,7 @@ export class CommentController {
   }
 
   @Delete(':id')
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)

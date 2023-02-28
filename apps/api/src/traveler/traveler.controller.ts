@@ -14,7 +14,7 @@ import { CreateTravelerDto } from './dto/create-traveler.dto';
 import { UpdateTravelerDTO } from './dto/update-traveler.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/decorators/role.enum';
-import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('traveler')
 export class TravelerController {
@@ -36,7 +36,7 @@ export class TravelerController {
   }
 
   @Patch(':id')
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Admin)
   async update(
     @Param('id') id: string,
@@ -46,7 +46,7 @@ export class TravelerController {
   }
 
   @Delete(':id')
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Admin)
   async remove(@Param('id') id: string) {
     return await this.travelerService.remove(id);

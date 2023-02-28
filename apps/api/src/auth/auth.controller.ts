@@ -13,7 +13,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
+   @UseGuards(JwtAuthGuard)
   @Post('signin')
   public async signin(@Body() signinUserInputDTO: SigninDTO) {
     return this.authService.signin(signinUserInputDTO);
