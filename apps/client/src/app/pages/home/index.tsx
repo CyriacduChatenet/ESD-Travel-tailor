@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
-import { Link } from '@travel-manager/functions';
-import { Button } from '@travel-manager/ui';
+import { Link } from '@travel-tailor/functions';
+import { Button } from '@travel-tailor/ui';
 
 import { ROUTES } from '@/setup/constants';
 
 import reactLogo from '@/app/assets/react.svg';
-import { useFetchHook } from '@travel-manager/hooks';
+import { useFetchHook } from '@travel-tailor/hooks';
 
 export const HomePage:FC = () => {
   const [count, setCount] = useState(0)

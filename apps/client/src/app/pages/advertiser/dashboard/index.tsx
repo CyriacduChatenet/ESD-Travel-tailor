@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { Link, useNavigate, useSelector } from "@travel-manager/functions";
+import { Link, useNavigate, useSelector } from "@travel-tailor/functions";
 
 import { TokenService } from "@/setup/services/token.service";
 import { AdvertService } from "@/setup/services/advert.service";

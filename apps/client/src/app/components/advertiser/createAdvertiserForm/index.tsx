@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useDispatch, useSelector, useNavigate } from "@travel-manager/functions";
+import { useDispatch, useSelector, useNavigate } from "@travel-tailor/functions";
 
 import { selectLocation, selectName, changeName, changeLocation } from "@/setup/redux/slices/advertiser/createAdvertiserRequest.slice";
 import { TokenService } from "@/setup/services/token.service";

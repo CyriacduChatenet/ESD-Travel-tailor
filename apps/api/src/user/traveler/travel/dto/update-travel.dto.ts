@@ -1,4 +1,4 @@
-import { UpdateTravelDTO } from '@travel-manager/types';
+import { UpdateTravelDTO } from '@travel-tailor/types';
 
 export class UpdateTravelDto implements UpdateTravelDTO {
   departureCity: string;

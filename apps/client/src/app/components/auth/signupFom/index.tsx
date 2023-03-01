@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from "react";
-import { useSelector, useDispatch, useNavigate } from "@travel-manager/functions";
-import { ErrorResponse, SignupDTO } from "@travel-manager/types";
+import { useSelector, useDispatch, useNavigate } from "@travel-tailor/functions";
+import { ErrorResponse, SignupDTO } from "@travel-tailor/types";
 
 import { AuthService } from "@/setup/services/auth.service";
 import {

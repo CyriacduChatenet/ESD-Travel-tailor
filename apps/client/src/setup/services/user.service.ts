@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from '@travel-manager/functions';
-import { SignupDTO } from '@travel-manager/types';
+import { useDispatch, useSelector } from '@travel-tailor/functions';
+import { SignupDTO } from '@travel-tailor/types';
 
 import { findAll, findOne, create, update, remove, selectUsers } from '@/setup/redux/slices/user/user.slice';
 

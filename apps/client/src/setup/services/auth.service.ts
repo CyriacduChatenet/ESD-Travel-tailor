@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useDispatch } from '@travel-manager/functions';
-import { useFetchHook } from '@travel-manager/hooks';
-import { SignupDTO, SigninDTO, ForgotPasswordDTO, ResetPasswordServiceDTO, ErrorResponse } from "@travel-manager/types";
+import { useDispatch } from '@travel-tailor/functions';
+import { useFetchHook } from '@travel-tailor/hooks';
+import { SignupDTO, SigninDTO, ForgotPasswordDTO, ResetPasswordServiceDTO, ErrorResponse } from "@travel-tailor/types";
 
 import { TokenService } from '@/setup/services/token.service';
 import { TravelerService } from '@/setup/services/traveler.service';

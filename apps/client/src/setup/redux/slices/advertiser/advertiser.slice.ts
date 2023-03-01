@@ -1,5 +1,5 @@
-import { createSlice } from "@travel-manager/functions";
-import { Advertiser } from "@travel-manager/types";
+import { createSlice } from "@travel-tailor/functions";
+import { Advertiser } from "@travel-tailor/types";
 
 import { RootState } from "../../store";
 

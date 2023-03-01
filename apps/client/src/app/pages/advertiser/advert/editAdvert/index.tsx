@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useParams } from "@travel-manager/functions";
+import { useParams } from "@travel-tailor/functions";
 
 import { EditAdvertForm } from "@/app/components/advert/editAdvertForm";
 

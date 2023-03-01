@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useNavigate } from "@travel-manager/functions";
+import { useNavigate } from "@travel-tailor/functions";
 
 import { TokenService } from "@/setup/services/token.service";
 import { ROUTES, TOKENS } from "@/setup/constants";

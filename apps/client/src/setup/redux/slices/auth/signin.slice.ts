@@ -1,5 +1,5 @@
-import { createSlice } from "@travel-manager/functions";
-import { SigninDTO } from "@travel-manager/types";
+import { createSlice } from "@travel-tailor/functions";
+import { SigninDTO } from "@travel-tailor/types";
 
 import { RootState } from "../../store";
 

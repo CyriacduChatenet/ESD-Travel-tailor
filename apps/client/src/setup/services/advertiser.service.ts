@@ -1,5 +1,5 @@
-import { useDispatch, useSelector, useParams } from "@travel-manager/functions";
-import { CreateAdvertiserDTO } from "@travel-manager/types";
+import { useDispatch, useSelector, useParams } from "@travel-tailor/functions";
+import { CreateAdvertiserDTO } from "@travel-tailor/types";
 
 import { findAll, findOne, create, update, remove, selectAdvertisers } from "@/setup/redux/slices/advertiser/advertiser.slice";
 import { UserService } from "@/setup/services/user.service";

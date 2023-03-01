@@ -1,7 +1,7 @@
 import { FC, FormEvent, useState } from "react";
-import { useSelector, useDispatch, useNavigate } from '@travel-manager/functions';
-import { jwtDecode, Role } from "@travel-manager/functions";
-import { AccessToken, ErrorResponse, SigninDTO } from "@travel-manager/types";
+import { useSelector, useDispatch, useNavigate } from '@travel-tailor/functions';
+import { jwtDecode, Role } from "@travel-tailor/functions";
+import { AccessToken, ErrorResponse, SigninDTO } from "@travel-tailor/types";
 
 import { AuthService } from "@/setup/services/auth.service";
 import { changeEmail, changePassword, selectEmail, selectPassword } from "@/setup/redux/slices/auth/signin.slice";

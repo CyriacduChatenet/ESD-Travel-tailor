@@ -1,4 +1,4 @@
-import { UpdateActivityDTO } from '@travel-manager/types';
+import { UpdateActivityDTO } from '@travel-tailor/types';
 
 export class UpdateActivityDto implements UpdateActivityDTO {
   name: string;

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Outlet, Navigate, jwtDecode } from '@travel-manager/functions';
+import { Outlet, Navigate, jwtDecode } from '@travel-tailor/functions';
 
 import { TokenService } from '@/setup/services/token.service';
 import { TOKENS } from '@/setup/constants';

@@ -4,7 +4,7 @@ import {
   SignupDTO,
   ForgotPasswordDTO,
   ResetPasswordDTO,
-} from '@travel-manager/types';
+} from '@travel-tailor/types';
 
 import { AuthService } from './auth.service';
 

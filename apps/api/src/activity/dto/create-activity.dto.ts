@@ -1,4 +1,4 @@
-import { CreateActivityDTO } from '@travel-manager/types';
+import { CreateActivityDTO } from '@travel-tailor/types';
 
 export class CreateActivityDto implements CreateActivityDTO {
   name: string;

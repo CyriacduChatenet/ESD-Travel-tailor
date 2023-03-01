@@ -1,4 +1,4 @@
-import { UpdateCommentDTO } from '@travel-manager/types';
+import { UpdateCommentDTO } from '@travel-tailor/types';
 
 export class UpdateCommentDto implements UpdateCommentDTO {
   content: string;

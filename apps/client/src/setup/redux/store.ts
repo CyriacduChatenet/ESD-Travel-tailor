@@ -1,4 +1,4 @@
-import { Action, configureStore, ThunkAction } from "@travel-manager/functions";
+import { Action, configureStore, ThunkAction } from "@travel-tailor/functions";
 
 import signupSlice from "@/setup/redux/slices/auth/signup.slice";
 import signinSlice from "@/setup/redux/slices/auth/signin.slice";

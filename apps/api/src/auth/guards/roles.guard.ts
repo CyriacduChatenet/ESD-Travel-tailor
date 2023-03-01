@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { jwtDecode } from '@travel-manager/functions';
+import { jwtDecode } from '@travel-tailor/functions';
 
 import { Role } from '../decorators/role.enum';
 import { Token } from '../types/token.type';

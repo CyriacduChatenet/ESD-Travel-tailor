@@ -5,7 +5,7 @@ import {
   SignupDTO,
   ForgotPasswordDTO,
   ResetPasswordDTO,
-} from '@travel-manager/types';
+} from '@travel-tailor/types';
 import * as bcrypt from 'bcrypt';
 
 import { MailService } from '../mail/mail.service';

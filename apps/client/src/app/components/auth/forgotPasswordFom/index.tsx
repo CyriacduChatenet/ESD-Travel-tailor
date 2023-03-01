@@ -1,5 +1,5 @@
 import { FC, FormEvent, useState } from "react";
-import { ForgotPasswordDTO } from "@travel-manager/types";
+import { ForgotPasswordDTO } from "@travel-tailor/types";
 
 import { AuthService } from "@/setup/services/auth.service";
 

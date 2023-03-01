@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { useDispatch, useSelector, useNavigate } from "@travel-manager/functions";
+import { useDispatch, useSelector, useNavigate } from "@travel-tailor/functions";
 
 import { AdvertService } from "@/setup/services/advert.service";
 import { selectAdvertSingle, selectName, updateSingle} from "@/setup/redux/slices/adverts/advertSingle.slice";

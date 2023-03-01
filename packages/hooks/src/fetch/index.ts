@@ -1,4 +1,4 @@
-import { AccessToken } from "@travel-manager/types";
+import { AccessToken } from "@travel-tailor/types";
 
 export class UseFetchHook {
 	get = async (api_url: string) => {

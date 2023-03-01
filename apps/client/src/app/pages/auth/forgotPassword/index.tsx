@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "@travel-manager/functions";
+import { Link } from "@travel-tailor/functions";
 
 import { ROUTES } from "@/setup/constants";
 import { ForgotPasswordForm } from "@/app/components/auth/forgotPasswordFom";

@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "@travel-manager/functions";
-import { CreateAdvertDTO, UpdateAdvertDTO } from "@travel-manager/types";
+import { useDispatch, useSelector } from "@travel-tailor/functions";
+import { CreateAdvertDTO, UpdateAdvertDTO } from "@travel-tailor/types";
 
 import { create, remove, selectAdverts, refreshFromAPI } from "@/setup/redux/slices/adverts/advert.slice";
 import { createSingle, selectAdvertSingle } from "@/setup/redux/slices/adverts/advertSingle.slice";

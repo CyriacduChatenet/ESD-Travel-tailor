@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ReduxProvider } from "@travel-manager/functions";
+import { ReduxProvider } from "@travel-tailor/functions";
 
 import { store } from "@/setup/redux/store";
 import { Router } from "@/setup/router";

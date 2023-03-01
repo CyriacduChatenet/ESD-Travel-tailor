@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Role, Routes, Route } from '@travel-manager/functions';
+import { Role, Routes, Route } from '@travel-tailor/functions';
 
 import { CreateAdvertiserPage } from '@/app/pages/advertiser/createAdvertiser';
 import { AdvertiserDashboardPage } from '@/app/pages/advertiser/dashboard';
