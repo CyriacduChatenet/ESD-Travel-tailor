@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 import { Link } from '@travel-tailor/functions';
-import { Button } from '@travel-tailor/ui';
 
 import { ROUTES } from '@/setup/constants';
 
@@ -40,7 +39,6 @@ export const HomePage:FC = () => {
       <Link to={ROUTES.AUTH.SIGNIN}>Signin</Link>
       <br />
       <p>{string}</p>
-      <Button />
     </div>
   )
 }
