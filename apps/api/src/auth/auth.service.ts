@@ -66,10 +66,12 @@ export class AuthService {
 
     const password = await bcrypt.hash(signupUserInputDTO.password, 10);
 
-    return this.userService.create({
+    this.userService.create({
       ...signupUserInputDTO,
       password,
     });
+
+    return this.mailService.sendSignupMail(signupUserInputDTO.email);
   }
 
   public async forgotPassword(forgotPasswordDto: ForgotPasswordDTO) {
@@ -90,8 +92,10 @@ export class AuthService {
   ) {
     const token = await this.resetPasswordTokenService.findOne(resetToken);
     const user = await this.userService.findOneByEmail(token.user.email);
-    return this.userService.update(user.id, {
+    this.userService.update(user.id, {
       password: await bcrypt.hash(resetPasswordDto.password, 10),
     });
+
+    return this.mailService.sendConfirmResetPasswordMail(user.email);
   }
 }

@@ -1,6 +1,6 @@
-import { Comment } from 'src/comment/entities/comment.entity';
-import { Taste } from 'src/user/traveler/taste/entities/taste.entity';
-import { Travel } from 'src/user/traveler/travel/entities/travel.entity';
+import { Comment } from '../../../comment/entities/comment.entity';
+import { Taste } from '../../../user/traveler/taste/entities/taste.entity';
+import { Travel } from '../../../user/traveler/travel/entities/travel.entity';
 import {
   CreateDateColumn,
   DeleteDateColumn,
