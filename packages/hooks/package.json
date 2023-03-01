@@ -1,5 +1,5 @@
 {
-  "name": "@travel-manager/hooks",
+  "name": "@travel-tailor/hooks",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -11,7 +11,7 @@
     "@types/react-dom": "^18.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@travel-manager/functions": "workspace:*",
-    "@travel-manager/types": "workspace:*"
+    "@travel-tailor/functions": "workspace:*",
+    "@travel-tailor/types": "workspace:*"
   }
 }

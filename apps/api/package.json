@@ -1,5 +1,5 @@
 {
-  "name": "@travel-manager/api",
+  "name": "@travel-tailor/api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -24,8 +24,8 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
-    "@travel-manager/functions": "workspace:*",
-    "@travel-manager/types": "workspace:*",
+    "@travel-tailor/functions": "workspace:*",
+    "@travel-tailor/types": "workspace:*",
     "@types/bcrypt": "^5.0.0",
     "@types/nodemailer": "^6.4.7",
     "bcrypt": "^5.1.0",

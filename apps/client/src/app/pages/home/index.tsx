@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { Link } from '@travel-manager/functions';
+import { Button } from '@travel-manager/ui';
 
 import { ROUTES } from '@/setup/constants';
 
@@ -39,6 +40,7 @@ export const HomePage:FC = () => {
       <Link to={ROUTES.AUTH.SIGNIN}>Signin</Link>
       <br />
       <p>{string}</p>
+      <Button />
     </div>
   )
 }

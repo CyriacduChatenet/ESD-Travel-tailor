@@ -15,8 +15,8 @@ importers:
       '@nestjs/platform-express': ^9.0.0
       '@nestjs/schematics': ^9.0.0
       '@nestjs/typeorm': ^9.0.1
-      '@travel-manager/functions': workspace:*
-      '@travel-manager/types': workspace:*
+      '@travel-tailor/functions': workspace:*
+      '@travel-tailor/types': workspace:*
       '@types/bcrypt': ^5.0.0
       '@types/express': ^4.17.13
       '@types/node': 18.11.18
@@ -52,8 +52,8 @@ importers:
       '@nestjs/passport': 9.0.0_6o47igfla2pj7yzh7agpvpttka
       '@nestjs/platform-express': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
       '@nestjs/typeorm': 9.0.1_hkapd3a3mi37wyf4vtt5y4i2ye
-      '@travel-manager/functions': link:../../packages/functions
-      '@travel-manager/types': link:../../packages/types
+      '@travel-tailor/functions': link:../../packages/functions
+      '@travel-tailor/types': link:../../packages/types
       '@types/bcrypt': 5.0.0
       '@types/nodemailer': 6.4.7
       bcrypt: 5.1.0
@@ -85,9 +85,9 @@ importers:
 
   apps/client:
     specifiers:
-      '@travel-manager/functions': workspace:*
-      '@travel-manager/hooks': workspace:*
-      '@travel-manager/types': workspace:*
+      '@travel-tailor/functions': workspace:*
+      '@travel-tailor/hooks': workspace:*
+      '@travel-tailor/types': workspace:*
       '@types/node': 18.11.18
       '@types/react': ^18.0.26
       '@types/react-dom': ^18.0.9
@@ -103,9 +103,9 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
-      '@travel-manager/functions': link:../../packages/functions
-      '@travel-manager/hooks': link:../../packages/hooks
-      '@travel-manager/types': link:../../packages/types
+      '@travel-tailor/functions': link:../../packages/functions
+      '@travel-tailor/hooks': link:../../packages/hooks
+      '@travel-tailor/types': link:../../packages/types
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -117,7 +117,7 @@ importers:
   packages/functions:
     specifiers:
       '@reduxjs/toolkit': ^1.9.1
-      '@travel-manager/types': workspace:*
+      '@travel-tailor/types': workspace:*
       '@types/react-redux': ^7.1.25
       jwt-decode: ^3.1.2
       react-redux: ^8.0.5
@@ -125,7 +125,7 @@ importers:
       toolkit: link:@types/@reduxjs/toolkit
     dependencies:
       '@reduxjs/toolkit': 1.9.1_react-redux@8.0.5
-      '@travel-manager/types': link:../types
+      '@travel-tailor/types': link:../types
       '@types/react-redux': 7.1.25
       jwt-decode: 3.1.2
       react-redux: 8.0.5
@@ -134,15 +134,15 @@ importers:
 
   packages/hooks:
     specifiers:
-      '@travel-manager/functions': workspace:*
-      '@travel-manager/types': workspace:*
+      '@travel-tailor/functions': workspace:*
+      '@travel-tailor/types': workspace:*
       '@types/react': ^18.0.26
       '@types/react-dom': ^18.0.9
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
-      '@travel-manager/functions': link:../functions
-      '@travel-manager/types': link:../types
+      '@travel-tailor/functions': link:../functions
+      '@travel-tailor/types': link:../types
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       react: 18.2.0
