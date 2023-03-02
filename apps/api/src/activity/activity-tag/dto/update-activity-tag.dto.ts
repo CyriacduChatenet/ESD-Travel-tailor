@@ -1,6 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateActivityTagDto } from './create-activity-tag.dto';
+import { UpdateActivityTagDTO } from '@travel-tailor/types';
 
-export class UpdateActivityTagDto extends PartialType(CreateActivityTagDto) {
+export class UpdateActivityTagDto implements UpdateActivityTagDTO {
   name: string;
 }

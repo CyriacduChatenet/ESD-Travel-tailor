@@ -1,9 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateActivityScheduleDto } from './create-activity-schedule.dto';
+import { UpdateActivityScheduleDTO } from '@travel-tailor/types';
 
-export class UpdateActivityScheduleDto extends PartialType(
-  CreateActivityScheduleDto,
-) {
+export class UpdateActivityScheduleDto implements UpdateActivityScheduleDTO {
   opening_at: string;
   closing_at: string;
 }

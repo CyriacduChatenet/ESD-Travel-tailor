@@ -1,8 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateActivityImageDto } from './create-activity-image.dto';
+import { UpdateActivityImageDTO } from '@travel-tailor/types';
 
-export class UpdateActivityImageDto extends PartialType(
-  CreateActivityImageDto,
-) {
+export class UpdateActivityImageDto implements UpdateActivityImageDTO {
   source: string;
 }

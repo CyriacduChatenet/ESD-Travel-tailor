@@ -1,9 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateActivityClosingDayDto } from './create-activity-closing-day.dto';
+import { UpdateActivityClosingDayDTO } from '@travel-tailor/types';
 
-export class UpdateActivityClosingDayDto extends PartialType(
-  CreateActivityClosingDayDto,
-) {
+export class UpdateActivityClosingDayDto
+  implements UpdateActivityClosingDayDTO
+{
+  reccurence: string;
   day: number;
   month: string;
   year: number;

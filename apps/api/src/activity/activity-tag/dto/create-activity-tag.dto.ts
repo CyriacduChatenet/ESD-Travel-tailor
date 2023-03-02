@@ -1,3 +1,5 @@
-export class CreateActivityTagDto {
+import { CreateActivityTagDTO } from '@travel-tailor/types';
+
+export class CreateActivityTagDto implements CreateActivityTagDTO {
   name: string;
 }
