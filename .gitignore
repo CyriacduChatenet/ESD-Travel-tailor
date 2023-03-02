@@ -7,6 +7,7 @@ apps/client/dist
 apps/client/.env-local
 
 dist
+build
 
 .env
 
