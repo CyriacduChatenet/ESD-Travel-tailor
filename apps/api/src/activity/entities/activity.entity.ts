@@ -4,10 +4,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ActivityDetail } from '../activity-detail/entities/activity-detail.entity';
 
 @Entity()
 export class Activity {
@@ -22,6 +25,12 @@ export class Activity {
 
   @ManyToOne(() => Travel, (travel) => travel.activities)
   travel: Travel;
+
+  @OneToOne(() => ActivityDetail, (activityDetail) => activityDetail.activity, {
+    cascade: true,
+  })
+  @JoinColumn()
+  activityDetail: ActivityDetail;
 
   @CreateDateColumn()
   createdAt: Date;

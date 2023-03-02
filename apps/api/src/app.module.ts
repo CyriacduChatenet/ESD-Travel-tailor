@@ -15,6 +15,7 @@ import { TasteModule } from './user/traveler/taste/taste.module';
 import { TravelModule } from './user/traveler/travel/travel.module';
 import { CommentModule } from './comment/comment.module';
 import { ActivityModule } from './activity/activity.module';
+import { ActivityDetailModule } from './activity/activity-detail/activity-detail.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ActivityModule } from './activity/activity.module';
     TravelModule,
     CommentModule,
     ActivityModule,
+    ActivityDetailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

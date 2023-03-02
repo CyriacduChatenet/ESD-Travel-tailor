@@ -30,6 +30,7 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.travel', 'travel')
         .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('activity.activityDetails', 'activityDetails')
         .orderBy('activity.createdAt', 'DESC')
         .getMany();
     } catch (error) {
@@ -43,6 +44,7 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.travel', 'travel')
         .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('activity.activityDetails', 'activityDetails')
         .where('activity.id = :id', { id })
         .getOne();
     } catch (error) {
