@@ -1,5 +1,5 @@
 {
-  "name": "@travel-tailor/hooks",
+  "name": "@travel-tailor/constants",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",

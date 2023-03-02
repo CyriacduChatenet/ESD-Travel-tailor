@@ -4,10 +4,8 @@ apps/api/.env
 
 apps/client/node_modules
 apps/client/dist
-apps/client/.env
+apps/client/.env-local
 
-packages/components/node_modules
-packages/components/dist
-packages/components/.env
+dist
 
 node_modules

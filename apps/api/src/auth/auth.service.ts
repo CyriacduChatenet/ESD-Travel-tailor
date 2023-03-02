@@ -82,7 +82,7 @@ export class AuthService {
     });
     return await this.mailService.sendForgotPasswordMail(
       forgotPasswordDto.email,
-      `${process.env.VITE_APP_URL}/reset-password/${resetToken.token}`,
+      `${process.env.CLIENT_APP_URL}/reset-password/${resetToken.token}`,
     );
   }
 

@@ -4,12 +4,7 @@
   "main": "src/index.ts",
   "license": "ISC",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.1",
     "@travel-tailor/types": "workspace:*",
-    "@types/react-redux": "^7.1.25",
-    "jwt-decode": "^3.1.2",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.8.0",
-    "toolkit": "link:@types/@reduxjs/toolkit"
+    "jwt-decode": "^3.1.2"
   }
 }

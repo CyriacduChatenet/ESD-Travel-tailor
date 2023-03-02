@@ -5,8 +5,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336790?style=for-the-badge&logo=postgresql&logoColor=white)]()
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/docs/)
-[![react](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://fr.reactjs.org/)
-[![redux](https://img.shields.io/badge/Redux_Toolkit-7649BD?style=for-the-badge&logo=redux&logoColor=FFFFFF)](https://nextjs.org/)
+[![next](https://img.shields.io/badge/Next.js-20232A?style=for-the-badge&logo=nextdotjs&logoColor=FFFFFF)](https://nextjs.org/)
 [![Tailwind.CSS](https://img.shields.io/badge/TailwindCSS-16a1ba?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://www.typescriptlang.org/docs/)
 
 [![docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -14,12 +13,17 @@
 
 <br/>
 
+## Lib Schema
+<img src="./assets/images/lib-schema.jpg" alt="Lib schema">
+
+<br/>
+
 ## .env example
 ```bash
 API_PORT =
 ADMINER_PORT =
-VITE_APP_URL =
-VITE_APP_API_URL =
+CLIENT_APP_URL =
+API_URL =
 JWT_SECRET =
 POSTGRESQL_DATABASE_TYPE =
 POSTGRESQL_DATABASE_HOST =
@@ -28,6 +32,11 @@ POSTGRESQL_DATABASE_NAME =
 POSTGRESQL_DATABASE_USERNAME =
 POSTGRESQL_DATABASE_PASSWORD =
 MAILDEV_PORT =
+```
+
+run project 
+```bash
+pnpm -r --parallel run dev
 ```
 
 ## Deployed environements
