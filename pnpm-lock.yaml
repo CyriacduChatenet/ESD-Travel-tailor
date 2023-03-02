@@ -179,7 +179,9 @@ importers:
 
   packages/ui:
     specifiers:
+      '@travel-tailor/services': workspace:*
       '@travel-tailor/styles': workspace:*
+      '@travel-tailor/types': workspace:*
       '@types/react': ^18.0.27
       '@types/react-dom': ^18.0.10
       '@vitejs/plugin-react': ^3.1.0
@@ -189,7 +191,9 @@ importers:
       typescript: ^4.9.3
       vite: ^4.1.0
     dependencies:
+      '@travel-tailor/services': link:../services
       '@travel-tailor/styles': link:../styles
+      '@travel-tailor/types': link:../types
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       sass: 1.58.3

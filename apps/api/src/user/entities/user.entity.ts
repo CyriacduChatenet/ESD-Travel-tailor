@@ -31,7 +31,7 @@ export class User extends Timestamp {
     enum: Role,
     default: Role.Traveler,
   })
-  roles: Role[];
+  roles: Role;
 
   @OneToOne(() => Advertiser, {
     cascade: true,
