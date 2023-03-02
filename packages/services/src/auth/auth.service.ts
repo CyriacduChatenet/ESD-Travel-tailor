@@ -9,12 +9,11 @@ import {
 } from '@travel-tailor/constants';
 import { jwtDecode } from '@travel-tailor/functions';
 
-import { TokenService } from '../token/token.service';
 
 const signin = async (signinCredentials: SigninDTO) => {
 	const token = await useFetch.post(API_SIGNIN_ROUTE, signinCredentials);
 	const tokenDecode = jwtDecode(token) satisfies string;
-	return TokenService.createToken(ACCESS_TOKEN, tokenDecode);
+	return tokenDecode;
 };
 
 const signup = async (signupCredentials: SignupDTO) => {

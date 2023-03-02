@@ -120,12 +120,7 @@ importers:
       typescript: 4.9.4
 
   packages/constants:
-    specifiers:
-      '@types/dotenv': ^8.2.0
-      dotenv: ^16.0.3
-    dependencies:
-      '@types/dotenv': 8.2.0
-      dotenv: 16.0.3
+    specifiers: {}
 
   packages/contexts:
     specifiers:
@@ -147,9 +142,17 @@ importers:
 
   packages/hooks:
     specifiers:
+      '@travel-tailor/constants': 'workspace: *'
+      '@travel-tailor/services': 'workspace: *'
       '@travel-tailor/types': 'workspace: *'
+      '@types/react': ^18.0.28
+      react: ^18.2.0
     dependencies:
+      '@travel-tailor/constants': link:../constants
+      '@travel-tailor/services': link:../services
       '@travel-tailor/types': link:../types
+      '@types/react': 18.0.28
+      react: 18.2.0
 
   packages/services:
     specifiers:
@@ -158,16 +161,12 @@ importers:
       '@travel-tailor/functions': workspace:*
       '@travel-tailor/hooks': workspace:*
       '@travel-tailor/types': workspace:*
-      '@types/dotenv': ^8.2.0
-      dotenv: ^16.0.3
     dependencies:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/functions': link:../functions
       '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/types': link:../types
-      '@types/dotenv': 8.2.0
-      dotenv: 16.0.3
 
   packages/types:
     specifiers: {}
@@ -1292,13 +1291,6 @@ packages:
     dependencies:
       '@types/node': 18.11.18
     dev: true
-
-  /@types/dotenv/8.2.0:
-    resolution: {integrity: sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==}
-    deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
-    dependencies:
-      dotenv: 16.0.3
-    dev: false
 
   /@types/ejs/3.1.1:
     resolution: {integrity: sha512-RQul5wEfY7BjWm0sYY86cmUN/pcXWGyVxWX93DFFJvcrxax5zKlieLwA3T77xJGwNcZW0YW6CYG70p1m8xPFmA==}

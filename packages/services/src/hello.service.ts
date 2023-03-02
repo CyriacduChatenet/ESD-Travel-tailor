@@ -1,10 +1,7 @@
 import { useFetch } from '@travel-tailor/hooks';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const getHello = () => {
-	return useFetch.get(`${process.env.API_URL}`);
+	return useFetch.get(`http://localhost:8000/api/v1`);
 };
 
 export const HelloService = {
