@@ -6,6 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@travel-tailor/contexts": "workspace:*",
+    "@travel-tailor/hooks": "workspace:*",
+    "@travel-tailor/types": "workspace:*",
+    "@types/dotenv": "^8.2.0",
+    "dotenv": "^16.0.3"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

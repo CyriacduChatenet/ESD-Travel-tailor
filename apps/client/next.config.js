@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-		transpilePackages: [
+	transpilePackages: [
 		'@travel-tailor/functions',
 		'@travel-tailor/types',
 		'@travel-tailor/hooks',
@@ -12,7 +12,10 @@ const nextConfig = {
 	],
 	experimental: {
 		externalDir: true,
-	}
+	},
+	images: {
+		domains: ['images.unsplash.com'],
+	  },
 };
 
 module.exports = nextConfig;

@@ -2,8 +2,12 @@ import { FC } from "react";
 
 import styles from './style.module.scss';
 
-export const WebButton: FC = () => {
+interface IProps {
+    label: string;
+}
+
+export const WebButton: FC<IProps> = ({label}) => {
     return (
-        <button className={styles.button}>Web button</button>
+        <button className={styles.button}>{label}</button>
     );
 };

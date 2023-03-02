@@ -1,0 +1,16 @@
+.main {
+    width: 100%;
+    padding: 0 3rem;
+}
+
+@media all and (min-width: 768px) {
+    .main {
+        padding: 0 6rem;
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .main {
+        padding: 0 8rem;
+    }
+}

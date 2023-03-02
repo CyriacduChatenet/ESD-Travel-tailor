@@ -123,7 +123,14 @@ importers:
     specifiers: {}
 
   packages/contexts:
-    specifiers: {}
+    specifiers:
+      '@types/react': ^18.0.28
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@types/react': 18.0.28
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
 
   packages/functions:
     specifiers:
@@ -134,10 +141,24 @@ importers:
       jwt-decode: 3.1.2
 
   packages/hooks:
-    specifiers: {}
+    specifiers:
+      '@travel-tailor/types': 'workspace: *'
+    dependencies:
+      '@travel-tailor/types': link:../types
 
   packages/services:
-    specifiers: {}
+    specifiers:
+      '@travel-tailor/contexts': workspace:*
+      '@travel-tailor/hooks': workspace:*
+      '@travel-tailor/types': workspace:*
+      '@types/dotenv': ^8.2.0
+      dotenv: ^16.0.3
+    dependencies:
+      '@travel-tailor/contexts': link:../contexts
+      '@travel-tailor/hooks': link:../hooks
+      '@travel-tailor/types': link:../types
+      '@types/dotenv': 8.2.0
+      dotenv: 16.0.3
 
   packages/types:
     specifiers: {}
@@ -1263,6 +1284,13 @@ packages:
       '@types/node': 18.11.18
     dev: true
 
+  /@types/dotenv/8.2.0:
+    resolution: {integrity: sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==}
+    deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
+    dependencies:
+      dotenv: 16.0.3
+    dev: false
+
   /@types/ejs/3.1.1:
     resolution: {integrity: sha512-RQul5wEfY7BjWm0sYY86cmUN/pcXWGyVxWX93DFFJvcrxax5zKlieLwA3T77xJGwNcZW0YW6CYG70p1m8xPFmA==}
     requiresBuild: true
@@ -1363,6 +1391,14 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
+
+  /@types/react/18.0.28:
+    resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.1
+    dev: false
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
