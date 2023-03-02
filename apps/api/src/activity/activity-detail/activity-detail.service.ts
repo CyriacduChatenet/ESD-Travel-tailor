@@ -30,6 +30,7 @@ export class ActivityDetailService {
         .createQueryBuilder('activityDetail')
         .leftJoinAndSelect('activityDetail.activity', 'activity')
         .leftJoinAndSelect('activityDetail.schedule', 'activitySchedule')
+        .leftJoinAndSelect('activityClosingDay.activity', 'activityClosingDay')
         .orderBy('activityDetail.id', 'DESC')
         .getMany();
     } catch (error) {
@@ -43,6 +44,7 @@ export class ActivityDetailService {
         .createQueryBuilder('activityDetail')
         .leftJoinAndSelect('activityDetail.activity', 'activity')
         .leftJoinAndSelect('activityDetail.schedule', 'activitySchedule')
+        .leftJoinAndSelect('activityClosingDay.activity', 'activityClosingDay')
         .where('activityDetail.id = :id', { id })
         .getOne();
     } catch (error) {

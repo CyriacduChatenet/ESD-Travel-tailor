@@ -3,12 +3,14 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Timestamp } from '../../../utils/timestamp.util';
 import { ActivitySchedule } from '../activity-schedule/entities/activity-schedule.entity';
+import { ActivityClosingDay } from '../activity-closing-day/entities/activity-closing-day.entity';
 
 @Entity()
 export class ActivityDetail extends Timestamp {
@@ -29,4 +31,10 @@ export class ActivityDetail extends Timestamp {
     (ActivitySchedule) => ActivitySchedule.activities,
   )
   schedule: ActivitySchedule;
+
+  @OneToMany(
+    () => ActivityClosingDay,
+    (activityClosingDays) => activityClosingDays,
+  )
+  closingDays: ActivityClosingDay[];
 }

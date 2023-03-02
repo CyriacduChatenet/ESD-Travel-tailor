@@ -19,6 +19,7 @@ import { ActivityDetailModule } from './activity/activity-detail/activity-detail
 import { ActivityImageModule } from './activity/activity-image/activity-image.module';
 import { ActivityTagModule } from './activity/activity-tag/activity-tag.module';
 import { ActivityScheduleModule } from './activity/activity-detail/activity-schedule/activity-schedule.module';
+import { ActivityClosingDayModule } from './activity/activity-detail/activity-closing-day/activity-closing-day.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { ActivityScheduleModule } from './activity/activity-detail/activity-sche
     ActivityImageModule,
     ActivityTagModule,
     ActivityScheduleModule,
+    ActivityClosingDayModule,
   ],
   controllers: [AppController],
   providers: [AppService],
