@@ -155,6 +155,7 @@ importers:
     specifiers:
       '@travel-tailor/constants': workspace:*
       '@travel-tailor/contexts': workspace:*
+      '@travel-tailor/functions': workspace:*
       '@travel-tailor/hooks': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/dotenv': ^8.2.0
@@ -162,6 +163,7 @@ importers:
     dependencies:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
+      '@travel-tailor/functions': link:../functions
       '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/types': link:../types
       '@types/dotenv': 8.2.0
