@@ -1,18 +1,16 @@
+import { Timestamp } from '../../../utils/timestamp.util';
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 import { User } from '../../../user/entities/user.entity';
 
 @Entity()
-export class ResetPasswordToken {
+export class ResetPasswordToken extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -22,13 +20,4 @@ export class ResetPasswordToken {
   @OneToOne(() => User, (user) => user.resetPasswordToken)
   @JoinColumn()
   user: User;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

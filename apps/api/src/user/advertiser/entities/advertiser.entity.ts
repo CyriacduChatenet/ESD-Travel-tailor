@@ -1,20 +1,18 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 import { Advert } from '../advert/entities/advert.entity';
 import { User } from '../../entities/user.entity';
+import { Timestamp } from '../../../utils/timestamp.util';
 
 @Entity()
-export class Advertiser {
+export class Advertiser extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -30,13 +28,4 @@ export class Advertiser {
 
   @OneToMany(() => Advert, (advert) => advert.advertiser)
   adverts: Advert[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

@@ -1,18 +1,17 @@
-import { Activity } from '../../../../activity/entities/activity.entity';
-import { Traveler } from '../../../../user/traveler/entities/traveler.entity';
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
+import { Activity } from '../../../../activity/entities/activity.entity';
+import { Traveler } from '../../../../user/traveler/entities/traveler.entity';
+import { Timestamp } from '../../../../utils/timestamp.util';
+
 @Entity()
-export class Travel {
+export class Travel extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -33,13 +32,4 @@ export class Travel {
 
   @OneToMany(() => Activity, (activity) => activity.travel)
   activities: Activity[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date | null;
 }

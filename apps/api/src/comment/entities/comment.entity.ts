@@ -1,16 +1,10 @@
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Traveler } from '../../user/traveler/entities/traveler.entity';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Timestamp } from '../../utils/timestamp.util';
 
 @Entity()
-export class Comment {
+export class Comment extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -22,13 +16,4 @@ export class Comment {
 
   @ManyToOne(() => Traveler, (traveler) => traveler.comments)
   traveler: Traveler;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date | null;
 }

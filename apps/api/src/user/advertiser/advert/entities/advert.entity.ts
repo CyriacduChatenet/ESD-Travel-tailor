@@ -1,16 +1,10 @@
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Timestamp } from '../../../../utils/timestamp.util';
 import { Advertiser } from '../../entities/advertiser.entity';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
 
 @Entity()
-export class Advert {
+export class Advert extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -19,13 +13,4 @@ export class Advert {
 
   @ManyToOne(() => Advertiser, (advertiser) => advertiser.adverts)
   advertiser: Advert;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

@@ -1,21 +1,19 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 import { Role } from '../../auth/decorators/role.enum';
 import { Advertiser } from '../advertiser/entities/advertiser.entity';
 import { Traveler } from '../traveler/entities/traveler.entity';
 import { ResetPasswordToken } from '../../auth/reset-password-token/entities/reset-password-token.entity';
+import { Timestamp } from '../../utils/timestamp.util';
 
 @Entity()
-export class User {
+export class User extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -52,13 +50,4 @@ export class User {
   })
   @JoinColumn()
   resetPasswordToken: ResetPasswordToken;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

@@ -1,21 +1,19 @@
-import { Comment } from '../../../comment/entities/comment.entity';
-import { Taste } from '../../../user/traveler/taste/entities/taste.entity';
-import { Travel } from '../../../user/traveler/travel/entities/travel.entity';
 import {
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
   JoinColumn,
   OneToMany,
 } from 'typeorm';
 
+import { Comment } from '../../../comment/entities/comment.entity';
+import { Taste } from '../../../user/traveler/taste/entities/taste.entity';
+import { Travel } from '../../../user/traveler/travel/entities/travel.entity';
 import { User } from '../../entities/user.entity';
+import { Timestamp } from '../../../utils/timestamp.util';
 
 @Entity()
-export class Traveler {
+export class Traveler extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,13 +29,4 @@ export class Traveler {
 
   @OneToMany(() => Comment, (comment) => comment.traveler)
   comments: Comment[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }
