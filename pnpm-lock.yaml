@@ -120,7 +120,12 @@ importers:
       typescript: 4.9.4
 
   packages/constants:
-    specifiers: {}
+    specifiers:
+      '@types/dotenv': ^8.2.0
+      dotenv: ^16.0.3
+    dependencies:
+      '@types/dotenv': 8.2.0
+      dotenv: 16.0.3
 
   packages/contexts:
     specifiers:
@@ -148,12 +153,14 @@ importers:
 
   packages/services:
     specifiers:
+      '@travel-tailor/constants': workspace:*
       '@travel-tailor/contexts': workspace:*
       '@travel-tailor/hooks': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/dotenv': ^8.2.0
       dotenv: ^16.0.3
     dependencies:
+      '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/types': link:../types

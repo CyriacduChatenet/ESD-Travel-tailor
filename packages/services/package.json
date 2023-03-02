@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@travel-tailor/contexts": "workspace:*",
+    "@travel-tailor/constants": "workspace:*",
     "@travel-tailor/hooks": "workspace:*",
     "@travel-tailor/types": "workspace:*",
     "@types/dotenv": "^8.2.0",
