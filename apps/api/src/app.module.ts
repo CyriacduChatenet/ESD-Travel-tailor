@@ -17,6 +17,7 @@ import { CommentModule } from './comment/comment.module';
 import { ActivityModule } from './activity/activity.module';
 import { ActivityDetailModule } from './activity/activity-detail/activity-detail.module';
 import { ActivityImageModule } from './activity/activity-image/activity-image.module';
+import { ActivityTagModule } from './activity/activity-tag/activity-tag.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { ActivityImageModule } from './activity/activity-image/activity-image.mo
     ActivityModule,
     ActivityDetailModule,
     ActivityImageModule,
+    ActivityTagModule,
   ],
   controllers: [AppController],
   providers: [AppService],

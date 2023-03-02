@@ -3,6 +3,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -10,6 +12,7 @@ import {
 import { ActivityDetail } from '../activity-detail/entities/activity-detail.entity';
 import { ActivityImage } from '../activity-image/entities/activity-image.entity';
 import { Timestamp } from '../../utils/timestamp.util';
+import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
 
 @Entity()
 export class Activity extends Timestamp {
@@ -36,4 +39,8 @@ export class Activity extends Timestamp {
   })
   @JoinColumn()
   activityImage: ActivityImage;
+
+  @ManyToMany(() => ActivityTag, (activityTag) => activityTag.activities)
+  @JoinTable()
+  tags: ActivityTag[];
 }
