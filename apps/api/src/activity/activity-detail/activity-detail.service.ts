@@ -29,6 +29,7 @@ export class ActivityDetailService {
       return await this.activityDetailRepository
         .createQueryBuilder('activityDetail')
         .leftJoinAndSelect('activityDetail.activity', 'activity')
+        .leftJoinAndSelect('activityDetail.schedule', 'activitySchedule')
         .orderBy('activityDetail.id', 'DESC')
         .getMany();
     } catch (error) {
@@ -41,6 +42,7 @@ export class ActivityDetailService {
       return await this.activityDetailRepository
         .createQueryBuilder('activityDetail')
         .leftJoinAndSelect('activityDetail.activity', 'activity')
+        .leftJoinAndSelect('activityDetail.schedule', 'activitySchedule')
         .where('activityDetail.id = :id', { id })
         .getOne();
     } catch (error) {

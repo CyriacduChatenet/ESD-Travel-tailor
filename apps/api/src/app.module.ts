@@ -18,6 +18,7 @@ import { ActivityModule } from './activity/activity.module';
 import { ActivityDetailModule } from './activity/activity-detail/activity-detail.module';
 import { ActivityImageModule } from './activity/activity-image/activity-image.module';
 import { ActivityTagModule } from './activity/activity-tag/activity-tag.module';
+import { ActivityScheduleModule } from './activity/activity-detail/activity-schedule/activity-schedule.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ActivityTagModule } from './activity/activity-tag/activity-tag.module';
     ActivityDetailModule,
     ActivityImageModule,
     ActivityTagModule,
+    ActivityScheduleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
