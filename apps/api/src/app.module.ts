@@ -16,6 +16,7 @@ import { TravelModule } from './user/traveler/travel/travel.module';
 import { CommentModule } from './comment/comment.module';
 import { ActivityModule } from './activity/activity.module';
 import { ActivityDetailModule } from './activity/activity-detail/activity-detail.module';
+import { ActivityImageModule } from './activity/activity-image/activity-image.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ActivityDetailModule } from './activity/activity-detail/activity-detail
     CommentModule,
     ActivityModule,
     ActivityDetailModule,
+    ActivityImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

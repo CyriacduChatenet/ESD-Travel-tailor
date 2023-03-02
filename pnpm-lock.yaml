@@ -15,7 +15,6 @@ importers:
       '@nestjs/platform-express': ^9.0.0
       '@nestjs/schematics': ^9.0.0
       '@nestjs/typeorm': ^9.0.1
-      '@travel-tailor/functions': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/bcrypt': ^5.0.0
       '@types/express': ^4.17.13
@@ -28,6 +27,7 @@ importers:
       eslint-config-prettier: ^8.3.0
       eslint-plugin-prettier: ^4.0.0
       i: ^0.3.7
+      jwt-decode: ^3.1.2
       nodemailer: ^6.9.1
       passport: ^0.6.0
       passport-jwt: ^4.0.1
@@ -52,12 +52,12 @@ importers:
       '@nestjs/passport': 9.0.0_6o47igfla2pj7yzh7agpvpttka
       '@nestjs/platform-express': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
       '@nestjs/typeorm': 9.0.1_hkapd3a3mi37wyf4vtt5y4i2ye
-      '@travel-tailor/functions': link:../../packages/functions
       '@travel-tailor/types': link:../../packages/types
       '@types/bcrypt': 5.0.0
       '@types/nodemailer': 6.4.7
       bcrypt: 5.1.0
       i: 0.3.7
+      jwt-decode: 3.1.2
       nodemailer: 6.9.1
       passport: 0.6.0
       passport-jwt: 4.0.1

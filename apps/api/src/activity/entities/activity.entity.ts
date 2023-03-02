@@ -11,6 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ActivityDetail } from '../activity-detail/entities/activity-detail.entity';
+import { ActivityImage } from '../activity-image/entities/activity-image.entity';
 
 @Entity()
 export class Activity {
@@ -31,6 +32,12 @@ export class Activity {
   })
   @JoinColumn()
   activityDetail: ActivityDetail;
+
+  @OneToOne(() => ActivityImage, (activityImage) => activityImage.activity, {
+    cascade: true,
+  })
+  @JoinColumn()
+  activityImage: ActivityImage;
 
   @CreateDateColumn()
   createdAt: Date;

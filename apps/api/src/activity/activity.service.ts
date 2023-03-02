@@ -31,6 +31,7 @@ export class ActivityService {
         .leftJoinAndSelect('activity.travel', 'travel')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.activityDetails', 'activityDetails')
+        .leftJoinAndSelect('activity.activityImage', 'activityImage')
         .orderBy('activity.createdAt', 'DESC')
         .getMany();
     } catch (error) {
@@ -45,6 +46,7 @@ export class ActivityService {
         .leftJoinAndSelect('activity.travel', 'travel')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.activityDetails', 'activityDetails')
+        .leftJoinAndSelect('activity.activityImage', 'activityImage')
         .where('activity.id = :id', { id })
         .getOne();
     } catch (error) {

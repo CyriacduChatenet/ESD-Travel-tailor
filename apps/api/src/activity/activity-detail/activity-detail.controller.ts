@@ -8,7 +8,7 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { Role } from '@travel-tailor/functions';
+import { Role } from '../../auth/decorators/role.enum';
 
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -21,8 +21,9 @@ export class ActivityDetailController {
   constructor(private readonly activityDetailService: ActivityDetailService) {}
 
   @Post()
-  // @UseGuards(JwtAuthGuard)
-  // @Roles(Role.Advertiser)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   create(@Body() createActivityDetailDto: CreateActivityDetailDto) {
     return this.activityDetailService.create(createActivityDetailDto);
   }
@@ -38,8 +39,9 @@ export class ActivityDetailController {
   }
 
   @Patch(':id')
-  // @UseGuards(JwtAuthGuard)
-  // @Roles(Role.Advertiser)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   update(
     @Param('id') id: string,
     @Body() updateActivityDetailDto: UpdateActivityDetailDto,
@@ -48,8 +50,9 @@ export class ActivityDetailController {
   }
 
   @Delete(':id')
-  // @UseGuards(JwtAuthGuard)
-  // @Roles(Role.Advertiser)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   remove(@Param('id') id: string) {
     return this.activityDetailService.remove(id);
   }

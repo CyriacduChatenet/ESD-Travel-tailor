@@ -61,7 +61,7 @@ export class ActivityDetailService {
 
   async remove(id: string) {
     try {
-      return await this.activityDetailRepository.delete(id);
+      return await this.activityDetailRepository.softDelete(id);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
