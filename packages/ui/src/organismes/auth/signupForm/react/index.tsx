@@ -1,5 +1,7 @@
+import { ROLES, ROUTES } from '@travel-tailor/constants';
 import { AuthService } from '@travel-tailor/services';
 import { SignupDTO } from '@travel-tailor/types';
+import { useRouter } from 'next/router';
 import { FC, FormEvent, useState } from 'react';
 
 export const WebSignupForm: FC = () => {
@@ -10,6 +12,18 @@ export const WebSignupForm: FC = () => {
 		roles: '',
 	});
 
+	const router = useRouter();
+
+	const handleRedirect = async (user: any) => {
+		if(credentials.roles === ROLES.ADMIN) {
+			router.push(ROUTES.SIGNIN)
+		} else if(credentials.roles === ROLES.TRAVELER) {
+			router.push(ROUTES.SIGNIN)
+		} else if(credentials.roles === ROLES.ADVERTISER) {
+			router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`)
+		}
+	};
+
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
@@ -18,7 +32,7 @@ export const WebSignupForm: FC = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 		const user = await AuthService.signup(credentials)
-        return console.log(user);
+        handleRedirect(user);
     };
 
 	return (

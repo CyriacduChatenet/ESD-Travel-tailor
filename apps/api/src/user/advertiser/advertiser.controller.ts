@@ -20,9 +20,6 @@ import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
 export class AdvertiserController {
   constructor(private readonly advertiserService: AdvertiserService) {}
   @Post()
-   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
   create(@Body() createAdvertiserDto: CreateAdvertiserDto) {
     return this.advertiserService.create(createAdvertiserDto);
   }

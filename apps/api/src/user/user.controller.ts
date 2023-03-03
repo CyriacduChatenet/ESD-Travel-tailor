@@ -36,9 +36,9 @@ export class UserController {
     return await this.userService.findOneByEmail(email);
   }
 
-  @Patch(':email')
-  async update(@Param('email') email: string, @Body() signupUserDto: any) {
-    return await this.userService.update(email, signupUserDto);
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() signupUserDto: any) {
+    return await this.userService.update(id, signupUserDto);
   }
 
   @Delete(':id')

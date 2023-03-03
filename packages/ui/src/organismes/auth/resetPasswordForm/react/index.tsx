@@ -1,11 +1,14 @@
 import { AuthService } from '@travel-tailor/services';
 import { ResetPasswordDTO } from '@travel-tailor/types';
+import { useRouter } from 'next/router';
 import { FC, FormEvent, useState } from 'react';
 
 export const WebResetPasswordForm: FC = () => {
 	const [credentials, setCredentials] = useState<ResetPasswordDTO>({
 		password: '',
 	});
+
+	const router = useRouter();
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
@@ -14,7 +17,7 @@ export const WebResetPasswordForm: FC = () => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const token = location.pathname.split('/').pop()
+		const token = router.query.resetToken;
 		return AuthService.resetPassword(credentials, String(token));
 	};
 
