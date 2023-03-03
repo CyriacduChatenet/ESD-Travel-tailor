@@ -4,7 +4,6 @@ import { NextPage } from 'next';
 import { Layout } from '@/layout';
 
 const Home: NextPage = ({ message }: any) => {
-	console.log(message);
 	return (
 		<Layout>
 			<>
@@ -18,7 +17,6 @@ export default Home;
 
 export const getServerSideProps = async () => {
 	const response = await HelloService.getHello();
-	console.log(response);
 	return {
 		props: {
 			message: response.message,

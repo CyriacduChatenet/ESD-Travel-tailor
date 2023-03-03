@@ -28,11 +28,11 @@ export class ResetPasswordTokenController {
   }
 
   @Get(':token')
-  async findOne(@Param('id') id: string) {
-    return await this.resetPasswordTokenService.findOne(id);
+  async findOne(@Param('token') token: string) {
+    return await this.resetPasswordTokenService.findOne(token);
   }
 
-  @Patch(':token')
+  @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateResetPasswordTokenDto: UpdateResetPasswordTokenDto,
@@ -43,7 +43,7 @@ export class ResetPasswordTokenController {
     );
   }
 
-  @Delete(':token')
+  @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.resetPasswordTokenService.remove(id);
   }

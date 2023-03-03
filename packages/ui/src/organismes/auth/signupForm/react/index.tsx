@@ -1,6 +1,6 @@
 import { AuthService } from '@travel-tailor/services';
 import { SignupDTO } from '@travel-tailor/types';
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 
 export const WebSignupForm: FC = () => {
 	const [credentials, setCredentials] = useState<SignupDTO>({
@@ -15,9 +15,10 @@ export const WebSignupForm: FC = () => {
         setCredentials({ ...credentials, [name]: value });
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        return AuthService.signup(credentials);
+		const user = await AuthService.signup(credentials)
+        return console.log(user);
     };
 
 	return (

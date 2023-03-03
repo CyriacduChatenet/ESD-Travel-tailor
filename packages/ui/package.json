@@ -3,17 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main":"src/index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "build": "tsc && vite build"
   },
   "dependencies": {
+    "@travel-tailor/constants": "workspace:*",
+    "@travel-tailor/services": "workspace:*",
+    "@travel-tailor/styles": "workspace:*",
+    "@travel-tailor/types": "workspace:*",
+    "next": "13.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.58.3",
-    "@travel-tailor/styles":"workspace:*",
-    "@travel-tailor/services":"workspace:*",
-    "@travel-tailor/types":"workspace:*"
+    "sass": "^1.58.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

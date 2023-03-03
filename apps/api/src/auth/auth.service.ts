@@ -53,11 +53,11 @@ export class AuthService {
   }
 
   public async signup(signupUserInputDTO: SignupDTO) {
-    const user = await this.userService.findOneByEmail(
+    const userInDB = await this.userService.findOneByEmail(
       signupUserInputDTO.email,
     );
 
-    if (user) {
+    if (userInDB) {
       throw new HttpException(
         'User is already exist',
         HttpStatus.NOT_ACCEPTABLE,
@@ -66,24 +66,27 @@ export class AuthService {
 
     const password = await bcrypt.hash(signupUserInputDTO.password, 10);
 
-    this.userService.create({
+    const user = await this.userService.create({
       ...signupUserInputDTO,
       password,
     });
 
-    return this.mailService.sendSignupMail(signupUserInputDTO.email);
+    await this.mailService.sendSignupMail(signupUserInputDTO.email);
+
+    return user;
   }
 
   public async forgotPassword(forgotPasswordDto: ForgotPasswordDTO) {
     const user = await this.userService.findOneByEmail(forgotPasswordDto.email);
     const resetToken = await this.resetPasswordTokenService.create(user.id);
-    this.userService.update(user.id, {
+    const userUpdated = await this.userService.update(user.id, {
       resetPasswordToken: resetToken.id,
     });
-    return await this.mailService.sendForgotPasswordMail(
+    await this.mailService.sendForgotPasswordMail(
       forgotPasswordDto.email,
       `${process.env.CLIENT_APP_URL}/reset-password/${resetToken.token}`,
     );
+    return userUpdated;
   }
 
   public async resetPassword(
@@ -92,10 +95,10 @@ export class AuthService {
   ) {
     const token = await this.resetPasswordTokenService.findOne(resetToken);
     const user = await this.userService.findOneByEmail(token.user.email);
-    this.userService.update(user.id, {
+    const userUpdated = await this.userService.update(user.id, {
       password: await bcrypt.hash(resetPasswordDto.password, 10),
     });
-
-    return this.mailService.sendConfirmResetPasswordMail(user.email);
+    await this.mailService.sendConfirmResetPasswordMail(user.email);
+    return userUpdated;
   }
 }

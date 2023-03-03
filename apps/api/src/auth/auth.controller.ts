@@ -29,7 +29,7 @@ export class AuthController {
 
   @Post('reset-password/:token')
   public resetPassword(
-    @Param(':token') token: string,
+    @Param('token') token: string,
     @Body() resetPasswordDto: ResetPasswordDTO,
   ) {
     return this.authService.resetPassword(token, resetPasswordDto);

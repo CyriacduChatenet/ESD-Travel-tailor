@@ -1,6 +1,8 @@
 import { ChangeEvent, FC, useState } from 'react';
+import { useRouter } from 'next/router'
 import { AuthService } from '@travel-tailor/services';
 import { SigninDTO } from '@travel-tailor/types';
+import { ROLES, ROUTES } from '@travel-tailor/constants';
 
 export const WebSigninForm: FC = () => {
 	const [credentials, setCredentials] = useState<SigninDTO>({
@@ -8,8 +10,21 @@ export const WebSigninForm: FC = () => {
 		password: '',
 	});
 
-	const handleSubmit = () => {
-		return AuthService.signin(credentials);
+	const router = useRouter();
+
+	const handleRedirect = async (user: any) => {
+		if(user.roles === ROLES.ADMIN) {
+			router.push(ROUTES.ADMIN.DASHBOARD)
+		} else if(user.roles === ROLES.TRAVELER) {
+			router.push(ROUTES.TRAVELER.DASHBOARD)
+		} else if(user.roles === ROLES.ADVERTISER) {
+			router.push(ROUTES.ADVERTISER.DASHBOARD)
+		}
+	};
+
+	const handleSubmit = async () => {
+		const user = await AuthService.signin(credentials);
+		handleRedirect(user);
 	};
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

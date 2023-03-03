@@ -2,7 +2,7 @@ const get = async (api_url: string) => {
 	const response = await fetch(api_url, {
 		method: 'GET',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 		},
 	});
@@ -14,7 +14,7 @@ const protectedGet = async (api_url: string, token: string) => {
 	const response = await fetch(api_url, {
 		method: 'GET',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
 		},
@@ -23,11 +23,11 @@ const protectedGet = async (api_url: string, token: string) => {
 	return responseJSON;
 };
 
-const post = async (api_url: string, body: Object) => {
+const post = async (api_url: string, body: any) => {
 	const response = await fetch(api_url, {
 		method: 'POST',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 		},
 		body: JSON.stringify(body),
@@ -36,11 +36,11 @@ const post = async (api_url: string, body: Object) => {
 	return responseJSON;
 };
 
-const protectedPost = async (api_url: string, body: Object, token: string) => {
+const protectedPost = async (api_url: string, body: any, token: string) => {
 	const response = await fetch(api_url, {
 		method: 'POST',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
 		},
@@ -54,7 +54,7 @@ const patch = async (api_url: string, body: Object) => {
 	const response = await fetch(api_url, {
 		method: 'PATCH',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 		},
 		body: JSON.stringify(body),
@@ -67,7 +67,7 @@ const protectedPatch = async (api_url: string, body: Object, token: string) => {
 	const response = await fetch(api_url, {
 		method: 'PATCH',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
 		},
@@ -81,7 +81,7 @@ const remove = async (api_url: string, token: string) => {
 	const response = await fetch(api_url, {
 		method: 'DELETE',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
 		},
@@ -94,7 +94,7 @@ const protectedRemove = async (api_url: string, token: string) => {
 	const response = await fetch(api_url, {
 		method: 'DELETE',
 		headers: {
-			ContentType: 'application/json',
+			'Content-Type': 'application/json',
 			Accept: 'application/json',
 			Authorization: `Bearer ${token}`,
 		},

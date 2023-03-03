@@ -1,7 +1,6 @@
 import { ForgotPasswordDTO, ResetPasswordDTO, SigninDTO, SignupDTO } from '@travel-tailor/types';
 import { useFetch } from '@travel-tailor/hooks';
 import {
-	ACCESS_TOKEN,
 	API_FORGOT_PASSWORD_ROUTE,
 	API_RESET_PASSWORD_ROUTE,
 	API_SIGNIN_ROUTE,
@@ -12,7 +11,7 @@ import { jwtDecode } from '@travel-tailor/functions';
 
 const signin = async (signinCredentials: SigninDTO) => {
 	const token = await useFetch.post(API_SIGNIN_ROUTE, signinCredentials);
-	const tokenDecode = jwtDecode(token) satisfies string;
+	const tokenDecode = jwtDecode(token.accessToken) satisfies string;
 	return tokenDecode;
 };
 
@@ -25,7 +24,7 @@ const forgotPassword = async (forgotPasswordCredentials: ForgotPasswordDTO) => {
 };
 
 const resetPassword = async (resetPasswordCredentials: ResetPasswordDTO, resetToken: string) => {
-	return await useFetch.protectedPost(API_RESET_PASSWORD_ROUTE, resetPasswordCredentials, resetToken);
+	return await useFetch.protectedPost(`${API_RESET_PASSWORD_ROUTE}/${resetToken}`, resetPasswordCredentials, resetToken);
 };
 
 export const AuthService = {
