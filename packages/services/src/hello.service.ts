@@ -1,7 +1,7 @@
 import { useFetch } from '@travel-tailor/hooks';
 
-const getHello = () => {
-	return useFetch.get(`http://localhost:8000/api/v1`);
+const getHello = (api_url: string) => {
+	return useFetch.get(api_url);
 };
 
 export const HelloService = {

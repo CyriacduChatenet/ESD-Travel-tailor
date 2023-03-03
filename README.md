@@ -22,6 +22,8 @@
 
 ## .env example
 ```bash
+// API env var
+
 API_PORT =
 ADMINER_PORT =
 CLIENT_APP_URL =

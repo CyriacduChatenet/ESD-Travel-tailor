@@ -4,7 +4,11 @@ import { AuthService } from '@travel-tailor/services';
 import { SigninDTO } from '@travel-tailor/types';
 import { ROLES, ROUTES } from '@travel-tailor/constants';
 
-export const WebSigninForm: FC = () => {
+interface IProps {
+	api_url: string;
+}
+
+export const WebSigninForm: FC<IProps> = ({ api_url }) => {
 	const [credentials, setCredentials] = useState<SigninDTO>({
 		email: '',
 		password: '',
@@ -23,7 +27,7 @@ export const WebSigninForm: FC = () => {
 	};
 
 	const handleSubmit = async () => {
-		const user = await AuthService.signin(credentials);
+		const user = await AuthService.signin(`${api_url}/auth/signin`,credentials);
 		handleRedirect(user);
 	};
 

@@ -4,7 +4,11 @@ import { SignupDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { FC, FormEvent, useState } from 'react';
 
-export const WebSignupForm: FC = () => {
+interface IProps {
+	api_url: string;
+}
+
+export const WebSignupForm: FC<IProps> = ({ api_url }) => {
 	const [credentials, setCredentials] = useState<SignupDTO>({
 		username: '',
 		email: '',
@@ -18,7 +22,7 @@ export const WebSignupForm: FC = () => {
 		if (credentials.roles === ROLES.ADMIN) {
 			router.push(ROUTES.SIGNIN);
 		} else if (credentials.roles === ROLES.TRAVELER) {
-			const traveler = await TravelerService.createTraveler({
+			const traveler = await TravelerService.createTraveler(`${api_url}/traveler`,{
 				user: user.id,
 			});
 			await UserService.updateUser(user.id, { traveler: traveler.id });
@@ -35,7 +39,7 @@ export const WebSignupForm: FC = () => {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const user = await AuthService.signup(credentials);
+		const user = await AuthService.signup(`${api_url}/auth/signup`,credentials);
 		handleRedirect(user);
 	};
 

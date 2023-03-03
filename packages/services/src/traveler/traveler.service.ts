@@ -1,14 +1,13 @@
-import { API_TRAVELER_ROUTE } from "@travel-tailor/constants";
 import { useFetch } from "@travel-tailor/hooks";
 import { CreateTravelerDTO, UpdateTravelerDTO } from "@travel-tailor/types";
 import { TokenService } from "../tokens/token.service";
 
-const createTraveler = (credentials: CreateTravelerDTO) => {
-    return useFetch.post(API_TRAVELER_ROUTE, credentials)
+const createTraveler = (api_url: string, credentials: CreateTravelerDTO) => {
+    return useFetch.post(api_url, credentials)
 };
 
-const updateTraveler = (id: string, credentials: UpdateTravelerDTO) => {
-    return useFetch.protectedPatch(`${API_TRAVELER_ROUTE}/${id}`, credentials, String(TokenService.getSigninToken()))
+const updateTraveler = (api_url: string, credentials: UpdateTravelerDTO) => {
+    return useFetch.protectedPatch(`${api_url}`, credentials, String(TokenService.getSigninToken()))
 };
 
 export const TravelerService = {

@@ -2,7 +2,11 @@ import { AuthService } from '@travel-tailor/services';
 import { ForgotPasswordDTO } from '@travel-tailor/types';
 import { FC, FormEvent, useState } from 'react';
 
-export const WebForgotPasswordForm: FC = () => {
+interface IProps {
+	api_url: string;
+}
+
+export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
 	const [credentials, setCredentials] = useState<ForgotPasswordDTO>({
 		email: '',
 	});
@@ -14,7 +18,7 @@ export const WebForgotPasswordForm: FC = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        return AuthService.forgotPassword(credentials);
+        return AuthService.forgotPassword(`${api_url}/auth/forgot-password`,credentials);
     };
 
 	return (

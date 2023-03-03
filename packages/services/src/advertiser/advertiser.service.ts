@@ -1,9 +1,8 @@
-import { API_ADVERTISER_ROUTE } from "@travel-tailor/constants";
 import { useFetch } from "@travel-tailor/hooks";
 import { CreateAdvertiserDTO } from "@travel-tailor/types";
 
-const createAdvertiser = (credentials: CreateAdvertiserDTO) => {
-    return useFetch.post(API_ADVERTISER_ROUTE, credentials)
+const createAdvertiser = (api_url: string, credentials: CreateAdvertiserDTO) => {
+    return useFetch.post(api_url, credentials)
 };
 
 export const AdvertiserService = {

@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
-import { WebCreateAdvertiserForm } from '@travel-tailor/ui';
 
 import { Layout } from '@/layout';
+import { WebCreateAdvertiserForm } from '@travel-tailor/ui';
 
 const CreateAdvertiser: NextPage = () => {
 	return (
 		<Layout>
 			<h1>Create advertiser</h1>
-			<WebCreateAdvertiserForm />
+			<WebCreateAdvertiserForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} />
 		</Layout>
 	);
 };

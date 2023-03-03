@@ -4,7 +4,11 @@ import { CreateAdvertiserDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-export const WebCreateAdvertiserForm: FC = () => {
+interface IProps {
+	api_url: string;
+}
+
+export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
 	const router = useRouter();
 
 	const userId = router.query.id;
@@ -22,7 +26,7 @@ export const WebCreateAdvertiserForm: FC = () => {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-        const advertiser = await AdvertiserService.createAdvertiser(credentials);
+        const advertiser = await AdvertiserService.createAdvertiser(`${api_url}/adertiser`,credentials);
 		await UserService.updateUser(String(userId), { advertiser: advertiser.id });
 		return router.push(ROUTES.SIGNIN);
 	};

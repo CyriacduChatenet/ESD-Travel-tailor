@@ -8,7 +8,7 @@ const ResetPasswordPage: NextPage = () => {
         <Layout>
             <h1>Reset password</h1>
             <br />
-            <WebResetPasswordForm />
+            <WebResetPasswordForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} />
         </Layout>
     );
 };

@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import { useProtectedRoute } from "@travel-tailor/hooks";
-import { WebSignupForm } from "@travel-tailor/ui";
 import Link from "next/link";
 
 import { Layout } from "@/layout";
+import { WebSignupForm } from "@travel-tailor/ui";
 
 const SignupPage: NextPage = () => {
     useProtectedRoute();
@@ -11,7 +11,7 @@ const SignupPage: NextPage = () => {
         <Layout>
             <h1>Signup</h1>
             <br />
-            <WebSignupForm/>
+            <WebSignupForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`}/>
             <Link href={'/signin'}>Signin</Link>
         </Layout>
     );

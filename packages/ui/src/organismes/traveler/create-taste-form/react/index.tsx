@@ -4,7 +4,11 @@ import { CreateTasteDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-export const WebCreateTasteForm: FC = () => {
+interface IProps {
+	api_url: string;
+}
+
+export const WebCreateTasteForm: FC<IProps> = ({ api_url }) => {
 	const router = useRouter();
 
 	const userId = router.query.id;
@@ -20,7 +24,7 @@ export const WebCreateTasteForm: FC = () => {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const taste = await TasteService.createTaste(credentials);
+		const taste = await TasteService.createTaste(`${api_url}/taste`,credentials);
 		await TravelerService.updateTraveler(String(userId), { tastes: [`${taste.id}`] });
 		TokenService.removeSigninToken();
 		return router.push(ROUTES.SIGNIN);
