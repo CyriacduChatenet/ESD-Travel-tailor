@@ -1,7 +1,7 @@
-import { Activity } from 'src/activity/entities/activity.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Timestamp } from '../../../../utils/timestamp.util';
+import { Activity } from '../../../../activity/entities/activity.entity';
 
 @Entity()
 export class ActivitySchedule extends Timestamp {
