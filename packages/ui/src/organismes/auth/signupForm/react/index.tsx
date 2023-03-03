@@ -22,7 +22,7 @@ export const WebSignupForm: FC = () => {
 				user: user.id,
 			});
 			await UserService.updateUser(user.id, { traveler: traveler.id });
-			router.push(ROUTES.SIGNIN);
+			router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`);
 		} else if (credentials.roles === ROLES.ADVERTISER) {
 			router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`);
 		}

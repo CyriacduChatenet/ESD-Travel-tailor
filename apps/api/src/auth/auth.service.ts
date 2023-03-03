@@ -73,7 +73,15 @@ export class AuthService {
 
     await this.mailService.sendSignupMail(signupUserInputDTO.email);
 
-    return user;
+    const payload = {
+      email: signupUserInputDTO.email,
+      password: signupUserInputDTO.password,
+      roles: signupUserInputDTO.roles,
+    };
+    return {
+      signinToken: this.jwtService.sign(payload),
+      user,
+    };
   }
 
   public async forgotPassword(forgotPasswordDto: ForgotPasswordDTO) {

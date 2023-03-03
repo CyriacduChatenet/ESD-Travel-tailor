@@ -8,15 +8,23 @@ import {
 } from '@travel-tailor/constants';
 import { jwtDecode } from '@travel-tailor/functions';
 
+import { TokenService } from '../tokens/token.service';
 
 const signin = async (signinCredentials: SigninDTO) => {
 	const token = await useFetch.post(API_SIGNIN_ROUTE, signinCredentials);
+	TokenService.setAccessToken(token.accessToken);
 	const tokenDecode = jwtDecode(token.accessToken) satisfies string;
 	return tokenDecode;
 };
 
 const signup = async (signupCredentials: SignupDTO) => {
-	return await useFetch.post(API_SIGNUP_ROUTE, signupCredentials);
+	const { user, signinToken } = await useFetch.post(API_SIGNUP_ROUTE, signupCredentials);
+	TokenService.setSigninToken(signinToken);
+	return user;
+};
+
+const logout = () => {
+	TokenService.removeAccessToken();
 };
 
 const forgotPassword = async (forgotPasswordCredentials: ForgotPasswordDTO) => {
@@ -32,4 +40,5 @@ export const AuthService = {
 	signup,
 	forgotPassword,
 	resetPassword,
+	logout,
 };

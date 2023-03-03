@@ -18,7 +18,8 @@ export class TasteService {
 
   async create(createTasteDto: CreateTasteDto) {
     try {
-      return this.tasteRepository.save(createTasteDto);
+      const taste = await this.tasteRepository.create(createTasteDto);
+      return this.tasteRepository.save(taste);
     } catch (error) {
       throw new UnauthorizedException(error);
     }

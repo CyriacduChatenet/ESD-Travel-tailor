@@ -51,9 +51,9 @@ export class UserService {
     }
   }
 
-  async update(email: string, signupUserDto: any) {
+  async update(id: string, signupUserDto: any) {
     try {
-      return await this.userRepository.update(email, signupUserDto);
+      return await this.userRepository.update(id, signupUserDto);
     } catch (error) {
       throw new BadRequestException(error);
     }
