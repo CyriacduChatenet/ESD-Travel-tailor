@@ -11,11 +11,11 @@ export type Traveler = {
 };
 
 export type CreateTravelerDTO = {
-    user: string[];
-    tastes: string[];
+    user?: string;
+    tastes?: string[];
 };
 
 export type UpdateTravelerDTO = {
-    user: string[];
-    tastes: string[];
+    user?: string;
+    tastes?: string[];
 };

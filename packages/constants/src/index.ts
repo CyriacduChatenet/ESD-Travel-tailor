@@ -5,6 +5,8 @@ export const API_RESET_PASSWORD_ROUTE = `http://localhost:8000/api/v1/auth/reset
 
 export const API_ADVERTISER_ROUTE = `http://localhost:8000/api/v1/advertiser`;
 
+export const API_TRAVELER_ROUTE = `http://localhost:8000/api/v1/traveler`;
+
 export const API_USER_ROUTE = `http://localhost:8000/api/v1/user`;
 
 export const ACCESS_TOKEN = 'accessToken';
