@@ -16,7 +16,7 @@ const Home: NextPage = ({ message }: any) => {
 export default Home;
 
 export const getServerSideProps = async () => {
-	const response = await HelloService.getHello(`${process.env.API_URL}`);
+	const response = await HelloService.getHello(`${process.env.NEXT_PUBLIC_API_URL}`);
 	return {
 		props: {
 			message: response.message,
