@@ -11,8 +11,13 @@
     "@travel-tailor/contexts": "workspace:*",
     "@travel-tailor/functions": "workspace:*",
     "@travel-tailor/hooks": "workspace:*",
-    "@travel-tailor/types": "workspace:*"
+    "@travel-tailor/types": "workspace:*",
+    "@travel-tailor/tools": "workspace:*"
   },
+  "eslintConfig": {
+    "extends": "@traveler-tailor/tools/eslintConfig"
+  },
+  "prettier": "@traveler-tailor/tools/prettierConfig",
   "keywords": [],
   "author": "",
   "license": "ISC"

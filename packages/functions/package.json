@@ -5,6 +5,11 @@
   "license": "ISC",
   "dependencies": {
     "@travel-tailor/types": "workspace:*",
+    "@travel-tailor/tools": "workspace:*",
     "jwt-decode": "^3.1.2"
-  }
+  },
+  "eslintConfig": {
+    "extends": "@traveler-tailor/tools/eslintConfig"
+  },
+  "prettier": "@traveler-tailor/tools/prettierConfig"
 }

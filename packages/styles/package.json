@@ -10,6 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "style-dictionary": "^3.7.2"
-  }
+    "style-dictionary": "^3.7.2",
+    "@travel-tailor/tools":"workspace:*"
+  },
+  "eslintConfig": {
+    "extends": "@traveler-tailor/tools/eslintConfig"
+  },
+  "prettier": "@traveler-tailor/tools/prettierConfig"
 }

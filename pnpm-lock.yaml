@@ -16,6 +16,7 @@ importers:
       '@nestjs/schematics': ^9.0.0
       '@nestjs/swagger': ^6.2.1
       '@nestjs/typeorm': ^9.0.1
+      '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/bcrypt': ^5.0.0
       '@types/express': ^4.17.13
@@ -55,6 +56,7 @@ importers:
       '@nestjs/platform-express': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
       '@nestjs/swagger': 6.2.1_dntc3uqqknzoduyjojusds5kla
       '@nestjs/typeorm': 9.0.1_hkapd3a3mi37wyf4vtt5y4i2ye
+      '@travel-tailor/tools': link:../../packages/tools
       '@travel-tailor/types': link:../../packages/types
       '@types/bcrypt': 5.0.0
       '@types/nodemailer': 6.4.7
@@ -94,6 +96,7 @@ importers:
       '@travel-tailor/functions': workspace:*
       '@travel-tailor/hooks': workspace:*
       '@travel-tailor/services': workspace:*
+      '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       '@travel-tailor/ui': workspace:*
       '@types/node': 18.11.18
@@ -111,6 +114,7 @@ importers:
       '@travel-tailor/functions': link:../../packages/functions
       '@travel-tailor/hooks': link:../../packages/hooks
       '@travel-tailor/services': link:../../packages/services
+      '@travel-tailor/tools': link:../../packages/tools
       '@travel-tailor/types': link:../../packages/types
       '@travel-tailor/ui': link:../../packages/ui
       '@types/node': 18.11.18
@@ -124,23 +128,30 @@ importers:
       typescript: 4.9.4
 
   packages/constants:
-    specifiers: {}
+    specifiers:
+      '@travel-tailor/tools': workspace:*
+    dependencies:
+      '@travel-tailor/tools': link:../tools
 
   packages/contexts:
     specifiers:
+      '@travel-tailor/tools': workspace:*
       '@types/react': ^18.0.28
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
+      '@travel-tailor/tools': link:../tools
       '@types/react': 18.0.28
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
 
   packages/functions:
     specifiers:
+      '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       jwt-decode: ^3.1.2
     dependencies:
+      '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
       jwt-decode: 3.1.2
 
@@ -148,12 +159,14 @@ importers:
     specifiers:
       '@travel-tailor/constants': 'workspace: *'
       '@travel-tailor/services': 'workspace: *'
+      '@travel-tailor/tools': 'workspace: *'
       '@travel-tailor/types': 'workspace: *'
       '@types/react': ^18.0.28
       react: ^18.2.0
     dependencies:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/services': link:../services
+      '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
       '@types/react': 18.0.28
       react: 18.2.0
@@ -164,28 +177,51 @@ importers:
       '@travel-tailor/contexts': workspace:*
       '@travel-tailor/functions': workspace:*
       '@travel-tailor/hooks': workspace:*
+      '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
     dependencies:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/functions': link:../functions
       '@travel-tailor/hooks': link:../hooks
+      '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
 
   packages/styles:
     specifiers:
+      '@travel-tailor/tools': workspace:*
       style-dictionary: ^3.7.2
     devDependencies:
+      '@travel-tailor/tools': link:../tools
       style-dictionary: 3.7.2
 
+  packages/tools:
+    specifiers:
+      '@types/node': 18.11.18
+      eslint: ^8.0.1
+      eslint-config-prettier: ^8.3.0
+      eslint-plugin-prettier: ^4.0.0
+      prettier: ^2.3.2
+    dependencies:
+      eslint: 8.32.0
+      eslint-config-prettier: 8.6.0_eslint@8.32.0
+      eslint-plugin-prettier: 4.2.1_cn4lalcyadplruoxa5mhp7j3dq
+      prettier: 2.8.3
+    devDependencies:
+      '@types/node': 18.11.18
+
   packages/types:
-    specifiers: {}
+    specifiers:
+      '@travel-tailor/tools': workspace:*
+    dependencies:
+      '@travel-tailor/tools': link:../tools
 
   packages/ui:
     specifiers:
       '@travel-tailor/constants': workspace:*
       '@travel-tailor/services': workspace:*
       '@travel-tailor/styles': workspace:*
+      '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/react': ^18.0.27
       '@types/react-dom': ^18.0.10
@@ -200,6 +236,7 @@ importers:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/services': link:../services
       '@travel-tailor/styles': link:../styles
+      '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
       next: 13.2.3_wiv434v7erz4aedd5whhdwmpv4
       react: 18.2.0
@@ -3049,7 +3086,6 @@ packages:
       eslint: '>=7.0.0'
     dependencies:
       eslint: 8.32.0
-    dev: true
 
   /eslint-import-resolver-node/0.3.7:
     resolution: {integrity: sha512-gozW2blMLJCeFpBwugLTGyvVjNoeo1knonXAcatC6bjPBZitotxdWf7Gimr25N4c0AAOo4eOUfaG82IJPDpqCA==}
@@ -3184,7 +3220,6 @@ packages:
       eslint-config-prettier: 8.6.0_eslint@8.32.0
       prettier: 2.8.3
       prettier-linter-helpers: 1.0.0
-    dev: true
 
   /eslint-plugin-react-hooks/4.6.0_eslint@8.32.0:
     resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
@@ -3425,7 +3460,6 @@ packages:
 
   /fast-diff/1.2.0:
     resolution: {integrity: sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==}
-    dev: true
 
   /fast-glob/3.2.12:
     resolution: {integrity: sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==}
@@ -5895,13 +5929,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       fast-diff: 1.2.0
-    dev: true
 
   /prettier/2.8.3:
     resolution: {integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: true
 
   /preview-email/3.0.5:
     resolution: {integrity: sha512-q37jdkVw+wic0o/7xYhOTBS4kF0WX3two0OepmR1Fhxp9NTpO3rJTccAjQm95gJx/2Wa/Nv98sr9pXIQ77/foA==}

@@ -6,6 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@travel-tailor/tools":"workspace:*"
+  },
+  "eslintConfig": {
+    "extends": "@traveler-tailor/tools/eslintConfig"
+  },
+  "prettier": "@traveler-tailor/tools/prettierConfig",
   "keywords": [],
   "author": "",
   "license": "ISC"

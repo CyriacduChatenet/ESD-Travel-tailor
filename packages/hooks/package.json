@@ -10,9 +10,14 @@
 		"@travel-tailor/services": "workspace: *",
 		"@travel-tailor/types": "workspace: *",
 		"@travel-tailor/constants": "workspace: *",
+		"@travel-tailor/tools": "workspace: *",
 		"@types/react": "^18.0.28",
 		"react": "^18.2.0"
 	},
+	"eslintConfig": {
+		"extends": "@traveler-tailor/tools/eslintConfig"
+	  },
+	  "prettier": "@traveler-tailor/tools/prettierConfig",
 	"keywords": [],
 	"author": "",
 	"license": "ISC"
