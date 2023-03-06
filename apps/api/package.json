@@ -60,7 +60,7 @@
     "typescript": "^4.7.4"
   },
   "eslintConfig": {
-    "extends": "@traveler-tailor/tools/eslintConfig"
+    "extends": "@travel-tailor/tools/eslintConfig"
   },
-  "prettier": "@traveler-tailor/tools/prettierConfig"
+  "prettier": "@travel-tailor/tools/prettierConfig"
 }
