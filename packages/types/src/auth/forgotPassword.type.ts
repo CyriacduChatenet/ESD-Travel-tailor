@@ -1,3 +1,3 @@
 export type ForgotPasswordDTO = {
-    email: string;
+  email: string
 }

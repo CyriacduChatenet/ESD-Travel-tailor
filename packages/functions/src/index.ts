@@ -1,4 +1,3 @@
-import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode'
 
-export const jwtDecode = jwt_decode;
-  
+export const jwtDecode = jwt_decode

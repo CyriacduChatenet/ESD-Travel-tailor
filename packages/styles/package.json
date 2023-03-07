@@ -4,17 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "style-dictionary": "^3.7.2",
-    "@travel-tailor/tools":"workspace:*"
+    "@travel-tailor/tools": "workspace:*",
+    "style-dictionary": "^3.7.2"
   },
-  "eslintConfig": {
-    "extends": "@traveler-tailor/tools/eslintConfig"
-  },
-  "prettier": "@traveler-tailor/tools/prettierConfig"
+  "prettier": "@travel-tailor/tools/prettier.config.js",
+  "dependencies": {
+    "prettier": "^2.8.4"
+  }
 }

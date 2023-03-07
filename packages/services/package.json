@@ -4,21 +4,19 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write ./src"
   },
   "dependencies": {
     "@travel-tailor/constants": "workspace:*",
     "@travel-tailor/contexts": "workspace:*",
     "@travel-tailor/functions": "workspace:*",
     "@travel-tailor/hooks": "workspace:*",
+    "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
-    "@travel-tailor/tools": "workspace:*"
+    "prettier": "^2.8.4"
   },
-  "eslintConfig": {
-    "extends": "@traveler-tailor/tools/eslintConfig"
-  },
-  "prettier": "@traveler-tailor/tools/prettierConfig",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "prettier": "@travel-tailor/tools/prettier.config.js"
 }

@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "ISC",
+  "scripts": {
+    "format": "prettier --write ./src"
+  },
   "dependencies": {
-    "@travel-tailor/types": "workspace:*",
     "@travel-tailor/tools": "workspace:*",
-    "jwt-decode": "^3.1.2"
+    "@travel-tailor/types": "workspace:*",
+    "jwt-decode": "^3.1.2",
+    "prettier": "^2.8.4"
   },
-  "eslintConfig": {
-    "extends": "@traveler-tailor/tools/eslintConfig"
-  },
-  "prettier": "@traveler-tailor/tools/prettierConfig"
+  "prettier": "@travel-tailor/tools/prettier.config.js"
 }

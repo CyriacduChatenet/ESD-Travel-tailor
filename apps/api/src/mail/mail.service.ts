@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MailerService } from '@nestjs-modules/mailer';
+import { Injectable } from '@nestjs/common'
+import { MailerService } from '@nestjs-modules/mailer'
 
 @Injectable()
 export class MailService {
@@ -14,7 +14,7 @@ export class MailService {
       html: `<div>
       <p>Welcome to Travel tailor your account has been successfully created</p>
       </div>`,
-    });
+    })
   }
 
   public async sendForgotPasswordMail(reciever: string, resetLink: string) {
@@ -27,7 +27,7 @@ export class MailService {
       <p>You have send demand to reset your password</p>
       <a href="${resetLink}}">Reset your password here</a>
       </div>`,
-    });
+    })
   }
 
   public async sendConfirmResetPasswordMail(reciever: string) {
@@ -39,6 +39,6 @@ export class MailService {
       html: `<div>
       <p>Your password has been successfully reset</p>
       </div>`,
-    });
+    })
   }
 }

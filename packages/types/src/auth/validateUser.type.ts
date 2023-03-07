@@ -1,4 +1,4 @@
 export type ValidateUserDTO = {
-    sub: string;
-    username: string;
+  sub: string
+  username: string
 }

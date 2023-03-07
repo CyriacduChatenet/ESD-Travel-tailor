@@ -1,9 +1,9 @@
 export type ErrorResponse = {
-    statusCode: number;
-    message: string;
+  statusCode: number
+  message: string
 }
 
 export type SuccessResponse = {
-    statusCode: number;
-    data: Object;
+  statusCode: number
+  data: Object
 }

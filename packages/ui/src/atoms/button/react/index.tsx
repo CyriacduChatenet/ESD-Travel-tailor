@@ -1,13 +1,11 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import styles from './style.module.scss';
+import styles from './style.module.scss'
 
 interface IProps {
-    label: string;
+  label: string
 }
 
-export const WebButton: FC<IProps> = ({label}) => {
-    return (
-        <button className={styles.button}>{label}</button>
-    );
-};
+export const WebButton: FC<IProps> = ({ label }) => {
+  return <button className={styles.button}>{label}</button>
+}

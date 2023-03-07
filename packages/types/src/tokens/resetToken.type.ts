@@ -1,4 +1,4 @@
 export type ResetPasswordToken = {
-    id?: string;
-    token: string;
-};
+  id?: string
+  token: string
+}

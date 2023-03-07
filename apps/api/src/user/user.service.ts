@@ -3,23 +3,23 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
+} from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { DeleteResult, Repository } from 'typeorm'
 
-import { SignupUserInputDTO } from './dto/signup-user.dto';
-import { User } from './entities/user.entity';
+import { SignupUserInputDTO } from './dto/signup-user.dto'
+import { User } from './entities/user.entity'
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(User) private userRepository: Repository<User>
   ) {}
   async create(signupUserDto: SignupUserInputDTO): Promise<User> {
     try {
-      return await this.userRepository.save(signupUserDto);
+      return await this.userRepository.save(signupUserDto)
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(error)
     }
   }
 
@@ -31,9 +31,9 @@ export class UserService {
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .orderBy('user.createdAt', 'DESC')
-        .getMany();
+        .getMany()
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException(error)
     }
   }
 
@@ -45,25 +45,25 @@ export class UserService {
         .leftJoinAndSelect('user.traveler', 'traveler')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
-        .getOne();
+        .getOne()
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException(error)
     }
   }
 
   async update(id: string, signupUserDto: any) {
     try {
-      return await this.userRepository.update(id, signupUserDto);
+      return await this.userRepository.update(id, signupUserDto)
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(error)
     }
   }
 
   async remove(id: string): Promise<DeleteResult> {
     try {
-      return await this.userRepository.softDelete(id);
+      return await this.userRepository.softDelete(id)
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException(error)
     }
   }
 }

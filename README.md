@@ -13,6 +13,7 @@
 [![vercel](https://img.shields.io/badge/Vercel-323330?style=for-the-badge&logo=vercel&logoColor=FFF)](https://vercel.com/)
 [![vite](https://img.shields.io/badge/Vite-B04EFD?style=for-the-badge&logo=vite&logoColor=FFFFFF)](https://vitejs.dev/)
 [![pnpm](https://img.shields.io/badge/PNPM-F69220?style=for-the-badge&logo=pnpm&logoColor=white)](https://pnpm.io/fr/)
+[![Prettier](https://img.shields.io/badge/Prettier-1B2B34?style=for-the-badge&logo=prettier&logoColor=white)](https://prettier.io/)
 [![style-dictionary](https://img.shields.io/badge/Style_dictionary-3FC5C0?style=for-the-badge&logo=style_dictionary&logoColor=white)](https://amzn.github.io/style-dictionary/#/)
 
 <br/>

@@ -1,8 +1,8 @@
 export type ResetPasswordDTO = {
-    password: string;
+  password: string
 }
 
 export type ResetPasswordServiceDTO = {
-    password: string;
-    token: string;
+  password: string
+  token: string
 }
