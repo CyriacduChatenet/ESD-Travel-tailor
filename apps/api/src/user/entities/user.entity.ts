@@ -33,21 +33,15 @@ export class User extends Timestamp {
   })
   roles: Role;
 
-  @OneToOne(() => Advertiser, {
-    cascade: true,
-  })
+  @OneToOne(() => Advertiser)
   @JoinColumn()
   advertiser: Advertiser;
 
-  @OneToOne(() => Traveler, {
-    cascade: true,
-  })
+  @OneToOne(() => Traveler)
   @JoinColumn()
   traveler: Traveler;
 
-  @OneToOne(() => ResetPasswordToken, {
-    cascade: true,
-  })
+  @OneToOne(() => ResetPasswordToken)
   @JoinColumn()
   resetPasswordToken: ResetPasswordToken;
 }

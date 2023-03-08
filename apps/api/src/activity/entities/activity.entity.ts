@@ -28,15 +28,11 @@ export class Activity extends Timestamp {
   @ManyToOne(() => Travel, (travel) => travel.activities)
   travel: Travel;
 
-  @OneToOne(() => ActivityDetail, (activityDetail) => activityDetail.activity, {
-    cascade: true,
-  })
+  @OneToOne(() => ActivityDetail, (activityDetail) => activityDetail.activity)
   @JoinColumn()
   activityDetail: ActivityDetail;
 
-  @OneToOne(() => ActivityImage, (activityImage) => activityImage.activity, {
-    cascade: true,
-  })
+  @OneToOne(() => ActivityImage, (activityImage) => activityImage.activity)
   @JoinColumn()
   activityImage: ActivityImage;
 

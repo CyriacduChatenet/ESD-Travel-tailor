@@ -21,9 +21,8 @@ export class Advertiser extends Timestamp {
 
   @Column()
   location: string;
-
-  @OneToOne(() => User, (user) => user.advertiser)
-  @JoinColumn()
+  
+  @OneToOne(() => User, user => user.advertiser)
   user: User;
 
   @OneToMany(() => Advert, (advert) => advert.advertiser)

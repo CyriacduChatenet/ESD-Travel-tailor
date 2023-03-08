@@ -14,7 +14,12 @@ const updateTraveler = (api_url: string, credentials: UpdateTravelerDTO) => {
   )
 }
 
+const getTravelerInfo = async (api_url: string, travelerId: string) => {
+  return await useFetch.get(`${api_url}/traveler/${travelerId}`);
+};
+
 export const TravelerService = {
   createTraveler,
   updateTraveler,
+  getTravelerInfo,
 }
