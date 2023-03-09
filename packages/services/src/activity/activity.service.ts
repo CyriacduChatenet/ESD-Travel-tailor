@@ -1,5 +1,6 @@
 import { useFetch } from "@travel-tailor/hooks";
-import { CreateActivityDTO } from "@travel-tailor/types";
+import { CreateActivityDTO, UpdateActivityDTO } from "@travel-tailor/types";
+
 import { TokenService } from "../tokens/token.service";
 
 const findAllActivities = async (api_url: string) => {
@@ -14,7 +15,7 @@ const createActivity = async (api_url: string, credentials: CreateActivityDTO) =
     return await useFetch.post(`${api_url}/activity`, credentials);
 };
 
-const updateActivity = async (api_url: string, id: string, credentials: CreateActivityDTO) => {
+const updateActivity = async (api_url: string, id: string, credentials: UpdateActivityDTO) => {
     return await useFetch.protectedPatch(`${api_url}/activity/${id}`, credentials, `${TokenService.getAccessToken()}`);
 };
 
