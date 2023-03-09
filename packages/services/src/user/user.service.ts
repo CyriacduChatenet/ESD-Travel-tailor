@@ -29,7 +29,7 @@ const getUserInfo = async (api_url: string) => {
   }
 
   if(user.roles === ROLES.ADVERTISER) {
-    const advertiser = await AdvertiserService.getAdvertiserInfo(api_url, user.advertiser.id);
+    const advertiser = await AdvertiserService.findAdvertiserById(api_url, user.advertiser.id);
     return { ...user, ...advertiser }
   }
 };
