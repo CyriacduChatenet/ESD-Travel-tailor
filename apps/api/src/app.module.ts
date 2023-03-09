@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AdvertiserModule } from './user/advertiser/advertiser.module';
-import { AdvertModule } from './user/advertiser/advert/advert.module';
 import { TravelerModule } from './user/traveler/traveler.module';
 import { ResetPasswordTokenModule } from './auth/reset-password-token/reset-password-token.module';
 import { MailModule } from './mail/mail.module';
@@ -37,7 +36,6 @@ import { ActivityClosingDayModule } from './activity/activity-detail/activity-cl
     AuthModule,
     UserModule,
     AdvertiserModule,
-    AdvertModule,
     TravelerModule,
     ResetPasswordTokenModule,
     MailModule,

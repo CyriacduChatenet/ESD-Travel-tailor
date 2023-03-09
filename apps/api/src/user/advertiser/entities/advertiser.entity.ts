@@ -1,15 +1,14 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Advert } from '../advert/entities/advert.entity';
 import { User } from '../../entities/user.entity';
 import { Timestamp } from '../../../utils/timestamp.util';
+import { Activity } from 'src/activity/entities/activity.entity';
 
 @Entity()
 export class Advertiser extends Timestamp {
@@ -25,6 +24,6 @@ export class Advertiser extends Timestamp {
   @OneToOne(() => User, user => user.advertiser)
   user: User;
 
-  @OneToMany(() => Advert, (advert) => advert.advertiser)
-  adverts: Advert[];
+  @OneToMany(() => Activity, (activity) => activity.advertiser)
+  activities: Activity[];
 }

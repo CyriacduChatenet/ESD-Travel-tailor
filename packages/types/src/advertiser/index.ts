@@ -1,4 +1,4 @@
-import { Advert } from '../advert'
+import { Activity } from '../activity'
 import { User } from '../user'
 
 export type Advertiser = {
@@ -6,7 +6,7 @@ export type Advertiser = {
   name: string
   location: string
   user?: User
-  adverts?: Advert[]
+  activities?: Activity[]
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -16,12 +16,12 @@ export type CreateAdvertiserDTO = {
   name: string
   location: string
   user?: string
-  adverts?: Advert[]
+  activities?: Activity[]
 }
 
 export type UpdateAdvertiserDTO = {
   name: string
   location: string
   user: string[]
-  adverts: string[]
+  activities: string[]
 }

@@ -29,7 +29,7 @@ export class AdvertiserService {
     try {
       return await this.advertiserRepository
         .createQueryBuilder('advertiser')
-        .leftJoinAndSelect('advertiser.adverts', 'adverts')
+        .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
         .orderBy('advertiser.createdAt', 'DESC')
         .getMany();
@@ -43,7 +43,7 @@ export class AdvertiserService {
       return await this.advertiserRepository
         .createQueryBuilder('advertiser')
         .where('advertiser.id = :id', { id })
-        .leftJoinAndSelect('advertiser.adverts', 'adverts')
+        .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
         .getOne();
     } catch (error) {

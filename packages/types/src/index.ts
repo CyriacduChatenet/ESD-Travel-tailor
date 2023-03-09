@@ -10,7 +10,6 @@ export type { ValidateUserDTO } from './auth/validateUser.type'
 export type { AccessToken, AccessTokenPayload } from './tokens/accessToken.type'
 export type { ErrorResponse, SuccessResponse } from './responses'
 
-export type { Advert, CreateAdvertDTO, UpdateAdvertDTO } from './advert'
 export type {
   Advertiser,
   CreateAdvertiserDTO,
