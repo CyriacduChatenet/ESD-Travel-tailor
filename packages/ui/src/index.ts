@@ -6,3 +6,4 @@ export { WebForgotPasswordForm } from './organismes/auth/forgotPasswordForm/reac
 export { WebResetPasswordForm } from './organismes/auth/resetPasswordForm/react'
 export { WebCreateAdvertiserForm } from './organismes/advertiser/create-advertiser-form/react'
 export { WebCreateTasteForm } from './organismes/traveler/create-taste-form/react'
+export { WebCreateActivityForm } from './organismes/advertiser/activity/create-activity-form'

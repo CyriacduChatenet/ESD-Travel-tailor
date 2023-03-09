@@ -29,15 +29,15 @@ const AdvertiserDashboard: NextPage = () => {
         <button onClick={() => AuthService.logout()}>logout</button>
         <br />
         <br />
-        <Link href={`/advertiser/create-advert/${data.id}`}>
-          <button>Create advert</button>
+        <Link href={`/advertiser/create-activity/${data.id}`}>
+          <button>Create activty</button>
         </Link>
       </div>
       <br />
       <p>
         {data.name}, {data.location}
       </p>
-      <h2>Adverts</h2>
+      <h2>Activities</h2>
     </Layout>
   )
 }
