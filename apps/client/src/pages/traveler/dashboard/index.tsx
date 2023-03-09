@@ -1,10 +1,10 @@
-import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import { UserService } from '@travel-tailor/services';
-import { useProtectedRoute } from '@travel-tailor/hooks';
+import { NextPage } from 'next'
+import { useEffect, useState } from 'react'
+import { AuthService, UserService } from '@travel-tailor/services'
+import { useProtectedRoute } from '@travel-tailor/hooks'
 
 import { Layout } from '@/layout'
-import { authUtil } from '@/utils/auth.utils';
+import { authUtil } from '@/utils/auth.utils'
 
 const TravelerDashboard: NextPage = () => {
   const [data, setData] = useState<any>({})
@@ -15,7 +15,7 @@ const TravelerDashboard: NextPage = () => {
     setData(response)
   }
 
-  useProtectedRoute(authUtil);
+  useProtectedRoute(authUtil)
 
   useEffect(() => {
     getData()
@@ -23,6 +23,8 @@ const TravelerDashboard: NextPage = () => {
   return (
     <Layout>
       <h1>Traveler Dashboard</h1>
+      <button onClick={() => AuthService.logout()}>logout</button>
+      <br />
       <br />
       <h2>Travels</h2>
     </Layout>

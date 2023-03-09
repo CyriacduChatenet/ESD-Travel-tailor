@@ -10,6 +10,7 @@
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
     "jwt-decode": "^3.1.2",
+    "next": "13.2.3",
     "prettier": "^2.8.4"
   },
   "prettier": "@travel-tailor/tools/prettier.config.js"

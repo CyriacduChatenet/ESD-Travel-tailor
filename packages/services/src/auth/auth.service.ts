@@ -24,6 +24,7 @@ const signup = async (api_url: string, signupCredentials: SignupDTO) => {
 
 const logout = () => {
   TokenService.removeAccessToken()
+  location.pathname = '/signin'
 }
 
 const forgotPassword = async (

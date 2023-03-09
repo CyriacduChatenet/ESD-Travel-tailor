@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { UserService } from '@travel-tailor/services'
+import { AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 
 import { Layout } from '@/layout'
@@ -26,6 +26,9 @@ const AdvertiserDashboard: NextPage = () => {
       <h1>Advertiser Dashboard</h1>
       <br />
       <div>
+        <button onClick={() => AuthService.logout()}>logout</button>
+        <br />
+        <br />
         <Link href={`/advertiser/create-advert/${data.id}`}>
           <button>Create advert</button>
         </Link>
