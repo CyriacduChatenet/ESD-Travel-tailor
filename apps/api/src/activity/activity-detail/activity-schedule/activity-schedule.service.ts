@@ -32,7 +32,7 @@ export class ActivityScheduleService {
     try {
       return await this.activityScheduleRepository
         .createQueryBuilder('activitySchedule')
-        .leftJoinAndSelect('activitySchedule.activities', 'activities')
+        .leftJoinAndSelect('activitySchedule.activityDetail', 'activityDetail')
         .orderBy('activitySchedule.opening_at', 'ASC')
         .getMany();
     } catch (error) {
@@ -44,7 +44,7 @@ export class ActivityScheduleService {
     try {
       return await this.activityScheduleRepository
         .createQueryBuilder('activitySchedule')
-        .leftJoinAndSelect('activitySchedule.activities', 'activities')
+        .leftJoinAndSelect('activitySchedule.activityDetail', 'activityDetail')
         .where('activitySchedule.id = :id', { id })
         .getOne();
     } catch (error) {

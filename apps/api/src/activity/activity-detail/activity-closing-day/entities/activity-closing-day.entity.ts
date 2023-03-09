@@ -20,9 +20,6 @@ export class ActivityClosingDay extends Timestamp {
   @Column()
   recurrence: boolean;
 
-  @ManyToOne(
-    () => ActivityDetail,
-    (ActivityDetail) => ActivityDetail.closingDays,
-  )
-  activity: ActivityDetail;
+  @ManyToOne(() => ActivityDetail, activityDetail => activityDetail.closingDays)
+  activityDetail: ActivityDetail;
 }

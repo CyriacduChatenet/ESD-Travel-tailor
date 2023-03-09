@@ -1,6 +1,6 @@
 import { Activity } from '../../../activity/entities/activity.entity';
 import { Timestamp } from '../../../utils/timestamp.util';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class ActivityImage extends Timestamp {
@@ -10,6 +10,7 @@ export class ActivityImage extends Timestamp {
   @Column()
   source: string;
 
-  @OneToOne(() => Activity, (activity) => activity.activityImage)
+  @OneToOne(() => Activity, activity => activity.activityImage)
+  @JoinColumn()
   activity: Activity;
 }

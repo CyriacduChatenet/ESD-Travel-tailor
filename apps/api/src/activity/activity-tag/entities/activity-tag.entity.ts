@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Timestamp } from '../../../utils/timestamp.util';
 import { Activity } from '../../../activity/entities/activity.entity';
@@ -11,6 +11,8 @@ export class ActivityTag extends Timestamp {
   @Column()
   name: string;
 
-  @ManyToMany(() => Activity, (activity) => activity.tags)
+  @ManyToMany(() => Activity, activity => activity.activityTags)
   activities: Activity[];
+
+
 }

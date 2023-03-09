@@ -27,7 +27,7 @@ export class ActivityClosingDayService {
     try {
       return await this.activityClosingDayRepository
         .createQueryBuilder('activityClosingDay')
-        .leftJoinAndSelect('activityClosingDay.activity', 'activity')
+        .leftJoinAndSelect('activityClosingDay.activityDetail', 'activityDetail')
         .orderBy('activityClosingDay.day', 'ASC')
         .getMany();
     } catch (error) {

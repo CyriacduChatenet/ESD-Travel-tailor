@@ -2,7 +2,7 @@ import { Activity } from '../../../activity/entities/activity.entity';
 import {
   Column,
   Entity,
-  ManyToOne,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -23,18 +23,14 @@ export class ActivityDetail extends Timestamp {
   @Column()
   location: string;
 
-  @OneToOne(() => Activity, (activity) => activity.activityDetail)
+  @OneToOne(() => Activity, activity => activity.activityDetail)
+  @JoinColumn()
   activity: Activity;
 
-  @ManyToOne(
-    () => ActivitySchedule,
-    (ActivitySchedule) => ActivitySchedule.activities,
-  )
-  schedule: ActivitySchedule;
+  @OneToMany(() => ActivitySchedule, schedule => schedule.activityDetail, { cascade: true })
+  schedules: ActivitySchedule[];
 
-  @OneToMany(
-    () => ActivityClosingDay,
-    (activityClosingDays) => activityClosingDays,
-  )
+  @OneToMany(() => ActivityClosingDay, closingDays => closingDays.activityDetail, { cascade: true })
   closingDays: ActivityClosingDay[];
+
 }

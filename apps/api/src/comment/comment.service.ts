@@ -28,7 +28,7 @@ export class CommentService {
       return await this.commentRepository
         .createQueryBuilder('comment')
         .leftJoinAndSelect('comment.traveler', 'traveler')
-        .leftJoinAndSelect('comment.activity', 'traveler')
+        .leftJoinAndSelect('comment.activity', 'activity')
         .orderBy('comment.createdAt', 'DESC')
         .getMany()
     } catch (error) {

@@ -1,7 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Timestamp } from '../../../../utils/timestamp.util';
-import { Activity } from '../../../../activity/entities/activity.entity';
+import { ActivityDetail } from '../../entities/activity-detail.entity';
 
 @Entity()
 export class ActivitySchedule extends Timestamp {
@@ -14,6 +14,6 @@ export class ActivitySchedule extends Timestamp {
   @Column()
   closing_at: string;
 
-  @OneToMany(() => Activity, (activities) => activities)
-  activities: Activity[];
+  @ManyToOne(() => ActivityDetail, activityDetail => activityDetail.schedules)
+  activityDetail: ActivityDetail;
 }

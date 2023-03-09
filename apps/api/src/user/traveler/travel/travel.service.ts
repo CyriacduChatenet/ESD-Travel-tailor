@@ -29,7 +29,7 @@ export class TravelService {
       return await this.travelRepository
         .createQueryBuilder('travel')
         .leftJoinAndSelect('travel.traveler', 'traveler')
-        .leftJoinAndSelect('travel.activities', 'traveler')
+        .leftJoinAndSelect('travel.activities', 'activities')
         .orderBy('travel.createdAt', 'DESC')
         .getMany();
     } catch (error) {
@@ -43,7 +43,7 @@ export class TravelService {
         .createQueryBuilder('travel')
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
-        .leftJoinAndSelect('travel.activities', 'traveler')
+        .leftJoinAndSelect('travel.activities', 'activities')
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);

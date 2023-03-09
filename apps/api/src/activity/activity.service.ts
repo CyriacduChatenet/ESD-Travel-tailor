@@ -28,11 +28,11 @@ export class ActivityService {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.travel', 'travel')
-        .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.activityDetails', 'activityDetails')
+        .leftJoinAndSelect('activity.activityDetail', 'activityDetail')
         .leftJoinAndSelect('activity.activityImage', 'activityImage')
         .leftJoinAndSelect('activity.activityTags', 'activityTags')
+        .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('activity.travels', 'travels')
         .orderBy('activity.createdAt', 'DESC')
         .getMany()
     } catch (error) {
@@ -44,11 +44,11 @@ export class ActivityService {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.travel', 'travel')
-        .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.activityDetails', 'activityDetails')
+        .leftJoinAndSelect('activity.activityDetail', 'activityDetail')
         .leftJoinAndSelect('activity.activityImage', 'activityImage')
         .leftJoinAndSelect('activity.activityTags', 'activityTags')
+        .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('activity.travels', 'travels')
         .where('activity.id = :id', { id })
         .getOne()
     } catch (error) {
