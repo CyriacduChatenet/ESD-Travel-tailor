@@ -17,10 +17,10 @@ const createAdvert = async (api_url: string, credentials: CreateAdvertDTO, adver
 };
 
 const createAdvertLinkWithAdvertiser = async (api_url: string, credentials: CreateAdvertDTO, advertiserId: string) => {
-    const advert = createAdvert(api_url, credentials, advertiserId) as any;
-    const advertiser = AdvertiserService.findAdvertiserById(api_url, advertiserId) as any;
+    const advert = createAdvert(`${api_url}/advert`, credentials, advertiserId) as any;
+    const advertiser = AdvertiserService.findAdvertiserById(`${api_url}/advertiser`, advertiserId) as any;
     return await AdvertiserService.updateAdvertiser(
-        api_url, advertiserId, { ...advertiser, adverts: [...advertiser.adverts, advert.id] }, String(TokenService.getAccessToken()));
+        `${api_url}/advertiser`, advertiserId, { ...advertiser, adverts: [...advertiser.adverts, advert.id] }, String(TokenService.getAccessToken()));
 };
 
 const updateAdvert = async (api_url: string, id: string, credentials: UpdateAdvertDTO) => {
