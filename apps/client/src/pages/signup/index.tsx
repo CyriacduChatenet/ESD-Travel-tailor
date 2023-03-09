@@ -1,12 +1,10 @@
 import { NextPage } from 'next';
-import { useProtectedRoute } from '@travel-tailor/hooks';
 import Link from 'next/link';
 
 import { Layout } from '@/layout';
 import { WebSignupForm } from '@travel-tailor/ui';
 
 const SignupPage: NextPage = () => {
-  useProtectedRoute();
   return (
     <Layout>
       <h1>Signup</h1>

@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
-import { ROUTES } from '@travel-tailor/constants'
+import { useEffect } from 'react';
+import { ROUTES } from '@travel-tailor/constants';
 
-export const useProtectedRoute = () => {
-  const isAuth = true
+export const useProtectedRoute = (token:  string | boolean) => {
+  const isAuth = token
 
   useEffect(() => {
     if (!isAuth) {
