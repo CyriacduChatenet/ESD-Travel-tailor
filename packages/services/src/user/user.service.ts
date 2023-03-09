@@ -24,7 +24,7 @@ const getUserInfo = async (api_url: string) => {
   const user = await getUserByToken(api_url, decodedToken.email);
 
   if(user.roles === ROLES.TRAVELER) {
-    const traveler = await TravelerService.getTravelerInfo(api_url, user.traveler.id);
+    const traveler = await TravelerService.findTravelerById(api_url, user.traveler.id);
     return { ...user, ...traveler }
   }
 
