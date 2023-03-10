@@ -10,7 +10,7 @@ export type Activity = {
   activityDetail?: ActivityDetail
   image?: ActivityImage
   tags?: ActivityTag[]
-  advertiserId? : string;
+  advertiser : string;
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -19,17 +19,17 @@ export type Activity = {
 export type CreateActivityDTO = {
   name: string
   mark: number
-  activityDetail?: CreateActivityDetailDTO
-  advertiserId? : string
-  activityImage?: CreateActivityImageDTO
-  activityTags?: CreateActivityTagDTO[]
+  detail?: CreateActivityDetailDTO
+  advertiser : string
+  image?: CreateActivityImageDTO
+  tags?: CreateActivityTagDTO[]
 }
 
 export type UpdateActivityDTO = {
   name: string
   mark: number
-  activityDetail?: UpdateActivityDetailDTO
-  advertiserId? : string;
-  mage?: UpdateActivityImageDTO
+  detail?: UpdateActivityDetailDTO
+  advertiser : string;
+  image?: UpdateActivityImageDTO
   tags?: UpdateActivityTagDTO[]
 }

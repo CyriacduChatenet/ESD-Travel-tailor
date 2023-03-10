@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
+import { Activity } from '@travel-tailor/types'
 
 import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
@@ -38,6 +39,10 @@ const AdvertiserDashboard: NextPage = () => {
         {data.name}, {data.location}
       </p>
       <h2>Activities</h2>
+      {data.activities?.map((activity: Activity) => <div key={activity.id}>
+        <p>{activity.name}</p>
+        <p>{activity.mark}/10</p>
+      </div>)}
     </Layout>
   )
 }
