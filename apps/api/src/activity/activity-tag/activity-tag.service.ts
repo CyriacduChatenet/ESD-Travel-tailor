@@ -40,12 +40,12 @@ export class ActivityTagService {
     }
   }
 
-  findOne(id: string) {
+  findOne(name: string) {
     try {
       return this.activityTagRepository
         .createQueryBuilder('activityTag')
         .leftJoinAndSelect('activityTag.activities', 'activities')
-        .where('activityTag.id = :id', { id })
+        .where('activityTag.name = :name', { name })
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);

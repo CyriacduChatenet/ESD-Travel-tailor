@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { ActivityTagService } from './activity-tag/activity-tag.service'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
@@ -14,11 +15,13 @@ import { Activity } from './entities/activity.entity'
 export class ActivityService {
   constructor(
     @InjectRepository(Activity)
-    private activityRepository: Repository<Activity>
+    private activityRepository: Repository<Activity>,
+    private activityTagService: ActivityTagService,
   ) {}
   async create(createActivityDto: CreateActivityDto) {
     try {
-      return await this.activityRepository.save(createActivityDto)
+      const activity = this.activityRepository.create(createActivityDto)
+      return this.activityRepository.save(activity)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -28,9 +31,8 @@ export class ActivityService {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.activityDetail', 'activityDetail')
-        .leftJoinAndSelect('activity.activityImage', 'activityImage')
-        .leftJoinAndSelect('activity.activityTags', 'activityTags')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
@@ -45,9 +47,8 @@ export class ActivityService {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.activityDetail', 'activityDetail')
-        .leftJoinAndSelect('activity.activityImage', 'activityImage')
-        .leftJoinAndSelect('activity.activityTags', 'activityTags')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')

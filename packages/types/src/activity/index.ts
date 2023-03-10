@@ -1,6 +1,6 @@
-import { ActivityDetail } from '../activityDetail'
-import { ActivityImage } from '../activityImage'
-import { ActivityTag } from '../activityTag'
+import { ActivityDetail, CreateActivityDetailDTO, UpdateActivityDetailDTO } from '../activityDetail'
+import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from '../activityImage'
+import { ActivityTag, CreateActivityTagDTO, UpdateActivityTagDTO } from '../activityTag'
 import { Advertiser } from '../advertiser'
 
 export type Activity = {
@@ -19,17 +19,17 @@ export type Activity = {
 export type CreateActivityDTO = {
   name: string
   mark: number
-  activityDetail?: ActivityDetail
+  activityDetail?: CreateActivityDetailDTO
   advertiserId? : string
-  image?: ActivityImage
-  tags?: ActivityTag[]
+  activityImage?: CreateActivityImageDTO
+  activityTags?: CreateActivityTagDTO[]
 }
 
 export type UpdateActivityDTO = {
   name: string
   mark: number
-  activityDetail?: ActivityDetail
+  activityDetail?: UpdateActivityDetailDTO
   advertiserId? : string;
-  mage?: ActivityImage
-  tags?: ActivityTag[]
+  mage?: UpdateActivityImageDTO
+  tags?: UpdateActivityTagDTO[]
 }

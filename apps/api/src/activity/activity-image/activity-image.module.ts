@@ -9,5 +9,6 @@ import { ActivityImage } from './entities/activity-image.entity';
   imports: [TypeOrmModule.forFeature([ActivityImage])],
   controllers: [ActivityImageController],
   providers: [ActivityImageService],
+  exports: [ActivityImageService]
 })
 export class ActivityImageModule {}

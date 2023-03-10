@@ -30,9 +30,9 @@ export class ActivityTagController {
     return this.activityTagService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.activityTagService.findOne(id);
+  @Get(':name')
+  findOne(@Param('name') name: string) {
+    return this.activityTagService.findOne(name);
   }
 
   @Patch(':id')

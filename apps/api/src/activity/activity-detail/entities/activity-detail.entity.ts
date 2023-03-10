@@ -23,8 +23,7 @@ export class ActivityDetail extends Timestamp {
   @Column()
   location: string;
 
-  @OneToOne(() => Activity, activity => activity.activityDetail)
-  @JoinColumn()
+  @OneToOne(() => Activity, (activity) => activity.detail)
   activity: Activity;
 
   @OneToMany(() => ActivitySchedule, schedule => schedule.activityDetail, { cascade: true })

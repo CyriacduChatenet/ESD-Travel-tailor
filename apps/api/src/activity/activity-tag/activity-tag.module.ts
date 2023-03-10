@@ -9,5 +9,6 @@ import { ActivityTag } from './entities/activity-tag.entity';
   imports: [TypeOrmModule.forFeature([ActivityTag])],
   controllers: [ActivityTagController],
   providers: [ActivityTagService],
+  exports: [ActivityTagService],
 })
 export class ActivityTagModule {}

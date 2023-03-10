@@ -10,7 +10,6 @@ export class ActivityImage extends Timestamp {
   @Column()
   source: string;
 
-  @OneToOne(() => Activity, activity => activity.activityImage)
-  @JoinColumn()
+  @OneToOne(() => Activity, (activity) => activity.image)
   activity: Activity;
 }

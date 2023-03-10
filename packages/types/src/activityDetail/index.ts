@@ -3,7 +3,7 @@ import { ActivitySchedule } from '../activitySchedule'
 
 export type ActivityDetail = {
   id: string
-  duration: number
+  duration: string
   location: string
   activity?: Activity
   schedule?: ActivitySchedule

@@ -9,5 +9,6 @@ import { ActivityDetail } from './entities/activity-detail.entity';
   imports: [TypeOrmModule.forFeature([ActivityDetail])],
   controllers: [ActivityDetailController],
   providers: [ActivityDetailService],
+  exports: [ActivityDetailService]
 })
 export class ActivityDetailModule {}
