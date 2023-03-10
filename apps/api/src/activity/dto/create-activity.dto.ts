@@ -1,13 +1,10 @@
-import {
-  CreateActivityDetailDTO,
-  CreateActivityImageDTO,
-  CreateActivityTagDTO,
-  CreateActivityDTO,
-} from '@travel-tailor/types'
+import { CreateActivityDetailDto } from "../activity-detail/dto/create-activity-detail.dto"
+import { CreateActivityImageDto } from "../activity-image/dto/create-activity-image.dto"
 
-export class CreateActivityDto implements CreateActivityDTO {
+
+export class CreateActivityDto {
   name: string
   mark: number
-  detail: CreateActivityDetailDTO
-  image: CreateActivityImageDTO
+  detail: CreateActivityDetailDto
+  image: CreateActivityImageDto
 }

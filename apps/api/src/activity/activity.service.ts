@@ -16,7 +16,7 @@ export class ActivityService {
   constructor(
     @InjectRepository(Activity)
     private activityRepository: Repository<Activity>,
-    private activityTagService: ActivityTagService,
+    private activityTagService: ActivityTagService
   ) {}
   async create(createActivityDto: CreateActivityDto) {
     try {

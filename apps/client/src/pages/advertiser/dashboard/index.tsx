@@ -1,12 +1,13 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { AuthService, UserService } from '@travel-tailor/services'
+import { ActivityService, AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 import { Activity } from '@travel-tailor/types'
 
 import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
+import { WebActivityCard } from '@travel-tailor/ui'
 
 const AdvertiserDashboard: NextPage = () => {
   const [data, setData] = useState<any>({})
@@ -19,9 +20,15 @@ const AdvertiserDashboard: NextPage = () => {
 
   useProtectedRoute(authUtil);
 
+  const handleDelete = (id: string) => {
+    ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`,id);
+    data.activities.filter((activity: Activity) => activity.id !== id);
+  };
+
   useEffect(() => {
     getData()
-  }, [])
+  }, []);
+
   return (
     <Layout>
       <h1>Advertiser Dashboard</h1>
@@ -38,11 +45,11 @@ const AdvertiserDashboard: NextPage = () => {
       <p>
         {data.name}, {data.location}
       </p>
+      <br />
       <h2>Activities</h2>
-      {data.activities?.map((activity: Activity) => <div key={activity.id}>
-        <p>{activity.name}</p>
-        <p>{activity.mark}/10</p>
-      </div>)}
+      <br />
+      <br />
+      {data.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={handleDelete} />)}
     </Layout>
   )
 }
