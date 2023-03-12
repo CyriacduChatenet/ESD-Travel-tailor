@@ -23,12 +23,12 @@ const getUserInfo = async (api_url: string) => {
   const decodedToken = jwtDecode(String(token)) as any;
   const user = await getUserByToken(api_url, decodedToken.email);
 
-  if(user.roles === ROLES.TRAVELER) {
+  if(await user.roles === ROLES.TRAVELER) {
     const traveler = await TravelerService.findTravelerById(api_url, user.traveler.id);
     return { ...user, ...traveler }
   }
 
-  if(user.roles === ROLES.ADVERTISER) {
+  if(await user.roles === ROLES.ADVERTISER) {
     const advertiser = await AdvertiserService.findAdvertiserById(api_url, user.advertiser.id);
     return { ...user, ...advertiser }
   }

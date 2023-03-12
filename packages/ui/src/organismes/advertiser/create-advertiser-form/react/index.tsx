@@ -27,10 +27,10 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const advertiser = await AdvertiserService.createAdvertiser(
-      `${api_url}/adertiser`,
+      `${api_url}/advertiser`,
       credentials
     )
-    await UserService.updateUser(String(userId), { advertiser: advertiser.id })
+    await UserService.updateUser(`${api_url}/user/${String(userId)}`, { advertiser: advertiser.id })
     return router.push(ROUTES.SIGNIN)
   }
 
