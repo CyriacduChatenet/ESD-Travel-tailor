@@ -1,39 +1,16 @@
-export const API_SIGNIN_ROUTE = `http://localhost:8000/api/v1/auth/signin`
-export const API_SIGNUP_ROUTE = `http://localhost:8000/api/v1/auth/signup`
-export const API_FORGOT_PASSWORD_ROUTE = `http://localhost:8000/api/v1/auth/forgot-password`
-export const API_RESET_PASSWORD_ROUTE = `http://localhost:8000/api/v1/auth/reset-password`
+export {
+  API_ADVERTISER_ROUTE,
+  API_TRAVELER_ROUTE,
+  API_TASTE_ROUTE,
+  API_USER_ROUTE,
+  API_SIGNIN_ROUTE,
+  API_SIGNUP_ROUTE,
+  API_FORGOT_PASSWORD_ROUTE,
+  API_RESET_PASSWORD_ROUTE,
+} from './api'
 
-export const API_ADVERTISER_ROUTE = `http://localhost:8000/api/v1/advertiser`
+export { ACCESS_TOKEN, SIGNIN_TOKEN, RESET_TOKEN } from './auth'
 
-export const API_TRAVELER_ROUTE = `http://localhost:8000/api/v1/traveler`
+export { ROUTES } from './client/routes'
 
-export const API_TASTE_ROUTE = `http://localhost:8000/api/v1/taste`
-
-export const API_USER_ROUTE = `http://localhost:8000/api/v1/user`
-
-export const ACCESS_TOKEN = 'accessToken'
-export const SIGNIN_TOKEN = 'signinToken'
-export const RESET_TOKEN = 'resetToken'
-
-export const ROUTES = {
-  SIGNIN: '/signin',
-  TRAVELER: {
-    DASHBOARD: '/traveler/dashboard',
-    TASTE: {
-      CREATE: '/traveler/create-taste',
-    },
-  },
-  ADVERTISER: {
-    DASHBOARD: '/advertiser/dashboard',
-    CREATE_ADVERTISER: '/advertiser/create-advertiser',
-  },
-  ADMIN: {
-    DASHBOARD: '/admin/dashboard',
-  },
-}
-
-export const ROLES = {
-  ADMIN: 'admin',
-  TRAVELER: 'traveler',
-  ADVERTISER: 'advertiser',
-}
+export { ROLES } from './enum/roles';
