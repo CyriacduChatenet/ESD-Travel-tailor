@@ -23,19 +23,20 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
   const router = useRouter()
 
   const handleRedirect = async (user: any) => {
+    if (credentials.roles === ROLES.TRAVELER) {
+      const traveler = await TravelerService.createTraveler(api_url, {
+        user: await user.id,
+      })
+      await UserService.updateUser(api_url, await user.id, { traveler: traveler.id })
+      router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
+    }
+
+    if (credentials.roles === ROLES.ADVERTISER) {
+      router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`)
+    }
+
     if (credentials.roles === ROLES.ADMIN) {
       router.push(ROUTES.SIGNIN)
-    } else if (credentials.roles === ROLES.TRAVELER) {
-      const traveler = await TravelerService.createTraveler(
-        `${api_url}/traveler`,
-        {
-          user: user.id,
-        }
-      )
-      await UserService.updateUser(user.id, { traveler: traveler.id })
-      router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
-    } else if (credentials.roles === ROLES.ADVERTISER) {
-      router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`)
     }
   }
 

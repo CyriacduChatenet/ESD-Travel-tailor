@@ -32,7 +32,7 @@ export const WebCreateTasteForm: FC<IProps> = ({ api_url }) => {
       `${api_url}/taste`,
       credentials
     )
-    await TravelerService.updateTraveler(String(userId), {
+    await TravelerService.updateTraveler(api_url, String(userId), {
       tastes: [`${taste.id}`],
     })
     TokenService.removeSigninToken()

@@ -12,21 +12,21 @@ const findTravelerById = async (api_url: string, travelerId: string) => {
 };
 
 const createTraveler = async (api_url: string, credentials: CreateTravelerDTO) => {
-  return await useFetch.post(api_url, credentials)
+  return await useFetch.post(`${api_url}/traveler`, credentials)
 };
 
-const updateTraveler = async (api_url: string, credentials: UpdateTravelerDTO) => {
+const updateTraveler = async (api_url: string, travelerId: string, credentials: UpdateTravelerDTO) => {
   return await useFetch.protectedPatch(
-    `${api_url}`,
+    `${api_url}/traveler/${travelerId}`,
     credentials,
-    String(TokenService.getSigninToken())
+    String(TokenService.getAccessToken())
   )
 };
 
 const deleteTraveler = async (api_url: string, travelerId: string) => {
   return await useFetch.protectedRemove(
-    `${api_url}/${travelerId}`,
-    String(TokenService.getSigninToken())
+    `${api_url}/traveler/${travelerId}`,
+    String(TokenService.getAccessToken())
   )
 };
 

@@ -30,7 +30,7 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
       `${api_url}/advertiser`,
       credentials
     )
-    await UserService.updateUser(`${api_url}/user/${String(userId)}`, { advertiser: advertiser.id })
+    await UserService.updateUser(`${api_url}/user`, String(userId), { advertiser: advertiser.id })
     return router.push(ROUTES.SIGNIN)
   }
 
