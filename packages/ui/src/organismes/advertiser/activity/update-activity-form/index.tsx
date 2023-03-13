@@ -39,7 +39,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url }) => {
     setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     const sendObject = {
       ...activityCredentials,
@@ -50,8 +50,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url }) => {
         ...activityImageCredentials,
       },
     }
-    console.log(sendObject);
-    ActivityService.updateActivity(api_url, `${router.query.id}`, sendObject)
+    await ActivityService.updateActivity(api_url, `${router.query.id}`, sendObject)
     window.location.pathname = '/advertiser/dashboard'
   }
 

@@ -22,7 +22,8 @@ const AdvertiserDashboard: NextPage = () => {
 
   const handleDelete = (id: string) => {
     ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`,id);
-    data.activities.filter((activity: Activity) => activity.id !== id);
+    const updatedData = { ...data, activities: data.activities.filter((activity: Activity) => activity.id !== id) };
+    setData(updatedData);
   };
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const AdvertiserDashboard: NextPage = () => {
       <h2>Activities</h2>
       <br />
       <br />
-      {data.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={handleDelete} />)}
+      {data.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={() => handleDelete(activity.id)} />)}
     </Layout>
   )
 }

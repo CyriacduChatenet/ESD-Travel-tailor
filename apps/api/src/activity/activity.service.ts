@@ -61,7 +61,25 @@ export class ActivityService {
 
   async update(id: string, updateActivityDto: UpdateActivityDto) {
     try {
-      return this.activityRepository.update(id, updateActivityDto)
+      const activity = await this.activityRepository
+        .createQueryBuilder('activity')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('activity.travels', 'travels')
+        .leftJoinAndSelect('activity.advertiser', 'advertiser')
+        .where('activity.id = :id', { id })
+        .getOne();
+
+        activity.name = updateActivityDto?.name;
+        activity.image.source = updateActivityDto?.image.source;
+        activity.detail.duration = updateActivityDto?.detail.duration;
+        activity.detail.location = updateActivityDto?.detail.location;
+        activity.comments = updateActivityDto?.comments;
+        activity.travels = updateActivityDto?.travels;
+        activity.advertiser = updateActivityDto?.advertiser;
+
+        return this.activityRepository.save(activity);
     } catch (error) {
       throw new UnauthorizedException(error)
     }
