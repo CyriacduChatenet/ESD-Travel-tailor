@@ -11,10 +11,10 @@ export type ActivityTag = {
 
 export type CreateActivityTagDTO = {
   name: string
-  activities?: Activity[]
+  activities?: string[]
 }
 
 export type UpdateActivityTagDTO = {
-  name: string
-  activities?: Activity[]
+  name?: string
+  activities?: any[]
 }

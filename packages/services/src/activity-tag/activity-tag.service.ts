@@ -12,7 +12,7 @@ const findActivityTagById = async (api_url: string, id: string) => {
 };
 
 const createActivityTag = async (api_url: string, credentials: CreateActivityTagDTO) => {
-    return await useFetch.post(`${api_url}/activity-tag`, credentials);
+    return await useFetch.protectedPost(`${api_url}/activity-tag`, credentials, `${TokenService.getAccessToken()}`);
 };
 
 const updateActivityTag = async (api_url: string, id: string, credentials: UpdateActivityTagDTO) => {

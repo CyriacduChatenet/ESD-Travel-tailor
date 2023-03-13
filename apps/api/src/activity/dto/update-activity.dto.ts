@@ -3,6 +3,7 @@ import { Advertiser } from '../../user/advertiser/entities/advertiser.entity';
 import { Travel } from '../../user/traveler/travel/entities/travel.entity';
 import { ActivityDetail } from '../activity-detail/entities/activity-detail.entity';
 import { ActivityImage } from '../activity-image/entities/activity-image.entity';
+import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
 
 export class UpdateActivityDto {
   name: string
@@ -14,4 +15,5 @@ export class UpdateActivityDto {
   comments?: Comment[];
   travels?: Travel[];
   advertiser?: Advertiser;
+  tags?: ActivityTag[];
 }

@@ -16,7 +16,6 @@ export class ActivityService {
   constructor(
     @InjectRepository(Activity)
     private activityRepository: Repository<Activity>,
-    private activityTagService: ActivityTagService
   ) {}
   async create(createActivityDto: CreateActivityDto) {
     try {
@@ -36,6 +35,7 @@ export class ActivityService {
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
+        .leftJoinAndSelect('activity.tags', 'tag')
         .orderBy('activity.createdAt', 'DESC')
         .getMany()
     } catch (error) {
@@ -52,6 +52,7 @@ export class ActivityService {
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
+        .leftJoinAndSelect('activity.tags', 'tag')
         .where('activity.id = :id', { id })
         .getOne()
     } catch (error) {
@@ -68,6 +69,7 @@ export class ActivityService {
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
+        .leftJoinAndSelect('activity.tags', 'tags')
         .where('activity.id = :id', { id })
         .getOne();
 
@@ -78,6 +80,7 @@ export class ActivityService {
         activity.comments = updateActivityDto?.comments;
         activity.travels = updateActivityDto?.travels;
         activity.advertiser = updateActivityDto?.advertiser;
+        activity.tags = updateActivityDto?.tags;
 
         return this.activityRepository.save(activity);
     } catch (error) {

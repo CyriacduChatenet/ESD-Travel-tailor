@@ -1,12 +1,14 @@
-import { ActivityService } from '@travel-tailor/services';
+import { ActivityService, ActivityTagService } from '@travel-tailor/services';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react'
 
 interface IProps {
-  api_url: string
+  api_url: string;
+  tags: any[];
+  setTags: Dispatch<SetStateAction<any[]>>;
 }
 
-export const WebCreateActivityForm: FC<IProps> = ({ api_url }) => {
+export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags }) => {
   const [activityCredentials, setActivityCredentials] = useState<{name: string, mark: number}>({
     name: '',
     mark: 0,
@@ -17,6 +19,10 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url }) => {
   })
   const [activityImageCredentials, setActivityImageCredentials] = useState<{source: string}>({
     source: '',
+  })
+  const [activityTagCredentials, setActivityTagCredentials] = useState<{name: string, activities: any[]}>({
+    name: '',
+    activities: []
   })
 
   const router = useRouter()
@@ -39,6 +45,16 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url }) => {
     setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
   }
 
+  const handleActivityTag = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setActivityTagCredentials({ ...activityTagCredentials, [name]: value })
+  }
+
+  const handleCreateTag = async () => {
+    return setTags([...tags, await ActivityTagService.createActivityTag(api_url, activityTagCredentials)])
+  };
+
   const handleSubmit = (e: any) => {
     e.preventDefault()
     const sendObject = {
@@ -49,10 +65,11 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url }) => {
       image: {
         ...activityImageCredentials,
       },
-      advertiser: `${router.query.id}`
+      advertiser: `${router.query.id}`,
+      tags: [],
     }
     
-    ActivityService.createActivity(api_url, sendObject)
+    ActivityService.createActivityWithTagRelation(api_url, sendObject, tags)
     window.location.pathname = '/advertiser/dashboard'
   }
 
@@ -74,6 +91,16 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url }) => {
         <p>Image source</p>
         <input type="text" name="source" placeholder="Image source" onChange={handleActivityImage} />
       </label>
+      <label htmlFor="">
+        <p>Tags</p>
+        <input type="text" name="name" placeholder="tag name" onChange={handleActivityTag} />
+        <button onClick={(e: any) => {
+          e.preventDefault();
+          handleCreateTag();
+          }}>Create tag</button>
+      </label>
+      <br />
+      <br />
       <input type="submit" value="Create activity" />
     </form>
   )

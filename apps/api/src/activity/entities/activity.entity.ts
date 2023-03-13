@@ -49,4 +49,8 @@ export class Activity extends Timestamp {
 
   @ManyToOne(() => Advertiser, (advertiser) => advertiser.activities)
   advertiser: Advertiser;
+
+  @ManyToMany(() => ActivityTag)
+  @JoinTable()
+  tags: ActivityTag[]
 }
