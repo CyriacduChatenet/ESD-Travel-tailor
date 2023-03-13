@@ -7,7 +7,7 @@ const findAllTravelers = async (api_url: string) => {
   return await useFetch.get(`${api_url}/traveler`);
 };
 
-const findTravelerById = async (api_url: string, travelerId: string) => {
+const findTravelerById = async (api_url: string | undefined, travelerId: string) => {
   return await useFetch.get(`${api_url}/traveler/${travelerId}`);
 };
 
@@ -19,7 +19,7 @@ const updateTraveler = async (api_url: string, travelerId: string, credentials: 
   return await useFetch.protectedPatch(
     `${api_url}/traveler/${travelerId}`,
     credentials,
-    String(TokenService.getAccessToken())
+    `${TokenService.getAccessToken() ? TokenService.getAccessToken() : TokenService.getSigninToken()}`
   )
 };
 

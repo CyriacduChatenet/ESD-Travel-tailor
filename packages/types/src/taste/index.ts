@@ -11,7 +11,7 @@ export type Taste = {
 
 export type CreateTasteDTO = {
   name: string
-  traveler?: Traveler
+  traveler?: string
 }
 
 export type UpdateTasteDTO = {

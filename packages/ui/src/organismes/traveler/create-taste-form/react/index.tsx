@@ -1,25 +1,15 @@
-import { ROUTES, SIGNIN_TOKEN } from '@travel-tailor/constants'
-import {
-  TasteService,
-  TokenService,
-  TravelerService,
-} from '@travel-tailor/services'
-import { CreateTasteDTO } from '@travel-tailor/types'
-import { useRouter } from 'next/router'
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from 'react'
 
 interface IProps {
-  api_url: string
+  setTastes: Dispatch<SetStateAction<any[]>>
+  tastes: { name: string, traveler: string }[];
 }
 
-export const WebCreateTasteForm: FC<IProps> = ({ api_url }) => {
-  const router = useRouter()
+export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
 
-  const userId = router.query.id
-
-  const [credentials, setCredentials] = useState<CreateTasteDTO>({
+  const [credentials, setCredentials] = useState({
     name: '',
-  })
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -27,16 +17,8 @@ export const WebCreateTasteForm: FC<IProps> = ({ api_url }) => {
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const taste = await TasteService.createTaste(
-      `${api_url}/taste`,
-      credentials
-    )
-    await TravelerService.updateTraveler(api_url, String(userId), {
-      tastes: [`${taste.id}`],
-    })
-    TokenService.removeSigninToken()
-    return router.push(ROUTES.SIGNIN)
+    e.preventDefault();
+    setTastes([...tastes, credentials])
   }
 
   return (
