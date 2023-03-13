@@ -42,28 +42,24 @@ const deleteActivity = async (api_url: string, id: string) => {
   )
 }
 
-const createActivityWithTagRelation = async (
+const createActivityWithRelations = async (
   api_url: string,
   credentials: CreateActivityDTO,
   tags: any[]
 ) => {
-    console.log('input',tags)
   const activity = await createActivity(api_url, credentials)
-  console.log('activity',activity)
   tags.map(async (t) => {
-    console.log('tag', t);
-    const updatedActivity = await ActivityService.updateActivity(api_url, activity.id, {...credentials, tags: [{id: t.id}]});
-    console.log('updatedActivity', updatedActivity);
-    const updateTag = await ActivityTagService.updateActivityTag(api_url, t.id, {name: t.name, activities: [{id: activity.id}]});
-    console.log('updateTag', updateTag);
+    await ActivityService.updateActivity(api_url, activity.id, {...credentials, tags: [{id: t.id}]});
+    await ActivityTagService.updateActivityTag(api_url, t.id, {name: t.name, activities: [{id: activity.id}]});
   })
+  return await ActivityService.findActivityById(api_url, activity.id);
 }
 
 export const ActivityService = {
   findAllActivities,
   findActivityById,
   createActivity,
-  createActivityWithTagRelation,
+  createActivityWithRelations,
   updateActivity,
   deleteActivity,
 }

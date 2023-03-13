@@ -11,7 +11,7 @@ const findActivityClosingDayById = async (api_url: string, id: string) => {
     return await useFetch.get(`${api_url}/activity-closing-day/${id}`)
 };
 
-const createActivityClosingDay = async (api_url: string, credentials: CreateActivityClosingDayDTO) => {
+const createActivityClosingDay = async (api_url: string, credentials: any) => {
     return await useFetch.post(`${api_url}/activity-closing-day`, credentials);
 };
 
