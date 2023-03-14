@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import { AuthService } from '@travel-tailor/services'
-import { SigninDTO } from '@travel-tailor/types'
+import { SigninDTO, User } from '@travel-tailor/types'
 import { ROLES, ROUTES } from '@travel-tailor/constants'
 
 interface IProps {
@@ -16,7 +16,7 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
 
   const router = useRouter()
 
-  const handleRedirect = async (user: any) => {
+  const handleRedirect = async (user: { email: string, password: string, roles: string, iat: number, exp: number}) => {
     if (user.roles === ROLES.ADMIN) {
       router.push(ROUTES.ADMIN.DASHBOARD)
     } else if (user.roles === ROLES.TRAVELER) {
@@ -27,7 +27,7 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
   }
 
   const handleSubmit = async () => {
-    const user = await AuthService.signin(`${api_url}/auth/signin`, credentials)
+    const user = await AuthService.signin(`${api_url}/auth/signin`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
     handleRedirect(user)
   }
 

@@ -5,24 +5,29 @@ import { useProtectedRoute } from '@travel-tailor/hooks'
 
 import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
+import { Activity } from '@travel-tailor/types'
+
+type Tag = { activities: Activity[], deletedAt: Date | null, createdAt: Date, updatedAt: Date, id: string, name: string };
+type Schedule = { opening_at: string, closing_at: string, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date };
+type ClosingDay = { day: number, month: string, year: string, recurrence: boolean, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date }
 
 const CreateActivity: NextPage = () => {
   useProtectedRoute(authUtil)
 
-  const [tags, setTags] = useState<any[]>([])
-  const [schedules, setSchedules] = useState<any[]>([])
-  const [closingDays, setClosingDays] = useState<any[]>([])
+  const [tags, setTags] = useState<Tag[]>([])
+  const [schedules, setSchedules] = useState<Schedule[]>([])
+  const [closingDays, setClosingDays] = useState<ClosingDay[]>([])
 
   const handleTagDelete = (name: string) => {
     setTags(tags.filter((tag) => tag.name !== name))
   }
 
   const handleScheduleDelete = (id: string) => {
-    setTags(schedules.filter((schedule) => schedule.id !== id))
+    setSchedules(schedules.filter((schedule) => schedule.id !== id))
   }
 
   const handleClosingDayDelete = (id: string) => {
-    setTags(closingDays.filter((closingDay) => closingDay.id !== id))
+    setClosingDays(closingDays.filter((closingDay) => closingDay.id !== id))
   }
 
   return (

@@ -1,6 +1,6 @@
-import { UpdateActivityTagDTO } from '@travel-tailor/types';
+import { Activity } from 'src/activity/entities/activity.entity';
 
-export class UpdateActivityTagDto implements UpdateActivityTagDTO {
+export class UpdateActivityTagDto {
   name: string;
-  activities?: any[];
+  activities: Activity[];
 }

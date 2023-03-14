@@ -45,7 +45,7 @@ const deleteActivity = async (api_url: string, id: string) => {
 const createActivityWithRelations = async (
   api_url: string,
   credentials: CreateActivityDTO,
-  tags: any[]
+  tags: {name: string, id: string}[]
 ) => {
   const activity = await createActivity(api_url, credentials)
   tags.map(async (t) => {

@@ -1,7 +1,6 @@
 import { ActivityDetail, CreateActivityDetailDTO, UpdateActivityDetailDTO } from '../activityDetail'
 import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from '../activityImage'
-import { ActivityTag, CreateActivityTagDTO, UpdateActivityTagDTO } from '../activityTag'
-import { Advertiser } from '../advertiser'
+import { ActivityTag, CreateActivityTagDTO } from '../activityTag'
 
 export type Activity = {
   id: string
@@ -30,5 +29,5 @@ export type UpdateActivityDTO = {
   mark?: number
   detail?: UpdateActivityDetailDTO
   image?: UpdateActivityImageDTO
-  tags?: any[]
+  tags?: {id: string}[]
 }

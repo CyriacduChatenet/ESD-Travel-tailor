@@ -1,14 +1,15 @@
 import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from 'react'
 
 interface IProps {
-  setTastes: Dispatch<SetStateAction<any[]>>
+  setTastes: Dispatch<SetStateAction<{ name: string, traveler: string }[]>>
   tastes: { name: string, traveler: string }[];
 }
 
 export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
 
-  const [credentials, setCredentials] = useState<{name : string}>({
+  const [credentials, setCredentials] = useState<{name : string, traveler: string}>({
     name: '',
+    traveler: ''
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +18,7 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
   }
 
   const handleResetTasteInput = () => {
-    setCredentials({ name: ''});
+    setCredentials({ name: '', traveler: ''});
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

@@ -6,7 +6,7 @@ import { TokenService } from '../tokens/token.service'
 import { TravelerService } from '../traveler/traveler.service'
 import { AdvertiserService } from '../advertiser/advertiser.service'
 
-const updateUser = (api_url: string, id: string, body: any) => {
+const updateUser = (api_url: string, id: string, body: { email?: string, username?: string, password?: string, roles?: string, advertiser?: string, traveler?: string}) => {
   return useFetch.protectedPatch(`${api_url}/user/${id}`, body, `${TokenService.getSigninToken()}`);
 }
 

@@ -16,5 +16,5 @@ export type CreateActivityTagDTO = {
 
 export type UpdateActivityTagDTO = {
   name?: string
-  activities?: any[]
+  activities: {id: string}[]
 }

@@ -5,7 +5,7 @@ export type ActivityClosingDay = {
   day: number
   month: string
   year: number
-  reccurence: string
+  recurrence: boolean
   activityDetail?: ActivityDetail
   createdAt: Date
   updatedAt: Date
@@ -16,7 +16,7 @@ export type CreateActivityClosingDayDTO = {
   day: number
   month: string
   year: number
-  reccurence: string
+  recurrence: boolean
   activityDetail?: ActivityDetail
 }
 
@@ -24,6 +24,6 @@ export type UpdateActivityClosingDayDTO = {
   day: number
   month: string
   year: number
-  reccurence: string
+  recurrence: boolean
   activityDetail?: ActivityDetail
 }

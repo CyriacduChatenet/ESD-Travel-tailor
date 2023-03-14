@@ -1,6 +1,6 @@
 import { ActivityService } from '@travel-tailor/services';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 interface IProps {
   api_url: string
@@ -39,7 +39,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url }) => {
     setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
   }
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const sendObject = {
       ...activityCredentials,

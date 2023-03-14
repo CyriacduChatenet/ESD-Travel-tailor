@@ -41,7 +41,7 @@ export class UserController {
   @Roles(Role.Traveler)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
-  async update(@Param('id') id: string, @Body() signupUserDto: any) {
+  async update(@Param('id') id: string, @Body() signupUserDto: SignupUserInputDTO) {
     return await this.userService.update(id, signupUserDto)
   }
 

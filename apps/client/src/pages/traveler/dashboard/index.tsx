@@ -5,9 +5,10 @@ import { useProtectedRoute } from '@travel-tailor/hooks'
 
 import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
+import { User } from '@travel-tailor/types'
 
 const TravelerDashboard: NextPage = () => {
-  const [data, setData] = useState<any>({})
+  const [data, setData] = useState<User>()
   const getData = async () => {
     const response = await UserService.getUserInfo(
       `${process.env.NEXT_PUBLIC_API_URL}`

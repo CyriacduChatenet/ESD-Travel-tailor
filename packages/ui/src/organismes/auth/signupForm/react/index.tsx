@@ -4,7 +4,7 @@ import {
   TravelerService,
   UserService,
 } from '@travel-tailor/services'
-import { SignupDTO } from '@travel-tailor/types'
+import { SignupDTO, User } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
 import { FC, FormEvent, useState } from 'react'
 
@@ -22,7 +22,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
 
   const router = useRouter()
 
-  const handleRedirect = async (user: any) => {
+  const handleRedirect = async (user: User) => {
     if (credentials.roles === ROLES.TRAVELER) {
       const traveler = await TravelerService.createTraveler(api_url, {
         user: await user.id,

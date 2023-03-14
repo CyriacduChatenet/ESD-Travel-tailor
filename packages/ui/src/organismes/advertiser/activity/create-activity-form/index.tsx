@@ -1,6 +1,7 @@
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from '@travel-tailor/services';
+import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, FormEvent, MouseEvent, SetStateAction, useState } from 'react'
 
 interface IProps {
   api_url: string;
@@ -17,22 +18,22 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     name: '',
     mark: 0,
   });
-  const [activityDetailCredentials, setActivityDetailCredentials] = useState<{ location: string, duration: string}>({
+  const [activityDetailCredentials, setActivityDetailCredentials] = useState<CreateActivityDetailDTO>({
     location: '',
     duration: '',
   })
-  const [activityImageCredentials, setActivityImageCredentials] = useState<{source: string}>({
+  const [activityImageCredentials, setActivityImageCredentials] = useState<CreateActivityImageDTO>({
     source: '',
   })
   const [activityTagCredentials, setActivityTagCredentials] = useState<{name: string, activities: any[]}>({
     name: '',
     activities: []
   })
-  const [activityScheduleCredentials, setActivityScheduleCredentials] = useState<{ opening_at: string, closing_at: string}>({
+  const [activityScheduleCredentials, setActivityScheduleCredentials] = useState<CreateActivityScheduleDTO>({
     opening_at: '',
     closing_at: '',
   })
-  const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<{ day: number, month: string, year: number, recurrence: boolean}>({
+  const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<CreateActivityClosingDayDTO>({
     day: 0,
     month: '',
     year: 0,
@@ -103,7 +104,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     setActivityClosingDayCredentials({ day: 0, month: '', year: 0, recurrence: false});
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const sendObject = {
       ...activityCredentials,
@@ -145,7 +146,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       <label htmlFor="">
         <p>Tags</p>
         <input type="text" name="name" placeholder="tag name" onChange={handleActivityTag} />
-        <button onClick={(e: any) => {
+        <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
           handleCreateTag();
           }}>Create tag</button>
@@ -154,7 +155,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         <p>Schedules</p>
         <input type="text" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
         <input type="text" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
-        <button onClick={(e: any) => {
+        <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
           handleCreateSchedule();
           handleResetScheduleInput();
@@ -166,7 +167,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         <input type="text" name="month" placeholder="month" value={activityClosingDayCredentials.month} onChange={handleActivityClosingDay} />
         <input type="number" name="year" placeholder="year" value={activityClosingDayCredentials.year} onChange={handleActivityClosingDay} />
         <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
-        <button onClick={(e: any) => {
+        <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
           handleCreateClosingDay();
           handleResetClosingDayInput();

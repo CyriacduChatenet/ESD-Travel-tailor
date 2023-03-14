@@ -1,6 +1,6 @@
 import { AuthService } from '@travel-tailor/services'
 import { ForgotPasswordDTO } from '@travel-tailor/types'
-import { FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 interface IProps {
   api_url: string
@@ -11,7 +11,7 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
     email: '',
   })
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setCredentials({ ...credentials, [name]: value })
   }

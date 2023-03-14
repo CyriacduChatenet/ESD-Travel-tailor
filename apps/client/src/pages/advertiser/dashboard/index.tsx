@@ -3,14 +3,20 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ActivityService, AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
-import { Activity } from '@travel-tailor/types'
+
 
 import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
 import { WebActivityCard } from '@travel-tailor/ui'
+import { Activity } from '@travel-tailor/types'
 
 const AdvertiserDashboard: NextPage = () => {
-  const [data, setData] = useState<any>({})
+  const [data, setData] = useState<{ activities : Activity[], id: string, name: string, location: string}>({
+    activities: [],
+    id: '',
+    name: '',
+    location: ''
+  })
   const getData = async () => {
     const response = await UserService.getUserInfo(
       `${process.env.NEXT_PUBLIC_API_URL}`
