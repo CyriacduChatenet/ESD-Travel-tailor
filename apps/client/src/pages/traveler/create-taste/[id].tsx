@@ -3,7 +3,7 @@ import { WebCreateTasteForm } from '@travel-tailor/ui'
 import { NextPage } from 'next'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { TasteService, TravelerService } from '@travel-tailor/services'
+import { TasteService, TokenService } from '@travel-tailor/services'
 import { ROUTES } from '@travel-tailor/constants'
 
 import { authUtil } from '@/utils/auth.utils'
@@ -22,6 +22,7 @@ const CreateTastePage: NextPage = () => {
 
   const handleSubmit = async () => {
     TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, `${travelerId}`)
+    TokenService.removeSigninToken();
     return router.push(ROUTES.SIGNIN);
   };
 

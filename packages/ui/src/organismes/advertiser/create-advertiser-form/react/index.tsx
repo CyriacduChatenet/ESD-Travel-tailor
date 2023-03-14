@@ -1,5 +1,5 @@
 import { ROUTES } from '@travel-tailor/constants'
-import { AdvertiserService, UserService } from '@travel-tailor/services'
+import { AdvertiserService, TokenService, UserService } from '@travel-tailor/services'
 import { CreateAdvertiserDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
@@ -31,6 +31,7 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
       credentials
     )
     await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
+    TokenService.removeSigninToken();
     return router.push(ROUTES.SIGNIN)
   }
 
