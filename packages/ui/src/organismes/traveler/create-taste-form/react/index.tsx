@@ -7,7 +7,7 @@ interface IProps {
 
 export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
 
-  const [credentials, setCredentials] = useState({
+  const [credentials, setCredentials] = useState<{name : string}>({
     name: '',
   });
 
@@ -16,9 +16,14 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
 
+  const handleResetTasteInput = () => {
+    setCredentials({ name: ''});
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTastes([...tastes, credentials])
+    handleResetTasteInput();
   }
 
   return (
@@ -29,6 +34,7 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
           type="text"
           placeholder="Name"
           name="name"
+          value={credentials.name}
           onChange={handleChange}
         />
       </label>

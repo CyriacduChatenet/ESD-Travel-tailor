@@ -1,4 +1,4 @@
-import { ActivityClosingDayService, ActivityDetailService, ActivityScheduleService, ActivityService, ActivityTagService } from '@travel-tailor/services';
+import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from '@travel-tailor/services';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react'
 
@@ -32,13 +32,12 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     opening_at: '',
     closing_at: '',
   })
-  const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<{ day: number, moth: string, year: number, recurrence: boolean}>({
+  const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<{ day: number, month: string, year: number, recurrence: boolean}>({
     day: 0,
-    moth: '',
+    month: '',
     year: 0,
     recurrence: false,
   })
-  const [isChecked, setIsChecked] = useState(false);
 
   const router = useRouter()
 
@@ -96,6 +95,14 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     return setClosingDays([...closingDays, await ActivityClosingDayService.createActivityClosingDay(api_url, activityClosingDayCredentials)])
   };
 
+  const handleResetScheduleInput = () => {
+    setActivityScheduleCredentials({ opening_at: '', closing_at: ''});
+  };
+
+  const handleResetClosingDayInput = () => {
+    setActivityClosingDayCredentials({ day: 0, month: '', year: 0, recurrence: false});
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const sendObject = {
@@ -145,22 +152,24 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       </label>
       <label htmlFor="">
         <p>Schedules</p>
-        <input type="text" name="opening_at" placeholder="opening at" onChange={handleActivitySchedule} />
-        <input type="text" name="closing_at" placeholder="closing at" onChange={handleActivitySchedule} />
+        <input type="text" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
+        <input type="text" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
         <button onClick={(e: any) => {
           e.preventDefault();
           handleCreateSchedule();
+          handleResetScheduleInput();
           }}>Create schedule</button>
       </label>
       <label htmlFor="">
         <p>Closing day</p>
-        <input type="number" name="day" placeholder="day" onChange={handleActivityClosingDay} />
-        <input type="text" name="month" placeholder="month" onChange={handleActivityClosingDay} />
-        <input type="number" name="year" placeholder="year" onChange={handleActivityClosingDay} />
+        <input type="number" name="day" placeholder="day" value={activityClosingDayCredentials.day} onChange={handleActivityClosingDay} />
+        <input type="text" name="month" placeholder="month" value={activityClosingDayCredentials.month} onChange={handleActivityClosingDay} />
+        <input type="number" name="year" placeholder="year" value={activityClosingDayCredentials.year} onChange={handleActivityClosingDay} />
         <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
         <button onClick={(e: any) => {
           e.preventDefault();
           handleCreateClosingDay();
+          handleResetClosingDayInput();
           }}>Create closing day</button>
       </label>
       <br />
