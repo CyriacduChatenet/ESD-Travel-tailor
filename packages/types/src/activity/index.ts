@@ -4,18 +4,15 @@ import { ActivityTag, CreateActivityTagDTO } from '../activityTag'
 import { Comment } from '../comment'
 
 export type Activity = {
-  id?: string
-  name?: string
-  mark?: number
-  slug?: string
-  detail?: ActivityDetail
-  image?: ActivityImage
-  comments?: Comment[]
-  tags?: ActivityTag[]
-  advertiser?: string;
-  createdAt?: Date
-  updatedAt?: Date
-  deletedAt?: Date | null
+  id: string
+  name: string
+  mark: number
+  slug: string
+  detail: ActivityDetail
+  image: ActivityImage
+  comments: Comment[]
+  tags: ActivityTag[]
+  advertiser: string;
 }
 
 export type CreateActivityDTO = {

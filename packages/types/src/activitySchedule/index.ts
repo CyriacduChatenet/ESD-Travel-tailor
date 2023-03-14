@@ -5,9 +5,6 @@ export type ActivitySchedule = {
   opening_at: string
   closing_at: string
   activityDetail?: ActivityDetail
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
 }
 
 export type CreateActivityScheduleDTO = {

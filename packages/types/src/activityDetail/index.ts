@@ -9,9 +9,6 @@ export type ActivityDetail = {
   activity?: Activity
   schedules?: ActivitySchedule[]
   closingDays?: ActivityClosingDay[]
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
 }
 
 export type CreateActivityDetailDTO = {

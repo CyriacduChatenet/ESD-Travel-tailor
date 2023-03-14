@@ -23,8 +23,6 @@ export class CommentController {
   @Post()
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
   create(@Body() createCommentDto: CreateCommentDto) {
     return this.commentService.create(createCommentDto)
   }

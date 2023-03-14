@@ -4,9 +4,9 @@ export type ActivityImage = {
   id: string
   source: string
   activity?: Activity
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateActivityImageDTO = {

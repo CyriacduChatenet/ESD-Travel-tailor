@@ -7,13 +7,13 @@ export type User = {
   username: string
   email: string
   password: string
-  roles: string[]
+  roles: string
   advertiser?: Advertiser
   traveler?: Traveler
   resetPasswordToken: ResetPasswordToken
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateUserDTO = {

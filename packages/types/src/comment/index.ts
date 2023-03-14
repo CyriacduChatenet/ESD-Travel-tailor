@@ -5,19 +5,17 @@ export type Comment = {
   content: string
   likes: number
   traveler?: Traveler
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
 }
 
 export type CreateCommentDTO = {
   content: string
-  likes: number
-  traveler?: Traveler
+  traveler?: string
+  activity?: string
 }
 
 export type UpdateCommentDTO = {
   content: string
   likes: number
   traveler?: string
+  activity?: string
 }

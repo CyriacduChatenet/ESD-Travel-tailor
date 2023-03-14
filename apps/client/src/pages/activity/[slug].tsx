@@ -11,9 +11,10 @@ import { useRouter } from 'next/router'
 import { ActivityService } from '@travel-tailor/services'
 
 import { Layout } from '@/layout'
+import { WebCommentForm } from '@travel-tailor/ui'
 
 const ActivityPage: NextPage = () => {
-  const [data, setData] = useState<Activity>({})
+  const [data, setData] = useState<any>({})
 
   const router = useRouter()
 
@@ -34,7 +35,7 @@ const ActivityPage: NextPage = () => {
   return (
     <Layout>
       <div>
-        <img src={data.image?.source} alt="" />
+        <img src={data.image?.source} alt="" width={'100%'} />
         <h1>{data.name}</h1>
         <br />
         <Link href={'/activity'}>Return</Link>
@@ -62,10 +63,21 @@ const ActivityPage: NextPage = () => {
         <br />
         <br />
         <h3>Comments</h3>
-        {data.comments?.map((comment: Comment, index: number) => <div>
-            <p><b>{comment.traveler?.user.username}</b></p>
+        {data.comments?.map((comment: Comment, index: number) => (
+          <div>
+            <p>
+              <b>{comment.traveler?.user.username}</b>
+            </p>
             <p>{comment.content}</p>
-        </div>)}
+          </div>
+        ))}
+        <br />
+        <WebCommentForm
+          api_url={`${process.env.NEXT_PUBLIC_API_URL}`}
+          activity_id={`${data.id}`}
+          data={data}
+          setData={setData}
+        />
       </div>
     </Layout>
   )

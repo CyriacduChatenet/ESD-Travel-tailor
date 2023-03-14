@@ -4,9 +4,9 @@ export type ResetPasswordToken = {
   id: string
   token: string
   user: User
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateResetPasswordTokenDTO = {

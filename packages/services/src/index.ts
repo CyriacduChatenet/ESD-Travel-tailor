@@ -11,3 +11,4 @@ export { ActivityImageService } from './activity-image/activity-image.service';
 export { ActivityTagService } from './activity-tag/activity-tag.service';
 export { ActivityScheduleService } from './activity-schedule/activity-schedule.service';
 export { ActivityClosingDayService } from './activity-closing-day/activity-closing-day.service'
+export { CommentService } from './comment/comment.service';

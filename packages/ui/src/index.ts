@@ -9,3 +9,4 @@ export { WebCreateTasteForm } from './organismes/traveler/create-taste-form/reac
 export { WebCreateActivityForm } from './organismes/advertiser/activity/create-activity-form'
 export { WebUpdateActivityForm } from './organismes/advertiser/activity/update-activity-form'
 export { WebActivityCard } from './molecules/activity-card/react';
+export { WebCommentForm } from './organismes/activity/comment-form/react'

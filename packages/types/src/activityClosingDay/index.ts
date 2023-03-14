@@ -7,9 +7,6 @@ export type ActivityClosingDay = {
   year: number
   recurrence: boolean
   activityDetail?: ActivityDetail
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
 }
 
 export type CreateActivityClosingDayDTO = {
