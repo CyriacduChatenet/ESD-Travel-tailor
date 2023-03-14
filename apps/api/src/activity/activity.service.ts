@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ActivityTagService } from './activity-tag/activity-tag.service'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
 import { Activity } from './entities/activity.entity'
+import { regexNormalize } from '../utils/regex-normalize.util'
 
 @Injectable()
 export class ActivityService {
@@ -19,7 +19,7 @@ export class ActivityService {
   ) {}
   async create(createActivityDto: CreateActivityDto) {
     try {
-      const activity = this.activityRepository.create(createActivityDto)
+      const activity = this.activityRepository.create({...createActivityDto, slug: regexNormalize(createActivityDto.name.toLowerCase())})
       return this.activityRepository.save(activity)
     } catch (error) {
       throw new UnauthorizedException(error)
@@ -54,6 +54,23 @@ export class ActivityService {
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
         .where('activity.id = :id', { id })
+        .getOne()
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
+  }
+
+  async findOneByName(slug: string) {
+    try {
+      return await this.activityRepository
+        .createQueryBuilder('activity')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('activity.travels', 'travels')
+        .leftJoinAndSelect('activity.advertiser', 'advertiser')
+        .leftJoinAndSelect('activity.tags', 'tag')
+        .where('activity.slug = :slug', { slug })
         .getOne()
     } catch (error) {
       throw new NotFoundException(error)

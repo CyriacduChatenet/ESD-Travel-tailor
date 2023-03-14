@@ -26,6 +26,11 @@ export class Activity extends Timestamp {
   @Column()
   name: string;
 
+  @Column({
+    unique: true,
+  })
+  slug: string;
+
   @Column()
   mark: number;
 

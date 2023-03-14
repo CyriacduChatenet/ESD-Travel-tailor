@@ -56,7 +56,7 @@ const AdvertiserDashboard: NextPage = () => {
       <h2>Activities</h2>
       <br />
       <br />
-      {data.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={() => handleDelete(activity.id)} />)}
+      {data.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={() => handleDelete(`${activity.id}`)} />)}
     </Layout>
   )
 }

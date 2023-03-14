@@ -34,8 +34,13 @@ export class ActivityController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOneByName(@Param('id') id: string) {
     return this.activityService.findOne(id)
+  }
+
+  @Get('name/:slug')
+  findOne(@Param('slug') slug: string) {
+    return this.activityService.findOneByName(slug)
   }
 
   @Patch(':id')

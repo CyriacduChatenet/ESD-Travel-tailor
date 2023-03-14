@@ -16,10 +16,10 @@ export const WebActivityCard: FC<IProps> = ({ data, handleDelete }) => {
     <div>
       <p>{data.name}</p>
       <p>{data.mark}/10</p>
-      <button onClick={() => handleRedirect(data.id)}>Update</button>
+      <button onClick={() => handleRedirect(`${data.id}`)}>Update</button>
       <br />
       <br />
-      <button onClick={() => handleDelete(data.id)}>Delete</button>
+      <button onClick={() => handleDelete(`${data.id}`)}>Delete</button>
     </div>
   )
 }

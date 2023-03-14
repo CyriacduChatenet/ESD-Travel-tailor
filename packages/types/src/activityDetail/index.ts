@@ -1,4 +1,5 @@
 import { Activity } from '../activity'
+import { ActivityClosingDay } from '../activityClosingDay'
 import { ActivitySchedule } from '../activitySchedule'
 
 export type ActivityDetail = {
@@ -6,7 +7,8 @@ export type ActivityDetail = {
   duration: string
   location: string
   activity?: Activity
-  schedule?: ActivitySchedule
+  schedules?: ActivitySchedule[]
+  closingDays?: ActivityClosingDay[]
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -16,12 +18,14 @@ export type CreateActivityDetailDTO = {
   duration: string
   location: string
   activity?: Activity
-  schedule?: ActivitySchedule
+  schedules?: ActivitySchedule[]
+  closingDays?: ActivityClosingDay[]
 }
 
 export type UpdateActivityDetailDTO = {
   duration: string
   location: string
   activity?: Activity
-  schedule?: ActivitySchedule
+  schedules?: ActivitySchedule[]
+  closingDays?: ActivityClosingDay[]
 }
