@@ -1,3 +1,3 @@
 export class UpdateResetPasswordTokenDto {
-  token: string;
+    token: string;
 }

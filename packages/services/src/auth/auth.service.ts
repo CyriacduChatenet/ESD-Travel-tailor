@@ -34,16 +34,8 @@ const forgotPassword = async (
   return await useFetch.post(api_url, forgotPasswordCredentials)
 }
 
-const resetPassword = async (
-  api_url: string,
-  resetPasswordCredentials: ResetPasswordDTO,
-  resetToken: string
-) => {
-  return await useFetch.protectedPost(
-    `${api_url}/${resetToken}`,
-    resetPasswordCredentials,
-    resetToken
-  )
+const resetPassword = async (api_url: string, resetToken: string, resetPasswordCredentials : ResetPasswordDTO) => {
+  return await useFetch.post(`${api_url}/auth/reset-password/${resetToken}`, resetPasswordCredentials);
 }
 
 export const AuthService = {

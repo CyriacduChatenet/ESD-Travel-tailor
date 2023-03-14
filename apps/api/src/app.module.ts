@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AdvertiserModule } from './user/advertiser/advertiser.module';
 import { TravelerModule } from './user/traveler/traveler.module';
-import { ResetPasswordTokenModule } from './auth/reset-password-token/reset-password-token.module';
 import { MailModule } from './mail/mail.module';
 import { TasteModule } from './user/traveler/taste/taste.module';
 import { TravelModule } from './user/traveler/travel/travel.module';
@@ -37,7 +36,6 @@ import { ActivityClosingDayModule } from './activity/activity-detail/activity-cl
     UserModule,
     AdvertiserModule,
     TravelerModule,
-    ResetPasswordTokenModule,
     MailModule,
     TasteModule,
     TravelModule,

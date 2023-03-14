@@ -4,13 +4,13 @@ import {
   SigninDTO,
   SignupDTO,
   ForgotPasswordDTO,
-  ResetPasswordDTO,
 } from '@travel-tailor/types'
 import * as bcrypt from 'bcrypt'
 
 import { MailService } from '../mail/mail.service'
-import { ResetPasswordTokenService } from './reset-password-token/reset-password-token.service'
 import { UserService } from '../user/user.service'
+import { ResetPasswordDTO } from './dto/resetPassword.dto'
+import { ResetPasswordTokenService } from './reset-password-token/reset-password-token.service'
 
 @Injectable()
 export class AuthService {
@@ -96,16 +96,14 @@ export class AuthService {
     return userUpdated
   }
 
-  public async resetPassword(
-    resetToken: string,
-    resetPasswordDto: ResetPasswordDTO
-  ) {
-    const token = await this.resetPasswordTokenService.findOne(resetToken)
+  public async resetPassword(resetToken: string, resetPasswordDto: ResetPasswordDTO) {
+    const token = await this.resetPasswordTokenService.findOneByToken(resetToken.slice(0, -1));
     const user = await this.userService.findOneByEmail(token.user.email)
     const userUpdated = await this.userService.update(user.id, {
+      ...user,
       password: await bcrypt.hash(resetPasswordDto.password, 10),
     })
     await this.mailService.sendConfirmResetPasswordMail(user.email)
     return userUpdated
-  }
+  };
 }

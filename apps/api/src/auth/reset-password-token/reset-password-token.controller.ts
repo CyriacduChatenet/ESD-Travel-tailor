@@ -1,21 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ResetPasswordTokenService } from './reset-password-token.service';
 import { UpdateResetPasswordTokenDto } from './dto/update-reset-password-token.dto';
 
 @Controller('reset-password-token')
 export class ResetPasswordTokenController {
-  constructor(
-    private readonly resetPasswordTokenService: ResetPasswordTokenService,
-  ) {}
+  constructor(private readonly resetPasswordTokenService: ResetPasswordTokenService) {}
 
   @Post()
   async create(@Body() userId: string) {
@@ -29,18 +18,12 @@ export class ResetPasswordTokenController {
 
   @Get(':token')
   async findOne(@Param('token') token: string) {
-    return await this.resetPasswordTokenService.findOne(token);
+    return await this.resetPasswordTokenService.findOneByToken(token);
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateResetPasswordTokenDto: UpdateResetPasswordTokenDto,
-  ) {
-    return await this.resetPasswordTokenService.update(
-      id,
-      updateResetPasswordTokenDto,
-    );
+  async update(@Param('id') id: string, @Body() updateResetPasswordTokenDto: UpdateResetPasswordTokenDto) {
+    return await this.resetPasswordTokenService.update(id, updateResetPasswordTokenDto);
   }
 
   @Delete(':id')

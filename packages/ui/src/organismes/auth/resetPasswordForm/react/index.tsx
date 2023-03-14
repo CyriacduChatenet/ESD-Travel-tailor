@@ -1,4 +1,4 @@
-import { AuthService, TokenService } from '@travel-tailor/services'
+import { AuthService } from '@travel-tailor/services'
 import { ResetPasswordDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
 import { FC, FormEvent, useState } from 'react'
@@ -21,14 +21,9 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const token = router.query.resetToken
-    await AuthService.resetPassword(
-      `${api_url}/auth/reset-password`,
-      credentials,
-      String(token)
-    )
-    TokenService.removeSigninToken();
-    return router.push('/signin')
+    const resetTokenParam = router.query.resetToken;
+    await AuthService.resetPassword(api_url, `${resetTokenParam}`, credentials)
+    router.push('/signin')
   }
 
   return (
