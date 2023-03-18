@@ -1,19 +1,19 @@
 import { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 
 import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
-import { User } from '@travel-tailor/types'
+import { useUser } from '@travel-tailor/contexts'
 
 const TravelerDashboard: NextPage = () => {
-  const [data, setData] = useState<User>()
+  const { setUser } = useUser()
   const getData = async () => {
     const response = await UserService.getUserInfo(
       `${process.env.NEXT_PUBLIC_API_URL}`
     )
-    setData(response)
+    setUser(response)
   }
 
   useProtectedRoute(authUtil)

@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { ActivityService, AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 
@@ -9,27 +9,23 @@ import { Layout } from '@/layout'
 import { authUtil } from '@/utils/auth.utils'
 import { WebActivityCard } from '@travel-tailor/ui'
 import { Activity } from '@travel-tailor/types'
+import { useUser } from '@travel-tailor/contexts'
 
 const AdvertiserDashboard: NextPage = () => {
-  const [data, setData] = useState<{ activities : Activity[], id: string, name: string, location: string}>({
-    activities: [],
-    id: '',
-    name: '',
-    location: ''
-  })
+  const { user, setUser } = useUser()
   const getData = async () => {
     const response = await UserService.getUserInfo(
       `${process.env.NEXT_PUBLIC_API_URL}`
     )
-    setData(response)
+    setUser(response)
   }
 
   useProtectedRoute(authUtil);
 
   const handleDelete = (id: string) => {
     ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`,id);
-    const updatedData = { ...data, activities: data.activities.filter((activity: Activity) => activity.id !== id) };
-    setData(updatedData);
+    const updatedData = { ...user, activities: user.activities?.filter((activity: Activity) => activity.id !== id) };
+    setUser(updatedData);
   };
 
   useEffect(() => {
@@ -44,19 +40,19 @@ const AdvertiserDashboard: NextPage = () => {
         <button onClick={() => AuthService.logout()}>logout</button>
         <br />
         <br />
-        <Link href={`/advertiser/create-activity/${data.id}`}>
+        <Link href={`/advertiser/create-activity/${user.advertiser?.id}`}>
           <button>Create activty</button>
         </Link>
       </div>
       <br />
       <p>
-        {data.name}, {data.location}
+        {user?.name}, {user?.location}
       </p>
       <br />
       <h2>Activities</h2>
       <br />
       <br />
-      {data.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={() => handleDelete(`${activity.id}`)} />)}
+      {user?.activities?.map((activity: Activity) => <WebActivityCard key={activity.id} data={activity} handleDelete={() => handleDelete(`${activity.id}`)} />)}
     </Layout>
   )
 }

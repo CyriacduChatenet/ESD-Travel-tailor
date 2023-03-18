@@ -143,13 +143,17 @@ importers:
 
   packages/contexts:
     specifiers:
+      '@travel-tailor/services': workspace:*
       '@travel-tailor/tools': workspace:*
+      '@travel-tailor/types': workspace:*
       '@types/react': ^18.0.28
       prettier: ^2.8.4
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
+      '@travel-tailor/services': link:../services
       '@travel-tailor/tools': link:../tools
+      '@travel-tailor/types': link:../types
       '@types/react': 18.0.28
       prettier: 2.8.4
       react: 18.2.0

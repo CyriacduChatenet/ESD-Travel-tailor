@@ -1,3 +1,4 @@
+import { Activity } from '../activity'
 import { Advertiser } from '../advertiser'
 import { ResetPasswordToken } from '../reset-password-token'
 import { Traveler } from '../traveler'
@@ -11,6 +12,9 @@ export type User = {
   advertiser?: Advertiser
   traveler?: Traveler
   resetPasswordToken: ResetPasswordToken
+  activities?: Activity[]
+  name?: string
+  location?: string
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null
