@@ -7,7 +7,7 @@ import {
 } from '@travel-tailor/types'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { ActivityService } from '@travel-tailor/services'
+import { ActivityService, CommentService } from '@travel-tailor/services'
 
 import { Layout } from '@/layout'
 import { WebCommentForm } from '@travel-tailor/ui'
@@ -25,6 +25,14 @@ const ActivityPage: NextPage = () => {
   const handleFetch = async (slug: string) => {
     await ActivityService.findActivityBySlugWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, slug, setData, setComments);
   }
+
+  const handleLike = async (comment: Comment) => {
+    return await CommentService.likeComment(`${process.env.NEXT_PUBLIC_API_URL}`, comment, setComments, comments)
+  };
+
+  const handleDislike = async (comment: Comment) => {
+    return await CommentService.dislikeComment(`${process.env.NEXT_PUBLIC_API_URL}`, comment, setComments, comments)
+  };
 
   useEffect(() => {
     if (router.query.slug) {
@@ -71,6 +79,10 @@ const ActivityPage: NextPage = () => {
               created at : {formatDateUtil(comment.createdAt)}
               &nbsp;
               likes: {comment.likes}
+              &nbsp;
+              <button onClick={() => handleLike(comment)}>like</button>
+              &nbsp;
+              <button onClick={() => handleDislike(comment)}>dislike</button>
             </p>
             <p>{comment.content}</p>
           </div>

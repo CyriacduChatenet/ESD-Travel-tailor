@@ -12,13 +12,14 @@ export type Comment = {
 
 export type CreateCommentDTO = {
   content: string
+  likes?: number
   traveler?: string
   activity?: string
 }
 
 export type UpdateCommentDTO = {
-  content: string
-  likes: number
+  content?: string
+  likes?: number
   traveler?: string
   activity?: string
 }

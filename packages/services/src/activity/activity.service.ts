@@ -65,14 +65,19 @@ const createActivityWithRelations = async (
 
 const findActivityBySlugWithRelations = async (api_url: string, slug: string, setData: any, setComments: Dispatch<SetStateAction<Comment[]>>) => {
   const a = await ActivityService.findActivityBySlug(api_url, slug);
-  const activityDetail = await ActivityDetailService.findActivityDetailById(api_url, a.detail.id);
+  const activityDetail = await ActivityDetailService.findActivityDetailById(api_url, a?.detail?.id);
   const activity = { ...a, detail: activityDetail }
   setData(activity);
 
   a.comments.map(async (c: Comment) => {
-    const comment = await CommentService.findCommentById(`${process.env.NEXT_PUBLIC_API_URL}`, c.id);
-      const traveler = await TravelerService.findTravelerById(`${process.env.NEXT_PUBLIC_API_URL}`, comment.traveler?.id);
-      setComments((prevComment: any) => [...prevComment, {...comment, traveler}]);
+    const comment = await CommentService.findCommentById(api_url, c.id);
+    if(comment.traveler) {
+      const traveler = await TravelerService.findTravelerById(api_url, await comment?.traveler?.id);
+      setComments(prevComments => [...prevComments, {...comment, traveler}]);
+      setComments(prevComments => prevComments.filter((comment, index, self) =>
+      index === self.findIndex((c) => c.id === comment.id)
+      ).sort((a, b) => (a.createdAt > b.createdAt) ? 1 : -1));
+    }
   });
 };
 
