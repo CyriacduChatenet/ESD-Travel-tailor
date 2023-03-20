@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import {
-  Activity,
   ActivityClosingDay,
   ActivitySchedule,
   Comment,
@@ -12,18 +11,19 @@ import { ActivityService } from '@travel-tailor/services'
 
 import { Layout } from '@/layout'
 import { WebCommentForm } from '@travel-tailor/ui'
+import { useUser } from '@travel-tailor/contexts'
+import { formatDateUtil } from '@/utils/date.util'
 
 const ActivityPage: NextPage = () => {
   const [data, setData] = useState<any>({})
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  const { user } = useUser();
 
   const router = useRouter()
 
   const handleFetch = async (slug: string) => {
-    const activity = await ActivityService.findActivityBySlugWithRelations(
-      `${process.env.NEXT_PUBLIC_API_URL}`,
-      slug
-    )
-    setData(activity)
+    await ActivityService.findActivityBySlugWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, slug, setData, setComments);
   }
 
   useEffect(() => {
@@ -63,10 +63,14 @@ const ActivityPage: NextPage = () => {
         <br />
         <br />
         <h3>Comments</h3>
-        {data.comments?.map((comment: Comment, index: number) => (
-          <div>
+        {comments.map((comment: Comment, index: number) => (
+          <div key={index}>
             <p>
-              <b>{comment.traveler?.user.username}</b>
+              <b>{comment.traveler?.user ? comment?.traveler?.user.username  : user.username ? user.username : 'Anonymous'}</b>
+              &nbsp;
+              created at : {formatDateUtil(comment.createdAt)}
+              &nbsp;
+              likes: {comment.likes}
             </p>
             <p>{comment.content}</p>
           </div>
@@ -75,8 +79,7 @@ const ActivityPage: NextPage = () => {
         <WebCommentForm
           api_url={`${process.env.NEXT_PUBLIC_API_URL}`}
           activity_id={`${data.id}`}
-          data={data}
-          setData={setData}
+          setComments={setComments}
         />
       </div>
     </Layout>

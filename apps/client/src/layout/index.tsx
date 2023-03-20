@@ -18,6 +18,9 @@ export const Layout = ({ children }: PropsWithChildren) => (
           height={50}
         />
       </Link>
+      <Link href={'/activity'}>Activities</Link>
+      <Link href={'/traveler/dashboard'}>Traveler dashboard</Link>
+      <Link href={'/advertiser/dashboard'}>Advertiser dashboard</Link>
       <Link href={'/signin'}>
         <WebButton label={'Connexion'} />
       </Link>

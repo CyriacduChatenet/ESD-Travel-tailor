@@ -13,6 +13,7 @@ export type User = {
   traveler?: Traveler
   resetPasswordToken: ResetPasswordToken
   activities?: Activity[]
+  user?: any
   name?: string
   location?: string
   createdAt?: Date

@@ -42,7 +42,7 @@ export class CommentService {
         .createQueryBuilder('comment')
         .where('comment.id = :id', { id })
         .leftJoinAndSelect('comment.traveler', 'traveler')
-        .leftJoinAndSelect('comment.activity', 'traveler')
+        .leftJoinAndSelect('comment.activity', 'activity')
         .getOne()
     } catch (error) {
       throw new NotFoundException(error)

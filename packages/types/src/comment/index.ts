@@ -5,6 +5,9 @@ export type Comment = {
   content: string
   likes: number
   traveler?: Traveler
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date | null
 }
 
 export type CreateCommentDTO = {

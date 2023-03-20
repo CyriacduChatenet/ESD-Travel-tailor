@@ -1,18 +1,20 @@
 import { CommentService } from "@travel-tailor/services";
-import { Activity } from "@travel-tailor/types";
+import { useUser } from "@travel-tailor/contexts";
 import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
 
 interface IProps {
     api_url: string;
     activity_id: string;
-    data: Activity,
-    setData: Dispatch<SetStateAction<Activity>>
+    setComments: Dispatch<SetStateAction<any>>
 }
 
-export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setData, data }) => {
+export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }) => {
     const [credentials, setCredentials] = useState<{ content: string }>({
         content: "",
     });
+
+    const { user } = useUser();
+
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -21,8 +23,8 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setData, data
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const comment = await CommentService.createCommentWithRelations(api_url, {content: credentials.content}, activity_id);
-        setData({...data, comments: [...data.comments, comment]})
+        const comment = await CommentService.createCommentWithRelations(api_url, {content: credentials.content, traveler: user.traveler?.id }, activity_id);
+        setComments((prevComments: any) => [...prevComments, comment])
     };
     
     return (

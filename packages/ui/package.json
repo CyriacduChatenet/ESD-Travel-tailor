@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@travel-tailor/constants": "workspace:*",
+    "@travel-tailor/contexts": "workspace:*",
     "@travel-tailor/services": "workspace:*",
     "@travel-tailor/styles": "workspace:*",
     "@travel-tailor/types": "workspace:*",

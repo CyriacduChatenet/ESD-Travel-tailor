@@ -199,7 +199,10 @@ importers:
       '@travel-tailor/hooks': workspace:*
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
+      '@types/react': ^18.0.28
+      i: ^0.3.7
       prettier: ^2.8.4
+      react: ^18.2.0
     dependencies:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
@@ -207,7 +210,10 @@ importers:
       '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
+      '@types/react': 18.0.28
+      i: 0.3.7
       prettier: 2.8.4
+      react: 18.2.0
 
   packages/styles:
     specifiers:
@@ -234,6 +240,7 @@ importers:
   packages/ui:
     specifiers:
       '@travel-tailor/constants': workspace:*
+      '@travel-tailor/contexts': workspace:*
       '@travel-tailor/services': workspace:*
       '@travel-tailor/styles': workspace:*
       '@travel-tailor/tools': workspace:*
@@ -250,6 +257,7 @@ importers:
       vite: ^4.1.0
     dependencies:
       '@travel-tailor/constants': link:../constants
+      '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/services': link:../services
       '@travel-tailor/styles': link:../styles
       '@travel-tailor/tools': link:../tools
