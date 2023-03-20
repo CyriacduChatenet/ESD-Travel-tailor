@@ -1,12 +1,19 @@
-import { WebButton, WebNavbar } from '@travel-tailor/ui';
-import Image from 'next/image';
-import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import { useUser } from '@travel-tailor/contexts'
+import { WebButton, WebNavbar } from '@travel-tailor/ui'
+import Image from 'next/image'
+import Link from 'next/link'
+import { PropsWithChildren, useEffect } from 'react'
 
-import styles from './layout.module.css';
+import styles from './layout.module.css'
 
-export const Layout = ({ children }: PropsWithChildren) => (
-  <>
+export const Layout = ({ children }: PropsWithChildren) => {
+  const { findUserInfo } = useUser();
+  
+  useEffect(() => {
+    findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`);
+  }, []);
+
+  return (<>
     <WebNavbar>
       <Link href={'/'}>
         <Image
@@ -26,5 +33,5 @@ export const Layout = ({ children }: PropsWithChildren) => (
       </Link>
     </WebNavbar>
     <main className={styles.main}>{children}</main>
-  </>
-);
+  </>);
+}
