@@ -8,7 +8,7 @@ import {
 
 import { User } from '../../entities/user.entity';
 import { Timestamp } from '../../../utils/timestamp.util';
-import { Activity } from 'src/activity/entities/activity.entity';
+import { Activity } from '../../../activity/entities/activity.entity';
 
 @Entity()
 export class Advertiser extends Timestamp {

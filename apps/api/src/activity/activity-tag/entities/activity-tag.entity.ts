@@ -1,4 +1,4 @@
-import { Activity } from 'src/activity/entities/activity.entity';
+import { Activity } from '../../../activity/entities/activity.entity';
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Timestamp } from '../../../utils/timestamp.util';

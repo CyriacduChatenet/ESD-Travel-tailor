@@ -16,7 +16,7 @@ import { ActivityImage } from '../activity-image/entities/activity-image.entity'
 import { Timestamp } from '../../utils/timestamp.util';
 import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
 import { Comment } from '../../comment/entities/comment.entity';
-import { Advertiser } from 'src/user/advertiser/entities/advertiser.entity';
+import { Advertiser } from '../../user/advertiser/entities/advertiser.entity';
 
 @Entity()
 export class Activity extends Timestamp {
