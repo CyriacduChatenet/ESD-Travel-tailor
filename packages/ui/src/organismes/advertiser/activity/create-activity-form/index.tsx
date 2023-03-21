@@ -2,6 +2,7 @@ import { ActivityClosingDayService, ActivityScheduleService, ActivityService, Ac
 import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FC, FormEvent, MouseEvent, SetStateAction, useState } from 'react'
+import { WebLocationInput } from '../../../../atoms/location-input/react';
 
 interface IProps {
   api_url: string;
@@ -11,9 +12,10 @@ interface IProps {
   setSchedules: Dispatch<SetStateAction<any[]>>;
   closingDays: any[];
   setClosingDays: Dispatch<SetStateAction<any[]>>;
+  mapboxAccessToken: string;
 }
 
-export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, schedules, setSchedules, closingDays, setClosingDays }) => {
+export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, schedules, setSchedules, closingDays, setClosingDays, mapboxAccessToken }) => {
   const [activityCredentials, setActivityCredentials] = useState<{name: string, mark: number}>({
     name: '',
     mark: 0,
@@ -137,7 +139,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       </label>
       <label htmlFor="">
         <p>Location</p>
-        <input type="text" name="location" placeholder="location" onChange={handleActivityDetail} />
+        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setActivityDetailCredentials={setActivityDetailCredentials} activityDetailCredentials={activityDetailCredentials}/>
       </label>
       <label htmlFor="">
         <p>Image source</p>

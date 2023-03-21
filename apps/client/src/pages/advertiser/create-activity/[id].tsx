@@ -41,6 +41,7 @@ const CreateActivity: NextPage = () => {
         setSchedules={setSchedules}
         closingDays={closingDays}
         setClosingDays={setClosingDays}
+        mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
       />
       <br />
       <br />

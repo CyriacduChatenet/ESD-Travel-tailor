@@ -11,3 +11,4 @@ export { WebUpdateActivityForm } from './organismes/advertiser/activity/update-a
 export { WebActivityCard } from './molecules/activity-card/react';
 export { WebCommentForm } from './organismes/activity/comment-form/react'
 export { WebMapbox } from './molecules/map/react'
+export { WebLocationInput } from './atoms/location-input/react'
