@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { ActivityService, AuthService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
-
-
-import { Layout } from '@/layout'
-import { authUtil } from '@/utils/auth.utils'
+import { authUtil } from '@travel-tailor/utils'
 import { WebActivityCard } from '@travel-tailor/ui'
 import { Activity } from '@travel-tailor/types'
 import { useUser } from '@travel-tailor/contexts'
+
+
+import { Layout } from '@/layout'
 
 const AdvertiserDashboard: NextPage = () => {
   const { user, setUser } = useUser()

@@ -18,6 +18,7 @@ importers:
       '@nestjs/typeorm': ^9.0.1
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
+      '@travel-tailor/utils': workspace:*
       '@types/bcrypt': ^5.0.0
       '@types/express': ^4.17.13
       '@types/node': 18.11.18
@@ -60,6 +61,7 @@ importers:
       '@nestjs/typeorm': 9.0.1_hkapd3a3mi37wyf4vtt5y4i2ye
       '@travel-tailor/tools': link:../../packages/tools
       '@travel-tailor/types': link:../../packages/types
+      '@travel-tailor/utils': link:../../packages/utils
       '@types/bcrypt': 5.0.0
       '@types/nodemailer': 6.4.7
       bcrypt: 5.1.0
@@ -103,6 +105,7 @@ importers:
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       '@travel-tailor/ui': workspace:*
+      '@travel-tailor/utils': workspace:*
       '@types/node': 18.11.18
       '@types/react': ^18.0.26
       '@types/react-dom': ^18.0.9
@@ -122,6 +125,7 @@ importers:
       '@travel-tailor/tools': link:../../packages/tools
       '@travel-tailor/types': link:../../packages/types
       '@travel-tailor/ui': link:../../packages/ui
+      '@travel-tailor/utils': link:../../packages/utils
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -283,6 +287,14 @@ importers:
       '@vitejs/plugin-react': 3.1.0_vite@4.1.4
       typescript: 4.9.4
       vite: 4.1.4_sass@1.58.3
+
+  packages/utils:
+    specifiers:
+      '@travel-tailor/functions': workspace:*
+      '@travel-tailor/services': workspace:*
+    dependencies:
+      '@travel-tailor/functions': link:../functions
+      '@travel-tailor/services': link:../services
 
 packages:
 

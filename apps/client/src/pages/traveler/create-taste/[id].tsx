@@ -5,8 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { TasteService, TokenService } from '@travel-tailor/services'
 import { ROUTES } from '@travel-tailor/constants'
-
-import { authUtil } from '@/utils/auth.utils'
+import { authUtil } from '@travel-tailor/utils'
 
 const CreateTastePage: NextPage = () => {
   useProtectedRoute(authUtil);

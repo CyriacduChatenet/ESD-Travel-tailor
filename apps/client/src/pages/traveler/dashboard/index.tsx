@@ -4,10 +4,9 @@ import { AuthService, TravelService, UserService } from '@travel-tailor/services
 import { useProtectedRoute } from '@travel-tailor/hooks'
 import { useUser } from '@travel-tailor/contexts'
 import { Travel } from '@travel-tailor/types'
+import { authUtil, formatDateUtil } from '@travel-tailor/utils'
 
 import { Layout } from '@/layout'
-import { authUtil } from '@/utils/auth.utils'
-import { formatDateUtil } from '@/utils/date.util'
 
 const TravelerDashboard: NextPage = () => {
   const { user, setUser } = useUser()

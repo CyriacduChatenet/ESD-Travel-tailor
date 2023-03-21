@@ -5,14 +5,14 @@ import {
   ActivitySchedule,
   Comment,
 } from '@travel-tailor/types'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { ActivityService, CommentService } from '@travel-tailor/services'
-
-import { Layout } from '@/layout'
 import { WebCommentForm, WebMapbox } from '@travel-tailor/ui'
 import { useUser } from '@travel-tailor/contexts'
-import { formatDateUtil } from '@/utils/date.util'
+import { formatDateUtil } from '@travel-tailor/utils'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+
+import { Layout } from '@/layout'
 
 const ActivityPage: NextPage = () => {
   const [data, setData] = useState<any>({})

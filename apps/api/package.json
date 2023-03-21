@@ -26,6 +26,7 @@
     "@nestjs/swagger": "^6.2.1",
     "@nestjs/typeorm": "^9.0.1",
     "@travel-tailor/types": "workspace:*",
+    "@travel-tailor/utils": "workspace:*",
     "@travel-tailor/tools": "workspace:*",
     "@types/bcrypt": "^5.0.0",
     "@types/nodemailer": "^6.4.7",

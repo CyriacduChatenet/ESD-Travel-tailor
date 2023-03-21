@@ -1,9 +1,9 @@
 import { NextPage } from 'next'
 import { WebUpdateActivityForm } from '@travel-tailor/ui'
 import { useProtectedRoute } from '@travel-tailor/hooks'
+import { authUtil } from '@travel-tailor/utils'
 
 import { Layout } from '@/layout'
-import { authUtil } from '@/utils/auth.utils'
 
 const UpdateActivity: NextPage = () => {
   useProtectedRoute(authUtil)

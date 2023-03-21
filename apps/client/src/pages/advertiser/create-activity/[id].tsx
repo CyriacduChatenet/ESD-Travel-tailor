@@ -2,10 +2,10 @@ import { NextPage } from 'next'
 import { useState } from 'react'
 import { WebCreateActivityForm } from '@travel-tailor/ui'
 import { useProtectedRoute } from '@travel-tailor/hooks'
+import { authUtil } from '@travel-tailor/utils'
+import { Activity } from '@travel-tailor/types'
 
 import { Layout } from '@/layout'
-import { authUtil } from '@/utils/auth.utils'
-import { Activity } from '@travel-tailor/types'
 
 type Tag = { activities: Activity[], deletedAt: Date | null, createdAt: Date, updatedAt: Date, id: string, name: string };
 type Schedule = { opening_at: string, closing_at: string, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date };
