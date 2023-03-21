@@ -61,6 +61,7 @@ This project use multiple internal libs and apps. all are orgnaized in two folde
 - Client env var
     ```bash
     NEXT_PUBLIC_API_URL =
+    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN =
     ```
 <br/>
 
