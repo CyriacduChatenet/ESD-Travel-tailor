@@ -12,3 +12,4 @@ export { WebActivityCard } from './molecules/activity-card/react';
 export { WebCommentForm } from './organismes/activity/comment-form/react'
 export { WebMapbox } from './molecules/map/react'
 export { WebLocationInput } from './atoms/location-input/react'
+export { WebTravelForm } from './organismes/travel-form/react'

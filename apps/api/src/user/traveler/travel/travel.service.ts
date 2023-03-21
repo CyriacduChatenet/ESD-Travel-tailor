@@ -18,7 +18,8 @@ export class TravelService {
 
   async create(createTravelDto: CreateTravelDto) {
     try {
-      return await this.travelRepository.save(createTravelDto);
+      const travel = await this.travelRepository.create(createTravelDto);
+      return await this.travelRepository.save(travel);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
