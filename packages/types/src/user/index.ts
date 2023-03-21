@@ -2,6 +2,7 @@ import { Activity } from '../activity'
 import { Advertiser } from '../advertiser'
 import { ResetPasswordToken } from '../reset-password-token'
 import { Traveler } from '../traveler'
+import { Travel } from '../travel'
 
 export type User = {
   id: string
@@ -11,6 +12,7 @@ export type User = {
   roles: string
   advertiser?: Advertiser
   traveler?: Traveler
+  travels?: Travel[]
   resetPasswordToken: ResetPasswordToken
   activities?: Activity[]
   user?: any

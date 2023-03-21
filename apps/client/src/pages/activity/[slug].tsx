@@ -117,7 +117,7 @@ const ActivityPage: NextPage = () => {
                   ? user.username
                   : 'Anonymous'}
               </b>
-              &nbsp; created at : {formatDateUtil(comment.createdAt)}
+              &nbsp; created at : {formatDateUtil(comment.createdAt, true)}
               &nbsp; likes: {comment.likes}
               &nbsp;
               <button onClick={() => handleLike(comment)}>like</button>
