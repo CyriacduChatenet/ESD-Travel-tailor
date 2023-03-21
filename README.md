@@ -38,6 +38,7 @@ This project use multiple internal libs and apps. all are orgnaized in two folde
 | - styles
 | - types
 | - ui
+| - utils
 ```
 
 <br/>
