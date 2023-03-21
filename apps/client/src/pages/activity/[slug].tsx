@@ -10,29 +10,44 @@ import { useRouter } from 'next/router'
 import { ActivityService, CommentService } from '@travel-tailor/services'
 
 import { Layout } from '@/layout'
-import { WebCommentForm } from '@travel-tailor/ui'
+import { WebCommentForm, WebMapbox } from '@travel-tailor/ui'
 import { useUser } from '@travel-tailor/contexts'
 import { formatDateUtil } from '@/utils/date.util'
 
 const ActivityPage: NextPage = () => {
   const [data, setData] = useState<any>({})
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<Comment[]>([])
 
-  const { user } = useUser();
+  const { user } = useUser()
 
   const router = useRouter()
 
   const handleFetch = async (slug: string) => {
-    await ActivityService.findActivityBySlugWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, slug, setData, setComments);
+    await ActivityService.findActivityBySlugWithRelations(
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      slug,
+      setData,
+      setComments
+    )
   }
 
   const handleLike = async (comment: Comment) => {
-    return await CommentService.likeComment(`${process.env.NEXT_PUBLIC_API_URL}`, comment, setComments, comments)
-  };
+    return await CommentService.likeComment(
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      comment,
+      setComments,
+      comments
+    )
+  }
 
   const handleDislike = async (comment: Comment) => {
-    return await CommentService.dislikeComment(`${process.env.NEXT_PUBLIC_API_URL}`, comment, setComments, comments)
-  };
+    return await CommentService.dislikeComment(
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      comment,
+      setComments,
+      comments
+    )
+  }
 
   useEffect(() => {
     if (router.query.slug) {
@@ -70,15 +85,40 @@ const ActivityPage: NextPage = () => {
         )}
         <br />
         <br />
+        {data.detail?.location ? (
+          <WebMapbox
+            mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
+            addresse={data.detail.location}
+          />
+        ) : null}
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />      <br />
+        <br />
+        <br />
+        <br />
         <h3>Comments</h3>
         {comments.map((comment: Comment, index: number) => (
           <div key={index}>
             <p>
-              <b>{comment.traveler?.user ? comment?.traveler?.user.username  : user.username ? user.username : 'Anonymous'}</b>
-              &nbsp;
-              created at : {formatDateUtil(comment.createdAt)}
-              &nbsp;
-              likes: {comment.likes}
+              <b>
+                {comment.traveler?.user
+                  ? comment?.traveler?.user.username
+                  : user.username
+                  ? user.username
+                  : 'Anonymous'}
+              </b>
+              &nbsp; created at : {formatDateUtil(comment.createdAt)}
+              &nbsp; likes: {comment.likes}
               &nbsp;
               <button onClick={() => handleLike(comment)}>like</button>
               &nbsp;
