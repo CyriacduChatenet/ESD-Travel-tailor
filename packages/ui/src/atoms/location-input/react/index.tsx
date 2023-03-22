@@ -11,6 +11,8 @@ interface IProps {
 
 export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setActivityDetailCredentials, activityDetailCredentials }) => {
     const [results, setResults] = useState([]);
+    const [hideAutocomplete, setHideAutocomplete] = useState(true);
+    const [geocoderQuery, setGeocoderQuery] = useState('');
 
     const handleResultSelected = (result: any) => {
       setResults(result);
@@ -18,15 +20,16 @@ export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setActivityDeta
 
     const handleCredentials = (value: string) => {
         setActivityDetailCredentials({ ...activityDetailCredentials, location: value })
+        setGeocoderQuery(value);
     };
 
     return (
-        <div>
-        <Geocoder onResultSelected={handleResultSelected} accessToken={mapboxAccessToken} />
+        <div onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
+        <Geocoder onResultSelected={handleResultSelected} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} />
         <ul>
-          {results.map((result: any) => (
+          {!hideAutocomplete ? results.map((result: any) => (
             <li key={result.id} onClick={() => handleCredentials(result.place_name)}>{result.place_name}</li>
-          ))}
+          )) : null}
         </ul>
       </div>
     );

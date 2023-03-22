@@ -21,6 +21,8 @@ export const WebTagInput: FC<IProps> = ({ tags, setTags, api_url}) => {
         activities: []
     });
 
+    const [hideAutocomplete, setHideAutocomplete] = useState(true);
+
     const handleCreateTag = async () => {
         return setTags([...tags, await ActivityTagService.createActivityTag(api_url, activityTagCredentials)])
       };
@@ -48,12 +50,12 @@ export const WebTagInput: FC<IProps> = ({ tags, setTags, api_url}) => {
       }, [activityTagCredentials]);
 
     return (
-        <label htmlFor="">
+        <label htmlFor="" onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
         <p>Tags</p>
         <input type="text" name="name" value={activityTagCredentials.name} placeholder="tag name" onChange={handleActivityTag} />
-        {searchResults.map((tag: ActivityTag) => <div key={tag.id}>
+        {!hideAutocomplete ? searchResults.map((tag: ActivityTag) => <div key={tag.id}>
           <p onClick={() => handleSelected(tag)}>{tag.name}</p>
-        </div>)}
+        </div>) : null}
         <button onClick={handleClick}>Add tag</button>
       </label>
     );
