@@ -2,6 +2,7 @@ import { ActivityClosingDayService, ActivityScheduleService, ActivityService } f
 import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FC, FormEvent, MouseEvent, SetStateAction, useState } from 'react'
+
 import { WebLocationInput } from '../../../../atoms/location-input/react';
 import { WebTagInput } from '../../../../atoms/tag-input/react';
 

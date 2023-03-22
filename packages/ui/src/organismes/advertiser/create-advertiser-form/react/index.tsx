@@ -2,26 +2,43 @@ import { ROUTES } from '@travel-tailor/constants'
 import { AdvertiserService, TokenService, UserService } from '@travel-tailor/services'
 import { CreateAdvertiserDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, MouseEvent, useState } from 'react'
+
+import Geocoder from '../../../../atoms/geocoder/react'
 
 interface IProps {
   api_url: string
+  mapboxAccessToken: string;
 }
 
-export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
+export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken }) => {
   const router = useRouter()
 
   const userId = router.query.id
 
   const [credentials, setCredentials] = useState<CreateAdvertiserDTO>({
     name: '',
-    location: '',
     user: String(userId),
+    location: '',
   })
+
+  const [results, setResults] = useState([]);
+  const [hideAutocomplete, setHideAutocomplete] = useState(true);
+  const [geocoderQuery, setGeocoderQuery] = useState('');
+
+  const handleResultSelected = (result: any) => {
+    setResults(result);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
+  }
+
+  const handleClick = (e: MouseEvent<HTMLParagraphElement>) => {
+    e.preventDefault()
+    setCredentials({ ...credentials, location: e.currentTarget.innerText })
+    setGeocoderQuery(e.currentTarget.innerText);
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -36,7 +53,7 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
   }
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form action="" onSubmit={handleSubmit} onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
       <label htmlFor="">
         <span>Name</span>
         <input
@@ -48,12 +65,9 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url }) => {
       </label>
       <label htmlFor="">
         <span>Location</span>
-        <input
-          type="text"
-          placeholder="Location"
-          name="location"
-          onChange={handleChange}
-        />
+        <Geocoder onResultSelected={handleResultSelected} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery}/>
+        <br />
+        {!hideAutocomplete ? results.map((result: any) => <p key={result.id} onClick={handleClick}>{result.place_name}</p>) : null}
       </label>
       <input type="submit" value="Create advertiser" />
     </form>

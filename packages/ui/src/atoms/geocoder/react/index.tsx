@@ -30,7 +30,7 @@ const Geocoder: React.FC<Props> = ({ onResultSelected, accessToken, geocoderQuer
 
   return (
     <div>
-      <input type="text" value={geocoderQuery} placeholder="Location" onChange={handleQueryChange} />
+      <input type="text" value={geocoderQuery} placeholder="location" onChange={handleQueryChange} />
     </div>
   );
 };
