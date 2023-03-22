@@ -33,9 +33,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     closing_at: '',
   })
   const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<CreateActivityClosingDayDTO>({
-    day: 0,
-    month: '',
-    year: 0,
+    date: '',
     recurrence: false,
   })
 
@@ -90,7 +88,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
   };
 
   const handleResetClosingDayInput = () => {
-    setActivityClosingDayCredentials({ day: 0, month: '', year: 0, recurrence: false});
+    setActivityClosingDayCredentials({ date: '', recurrence: false});
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -145,9 +143,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       </label>
       <label htmlFor="">
         <p>Closing day</p>
-        <input type="number" name="day" placeholder="day" value={activityClosingDayCredentials.day} onChange={handleActivityClosingDay} />
-        <input type="text" name="month" placeholder="month" value={activityClosingDayCredentials.month} onChange={handleActivityClosingDay} />
-        <input type="number" name="year" placeholder="year" value={activityClosingDayCredentials.year} onChange={handleActivityClosingDay} />
+        <input type="date" name="date" placeholder="date" value={activityClosingDayCredentials.date} onChange={handleActivityClosingDay} />
         <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
         <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();

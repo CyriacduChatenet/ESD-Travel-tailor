@@ -78,8 +78,8 @@ const ActivityPage: NextPage = () => {
         {data.detail?.closingDays?.map(
           (closingDay: ActivityClosingDay, index: number) => (
             <p key={index}>
-              {closingDay.day} {closingDay.month}{' '}
-              {!closingDay.recurrence ? closingDay.year : null}
+              {closingDay.date}
+              {closingDay.recurrence}
             </p>
           )
         )}

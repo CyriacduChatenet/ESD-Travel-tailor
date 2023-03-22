@@ -9,13 +9,7 @@ export class ActivityClosingDay extends Timestamp {
   id: string;
 
   @Column()
-  day: number;
-
-  @Column()
-  month: string;
-
-  @Column()
-  year: number;
+  date: string;
 
   @Column()
   recurrence: boolean;

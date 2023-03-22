@@ -9,7 +9,7 @@ import { Layout } from '@/layout'
 
 type Tag = { activities: Activity[], deletedAt: Date | null, createdAt: Date, updatedAt: Date, id: string, name: string };
 type Schedule = { opening_at: string, closing_at: string, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date };
-type ClosingDay = { day: number, month: string, year: string, recurrence: boolean, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date }
+type ClosingDay = { date: string, recurrence: boolean, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date }
 
 const CreateActivity: NextPage = () => {
   useProtectedRoute(authUtil)
@@ -70,7 +70,7 @@ const CreateActivity: NextPage = () => {
       {closingDays.map((closingDay, index) => (
         <div key={index}>
           <p>
-            {closingDay.day} / {closingDay.month} / {closingDay.year}
+            {closingDay.date}
           </p>
           <p>recurrence : {closingDay.recurrence ? 'true' : 'false'}</p>
           <button onClick={() => handleClosingDayDelete(closingDay.id)}>
