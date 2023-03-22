@@ -15,3 +15,9 @@ export type UpdateActivityTagDTO = {
   name?: string
   activities: {id: string}[]
 }
+
+export type ActivityTagQuery = {
+  name?: string
+  page?: number
+  limit?: number
+};

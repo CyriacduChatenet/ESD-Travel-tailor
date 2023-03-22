@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { ApiLimitResourceQuery } from '@travel-tailor/types'
+import { ActivityTagQuery } from '@travel-tailor/types'
 import { Repository } from 'typeorm'
 
 import { CreateActivityTagDto } from './dto/create-activity-tag.dto'
@@ -29,18 +29,21 @@ export class ActivityTagService {
     }
   }
 
-  async findAll(queries: ApiLimitResourceQuery) {
+  async findAll(queries: ActivityTagQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, name } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
+
+      const query = await this.activityTagRepository
+      .createQueryBuilder('activityTag')
+      .leftJoinAndSelect('activityTag.activities', 'activity')
+
+      if(name) {
+        query.where('activityTag.name LIKE :name', { name: `%${name}%` })
+      }
       
-      return this.activityTagRepository
-        .createQueryBuilder('activityTag')
-        .leftJoinAndSelect('activityTag.activities', 'activity')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany()
+      return query.skip((page - 1) * limit).take(limit).getMany()
     } catch (error) {
       throw new NotFoundException(error)
     }

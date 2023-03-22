@@ -1,8 +1,9 @@
-import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from '@travel-tailor/services';
+import { ActivityClosingDayService, ActivityScheduleService, ActivityService } from '@travel-tailor/services';
 import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FC, FormEvent, MouseEvent, SetStateAction, useState } from 'react'
 import { WebLocationInput } from '../../../../atoms/location-input/react';
+import { WebTagInput } from '../../../../atoms/tag-input/react';
 
 interface IProps {
   api_url: string;
@@ -26,10 +27,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
   })
   const [activityImageCredentials, setActivityImageCredentials] = useState<CreateActivityImageDTO>({
     source: '',
-  })
-  const [activityTagCredentials, setActivityTagCredentials] = useState<{name: string, activities: any[]}>({
-    name: '',
-    activities: []
   })
   const [activityScheduleCredentials, setActivityScheduleCredentials] = useState<CreateActivityScheduleDTO>({
     opening_at: '',
@@ -62,12 +59,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
   }
 
-  const handleActivityTag = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const { name, value } = e.target
-    setActivityTagCredentials({ ...activityTagCredentials, [name]: value })
-  }
-
   const handleActivitySchedule = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const { name, value } = e.target
@@ -85,10 +76,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     const { name, value } = e.target
     setActivityClosingDayCredentials({ ...activityClosingDayCredentials, [name]: value })
   }
-
-  const handleCreateTag = async () => {
-    return setTags([...tags, await ActivityTagService.createActivityTag(api_url, activityTagCredentials)])
-  };
 
   const handleCreateSchedule = async () => {
     return setSchedules([...schedules, await ActivityScheduleService.createActivitySchedule(api_url, activityScheduleCredentials)])
@@ -145,14 +132,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         <p>Image source</p>
         <input type="text" name="source" placeholder="Image source" onChange={handleActivityImage} />
       </label>
-      <label htmlFor="">
-        <p>Tags</p>
-        <input type="text" name="name" placeholder="tag name" onChange={handleActivityTag} />
-        <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault();
-          handleCreateTag();
-          }}>Create tag</button>
-      </label>
+      <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
       <label htmlFor="">
         <p>Schedules</p>
         <input type="text" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />

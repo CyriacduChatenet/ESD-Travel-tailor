@@ -3,8 +3,8 @@ import { CreateActivityTagDTO, UpdateActivityTagDTO } from "@travel-tailor/types
 
 import { TokenService } from "../tokens/token.service";
 
-const findAllActivityTags = async (api_url: string) => {
-    return await useFetch.get(`${api_url}/activity-tag`)
+const findAllActivityTags = async (api_url: string, query: string) => {
+    return await useFetch.get(`${api_url}/activity-tag${query}`)
 };
 
 const findActivityTagById = async (api_url: string, id: string) => {

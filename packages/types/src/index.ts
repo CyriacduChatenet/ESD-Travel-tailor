@@ -40,6 +40,7 @@ export type {
   ActivityTag,
   CreateActivityTagDTO,
   UpdateActivityTagDTO,
+  ActivityTagQuery,
 } from './activityTag'
 export type {
   ActivitySchedule,
