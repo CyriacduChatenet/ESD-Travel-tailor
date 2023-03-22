@@ -133,8 +133,8 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
       <label htmlFor="">
         <p>Schedules</p>
-        <input type="text" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
-        <input type="text" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
+        <input type="time" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
+        <input type="time" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
         <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
           handleCreateSchedule();
