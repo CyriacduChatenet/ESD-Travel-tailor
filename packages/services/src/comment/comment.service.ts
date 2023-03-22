@@ -13,7 +13,7 @@ const findCommentById = async (api_url: string, id: string) => {
 };
 
 const createComment = async (api_url: string, createCommentCredential: CreateCommentDTO) => {
-    return await useFetch.protectedPost(`${api_url}/comment`, {...createCommentCredential, likes: 0}, `${TokenService.getAccessToken()}`);
+    return await useFetch.protectedPost(`${api_url}/comment`, createCommentCredential, `${TokenService.getAccessToken()}`);
 };
 
 const createCommentWithRelations = async (api_url: string, createCommentCredential: CreateCommentDTO, activity_id: string) => {

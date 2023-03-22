@@ -8,10 +8,10 @@ export class ActivitySchedule extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false})
   opening_at: string;
 
-  @Column()
+  @Column({ nullable: false})
   closing_at: string;
 
   @ManyToOne(() => ActivityDetail, activityDetail => activityDetail.schedules)

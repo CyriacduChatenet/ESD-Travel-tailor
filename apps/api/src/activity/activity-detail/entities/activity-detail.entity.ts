@@ -17,10 +17,10 @@ export class ActivityDetail extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false})
   duration: string;
 
-  @Column()
+  @Column({ nullable: false})
   location: string;
 
   @OneToOne(() => Activity, (activity) => activity.detail)

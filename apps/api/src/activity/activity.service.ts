@@ -10,7 +10,7 @@ import { ActivityQuery } from '@travel-tailor/types'
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
 import { Activity } from './entities/activity.entity'
-import { regexNormalize } from '../utils/regex-normalize.util'
+import { regexNormalizeSlug } from '../utils/regex-normalize.util'
 
 @Injectable()
 export class ActivityService {
@@ -22,7 +22,7 @@ export class ActivityService {
     try {
       const activity = this.activityRepository.create({
         ...createActivityDto,
-        slug: regexNormalize(createActivityDto.name.toLowerCase()),
+        slug: regexNormalizeSlug(createActivityDto.name.toLowerCase()),
       })
       return this.activityRepository.save(activity)
     } catch (error) {

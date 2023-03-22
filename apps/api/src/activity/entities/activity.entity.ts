@@ -23,7 +23,7 @@ export class Activity extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false})
   name: string;
 
   @Column({
@@ -31,7 +31,7 @@ export class Activity extends Timestamp {
   })
   slug: string;
 
-  @Column()
+  @Column({ nullable: false})
   mark: number;
 
   @OneToOne(() => ActivityImage, (image) => image.activity, {

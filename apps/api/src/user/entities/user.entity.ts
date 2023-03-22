@@ -17,19 +17,20 @@ export class User extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column()
+  @Column({ nullable: false })
   username: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   @Column({
     type: 'enum',
     enum: Role,
     default: Role.Traveler,
+    nullable: false,
   })
   roles: Role;
 

@@ -8,10 +8,10 @@ export class ActivityClosingDay extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false})
   date: string;
 
-  @Column()
+  @Column({ nullable: false})
   recurrence: boolean;
 
   @ManyToOne(() => ActivityDetail, activityDetail => activityDetail.closingDays)

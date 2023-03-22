@@ -10,6 +10,7 @@ import { DeleteResult, Repository } from 'typeorm'
 
 import { SignupUserInputDTO } from './dto/signup-user.dto'
 import { User } from './entities/user.entity'
+import { testEmailUtil } from '../utils/regex-test-email.util'
 
 @Injectable()
 export class UserService {
@@ -18,7 +19,11 @@ export class UserService {
   ) {}
   async create(signupUserDto: SignupUserInputDTO): Promise<User> {
     try {
-      return await this.userRepository.save(signupUserDto)
+      if(testEmailUtil(signupUserDto.email)) {
+        return await this.userRepository.save(signupUserDto)
+      } else {
+        throw new BadRequestException('email must contain ***@***.***')
+      }
     } catch (error) {
       throw new BadRequestException(error)
     }

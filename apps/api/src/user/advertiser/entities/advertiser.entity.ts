@@ -15,10 +15,10 @@ export class Advertiser extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true, nullable: false})
   name: string;
 
-  @Column()
+  @Column({ nullable: false})
   location: string;
   
   @OneToOne(() => User, user => user.advertiser)

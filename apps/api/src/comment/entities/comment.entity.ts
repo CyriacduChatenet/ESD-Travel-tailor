@@ -9,10 +9,10 @@ export class Comment extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false})
   content: string;
 
-  @Column()
+  @Column({ default: 0})
   likes: number;
 
   @ManyToOne(() => Traveler, (traveler) => traveler.comments)

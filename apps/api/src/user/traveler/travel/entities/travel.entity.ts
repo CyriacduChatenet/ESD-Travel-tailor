@@ -16,16 +16,16 @@ export class Travel extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false })
   departureCity: string;
 
-  @Column()
+  @Column({ nullable: false })
   destinationCity: string;
 
-  @Column()
+  @Column({ nullable: false })
   departureDate: Date;
 
-  @Column()
+  @Column({ nullable: false })
   returnDate: Date;
 
   @ManyToOne(() => Traveler, (traveler) => traveler.travels)

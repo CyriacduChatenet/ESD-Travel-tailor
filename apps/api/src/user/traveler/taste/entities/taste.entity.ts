@@ -7,7 +7,7 @@ export class Taste extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true, nullable: false})
   name: string;
 
   @ManyToOne(() => Traveler, (traveler) => traveler.tastes)
