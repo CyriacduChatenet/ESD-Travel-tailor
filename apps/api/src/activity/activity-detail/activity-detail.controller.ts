@@ -7,7 +7,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Role } from '../../auth/decorators/role.enum';
 
 import { Roles } from '../../auth/decorators/roles.decorator';
@@ -29,8 +31,8 @@ export class ActivityDetailController {
   }
 
   @Get()
-  findAll() {
-    return this.activityDetailService.findAll();
+  findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.activityDetailService.findAll(queries);
   }
 
   @Get(':id')

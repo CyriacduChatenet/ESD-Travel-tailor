@@ -7,6 +7,7 @@ import {
   Delete,
   Patch,
   UseGuards,
+  Query,
 } from '@nestjs/common'
 import { DeleteResult } from 'typeorm'
 
@@ -16,6 +17,7 @@ import { UserService } from './user.service'
 import { Role } from '../auth/decorators/role.enum'
 import { Roles } from '../auth/decorators/roles.decorator'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 @Controller('user')
 export class UserController {
@@ -27,8 +29,8 @@ export class UserController {
   }
 
   @Get()
-  async findAll(): Promise<User[]> {
-    return await this.userService.findAll()
+  async findAll(@Query() queries: ApiLimitResourceQuery): Promise<User[]> {
+    return await this.userService.findAll(queries)
   }
 
   @Get(':email')

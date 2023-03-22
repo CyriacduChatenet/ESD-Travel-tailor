@@ -7,7 +7,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Role } from '../../auth/decorators/role.enum';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -28,8 +30,8 @@ export class ActivityImageController {
   }
 
   @Get()
-  findAll() {
-    return this.activityImageService.findAll();
+  findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.activityImageService.findAll(queries);
   }
 
   @Get(':id')

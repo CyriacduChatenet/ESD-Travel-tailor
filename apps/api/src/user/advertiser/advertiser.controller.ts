@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { Roles } from '../../auth/decorators/roles.decorator';
 import { AdvertiserService } from './advertiser.service';
 import { CreateAdvertiserDto } from './dto/create-advertiser.dto';
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 @Controller('advertiser')
 export class AdvertiserController {
@@ -25,8 +27,8 @@ export class AdvertiserController {
   }
 
   @Get()
-  async findAll() {
-    return await this.advertiserService.findAll();
+  async findAll(@Query() queries: ApiLimitResourceQuery) {
+    return await this.advertiserService.findAll(queries);
   }
 
   @Get(':id')

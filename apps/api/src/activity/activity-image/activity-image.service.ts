@@ -4,6 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Repository } from 'typeorm';
 
 import { CreateActivityImageDto } from './dto/create-activity-image.dto';
@@ -27,12 +28,18 @@ export class ActivityImageService {
     }
   }
 
-  findAll() {
+  findAll(queries: ApiLimitResourceQuery) {
     try {
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
       return this.activityImageRepository
         .createQueryBuilder('activityImage')
         .leftJoinAndSelect('activityImage.activity', 'activity')
         .orderBy('activityImage.id', 'DESC')
+        .skip((page - 1) * limit)
+        .take(limit)
         .getMany();
     } catch (error) {
       throw new NotFoundException(error);

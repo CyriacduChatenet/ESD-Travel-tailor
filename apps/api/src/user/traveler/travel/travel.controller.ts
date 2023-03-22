@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { TravelService } from './travel.service';
@@ -15,6 +16,7 @@ import { UpdateTravelDto } from './dto/update-travel.dto';
 import { Roles } from '../../../auth/decorators/roles.decorator';
 import { Role } from '../../../auth/decorators/role.enum';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 @Controller('travel')
 export class TravelController {
@@ -29,8 +31,8 @@ export class TravelController {
   }
 
   @Get()
-  findAll() {
-    return this.travelService.findAll();
+  findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.travelService.findAll(queries);
   }
 
   @Get(':id')

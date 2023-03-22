@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Repository } from 'typeorm';
 
 import { CreateTravelerDto } from './dto/create-traveler.dto';
@@ -26,8 +27,12 @@ export class TravelerService {
     }
   }
 
-  async findAll() {
+  async findAll(queries: ApiLimitResourceQuery) {
     try {
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
       return await this.travelerRepository
         .createQueryBuilder('traveler')
         .leftJoinAndSelect('traveler.user', 'user')
@@ -35,6 +40,8 @@ export class TravelerService {
         .leftJoinAndSelect('traveler.travels', 'travels')
         .leftJoinAndSelect('traveler.comments', 'comments')
         .orderBy('traveler.createdAt', 'DESC')
+        .skip((page - 1) * limit)
+        .take(limit)
         .getMany();
     } catch (error) {
       throw new NotFoundException(error);

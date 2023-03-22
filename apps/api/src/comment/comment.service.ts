@@ -4,6 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { Repository } from 'typeorm'
 
 import { CreateCommentDto } from './dto/create-comment.dto'
@@ -23,13 +24,19 @@ export class CommentService {
     }
   }
 
-  async findAll() {
+  async findAll(queries: ApiLimitResourceQuery) {
     try {
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
       return await this.commentRepository
         .createQueryBuilder('comment')
         .leftJoinAndSelect('comment.traveler', 'traveler')
         .leftJoinAndSelect('comment.activity', 'activity')
         .orderBy('comment.createdAt', 'DESC')
+        .skip((page - 1) * limit)
+        .take(limit)
         .getMany()
     } catch (error) {
       throw new NotFoundException(error)

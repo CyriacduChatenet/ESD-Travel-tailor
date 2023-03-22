@@ -6,7 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
+
 import { ActivityClosingDayService } from './activity-closing-day.service';
 import { CreateActivityClosingDayDto } from './dto/create-activity-closing-day.dto';
 import { UpdateActivityClosingDayDto } from './dto/update-activity-closing-day.dto';
@@ -23,8 +26,8 @@ export class ActivityClosingDayController {
   }
 
   @Get()
-  findAll() {
-    return this.activityClosingDayService.findAll();
+  findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.activityClosingDayService.findAll(queries);
   }
 
   @Get(':id')

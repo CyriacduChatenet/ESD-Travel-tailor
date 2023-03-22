@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { DeleteResult, Repository } from 'typeorm'
 
 import { SignupUserInputDTO } from './dto/signup-user.dto'
@@ -23,14 +24,20 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(queries: ApiLimitResourceQuery): Promise<User[]> {
     try {
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
       return await this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.traveler', 'traveler')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .orderBy('user.createdAt', 'DESC')
+        .skip((page - 1) * limit)
+        .take(limit)
         .getMany()
     } catch (error) {
       throw new NotFoundException(error)

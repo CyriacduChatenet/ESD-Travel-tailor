@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { TasteService } from './taste.service';
@@ -15,6 +16,7 @@ import { UpdateTasteDto } from './dto/update-taste.dto';
 import { Roles } from '../../../auth/decorators/roles.decorator';
 import { Role } from '../../../auth/decorators/role.enum';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 @Controller('taste')
 export class TasteController {
@@ -29,8 +31,8 @@ export class TasteController {
   }
 
   @Get()
-  async findAll() {
-    return this.tasteService.findAll();
+  async findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.tasteService.findAll(queries);
   }
 
   @Get(':id')

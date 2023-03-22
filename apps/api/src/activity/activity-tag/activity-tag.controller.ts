@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { Role } from '../../auth/decorators/role.enum';
 import { Roles } from '../../auth/decorators/roles.decorator';
@@ -26,8 +28,8 @@ export class ActivityTagController {
   }
 
   @Get()
-  findAll() {
-    return this.activityTagService.findAll();
+  findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.activityTagService.findAll(queries);
   }
 
   @Get(':name')

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
@@ -15,6 +16,7 @@ import { Roles } from '../auth/decorators/roles.decorator'
 import { CommentService } from './comment.service'
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 @Controller('comment')
 export class CommentController {
@@ -28,8 +30,8 @@ export class CommentController {
   }
 
   @Get()
-  findAll() {
-    return this.commentService.findAll()
+  findAll(@Query() queries: ApiLimitResourceQuery) {
+    return this.commentService.findAll(queries)
   }
 
   @Get(':id')

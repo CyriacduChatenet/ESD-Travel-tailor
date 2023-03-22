@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Repository } from 'typeorm';
 
 import { CreateActivityClosingDayDto } from './dto/create-activity-closing-day.dto';
@@ -23,12 +24,18 @@ export class ActivityClosingDayService {
     }
   }
 
-  async findAll() {
+  async findAll(queries: ApiLimitResourceQuery) {
     try {
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
       return await this.activityClosingDayRepository
         .createQueryBuilder('activityClosingDay')
         .leftJoinAndSelect('activityClosingDay.activityDetail', 'activityDetail')
         .orderBy('activityClosingDay.day', 'ASC')
+        .skip((page - 1) * limit)
+        .take(limit)
         .getMany();
     } catch (error) {
       throw new UnauthorizedException(error);

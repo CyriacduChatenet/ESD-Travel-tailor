@@ -51,3 +51,4 @@ export type {
   CreateActivityClosingDayDTO,
   UpdateActivityClosingDayDTO,
 } from './activityClosingDay'
+export type { ApiLimitResourceQuery } from './api'
