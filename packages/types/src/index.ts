@@ -25,7 +25,7 @@ export type { User, CreateUserDTO, UpdateUserDTO } from './user'
 export type { Taste, CreateTasteDTO, UpdateTasteDTO } from './taste'
 export type { Travel, CreateTravelDTO, UpdateTravelDTO } from './travel'
 export type { Comment, CreateCommentDTO, UpdateCommentDTO } from './comment'
-export type { Activity, CreateActivityDTO, UpdateActivityDTO } from './activity'
+export type { Activity, CreateActivityDTO, UpdateActivityDTO, ActivityQuery } from './activity'
 export type {
   ActivityDetail,
   CreateActivityDetailDTO,

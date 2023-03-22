@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { ActivityQuery } from '@travel-tailor/types'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
@@ -15,20 +16,27 @@ import { regexNormalize } from '../utils/regex-normalize.util'
 export class ActivityService {
   constructor(
     @InjectRepository(Activity)
-    private activityRepository: Repository<Activity>,
+    private activityRepository: Repository<Activity>
   ) {}
   async create(createActivityDto: CreateActivityDto) {
     try {
-      const activity = this.activityRepository.create({...createActivityDto, slug: regexNormalize(createActivityDto.name.toLowerCase())})
+      const activity = this.activityRepository.create({
+        ...createActivityDto,
+        slug: regexNormalize(createActivityDto.name.toLowerCase()),
+      })
       return this.activityRepository.save(activity)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
   }
 
-  async findAll() {
+  async findAll(queries: ActivityQuery) {
     try {
-      return await this.activityRepository
+      let { tags, limit, page, sortedBy, name, location, duration, opening_at, closing_at } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
+      let query = this.activityRepository
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
@@ -36,8 +44,37 @@ export class ActivityService {
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
-        .orderBy('activity.createdAt', 'DESC')
-        .getMany()
+        .innerJoinAndSelect("detail.schedules", "schedules")
+        .innerJoinAndSelect("detail.closingDays", "closingDays")
+  
+      if (tags) {
+        const tagList = tags.split(',').map(tag => tag.trim());
+        query = query.andWhere('tag.name IN (:...tags)', { tags: tagList });
+      }
+
+      if(sortedBy) {
+        query.orderBy('activity.createdAt', sortedBy)
+      }
+      if(name) {
+        query.andWhere('activity.name = :name', { name })
+      }
+
+      if(location) {
+        query.andWhere('detail.location = :location', { location })
+      }
+      if(duration) {
+        query.andWhere('detail.duration = :duration', { duration })
+      }
+
+      if(opening_at) {
+        query.andWhere("schedules.opening_at <= :opening_at", { opening_at })
+      }
+      if(closing_at) {
+        query.andWhere("schedules.closing_at <= :closing_at", { closing_at })
+      }
+  
+      const activities = await query.skip((page - 1) * limit).take(limit).getMany();
+      return activities;
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -88,18 +125,18 @@ export class ActivityService {
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tags')
         .where('activity.id = :id', { id })
-        .getOne();
+        .getOne()
 
-        activity.name = updateActivityDto?.name;
-        activity.image.source = updateActivityDto?.image.source;
-        activity.detail.duration = updateActivityDto?.detail.duration;
-        activity.detail.location = updateActivityDto?.detail.location;
-        activity.comments = updateActivityDto?.comments;
-        activity.travels = updateActivityDto?.travels;
-        activity.advertiser = updateActivityDto?.advertiser;
-        activity.tags = updateActivityDto?.tags;
+      activity.name = updateActivityDto?.name
+      activity.image.source = updateActivityDto?.image.source
+      activity.detail.duration = updateActivityDto?.detail.duration
+      activity.detail.location = updateActivityDto?.detail.location
+      activity.comments = updateActivityDto?.comments
+      activity.travels = updateActivityDto?.travels
+      activity.advertiser = updateActivityDto?.advertiser
+      activity.tags = updateActivityDto?.tags
 
-        return this.activityRepository.save(activity);
+      return this.activityRepository.save(activity)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

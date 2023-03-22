@@ -7,7 +7,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common'
+import { ActivityQuery } from '@travel-tailor/types'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { Role } from '../auth/decorators/role.enum'
@@ -29,8 +31,8 @@ export class ActivityController {
   }
 
   @Get()
-  findAll() {
-    return this.activityService.findAll()
+  findAll(@Query() queries: ActivityQuery) {
+    return this.activityService.findAll(queries)
   }
 
   @Get(':id')
