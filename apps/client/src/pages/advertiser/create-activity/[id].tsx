@@ -3,20 +3,16 @@ import { useState } from 'react'
 import { WebCreateActivityForm } from '@travel-tailor/ui'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
-import { Activity } from '@travel-tailor/types'
+import { ActivityClosingDay, ActivitySchedule, ActivityTag } from '@travel-tailor/types'
 
 import { Layout } from '@/layout'
-
-type Tag = { activities: Activity[], deletedAt: Date | null, createdAt: Date, updatedAt: Date, id: string, name: string };
-type Schedule = { opening_at: string, closing_at: string, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date };
-type ClosingDay = { date: string, recurrence: boolean, id: string, deletedAt: Date | null, createdAt: Date, updatedAt: Date }
 
 const CreateActivity: NextPage = () => {
   useProtectedRoute(authUtil)
 
-  const [tags, setTags] = useState<Tag[]>([])
-  const [schedules, setSchedules] = useState<Schedule[]>([])
-  const [closingDays, setClosingDays] = useState<ClosingDay[]>([])
+  const [tags, setTags] = useState<ActivityTag[]>([])
+  const [schedules, setSchedules] = useState<ActivitySchedule[]>([])
+  const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([])
 
   const handleTagDelete = (name: string) => {
     setTags(tags.filter((tag) => tag.name !== name))
