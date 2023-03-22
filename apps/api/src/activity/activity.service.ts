@@ -32,7 +32,7 @@ export class ActivityService {
 
   async findAll(queries: ActivityQuery) {
     try {
-      let { tags, limit, page, sortedBy, name, location, duration, opening_at, closing_at } = queries;
+      let { limit, page, sortedBy, name, tags, location, duration } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
@@ -44,8 +44,6 @@ export class ActivityService {
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
-        .innerJoinAndSelect("detail.schedules", "schedules")
-        .innerJoinAndSelect("detail.closingDays", "closingDays")
   
       if (tags) {
         const tagList = tags.split(',').map(tag => tag.trim());
@@ -64,13 +62,6 @@ export class ActivityService {
       }
       if(duration) {
         query.andWhere('detail.duration = :duration', { duration })
-      }
-
-      if(opening_at) {
-        query.andWhere("schedules.opening_at <= :opening_at", { opening_at })
-      }
-      if(closing_at) {
-        query.andWhere("schedules.closing_at <= :closing_at", { closing_at })
       }
   
       const activities = await query.skip((page - 1) * limit).take(limit).getMany();

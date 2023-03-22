@@ -43,5 +43,6 @@ export type ActivityQuery = {
   location?: string
   duration?: string
   opening_at?: string
-  closing_at?: string
+  closing_at?: string,
+  closed_day?: string
 }
