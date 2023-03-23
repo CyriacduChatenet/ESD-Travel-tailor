@@ -6,3 +6,7 @@
   list-style: none;
   box-sizing: border-box;
 }
+
+.mapboxgl-ctrl-geocoder {
+  display: none;
+}

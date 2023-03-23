@@ -197,25 +197,31 @@ importers:
 
   packages/services:
     specifiers:
+      '@mapbox/mapbox-gl-geocoder': ^5.0.1
       '@travel-tailor/constants': workspace:*
       '@travel-tailor/contexts': workspace:*
       '@travel-tailor/functions': workspace:*
       '@travel-tailor/hooks': workspace:*
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
+      '@types/mapbox-gl': ^2.7.10
+      '@types/mapbox__mapbox-gl-geocoder': ^4.7.3
       '@types/react': ^18.0.28
-      i: ^0.3.7
+      mapbox-gl: ^2.13.0
       prettier: ^2.8.4
       react: ^18.2.0
     dependencies:
+      '@mapbox/mapbox-gl-geocoder': 5.0.1_mapbox-gl@2.13.0
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/functions': link:../functions
       '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
+      '@types/mapbox-gl': 2.7.10
+      '@types/mapbox__mapbox-gl-geocoder': 4.7.3
       '@types/react': 18.0.28
-      i: 0.3.7
+      mapbox-gl: 2.13.0
       prettier: 2.8.4
       react: 18.2.0
 
@@ -247,6 +253,7 @@ importers:
       '@travel-tailor/constants': workspace:*
       '@travel-tailor/contexts': workspace:*
       '@travel-tailor/functions': workspace:*
+      '@travel-tailor/hooks': workspace:*
       '@travel-tailor/services': workspace:*
       '@travel-tailor/styles': workspace:*
       '@travel-tailor/tools': workspace:*
@@ -269,6 +276,7 @@ importers:
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/functions': link:../functions
+      '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/services': link:../services
       '@travel-tailor/styles': link:../styles
       '@travel-tailor/tools': link:../tools

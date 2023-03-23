@@ -1,31 +1,23 @@
-import React, { Dispatch, SetStateAction, useMemo, useState } from "react";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
 import mapboxgl from "mapbox-gl";
+import { GeocoderService } from "@travel-tailor/services";
 
 interface Props {
-  onResultSelected: (result: any) => void;
+  setResults: Dispatch<SetStateAction<mapboxgl.MapboxGeoJSONFeature[]>>;
   accessToken: string;
   geocoderQuery: string;
   setGeocoderQuery: Dispatch<SetStateAction<string>>;
 }
 
-const Geocoder: React.FC<Props> = ({ onResultSelected, accessToken, geocoderQuery, setGeocoderQuery }) => {
+const Geocoder: React.FC<Props> = ({ setResults, accessToken, geocoderQuery, setGeocoderQuery }) => {
     mapboxgl.accessToken = accessToken;;
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGeocoderQuery(event.target.value);
   };
 
-  const handleSearch = async () => {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-      geocoderQuery
-    )}.json?access_token=${mapboxgl.accessToken}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    onResultSelected(data.features);
-  };
-
-  useMemo(() => {
-    handleSearch();
+  useMemo(async () => {
+    await GeocoderService.searchCity(geocoderQuery, accessToken, setResults);
   }, [geocoderQuery]);
 
   return (

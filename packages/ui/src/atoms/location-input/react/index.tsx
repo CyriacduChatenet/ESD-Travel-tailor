@@ -1,5 +1,6 @@
 import { CreateActivityDetailDTO } from "@travel-tailor/types";
 import { Dispatch, FC, SetStateAction, useState } from "react";
+import mapboxgl from "mapbox-gl";
 
 import Geocoder from "../../geocoder/react";
 
@@ -10,13 +11,9 @@ interface IProps {
 };
 
 export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setActivityDetailCredentials, activityDetailCredentials }) => {
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<mapboxgl.MapboxGeoJSONFeature[]>([]);
     const [hideAutocomplete, setHideAutocomplete] = useState(true);
     const [geocoderQuery, setGeocoderQuery] = useState('');
-
-    const handleResultSelected = (result: any) => {
-      setResults(result);
-    };
 
     const handleCredentials = (value: string) => {
         setActivityDetailCredentials({ ...activityDetailCredentials, location: value })
@@ -25,7 +22,7 @@ export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setActivityDeta
 
     return (
         <div onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
-        <Geocoder onResultSelected={handleResultSelected} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} />
+        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} />
         <ul>
           {!hideAutocomplete ? results.map((result: any) => (
             <li key={result.id} onClick={() => handleCredentials(result.place_name)}>{result.place_name}</li>

@@ -13,8 +13,11 @@
     "@travel-tailor/hooks": "workspace:*",
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
+    "@types/mapbox__mapbox-gl-geocoder": "^4.7.3",
+    "@types/mapbox-gl": "^2.7.10",
     "@types/react": "^18.0.28",
-    "i": "^0.3.7",
+    "mapbox-gl": "^2.13.0",
     "prettier": "^2.8.4",
     "react": "^18.2.0"
   },

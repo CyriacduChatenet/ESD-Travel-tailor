@@ -1,2 +1,3 @@
 export { useFetch } from './fetch/index.hook'
 export { useProtectedRoute } from './routes/index.hook'
+export { useMapbox } from './mapbox/index.hook'

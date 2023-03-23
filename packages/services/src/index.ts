@@ -13,3 +13,5 @@ export { ActivityScheduleService } from './activity-schedule/activity-schedule.s
 export { ActivityClosingDayService } from './activity-closing-day/activity-closing-day.service'
 export { CommentService } from './comment/comment.service';
 export { TravelService } from './travel/travel.service';
+export { GeocoderService } from './mapbox/geocoder/geocoder.service';
+export { MapboxService } from './mapbox/mapbox.service';

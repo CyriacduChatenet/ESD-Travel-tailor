@@ -3,6 +3,7 @@ import { AdvertiserService, TokenService, UserService } from '@travel-tailor/ser
 import { CreateAdvertiserDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, FormEvent, MouseEvent, useState } from 'react'
+import mapboxgl from 'mapbox-gl'
 
 import Geocoder from '../../../../atoms/geocoder/react'
 
@@ -22,13 +23,9 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
     location: '',
   })
 
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<mapboxgl.MapboxGeoJSONFeature[]>([]);
   const [hideAutocomplete, setHideAutocomplete] = useState(true);
-  const [geocoderQuery, setGeocoderQuery] = useState('');
-
-  const handleResultSelected = (result: any) => {
-    setResults(result);
-  };
+  const [geocoderQuery, setGeocoderQuery] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -65,7 +62,7 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
       </label>
       <label htmlFor="">
         <span>Location</span>
-        <Geocoder onResultSelected={handleResultSelected} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery}/>
+        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery}/>
         <br />
         {!hideAutocomplete ? results.map((result: any) => <p key={result.id} onClick={handleClick}>{result.place_name}</p>) : null}
       </label>
