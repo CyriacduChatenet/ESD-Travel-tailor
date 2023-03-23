@@ -1,4 +1,4 @@
-import { ROUTES } from '@travel-tailor/constants'
+import { OBJECT_KEYS, ROUTES } from '@travel-tailor/constants'
 import { AdvertiserService, TokenService, UserService } from '@travel-tailor/services'
 import { CreateAdvertiserDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
@@ -62,7 +62,7 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
       </label>
       <label htmlFor="">
         <span>Location</span>
-        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery}/>
+        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={OBJECT_KEYS.LOCATION}/>
         <br />
         {!hideAutocomplete ? results.map((result: any) => <p key={result.id} onClick={handleClick}>{result.place_name}</p>) : null}
       </label>

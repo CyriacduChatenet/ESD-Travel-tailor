@@ -1,3 +1,4 @@
+import { OBJECT_KEYS } from '@travel-tailor/constants';
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService } from '@travel-tailor/services';
 import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
@@ -125,7 +126,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       </label>
       <label htmlFor="">
         <p>Location</p>
-        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setActivityDetailCredentials={setActivityDetailCredentials} activityDetailCredentials={activityDetailCredentials}/>
+        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION}/>
       </label>
       <label htmlFor="">
         <p>Image source</p>

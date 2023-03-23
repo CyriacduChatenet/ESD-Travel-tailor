@@ -16,11 +16,11 @@ export type Travel = {
 
 export type CreateTravelDTO = {
   traveler?: string
-  departureCity: string
-  destinationCity: string
+  departureCity?: string
+  destinationCity?: string
   activities?: string[]
-  departureDate: Date
-  returnDate: Date
+  departureDate?: Date
+  returnDate?: Date
 }
 
 export type UpdateTravelDTO = {

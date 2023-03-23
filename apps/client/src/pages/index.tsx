@@ -13,7 +13,7 @@ const Home: NextPage = ({ message }: any) => {
       <>
         <p>{message}</p>
         <br />
-        { user.roles.includes(ROLES.TRAVELER) ? <WebTravelForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`}/> : null}
+        { user.roles.includes(ROLES.TRAVELER) ? <WebTravelForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}/> : null}
       </>
     </Layout>
   );
