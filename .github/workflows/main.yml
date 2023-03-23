@@ -19,7 +19,7 @@ jobs:
             node-version: '18.x'
 
       - name: Install dependencies
-        run: npm install
+        run: cd apps/api && npm install && cd ../ && cd apps/client && npm install && cd ../
 
       - name: Build NestJS app
         working-directory: ./apps/api
