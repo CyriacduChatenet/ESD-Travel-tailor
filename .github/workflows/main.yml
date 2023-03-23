@@ -5,27 +5,59 @@ on:
       - main
 
 jobs:
-  update-ui-lib:
+  install-dependancies:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm ci
+      - name: Build ui lib
+        uses: actions/setup-node@v1
+        with:
+            node-version: '18.x'
+      - run: npm ci
 
-      - name: build ui lib
-        run: npm run build
+  format-files:
+    needs: install-dependancies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: cd apps/api && npm run format && cd ../../
+      - run: cd apps/client && npm run format && cd ../../
+      - run: cd packages/constants && npm run format && cd ../../
+      - run: cd packages/contexts && npm run format && cd ../../
+      - run: cd packages/functions && npm run format && cd ../../
+      - run: cd packages/hooks && npm run format && cd ../../
+      - run: cd packages/services && npm run format && cd ../../
+      - run: cd packages/styles && npm run format && cd ../../
+      - run: cd packages/types && npm run format && cd ../../
+      - run: cd packages/ui && npm run format && cd ../../
+      - run: cd packages/utils && npm run format && cd ../../
+
+  build-project:
+    needs: format-files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: cd apps/api && npm run build && cd ../../
+      - run: cd apps/client && npm run build && cd ../../
+      - run: cd packages/styles && npm run build && cd ../../
+      - run: cd packages/ui && npm run build && cd ../../
 
   deploy:
-    needs: update-ui-lib
+    needs: build-project
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm install -g pnpm && pnpm ci
+        uses: actions/setup-node@v1
+        with:
+            node-version: '18.x'
+      - run: npm ci
 
       - name: Build and deploy apps
         uses: amondnet/vercel-action@v20
