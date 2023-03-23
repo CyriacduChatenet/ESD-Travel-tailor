@@ -1,5 +1,5 @@
 import { HelloService } from '@travel-tailor/services';
-import { WebTravelForm } from '@travel-tailor/ui';
+import { WebCreateTravelForm } from '@travel-tailor/ui';
 import { NextPage } from 'next';
 
 import { Layout } from '@/layout';
@@ -13,7 +13,7 @@ const Home: NextPage = ({ message }: any) => {
       <>
         <p>{message}</p>
         <br />
-        { user.roles.includes(ROLES.TRAVELER) ? <WebTravelForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}/> : null}
+        { user.roles.includes(ROLES.TRAVELER) ? <WebCreateTravelForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}/> : null}
       </>
     </Layout>
   );

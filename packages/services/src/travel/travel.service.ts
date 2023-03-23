@@ -15,7 +15,7 @@ const createTravel = async (api_url: string, credentials: CreateTravelDTO) => {
   return await useFetch.protectedPost(`${api_url}/travel`, credentials, `${TokenService.getAccessToken()}`)
 };
 
-const updateTravel = async (api_url: string, travelId: string, credentials: UpdateTravelDTO) => {
+const updateTravel = async (api_url: string, travelId: string, credentials: any) => {
   return await useFetch.protectedPatch(
     `${api_url}/travel/${travelId}`,
     credentials,

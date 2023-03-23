@@ -3,14 +3,14 @@ import { useUser } from "@travel-tailor/contexts";
 import { TravelService } from "@travel-tailor/services";
 import { CreateTravelDTO } from "@travel-tailor/types";
 import { FC, useState } from "react";
-import { WebLocationInput } from "../../../atoms/location-input/react";
+import { WebLocationInput } from "../../../../../atoms/location-input/react";
 
 interface IProps {
     api_url: string;
     mapboxAccessToken: string;
 };
 
-export const WebTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) => {
+export const WebCreateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) => {
     const { user } = useUser();
     const [credentials, setCredentials] = useState<CreateTravelDTO>({
         departureDate: new Date(),
