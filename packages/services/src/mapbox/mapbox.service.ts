@@ -45,9 +45,34 @@ const geocoderResult = (
       geocoder.current.query(addresse);
 };
 
+const destroyMap = (map: MutableRefObject<mapboxgl.Map | null>) => {
+  if (map.current) {
+    map.current.remove();
+    map.current = null;
+  }
+};
+
+const destroyGeocoder = (geocoder: MutableRefObject<MapboxGeocoder | null>) => {
+  if (geocoder.current) {
+    geocoder.current.clear();
+    geocoder.current.onRemove();
+    geocoder.current = null;
+  }
+};
+
+const destroyMapControls = (map: MutableRefObject<mapboxgl.Map>, geocoder: MutableRefObject<MapboxGeocoder>) => {
+  if (map.current && geocoder.current) {
+    map.current.removeControl(geocoder.current);
+  }
+};
+
+
 export const MapboxService = {
     initMap,
     initGeocoder,
     addMapControls,
     geocoderResult,
+    destroyMap,
+    destroyGeocoder,
+    destroyMapControls,
 };

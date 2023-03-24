@@ -23,5 +23,14 @@ export const useMapbox = (mapContainer: RefObject<HTMLDivElement>, mapboxApiAcce
                 MapboxService.geocoderResult(geocoder, map, marker, setAddress, addresse);
             }
         }
+        return () => {
+            if (map.current) {
+                MapboxService.destroyMapControls(map, geocoder);
+                MapboxService.destroyMap(map);
+            }
+            if (geocoder.current) {
+                MapboxService.destroyGeocoder(geocoder);
+            }
+        }
     }, [mapContainer]);
 };
