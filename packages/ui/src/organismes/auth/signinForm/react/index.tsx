@@ -27,7 +27,7 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
   }
 
   const handleSubmit = async () => {
-    const user = await AuthService.signin(`${api_url}/auth/signin`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
+    const user = await AuthService.signin(`${api_url}${ROUTES.AUTH.SIGNIN}`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
     handleRedirect(user)
   }
 

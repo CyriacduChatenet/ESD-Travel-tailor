@@ -41,12 +41,12 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const advertiser = await AdvertiserService.createAdvertiser(
-      `${api_url}/advertiser`,
+      api_url,
       credentials
     )
     await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
     TokenService.removeSigninToken();
-    return router.push(ROUTES.SIGNIN)
+    return router.push(ROUTES.AUTH.SIGNIN)
   }
 
   return (

@@ -1,6 +1,7 @@
 import { OBJECT_KEYS } from '@travel-tailor/constants';
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService } from '@travel-tailor/services';
 import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
+import { ROUTES } from '@travel-tailor/constants';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FC, FormEvent, MouseEvent, SetStateAction, useState } from 'react'
 
@@ -109,9 +110,9 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       tags: [],
     }
     
-    const activity = await ActivityService.createActivityWithRelations(api_url, sendObject, tags);
-    console.log('activity',activity);
-    window.location.pathname = '/advertiser/dashboard'
+    await ActivityService.createActivityWithRelations(api_url, sendObject, tags);
+
+    router.push(ROUTES.ADVERTISER.DASHBOARD)
   }
 
   return (

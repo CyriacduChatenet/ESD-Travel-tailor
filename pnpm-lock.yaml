@@ -152,6 +152,7 @@ importers:
 
   packages/contexts:
     specifiers:
+      '@travel-tailor/constants': workspace:*
       '@travel-tailor/services': workspace:*
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
@@ -160,6 +161,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
+      '@travel-tailor/constants': link:../constants
       '@travel-tailor/services': link:../services
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types

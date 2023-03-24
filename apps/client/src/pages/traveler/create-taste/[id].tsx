@@ -22,7 +22,7 @@ const CreateTastePage: NextPage = () => {
   const handleSubmit = async () => {
     TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, `${travelerId}`)
     TokenService.removeSigninToken();
-    return router.push(ROUTES.SIGNIN);
+    return router.push(ROUTES.AUTH.SIGNIN);
   };
 
   return (

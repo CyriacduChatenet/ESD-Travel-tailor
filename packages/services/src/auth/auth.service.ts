@@ -6,6 +6,7 @@ import {
 } from '@travel-tailor/types'
 import { useFetch } from '@travel-tailor/hooks'
 import { jwtDecode } from '@travel-tailor/functions'
+import { API_RESET_PASSWORD_ROUTE, ROUTES } from '@travel-tailor/constants'
 
 import { TokenService } from '../tokens/token.service'
 
@@ -24,7 +25,7 @@ const signup = async (api_url: string, signupCredentials: SignupDTO) => {
 
 const logout = () => {
   TokenService.removeAccessToken()
-  location.pathname = '/signin'
+  location.pathname = ROUTES.AUTH.SIGNIN
 }
 
 const forgotPassword = async (
@@ -35,7 +36,7 @@ const forgotPassword = async (
 }
 
 const resetPassword = async (api_url: string, resetToken: string, resetPasswordCredentials : ResetPasswordDTO) => {
-  return await useFetch.post(`${api_url}/auth/reset-password/${resetToken}`, resetPasswordCredentials);
+  return await useFetch.post(`${api_url}${API_RESET_PASSWORD_ROUTE}/${resetToken}`, resetPasswordCredentials);
 }
 
 export const AuthService = {

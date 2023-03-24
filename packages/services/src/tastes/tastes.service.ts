@@ -1,3 +1,4 @@
+import { API_TASTE_ROUTE } from '@travel-tailor/constants'
 import { useFetch } from '@travel-tailor/hooks'
 import { CreateTasteDTO, UpdateTasteDTO } from '@travel-tailor/types'
 
@@ -5,16 +6,16 @@ import { TokenService } from '../tokens/token.service'
 import { TravelerService } from '../traveler/traveler.service'
 
 const findAllTastes = async (api_url: string) => {
-  return await useFetch.get(`${api_url}/taste`)
+  return await useFetch.get(`${api_url}${API_TASTE_ROUTE}`)
 }
 
 const findOneTaste = async (api_url: string, id: string) => {
-  return await useFetch.get(`${api_url}/taste/${id}`)
+  return await useFetch.get(`${api_url}${API_TASTE_ROUTE}/${id}`)
 }
 
 const createTaste = async (api_url: string, credentials: CreateTasteDTO) => {
   return await useFetch.protectedPost(
-    `${api_url}/taste`,
+    `${api_url}${API_TASTE_ROUTE}`,
     credentials,
     `${
       TokenService.getAccessToken()

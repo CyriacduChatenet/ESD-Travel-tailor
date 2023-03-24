@@ -1,3 +1,4 @@
+import { ROUTES } from '@travel-tailor/constants';
 import { Activity } from '@travel-tailor/types';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -10,7 +11,7 @@ interface IProps {
 export const WebActivityCard: FC<IProps> = ({ data, handleDelete }) => {
     const router = useRouter();
     const handleRedirect = (id: string) => {
-        router.push(`/advertiser/update-activity/${id}`)
+        router.push(`${ROUTES.ADVERTISER.ACTIVITY.UPDATE_ACTIVITY}/${id}`)
     };
   return (
     <div>

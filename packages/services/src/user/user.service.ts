@@ -1,4 +1,4 @@
-import { ROLES } from '@travel-tailor/constants'
+import { API_USER_ROUTE, ROLES } from '@travel-tailor/constants'
 import { jwtDecode } from '@travel-tailor/functions'
 import { useFetch } from '@travel-tailor/hooks'
 
@@ -7,11 +7,11 @@ import { TravelerService } from '../traveler/traveler.service'
 import { AdvertiserService } from '../advertiser/advertiser.service'
 
 const updateUser = (api_url: string, id: string, body: { email?: string, username?: string, password?: string, roles?: string, advertiser?: string, traveler?: string}) => {
-  return useFetch.protectedPatch(`${api_url}/user/${id}`, body, `${TokenService.getSigninToken()}`);
+  return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`);
 }
 
 const getUserByToken = async (api_url: string, email: string) => {
-  return await useFetch.get(`${api_url}/user/${email}`)
+  return await useFetch.get(`${api_url}${API_USER_ROUTE}/${email}`)
 }
 
 const getUserInfo = async (api_url: string) => {

@@ -1,16 +1,28 @@
 export const ROUTES = {
+  AUTH: {
     SIGNIN: '/signin',
-    TRAVELER: {
-      DASHBOARD: '/traveler/dashboard',
-      TASTE: {
-        CREATE: '/traveler/create-taste',
-      },
+    SIGNUP: '/signup',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+  },
+  TRAVELER: {
+    DASHBOARD: '/traveler/dashboard',
+    EDIT_TRAVELER: '/traveler/edit-travel',
+    TASTE: {
+      CREATE: '/traveler/create-taste',
     },
-    ADVERTISER: {
-      DASHBOARD: '/advertiser/dashboard',
-      CREATE_ADVERTISER: '/advertiser/create-advertiser',
-    },
-    ADMIN: {
-      DASHBOARD: '/admin/dashboard',
-    },
-  }
+  },
+  ADVERTISER: {
+    DASHBOARD: '/advertiser/dashboard',
+    CREATE_ADVERTISER: '/advertiser/create-advertiser',
+    ACTIVITY: {
+      CREATE_ACTIVITY: '/advertiser/create-activity',
+      UPDATE_ACTIVITY: '/advertiser/update-activity',
+      LIST: '/activity',
+    }
+  },
+  ADMIN: {
+    DASHBOARD: '/admin/dashboard',
+  },
+  ROOT: '/'
+}

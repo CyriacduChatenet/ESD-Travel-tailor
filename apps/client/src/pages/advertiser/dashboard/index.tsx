@@ -10,6 +10,7 @@ import { useUser } from '@travel-tailor/contexts'
 
 
 import { Layout } from '@/layout'
+import { ROUTES } from '@travel-tailor/constants'
 
 const AdvertiserDashboard: NextPage = () => {
   const { user, setUser } = useUser()
@@ -40,7 +41,7 @@ const AdvertiserDashboard: NextPage = () => {
         <button onClick={() => AuthService.logout()}>logout</button>
         <br />
         <br />
-        <Link href={`/advertiser/create-activity/${user.advertiser?.id}`}>
+        <Link href={`${ROUTES.ADVERTISER.ACTIVITY.CREATE_ACTIVITY}/${user.advertiser?.id}`}>
           <button>Create activty</button>
         </Link>
       </div>

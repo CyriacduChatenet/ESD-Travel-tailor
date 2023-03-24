@@ -12,6 +12,7 @@
   "dependencies": {
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/services": "workspace:*",
+    "@travel-tailor/constants": "workspace:*",
     "@travel-tailor/types": "workspace:*",
     "@types/react": "^18.0.28",
     "prettier": "^2.8.4",

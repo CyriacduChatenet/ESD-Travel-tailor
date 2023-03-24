@@ -1,3 +1,4 @@
+import { ROUTES } from '@travel-tailor/constants'
 import { AuthService } from '@travel-tailor/services'
 import { ForgotPasswordDTO } from '@travel-tailor/types'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
@@ -19,7 +20,7 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     return AuthService.forgotPassword(
-      `${api_url}/auth/forgot-password`,
+      `${api_url}${ROUTES.AUTH.FORGOT_PASSWORD}`,
       credentials
     )
   }

@@ -7,7 +7,8 @@ import React, {
   useState,
 } from 'react'
 import { User } from '@travel-tailor/types'
-import { TokenService, UserService } from '@travel-tailor/services'
+import { UserService } from '@travel-tailor/services'
+import { ROUTES } from '@travel-tailor/constants'
 
 type Context = {
   user: User
@@ -48,12 +49,12 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
 
   const findUserInfo = async (api_url: string) => {
     if (
-      window.location.pathname !== '/signin' &&
-      window.location.pathname !== '/signup' &&
-      window.location.pathname !== '/reset-password/*' &&
-      window.location.pathname !== '/create-tastes/*' &&
-      window.location.pathname !== '/create-advertiser/*' &&
-      window.location.pathname !== '/'
+      window.location.pathname !== ROUTES.AUTH.SIGNIN &&
+      window.location.pathname !== ROUTES.AUTH.SIGNUP &&
+      window.location.pathname !== `${ROUTES.AUTH.RESET_PASSWORD}/*` &&
+      window.location.pathname !== `${ROUTES.TRAVELER.TASTE.CREATE}/*` &&
+      window.location.pathname !== `${ROUTES.ADVERTISER.CREATE_ADVERTISER}/*` &&
+      window.location.pathname !== ROUTES.ROOT
     ) {
       const u = await UserService.getUserInfo(api_url)
       setUser(u)

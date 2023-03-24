@@ -7,17 +7,18 @@ import { Dispatch, SetStateAction } from 'react'
 
 import { TokenService } from '../tokens/token.service'
 import { TravelerService } from '../traveler/traveler.service'
+import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/constants'
 
 const findAllActivities = async (api_url: string) => {
-  return await useFetch.get(`${api_url}/activity`)
+  return await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}`)
 }
 
 const findActivityById = async (api_url: string, id: string) => {
-  return await useFetch.get(`${api_url}/activity/${id}`)
+  return await useFetch.get(`${api_url}/${API_ACTIVITY_ROUTE}${id}`)
 }
 
 const findActivityBySlug = async (api_url: string, slug: string) => {
-  return await useFetch.get(`${api_url}/activity/name/${slug}`)
+  return await useFetch.get(`${api_url}${API_ACTIVITY_BY_NAME_ROUTE}/${slug}`)
 }
 
 const createActivity = async (
@@ -25,7 +26,7 @@ const createActivity = async (
   credentials: CreateActivityDTO
 ) => {
   return await useFetch.protectedPost(
-    `${api_url}/activity`,
+    `${api_url}${API_ACTIVITY_ROUTE}`,
     credentials,
     `${TokenService.getAccessToken()}`
   )
@@ -37,7 +38,7 @@ const updateActivity = async (
   credentials: UpdateActivityDTO
 ) => {
   return await useFetch.protectedPatch(
-    `${api_url}/activity/${id}`,
+    `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
     credentials,
     `${TokenService.getAccessToken()}`
   )
@@ -45,7 +46,7 @@ const updateActivity = async (
 
 const deleteActivity = async (api_url: string, id: string) => {
   return await useFetch.protectedRemove(
-    `${api_url}/activity/${id}`,
+    `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
     `${TokenService.getAccessToken()}`
   )
 }

@@ -6,7 +6,7 @@ export const useProtectedRoute = (token:  string | boolean) => {
 
   useEffect(() => {
     if (!isAuth) {
-      window.location.href = ROUTES.SIGNIN
+      window.location.href = ROUTES.AUTH.SIGNIN
     }
     return
   }, [])

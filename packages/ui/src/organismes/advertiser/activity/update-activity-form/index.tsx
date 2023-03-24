@@ -1,5 +1,6 @@
 import { ActivityService } from '@travel-tailor/services';
 import { useRouter } from 'next/router';
+import { ROUTES } from '@travel-tailor/constants';
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 interface IProps {
@@ -51,7 +52,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url }) => {
       },
     }
     await ActivityService.updateActivity(api_url, `${router.query.id}`, sendObject)
-    window.location.pathname = '/advertiser/dashboard'
+    router.push(ROUTES.ADVERTISER.DASHBOARD)
   }
 
   return (

@@ -1,4 +1,4 @@
-import { OBJECT_KEYS } from "@travel-tailor/constants";
+import { OBJECT_KEYS, ROUTES } from "@travel-tailor/constants";
 import { useUser } from "@travel-tailor/contexts";
 import { TravelService } from "@travel-tailor/services";
 import { UpdateTravelDTO } from "@travel-tailor/types";
@@ -36,7 +36,7 @@ export const WebUpdateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken, tr
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await TravelService.updateTravel(api_url, `${router.query.id}`, {departureCity: cities.departureCity, destinationCity: cities.destinationCity, departureDate: credentials.departureDate, returnDate: credentials.returnDate});
-        return router.push('/traveler/dashboard')
+        return router.push(ROUTES.TRAVELER.DASHBOARD)
     };
 
     return (

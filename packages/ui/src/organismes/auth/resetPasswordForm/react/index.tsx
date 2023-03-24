@@ -1,3 +1,4 @@
+import { ROUTES } from '@travel-tailor/constants'
 import { AuthService } from '@travel-tailor/services'
 import { ResetPasswordDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
@@ -23,7 +24,7 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
     e.preventDefault()
     const resetTokenParam = router.query.resetToken;
     await AuthService.resetPassword(api_url, `${resetTokenParam}`, credentials)
-    router.push('/signin')
+    router.push(ROUTES.AUTH.SIGNIN)
   }
 
   return (

@@ -6,6 +6,7 @@ import { authUtil } from '@travel-tailor/utils'
 import { ActivityClosingDay, ActivitySchedule, ActivityTag } from '@travel-tailor/types'
 
 import { Layout } from '@/layout'
+import { FALSE_STRING_TYPE, TRUE_STRING_TYPE } from '@travel-tailor/constants'
 
 const CreateActivity: NextPage = () => {
   useProtectedRoute(authUtil)
@@ -68,7 +69,7 @@ const CreateActivity: NextPage = () => {
           <p>
             {closingDay.date}
           </p>
-          <p>recurrence : {closingDay.recurrence ? 'true' : 'false'}</p>
+          <p>recurrence : {closingDay.recurrence ? TRUE_STRING_TYPE : FALSE_STRING_TYPE}</p>
           <button onClick={() => handleClosingDayDelete(closingDay.id)}>
             Delete
           </button>

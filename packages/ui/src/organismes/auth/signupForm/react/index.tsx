@@ -36,7 +36,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     }
 
     if (credentials.roles === ROLES.ADMIN) {
-      router.push(ROUTES.SIGNIN)
+      router.push(ROUTES.AUTH.SIGNIN)
     }
   }
 
@@ -47,7 +47,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const user = await AuthService.signup(`${api_url}/auth/signup`, credentials)
+    const user = await AuthService.signup(`${api_url}${ROUTES.AUTH.SIGNIN}`, credentials)
     handleRedirect(user)
   }
 
