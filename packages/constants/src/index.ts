@@ -16,14 +16,14 @@ export {
   API_ACTIVITY_TAG_ROUTE,
   API_COMMENT_ROUTE,
   API_TRAVEL_ROUTE,
-} from './api'
+} from './api.constant'
 
-export { ACCESS_TOKEN, SIGNIN_TOKEN, RESET_TOKEN } from './tokens'
+export { ACCESS_TOKEN, SIGNIN_TOKEN, RESET_TOKEN } from './tokens.constant'
 
-export { ROUTES } from './client/routes'
+export { ROUTES } from './client-routes.constant'
 
-export { ROLES } from './enum/roles';
+export { ROLES } from './roles.constants';
 
-export { OBJECT_KEYS } from './object';
+export { OBJECT_KEYS } from './object.constants';
 
-export { TRUE_STRING_TYPE, FALSE_STRING_TYPE } from './primitive';
+export { TRUE_STRING_TYPE, FALSE_STRING_TYPE } from './primitive.constant';

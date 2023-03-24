@@ -118,6 +118,7 @@ importers:
       prettier: ^2.8.4
       react: ^18.2.0
       react-dom: ^18.2.0
+      sass: ^1.58.3
       typescript: ^4.7.4
     dependencies:
       '@travel-tailor/constants': link:../../packages/constants
@@ -134,10 +135,11 @@ importers:
       '@types/react-dom': 18.0.10
       eslint: 8.32.0
       eslint-config-next: 13.2.3_7uibuqfxkfaozanbtbziikiqje
-      next: 13.2.3_biqbaboplfbrettd7655fr4n2y
+      next: 13.2.3_wiv434v7erz4aedd5whhdwmpv4
       prettier: 2.8.4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      sass: 1.58.3
       typescript: 4.9.4
     devDependencies:
       pnpm: 7.30.1
@@ -153,40 +155,53 @@ importers:
   packages/contexts:
     specifiers:
       '@travel-tailor/constants': workspace:*
+      '@travel-tailor/functions': workspace:*
       '@travel-tailor/services': workspace:*
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/react': ^18.0.28
       prettier: ^2.8.4
-      react: ^18.2.0
-      react-dom: ^18.2.0
     dependencies:
       '@travel-tailor/constants': link:../constants
+      '@travel-tailor/functions': link:../functions
       '@travel-tailor/services': link:../services
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
-      '@types/react': 18.0.28
       prettier: 2.8.4
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      '@types/react': 18.0.28
 
   packages/functions:
     specifiers:
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
+      '@types/jwt-decode': ^3.1.0
+      '@types/next': ^9.0.0
+      '@types/react': ^17.0.37
+      '@types/react-dom': ^17.0.11
       jwt-decode: ^3.1.2
       next: 13.2.3
       prettier: ^2.8.4
+      react: ^18.2.0
+      react-dom: ^18.2.0
     dependencies:
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
       jwt-decode: 3.1.2
-      next: 13.2.3
+      next: 13.2.3_biqbaboplfbrettd7655fr4n2y
       prettier: 2.8.4
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      '@types/jwt-decode': 3.1.0
+      '@types/next': 9.0.0_biqbaboplfbrettd7655fr4n2y
+      '@types/react': 17.0.53
+      '@types/react-dom': 17.0.19
 
   packages/hooks:
     specifiers:
       '@travel-tailor/constants': 'workspace: *'
+      '@travel-tailor/functions': 'workspace: *'
       '@travel-tailor/services': 'workspace: *'
       '@travel-tailor/tools': 'workspace: *'
       '@travel-tailor/types': 'workspace: *'
@@ -195,12 +210,14 @@ importers:
       react: ^18.2.0
     dependencies:
       '@travel-tailor/constants': link:../constants
+      '@travel-tailor/functions': link:../functions
       '@travel-tailor/services': link:../services
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
-      '@types/react': 18.0.28
       prettier: 2.8.4
       react: 18.2.0
+    devDependencies:
+      '@types/react': 18.0.28
 
   packages/services:
     specifiers:
@@ -225,12 +242,13 @@ importers:
       '@travel-tailor/hooks': link:../hooks
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
-      '@types/mapbox-gl': 2.7.10
-      '@types/mapbox__mapbox-gl-geocoder': 4.7.3
-      '@types/react': 18.0.28
       mapbox-gl: 2.13.0
       prettier: 2.8.4
       react: 18.2.0
+    devDependencies:
+      '@types/mapbox-gl': 2.7.10
+      '@types/mapbox__mapbox-gl-geocoder': 4.7.3
+      '@types/react': 18.0.28
 
   packages/styles:
     specifiers:
@@ -271,7 +289,6 @@ importers:
       '@types/react-dom': ^18.0.10
       '@vitejs/plugin-react': ^3.1.0
       mapbox-gl: ^2.13.0
-      next: 13.2.3
       prettier: ^2.3.2
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -288,16 +305,15 @@ importers:
       '@travel-tailor/styles': link:../styles
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
-      '@types/mapbox-gl': 2.7.10
-      '@types/mapbox__mapbox-gl-geocoder': 4.7.3
       mapbox-gl: 2.13.0
-      next: 13.2.3_wiv434v7erz4aedd5whhdwmpv4
       prettier: 2.8.3
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       sass: 1.58.3
     devDependencies:
-      '@types/react': 18.0.27
+      '@types/mapbox-gl': 2.7.10
+      '@types/mapbox__mapbox-gl-geocoder': 4.7.3
+      '@types/react': 18.0.28
       '@types/react-dom': 18.0.10
       '@vitejs/plugin-react': 3.1.0_vite@4.1.4
       typescript: 4.9.4
@@ -1321,7 +1337,6 @@ packages:
 
   /@next/env/13.2.3:
     resolution: {integrity: sha512-FN50r/E+b8wuqyRjmGaqvqNDuWBWYWQiigfZ50KnSFH0f+AMQQyaZl+Zm2+CIpKk0fL9QxhLxOpTVA3xFHgFow==}
-    dev: false
 
   /@next/eslint-plugin-next/13.2.3:
     resolution: {integrity: sha512-QmMPItnU7VeojI1KnuwL9SLFWEwmaNHNlnOGpoTwdLoSiP9sc8KYiAHWEc4/44L+cAdCxcZYvn7frcRNP5l84Q==}
@@ -1335,7 +1350,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-android-arm64/13.2.3:
@@ -1344,7 +1358,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-darwin-arm64/13.2.3:
@@ -1353,7 +1366,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-darwin-x64/13.2.3:
@@ -1362,7 +1374,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-freebsd-x64/13.2.3:
@@ -1371,7 +1382,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm-gnueabihf/13.2.3:
@@ -1380,7 +1390,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-gnu/13.2.3:
@@ -1389,7 +1398,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-musl/13.2.3:
@@ -1398,7 +1406,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-gnu/13.2.3:
@@ -1407,7 +1414,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-musl/13.2.3:
@@ -1416,7 +1422,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-arm64-msvc/13.2.3:
@@ -1425,7 +1430,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-ia32-msvc/13.2.3:
@@ -1434,7 +1438,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-x64-msvc/13.2.3:
@@ -1443,7 +1446,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -1512,7 +1514,6 @@ packages:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
       tslib: 2.5.0
-    dev: false
 
   /@szmarczak/http-timer/4.0.6:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
@@ -1609,7 +1610,7 @@ packages:
 
   /@types/geojson/7946.0.10:
     resolution: {integrity: sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==}
-    dev: false
+    dev: true
 
   /@types/http-cache-semantics/4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
@@ -1629,6 +1630,13 @@ packages:
       '@types/node': 18.11.18
     dev: false
 
+  /@types/jwt-decode/3.1.0:
+    resolution: {integrity: sha512-tthwik7TKkou3mVnBnvVuHnHElbjtdbM63pdBCbZTirCt3WAdM73Y79mOri7+ljsS99ZVwUFZHLMxJuJnv/z1w==}
+    deprecated: This is a stub types definition. jwt-decode provides its own type definitions, so you do not need this installed.
+    dependencies:
+      jwt-decode: 3.1.2
+    dev: true
+
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
@@ -1639,14 +1647,14 @@ packages:
     resolution: {integrity: sha512-nMVEcu9bAcenvx6oPWubQSPevsekByjOfKjlkr+8P91vawtkxTnopDoXXq1Qn/f4cg3zt0Z2W9DVsVsKRNXJTw==}
     dependencies:
       '@types/geojson': 7946.0.10
-    dev: false
+    dev: true
 
   /@types/mapbox__mapbox-gl-geocoder/4.7.3:
     resolution: {integrity: sha512-zGVxbyEnJnVc37KpgCDRh1nTvVwVNTcqIDFgE5aETD2iOGDVVZpVDJRE3TUrTjdHxaq89767U8kxGcc8Pnv/ag==}
     dependencies:
       '@types/geojson': 7946.0.10
       '@types/mapbox-gl': 2.7.10
-    dev: false
+    dev: true
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
@@ -1655,6 +1663,22 @@ packages:
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: false
+
+  /@types/next/9.0.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-gnBXM8rP1mnCgT1uE2z8SnpFTKRWReJlhbZLZkOLq/CH1ifvTNwjIVtXvsywTy1dwVklf+y/MB0Eh6FOa94yrg==}
+    deprecated: This is a stub types definition. next provides its own type definitions, so you do not need this installed.
+    dependencies:
+      next: 13.2.3_biqbaboplfbrettd7655fr4n2y
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - babel-plugin-macros
+      - fibers
+      - node-sass
+      - react
+      - react-dom
+      - sass
+    dev: true
 
   /@types/node/18.11.18:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
@@ -1690,10 +1714,24 @@ packages:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
     dev: true
 
+  /@types/react-dom/17.0.19:
+    resolution: {integrity: sha512-PiYG40pnQRdPHnlf7tZnp0aQ6q9tspYr72vD61saO6zFCybLfMqwUCN0va1/P+86DXn18ZWeW30Bk7xlC5eEAQ==}
+    dependencies:
+      '@types/react': 17.0.53
+    dev: true
+
   /@types/react-dom/18.0.10:
     resolution: {integrity: sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==}
     dependencies:
       '@types/react': 18.0.27
+
+  /@types/react/17.0.53:
+    resolution: {integrity: sha512-1yIpQR2zdYu1Z/dc1OxC+MA6GR240u3gcnP4l6mvj/PJiVaqHsQPmWttsvHsfnhfPbU2FuGmo0wSITPygjBmsw==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.1
+    dev: true
 
   /@types/react/18.0.27:
     resolution: {integrity: sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==}
@@ -1708,7 +1746,7 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
-    dev: false
+    dev: true
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -2609,7 +2647,6 @@ packages:
 
   /client-only/0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
-    dev: false
 
   /cliui/7.0.4:
     resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
@@ -4913,7 +4950,6 @@ packages:
 
   /jwt-decode/3.1.2:
     resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
-    dev: false
 
   /kdbush/3.0.0:
     resolution: {integrity: sha512-hRkd6/XW4HTsA9vjVpY9tuXJYLSlelnkTmVFu4M9/7MIYQtFcHpbugAU7UbOfjOiVSVYl2fqgBuJ32JUmRo5Ew==}
@@ -5033,7 +5069,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /lower-case/1.1.4:
     resolution: {integrity: sha512-2Fgx1Ycm599x+WGpIYwJOvsjmXFzTSc34IwDWALRA/8AopUKAVPwfJ+h5+f85BCp0PWmmJcWzEpxOpoXycMpdA==}
@@ -5747,51 +5782,6 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /next/13.2.3:
-    resolution: {integrity: sha512-nKFJC6upCPN7DWRx4+0S/1PIOT7vNlCT157w9AzbXEgKy6zkiPKEt5YyRUsRZkmpEqBVrGgOqNfwecTociyg+w==}
-    engines: {node: '>=14.6.0'}
-    hasBin: true
-    peerDependencies:
-      '@opentelemetry/api': ^1.4.0
-      fibers: '>= 3.1.0'
-      node-sass: ^6.0.0 || ^7.0.0
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      sass: ^1.3.0
-    peerDependenciesMeta:
-      '@opentelemetry/api':
-        optional: true
-      fibers:
-        optional: true
-      node-sass:
-        optional: true
-      sass:
-        optional: true
-    dependencies:
-      '@next/env': 13.2.3
-      '@swc/helpers': 0.4.14
-      caniuse-lite: 1.0.30001448
-      postcss: 8.4.14
-      styled-jsx: 5.1.1
-    optionalDependencies:
-      '@next/swc-android-arm-eabi': 13.2.3
-      '@next/swc-android-arm64': 13.2.3
-      '@next/swc-darwin-arm64': 13.2.3
-      '@next/swc-darwin-x64': 13.2.3
-      '@next/swc-freebsd-x64': 13.2.3
-      '@next/swc-linux-arm-gnueabihf': 13.2.3
-      '@next/swc-linux-arm64-gnu': 13.2.3
-      '@next/swc-linux-arm64-musl': 13.2.3
-      '@next/swc-linux-x64-gnu': 13.2.3
-      '@next/swc-linux-x64-musl': 13.2.3
-      '@next/swc-win32-arm64-msvc': 13.2.3
-      '@next/swc-win32-ia32-msvc': 13.2.3
-      '@next/swc-win32-x64-msvc': 13.2.3
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-    dev: false
-
   /next/13.2.3_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-nKFJC6upCPN7DWRx4+0S/1PIOT7vNlCT157w9AzbXEgKy6zkiPKEt5YyRUsRZkmpEqBVrGgOqNfwecTociyg+w==}
     engines: {node: '>=14.6.0'}
@@ -5837,7 +5827,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-    dev: false
 
   /next/13.2.3_wiv434v7erz4aedd5whhdwmpv4:
     resolution: {integrity: sha512-nKFJC6upCPN7DWRx4+0S/1PIOT7vNlCT157w9AzbXEgKy6zkiPKEt5YyRUsRZkmpEqBVrGgOqNfwecTociyg+w==}
@@ -6455,7 +6444,6 @@ packages:
       nanoid: 3.3.4
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: false
 
   /postcss/8.4.21:
     resolution: {integrity: sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg==}
@@ -6747,7 +6735,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -6763,7 +6750,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-pkg-up/7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
@@ -7002,7 +6988,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /schema-utils/3.1.1:
     resolution: {integrity: sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw==}
@@ -7350,22 +7335,6 @@ packages:
       tinycolor2: 1.6.0
     dev: true
 
-  /styled-jsx/5.1.1:
-    resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
-    engines: {node: '>= 12.0.0'}
-    peerDependencies:
-      '@babel/core': '*'
-      babel-plugin-macros: '*'
-      react: '>= 16.8.0 || 17.x.x || ^18.0.0-0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      babel-plugin-macros:
-        optional: true
-    dependencies:
-      client-only: 0.0.1
-    dev: false
-
   /styled-jsx/5.1.1_react@18.2.0:
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
     engines: {node: '>= 12.0.0'}
@@ -7381,7 +7350,6 @@ packages:
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
 
   /subtag/0.5.0:
     resolution: {integrity: sha512-CaIBcTSb/nyk4xiiSOtZYz1B+F12ZxW8NEp54CdT+84vmh/h4sUnHGC6+KQXUfED8u22PQjCYWfZny8d2ELXwg==}

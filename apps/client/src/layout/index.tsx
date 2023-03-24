@@ -2,7 +2,7 @@ import { useUser } from '@travel-tailor/contexts'
 import { WebNavbar } from '@travel-tailor/ui'
 import { PropsWithChildren, useEffect } from 'react'
 
-import styles from './layout.module.css'
+import styles from './layout.module.scss'
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const { findUserInfo } = useUser();

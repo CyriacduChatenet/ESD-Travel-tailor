@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from '@travel-tailor/functions'
 
 import styles from './style.module.scss'
 

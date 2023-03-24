@@ -1,3 +1,2 @@
-export { formatDateUtil } from './formatDate';
-export { authUtil } from './auth';
-export { testEmailUtil } from './auth';
+export { formatDateUtil } from './format-date.util';
+export { authUtil, testEmailUtil } from './auth.util';

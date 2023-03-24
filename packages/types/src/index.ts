@@ -1,55 +1,55 @@
-export type { SigninDTO, SigninResponse } from './auth/signin.type'
-export type { SignupDTO } from './auth/signup.type'
-export type { ForgotPasswordDTO } from './auth/forgotPassword.type'
+export type { SigninDTO, SigninResponse } from './signin.type'
+export type { SignupDTO } from './signup.type'
+export type { ForgotPasswordDTO } from './forgotPassword.type'
 export type {
   ResetPasswordDTO,
   ResetPasswordServiceDTO,
-} from './auth/resetPassword.type'
-export type { ValidateUserDTO } from './auth/validateUser.type'
+} from './resetPassword.type'
+export type { ValidateUserDTO } from './validateUser.type'
 
-export type { AccessToken, AccessTokenPayload } from './tokens/accessToken.type'
-export type { ErrorResponse, SuccessResponse } from './responses'
+export type { AccessToken, AccessTokenPayload } from './accessToken.type'
+export type { ErrorResponse, SuccessResponse } from './api-response.type'
 
 export type {
   Advertiser,
   CreateAdvertiserDTO,
   UpdateAdvertiserDTO,
-} from './advertiser'
+} from './advertiser.type'
 export type {
   ResetPasswordToken as ResetPasswordTokenUser,
   CreateResetPasswordTokenDTO,
   UpdateResetPasswordTokenDTO,
-} from './reset-password-token'
-export type { Traveler, CreateTravelerDTO, UpdateTravelerDTO } from './traveler'
-export type { User, CreateUserDTO, UpdateUserDTO } from './user'
-export type { Taste, CreateTasteDTO, UpdateTasteDTO } from './taste'
-export type { Travel, CreateTravelDTO, UpdateTravelDTO } from './travel'
-export type { Comment, CreateCommentDTO, UpdateCommentDTO } from './comment'
-export type { Activity, CreateActivityDTO, UpdateActivityDTO, ActivityQuery } from './activity'
+} from './reset-password.type'
+export type { Traveler, CreateTravelerDTO, UpdateTravelerDTO } from './traveler.type'
+export type { User, CreateUserDTO, UpdateUserDTO } from './user.type'
+export type { Taste, CreateTasteDTO, UpdateTasteDTO } from './taste.type'
+export type { Travel, CreateTravelDTO, UpdateTravelDTO } from './travel.type'
+export type { Comment, CreateCommentDTO, UpdateCommentDTO } from './comment.type'
+export type { Activity, CreateActivityDTO, UpdateActivityDTO, ActivityQuery } from './activity.type'
 export type {
   ActivityDetail,
   CreateActivityDetailDTO,
   UpdateActivityDetailDTO,
-} from './activityDetail'
+} from './activity-detail.type'
 export type {
   ActivityImage,
   CreateActivityImageDTO,
   UpdateActivityImageDTO,
-} from './activityImage'
+} from './activiity-image.type'
 export type {
   ActivityTag,
   CreateActivityTagDTO,
   UpdateActivityTagDTO,
   ActivityTagQuery,
-} from './activityTag'
+} from './activity-tag.type'
 export type {
   ActivitySchedule,
   CreateActivityScheduleDTO,
   UpdateActivityScheduleDTO,
-} from './activitySchedule'
+} from './activity-schedule.type'
 export type {
   ActivityClosingDay,
   CreateActivityClosingDayDTO,
   UpdateActivityClosingDayDTO,
-} from './activityClosingDay'
-export type { ApiLimitResourceQuery } from './api'
+} from './activity-closing-day.type'
+export type { ApiLimitResourceQuery } from './api.type'

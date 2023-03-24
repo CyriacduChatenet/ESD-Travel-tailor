@@ -1,8 +1,6 @@
 import { ROLES, ROUTES } from '@travel-tailor/constants'
 import { useUser } from '@travel-tailor/contexts'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FC } from 'react'
+import { FC, NextImage, NextLink } from '@travel-tailor/functions'
 
 import { WebButton } from '../../../atoms/button/react'
 
@@ -12,8 +10,8 @@ export const WebNavbar: FC = () => {
   const { user } = useUser()
   return (
     <nav className={styles.navbar}>
-      <Link href={ROUTES.ROOT}>
-        <Image
+      <NextLink href={ROUTES.ROOT}>
+        <NextImage
           src={
             'https://images.unsplash.com/photo-1677612968800-4d9f1104d251?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
           }
@@ -21,17 +19,17 @@ export const WebNavbar: FC = () => {
           width={50}
           height={50}
         />
-      </Link>
-      <Link href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</Link>
+      </NextLink>
+      <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</NextLink>
       {user.roles.length > 0 ? (
         <>
-        {user.roles.includes(ROLES.TRAVELER) ? <Link href={ROUTES.TRAVELER.DASHBOARD}>Traveler dashboard</Link> : null}
-        {user.roles.includes(ROLES.ADVERTISER) ? <Link href={ROUTES.ADVERTISER.DASHBOARD}>Advertiser dashboard</Link> : null}
+        {user.roles.includes(ROLES.TRAVELER) ? <NextLink href={ROUTES.TRAVELER.DASHBOARD}>Traveler dashboard</NextLink> : null}
+        {user.roles.includes(ROLES.ADVERTISER) ? <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>Advertiser dashboard</NextLink> : null}
         </>
       ) : null}
-      <Link href={ROUTES.AUTH.SIGNIN}>
+      <NextLink href={ROUTES.AUTH.SIGNIN}>
         <WebButton label={'Connexion'} />
-      </Link>
+      </NextLink>
     </nav>
   )
 }

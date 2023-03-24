@@ -1,7 +1,6 @@
 import { ROUTES } from '@travel-tailor/constants';
 import { Activity } from '@travel-tailor/types';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useRouter } from '@travel-tailor/functions';
 
 interface IProps {
     data: Activity;

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { UserContextProvider } from './user/user.context'
+import { UserContextProvider } from './user.context'
 
 export const Context = ({ children }: PropsWithChildren) => {
   return (
