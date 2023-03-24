@@ -1,19 +1,19 @@
 import { API_TASTE_ROUTE } from '@travel-tailor/constants'
 import { useFetch } from '@travel-tailor/hooks'
-import { CreateTasteDTO, UpdateTasteDTO } from '@travel-tailor/types'
+import { CreateTasteDTO, Taste, UpdateTasteDTO } from '@travel-tailor/types'
 
 import { TokenService } from '../tokens/token.service'
 import { TravelerService } from '../traveler/traveler.service'
 
-const findAllTastes = async (api_url: string) => {
+const findAllTastes = async (api_url: string): Promise<Taste[]> => {
   return await useFetch.get(`${api_url}${API_TASTE_ROUTE}`)
 }
 
-const findOneTaste = async (api_url: string, id: string) => {
+const findOneTaste = async (api_url: string, id: string): Promise<Taste> => {
   return await useFetch.get(`${api_url}${API_TASTE_ROUTE}/${id}`)
 }
 
-const createTaste = async (api_url: string, credentials: CreateTasteDTO) => {
+const createTaste = async (api_url: string, credentials: CreateTasteDTO): Promise<Taste> => {
   return await useFetch.protectedPost(
     `${api_url}${API_TASTE_ROUTE}`,
     credentials,
@@ -25,11 +25,11 @@ const createTaste = async (api_url: string, credentials: CreateTasteDTO) => {
   )
 }
 
-const createTasteWithRelation = async (api_url: string, tastes: {name: string, traveler: string}[], travelerId: string) => {
+const createTasteWithRelation = async (api_url: string, tastes: Taste[], travelerId: string) => {
   const traveler = await TravelerService.findTravelerById(api_url, travelerId);
   tastes.map(async (t) => {
-    const taste = await TasteService.createTaste(api_url, {name: t.name, traveler: traveler.id});
-    TravelerService.updateTraveler(api_url, travelerId, {tastes: [taste.id]});
+    const taste = await createTaste(api_url, {name: String(t.name), traveler: traveler.id});
+    TravelerService.updateTraveler(api_url, travelerId, {tastes: [`${taste.id}`]});
   });
 };
 
@@ -37,7 +37,7 @@ const updateTaste = async (
   api_url: string,
   id: string,
   credentials: UpdateTasteDTO
-) => {
+): Promise<Taste> => {
   return await useFetch.protectedPatch(
     `${api_url}/taste/${id}`,
     credentials,

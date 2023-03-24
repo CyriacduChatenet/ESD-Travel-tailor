@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from 'react'
 import { useRouter } from 'next/router'
 import { AuthService } from '@travel-tailor/services'
 import { SigninDTO, User } from '@travel-tailor/types'
-import { ROLES, ROUTES } from '@travel-tailor/constants'
+import { API_SIGNIN_ROUTE, ROLES, ROUTES } from '@travel-tailor/constants'
 
 interface IProps {
   api_url: string
@@ -27,7 +27,7 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
   }
 
   const handleSubmit = async () => {
-    const user = await AuthService.signin(`${api_url}${ROUTES.AUTH.SIGNIN}`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
+    const user = await AuthService.signin(`${api_url}${API_SIGNIN_ROUTE}`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
     handleRedirect(user)
   }
 

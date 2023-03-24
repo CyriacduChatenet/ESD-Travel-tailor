@@ -5,12 +5,13 @@ import { useFetch } from '@travel-tailor/hooks'
 import { TokenService } from '../tokens/token.service'
 import { TravelerService } from '../traveler/traveler.service'
 import { AdvertiserService } from '../advertiser/advertiser.service'
+import { UpdateUserDTO, User } from '@travel-tailor/types'
 
-const updateUser = (api_url: string, id: string, body: { email?: string, username?: string, password?: string, roles?: string, advertiser?: string, traveler?: string}) => {
+const updateUser = (api_url: string, id: string, body: UpdateUserDTO): Promise<User[]> => {
   return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`);
 }
 
-const getUserByToken = async (api_url: string, email: string) => {
+const getUserByToken = async (api_url: string, email: string): Promise<User> => {
   return await useFetch.get(`${api_url}${API_USER_ROUTE}/${email}`)
 }
 
@@ -19,18 +20,18 @@ const getUserInfo = async (api_url: string) => {
   const decodedToken = jwtDecode(String(token)) as any
   const user = await getUserByToken(api_url, decodedToken.email)
 
-  if ((await user.roles) === ROLES.TRAVELER) {
+  if ((user.roles) === ROLES.TRAVELER) {
     const traveler = await TravelerService.findTravelerById(
       api_url,
-      user.traveler.id
+      `${user?.traveler?.id}`
     )
     return { ...user, ...traveler }
   }
 
-  if ((await user.roles) === ROLES.ADVERTISER) {
+  if ((user.roles) === ROLES.ADVERTISER) {
     const advertiser = await AdvertiserService.findAdvertiserById(
       api_url,
-      user.advertiser.id
+      `${user?.advertiser?.id}`
     )
     return { ...user, ...advertiser }
   }

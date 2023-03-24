@@ -1,12 +1,12 @@
 import { Traveler } from '../traveler'
 
 export type Taste = {
-  id: string
-  name: string
-  traveler?: Traveler
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
+  id?: string
+  name?: string
+  traveler?: string | Traveler
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateTasteDTO = {

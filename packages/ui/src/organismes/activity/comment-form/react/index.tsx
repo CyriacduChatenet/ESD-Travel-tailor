@@ -21,9 +21,9 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }
         setCredentials({ ...credentials, [name]: value });
     };
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const comment = await CommentService.createCommentWithRelations(api_url, {content: credentials.content, traveler: user.traveler?.id }, activity_id);
+        const comment = CommentService.createCommentWithRelations(api_url, {content: credentials.content, traveler: user.traveler?.id }, activity_id);
         setComments((prevComments: any) => [...prevComments, comment])
     };
     

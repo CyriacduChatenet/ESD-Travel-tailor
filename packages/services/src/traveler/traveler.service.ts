@@ -1,22 +1,22 @@
 import { useFetch } from '@travel-tailor/hooks';
-import { CreateTravelerDTO, UpdateTravelerDTO } from '@travel-tailor/types';
+import { CreateTravelerDTO, Traveler, UpdateTravelerDTO } from '@travel-tailor/types';
 import { API_TRAVELER_ROUTE } from '@travel-tailor/constants';
 
 import { TokenService } from '../tokens/token.service';
 
-const findAllTravelers = async (api_url: string) => {
+const findAllTravelers = async (api_url: string): Promise<Traveler[]> => {
   return await useFetch.get(`${api_url}${API_TRAVELER_ROUTE}`);
 };
 
-const findTravelerById = async (api_url: string | undefined, travelerId: string) => {
+const findTravelerById = async (api_url: string, travelerId: string): Promise<Traveler> => {
   return await useFetch.get(`${api_url}${API_TRAVELER_ROUTE}/${travelerId}`);
 };
 
-const createTraveler = async (api_url: string, credentials: CreateTravelerDTO) => {
+const createTraveler = async (api_url: string, credentials: CreateTravelerDTO): Promise<Traveler> => {
   return await useFetch.post(`${api_url}${API_TRAVELER_ROUTE}`, credentials)
 };
 
-const updateTraveler = async (api_url: string, travelerId: string, credentials: UpdateTravelerDTO) => {
+const updateTraveler = async (api_url: string, travelerId: string, credentials: UpdateTravelerDTO): Promise<Traveler> => {
   return await useFetch.protectedPatch(
     `${api_url}${API_TRAVELER_ROUTE}/${travelerId}`,
     credentials,

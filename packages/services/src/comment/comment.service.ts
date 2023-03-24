@@ -5,26 +5,26 @@ import { TokenService } from "../tokens/token.service";
 import { Dispatch, SetStateAction } from "react";
 import { API_COMMENT_ROUTE } from "@travel-tailor/constants";
 
-const findAllComments = async (api_url: string) => {
+const findAllComments = async (api_url: string): Promise<Comment[]> => {
     return await useFetch.get(`${api_url}${API_COMMENT_ROUTE}`);
 };
 
-const findCommentById = async (api_url: string, id: string) => {
+const findCommentById = async (api_url: string, id: string): Promise<Comment> => {
     return await useFetch.get(`${api_url}${API_COMMENT_ROUTE}/${id}`);
 };
 
-const createComment = async (api_url: string, createCommentCredential: CreateCommentDTO) => {
+const createComment = async (api_url: string, createCommentCredential: CreateCommentDTO): Promise<Comment> => {
     return await useFetch.protectedPost(`${api_url}${API_COMMENT_ROUTE}`, createCommentCredential, `${TokenService.getAccessToken()}`);
 };
 
-const createCommentWithRelations = async (api_url: string, createCommentCredential: CreateCommentDTO, activity_id: string) => {
+const createCommentWithRelations = async (api_url: string, createCommentCredential: CreateCommentDTO, activity_id: string): Promise<Comment> => {
     const activity = await ActivityService.findActivityById(api_url, activity_id);
     const comment = await useFetch.protectedPost(`${api_url}${API_COMMENT_ROUTE}`, {...createCommentCredential, activity: activity_id, likes: 0}, `${TokenService.getAccessToken()}`);
     await ActivityService.updateActivity(api_url, activity_id, {comments: [...activity.comments, comment._id]});
     return comment;
 };
 
-const updateComment = async (api_url: string, id: string, updateCommentCredential: UpdateCommentDTO) => {
+const updateComment = async (api_url: string, id: string, updateCommentCredential: UpdateCommentDTO): Promise<Comment> => {
     return await useFetch.protectedPatch(`${api_url}${API_COMMENT_ROUTE}/${id}`, updateCommentCredential, `${TokenService.getAccessToken()}`);
 };
 

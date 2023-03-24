@@ -6,12 +6,13 @@ import { useRouter } from 'next/router'
 import { TasteService, TokenService } from '@travel-tailor/services'
 import { ROUTES } from '@travel-tailor/constants'
 import { authUtil } from '@travel-tailor/utils'
+import { Taste } from '@travel-tailor/types'
 
 const CreateTastePage: NextPage = () => {
   useProtectedRoute(authUtil);
   const router = useRouter();
 
-  const [tastes, setTastes] = useState<{ name: string, traveler: string }[]>([]);
+  const [tastes, setTastes] = useState<Taste[]>([]);
 
   const travelerId = router.query.id;
 
@@ -32,9 +33,9 @@ const CreateTastePage: NextPage = () => {
       <br />
       <br />
       <p>Tastes</p>
-      {tastes.map((taste, index) => <div key={index}>
+      {tastes.map((taste: Taste, index: number) => <div key={index}>
         <p>{taste.name}</p>
-        <button onClick={() => handleDelete(taste.name)}>Delete</button>
+        <button onClick={() => handleDelete(`${taste.name}`)}>Delete</button>
       </div>)}
       <br />
       <br />

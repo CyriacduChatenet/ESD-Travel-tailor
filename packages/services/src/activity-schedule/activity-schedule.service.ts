@@ -1,22 +1,22 @@
 import { API_ACTIVITY_SCHEDULE_ROUTE } from "@travel-tailor/constants";
 import { useFetch } from "@travel-tailor/hooks";
-import { CreateActivityScheduleDTO, UpdateActivityScheduleDTO } from "@travel-tailor/types";
+import { ActivitySchedule, CreateActivityScheduleDTO, UpdateActivityScheduleDTO } from "@travel-tailor/types";
 
 import { TokenService } from "../tokens/token.service";
 
-const findAllActivitySchedules = async (api_url: string) => {
+const findAllActivitySchedules = async (api_url: string): Promise<ActivitySchedule[]> => {
     return await useFetch.get(`${api_url}${API_ACTIVITY_SCHEDULE_ROUTE}`)
 };
 
-const findActivityScheduleById = async (api_url: string, id: string) => {
+const findActivityScheduleById = async (api_url: string, id: string): Promise<ActivitySchedule> => {
     return await useFetch.get(`${api_url}${API_ACTIVITY_SCHEDULE_ROUTE}/${id}`)
 };
 
-const createActivitySchedule = async (api_url: string, credentials: CreateActivityScheduleDTO) => {
+const createActivitySchedule = async (api_url: string, credentials: CreateActivityScheduleDTO): Promise<ActivitySchedule> => {
     return await useFetch.post(`${api_url}${API_ACTIVITY_SCHEDULE_ROUTE}`, credentials);
 };
 
-const updateActivitySchedule = async (api_url: string, id: string, credentials: UpdateActivityScheduleDTO) => {
+const updateActivitySchedule = async (api_url: string, id: string, credentials: UpdateActivityScheduleDTO): Promise<ActivitySchedule> => {
     return await useFetch.protectedPatch(`${api_url}${API_ACTIVITY_SCHEDULE_ROUTE}/${id}`, credentials, `${TokenService.getAccessToken()}`);
 };
 

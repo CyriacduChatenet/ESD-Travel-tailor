@@ -34,11 +34,11 @@ export type CreateUserDTO = {
 }
 
 export type UpdateUserDTO = {
-  username: string
-  email: string
-  password: string
-  roles: string[]
+  username?: string
+  email?: string
+  password?: string
+  roles?: string[]
   advertiser?: string
   traveler?: string
-  resetPasswordToken: string
+  resetPasswordToken?: string
 }

@@ -1,4 +1,4 @@
-export type { SigninDTO } from './auth/signin.type'
+export type { SigninDTO, SigninResponse } from './auth/signin.type'
 export type { SignupDTO } from './auth/signup.type'
 export type { ForgotPasswordDTO } from './auth/forgotPassword.type'
 export type {

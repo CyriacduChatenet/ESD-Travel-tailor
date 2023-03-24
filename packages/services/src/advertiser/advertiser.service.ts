@@ -1,20 +1,20 @@
 import { API_ADVERTISER_ROUTE } from '@travel-tailor/constants';
 import { useFetch } from '@travel-tailor/hooks';
-import { CreateAdvertiserDTO, UpdateAdvertiserDTO } from '@travel-tailor/types';
+import { Advertiser, CreateAdvertiserDTO, UpdateAdvertiserDTO } from '@travel-tailor/types';
 
-const findAllAdvertiser = async (api_url: string) => {
+const findAllAdvertiser = async (api_url: string): Promise<Advertiser[]> => {
   return await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}`);
 };
 
-const findAdvertiserById = async (api_url: string, id: string) => {
+const findAdvertiserById = async (api_url: string, id: string): Promise<Advertiser> => {
   return await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}/${id}`);
 };
 
-const createAdvertiser = (api_url: string, credentials: CreateAdvertiserDTO) => {
+const createAdvertiser = (api_url: string, credentials: CreateAdvertiserDTO): Promise<Advertiser> => {
   return useFetch.post(`${api_url}${API_ADVERTISER_ROUTE}`, credentials)
 };
 
-const updateAdvertiser = async (api_url: string, id: string, credentials: UpdateAdvertiserDTO, token: string) => {
+const updateAdvertiser = async (api_url: string, id: string, credentials: UpdateAdvertiserDTO, token: string): Promise<Advertiser> => {
   return await useFetch.protectedPatch(`${api_url}${API_ADVERTISER_ROUTE}/${id}`, credentials, token);
 };
 

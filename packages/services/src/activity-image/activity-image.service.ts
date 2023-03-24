@@ -1,22 +1,22 @@
 import { API_ACTIVITY_IMAGE_ROUTE } from "@travel-tailor/constants";
 import { useFetch } from "@travel-tailor/hooks";
-import { CreateActivityImageDTO, UpdateActivityImageDTO } from "@travel-tailor/types";
+import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from "@travel-tailor/types";
 
 import { TokenService } from "../tokens/token.service";
 
-const findAllActivityImages = async (api_url: string) => {
+const findAllActivityImages = async (api_url: string): Promise<ActivityImage[]> => {
     return await useFetch.get(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}`)
 };
 
-const findActivityImageById = async (api_url: string, id: string) => {
+const findActivityImageById = async (api_url: string, id: string): Promise<ActivityImage>  => {
     return await useFetch.get(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}/${id}`)
 };
 
-const createActivityImage = async (api_url: string, credentials: CreateActivityImageDTO) => {
+const createActivityImage = async (api_url: string, credentials: CreateActivityImageDTO): Promise<ActivityImage>  => {
     return await useFetch.post(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}`, credentials);
 };
 
-const updateActivityImage = async (api_url: string, id: string, credentials: UpdateActivityImageDTO) => {
+const updateActivityImage = async (api_url: string, id: string, credentials: UpdateActivityImageDTO): Promise<ActivityImage>  => {
     return await useFetch.protectedPatch(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}/${id}`, credentials, `${TokenService.getAccessToken()}`);
 };
 

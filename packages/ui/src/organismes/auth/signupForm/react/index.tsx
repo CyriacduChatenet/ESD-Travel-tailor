@@ -1,4 +1,4 @@
-import { ROLES, ROUTES } from '@travel-tailor/constants'
+import { API_SIGNUP_ROUTE, ROLES, ROUTES } from '@travel-tailor/constants'
 import {
   AuthService,
   TravelerService,
@@ -25,7 +25,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
   const handleRedirect = async (user: User) => {
     if (credentials.roles === ROLES.TRAVELER) {
       const traveler = await TravelerService.createTraveler(api_url, {
-        user: await user.id,
+        user: user.id,
       })
       await UserService.updateUser(api_url, await user.id, { traveler: traveler.id })
       router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
@@ -47,7 +47,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const user = await AuthService.signup(`${api_url}${ROUTES.AUTH.SIGNIN}`, credentials)
+    const user = await AuthService.signup(`${api_url}${API_SIGNUP_ROUTE}`, credentials)
     handleRedirect(user)
   }
 
