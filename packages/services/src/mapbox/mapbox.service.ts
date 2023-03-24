@@ -31,7 +31,7 @@ const geocoderResult = (
     setAddress: Dispatch<SetStateAction<string>>, 
     addresse: string) => {
 
-    geocoder.current.on('result', (event: any) => {
+    geocoder.current.on('result', (event: { result: { place_name: string, center: any}}) => {
         const coordinates = event.result.center;
         setAddress(event.result.place_name);
         map.current?.flyTo({ center: coordinates });

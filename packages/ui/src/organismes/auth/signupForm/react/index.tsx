@@ -6,7 +6,7 @@ import {
 } from '@travel-tailor/services'
 import { SignupDTO, User } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
-import { FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 interface IProps {
   api_url: string
@@ -40,7 +40,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     }
   }
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setCredentials({ ...credentials, [name]: value })
   }

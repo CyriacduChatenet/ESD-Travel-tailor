@@ -26,7 +26,7 @@ const userContext = createContext<Context>({
     resetPasswordToken: {
       id: '',
       token: '',
-      user: {},
+      user: '',
     },
   },
   setUser: () => {},
@@ -43,7 +43,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     resetPasswordToken: {
       id: '',
       token: '',
-      user: {},
+      user: '',
     },
   })
 
@@ -56,7 +56,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
       window.location.pathname !== `${ROUTES.ADVERTISER.CREATE_ADVERTISER}/*` &&
       window.location.pathname !== ROUTES.ROOT
     ) {
-      const u = await UserService.getUserInfo(api_url)
+      const u = await UserService.getUserInfo(api_url) as User
       setUser(u)
     }
   }

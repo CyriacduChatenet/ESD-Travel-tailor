@@ -6,7 +6,11 @@ import { Layout } from '@/layout';
 import { useUser } from '@travel-tailor/contexts';
 import { ROLES } from '@travel-tailor/constants';
 
-const Home: NextPage = ({ message }: any) => {
+interface IProps {
+  message: string;
+}
+
+const Home: NextPage<IProps> = ({ message }) => {
   const { user } = useUser();
   return (
     <Layout>

@@ -3,7 +3,7 @@ import { User } from '../user'
 export type ResetPasswordToken = {
   id: string
   token: string
-  user: any | User
+  user: string | User
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null

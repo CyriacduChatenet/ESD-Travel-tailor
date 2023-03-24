@@ -2,11 +2,12 @@ import { Dispatch, FC, SetStateAction, useState } from "react";
 import mapboxgl from "mapbox-gl";
 
 import Geocoder from "../../geocoder/react";
+import { CreateActivityDetailDTO, CreateTravelDTO, UpdateTravelDTO } from "@travel-tailor/types";
 
 interface IProps {
     mapboxAccessToken: string
     setStateCredentials: Dispatch<SetStateAction<any>>
-    stateCredentials: any,
+    stateCredentials: CreateActivityDetailDTO | CreateTravelDTO | UpdateTravelDTO,
     objectKey: string
 };
 

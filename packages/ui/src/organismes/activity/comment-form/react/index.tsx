@@ -24,7 +24,7 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const comment = CommentService.createCommentWithRelations(api_url, {content: credentials.content, traveler: user.traveler?.id }, activity_id);
-        setComments((prevComments: any) => [...prevComments, comment])
+        setComments((prevComments: Comment[]) => [...prevComments, comment])
     };
     
     return (

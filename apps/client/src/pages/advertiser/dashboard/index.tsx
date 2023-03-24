@@ -5,7 +5,7 @@ import { ActivityService, AuthService, UserService } from '@travel-tailor/servic
 import { useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
 import { WebActivityCard } from '@travel-tailor/ui'
-import { Activity } from '@travel-tailor/types'
+import { Activity, User } from '@travel-tailor/types'
 import { useUser } from '@travel-tailor/contexts'
 
 
@@ -17,7 +17,7 @@ const AdvertiserDashboard: NextPage = () => {
   const getData = async () => {
     const response = await UserService.getUserInfo(
       `${process.env.NEXT_PUBLIC_API_URL}`
-    )
+    ) as User
     setUser(response)
   }
 

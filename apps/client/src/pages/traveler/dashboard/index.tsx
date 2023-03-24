@@ -3,7 +3,7 @@ import { MouseEvent, useEffect } from 'react'
 import { AuthService, TravelService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 import { useUser } from '@travel-tailor/contexts'
-import { Travel } from '@travel-tailor/types'
+import { Travel, User } from '@travel-tailor/types'
 import { authUtil, formatDateUtil } from '@travel-tailor/utils'
 import { useRouter } from 'next/router'
 
@@ -16,7 +16,7 @@ const TravelerDashboard: NextPage = () => {
   const getData = async () => {
     const response = await UserService.getUserInfo(
       `${process.env.NEXT_PUBLIC_API_URL}`
-    )
+    ) as User
     setUser(response)
   }
 

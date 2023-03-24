@@ -2,7 +2,7 @@ import { ROUTES } from '@travel-tailor/constants'
 import { AuthService } from '@travel-tailor/services'
 import { ResetPasswordDTO } from '@travel-tailor/types'
 import { useRouter } from 'next/router'
-import { FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 interface IProps {
   api_url: string
@@ -15,7 +15,7 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
 
   const router = useRouter()
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setCredentials({ ...credentials, [name]: value })
   }

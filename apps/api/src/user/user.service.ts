@@ -9,6 +9,7 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { DeleteResult, Repository } from 'typeorm'
 
 import { SignupUserInputDTO } from './dto/signup-user.dto'
+import { UpdateUserDTO } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
 import { testEmailUtil } from '../utils/regex-test-email.util'
 
@@ -63,7 +64,7 @@ export class UserService {
     }
   }
 
-  async update(id: string, signupUserDto: any) {
+  async update(id: string, signupUserDto: UpdateUserDTO | unknown) {
     try {
       return await this.userRepository.update(id, signupUserDto)
     } catch (error) {

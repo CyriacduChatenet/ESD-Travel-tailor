@@ -15,7 +15,7 @@ export type User = {
   travels?: Travel[]
   resetPasswordToken: ResetPasswordToken
   activities?: Activity[]
-  user?: any
+  user?: string | User
   name?: string
   location?: string
   createdAt?: Date
@@ -37,7 +37,7 @@ export type UpdateUserDTO = {
   username?: string
   email?: string
   password?: string
-  roles?: string[]
+  roles?: string
   advertiser?: string
   traveler?: string
   resetPasswordToken?: string

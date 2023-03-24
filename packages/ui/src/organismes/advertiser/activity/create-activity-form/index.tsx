@@ -1,6 +1,6 @@
 import { OBJECT_KEYS } from '@travel-tailor/constants';
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService } from '@travel-tailor/services';
-import { CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
+import { ActivityClosingDay, ActivitySchedule, ActivityTag, CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityImageDTO, CreateActivityScheduleDTO } from '@travel-tailor/types';
 import { ROUTES } from '@travel-tailor/constants';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FC, FormEvent, MouseEvent, SetStateAction, useState } from 'react'
@@ -10,12 +10,12 @@ import { WebTagInput } from '../../../../atoms/tag-input/react';
 
 interface IProps {
   api_url: string;
-  tags: any[];
-  setTags: Dispatch<SetStateAction<any[]>>;
-  schedules: any[];
-  setSchedules: Dispatch<SetStateAction<any[]>>;
-  closingDays: any[];
-  setClosingDays: Dispatch<SetStateAction<any[]>>;
+  tags: ActivityTag[];
+  setTags: Dispatch<SetStateAction<ActivityTag[]>>;
+  schedules: ActivitySchedule[];
+  setSchedules: Dispatch<SetStateAction<ActivitySchedule[]>>;
+  closingDays: ActivityClosingDay[];
+  setClosingDays: Dispatch<SetStateAction<ActivityClosingDay[]>>;
   mapboxAccessToken: string;
 }
 

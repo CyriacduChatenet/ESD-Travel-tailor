@@ -4,8 +4,8 @@ import { ChangeEvent, Dispatch, FC, MouseEvent, SetStateAction, useMemo, useStat
 
 interface IProps {
     api_url: string;
-    tags: any[];
-    setTags: Dispatch<SetStateAction<any[]>>;
+    tags: ActivityTag[];
+    setTags: Dispatch<SetStateAction<ActivityTag[]>>;
 }
 
 export const WebTagInput: FC<IProps> = ({ tags, setTags, api_url}) => {

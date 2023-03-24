@@ -7,6 +7,5 @@ export class UpdateUserDTO {
   roles?: string;
   advertiser?: Advertiser;
   traveler?: Traveler;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   resetPasswordToken: Object;
 }
