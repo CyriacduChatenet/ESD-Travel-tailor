@@ -32,18 +32,20 @@ export class ActivityService {
 
   async findAll(queries: ActivityQuery) {
     try {
-      let { limit, page, sortedBy, name, tags, location, duration } = queries;
+      let { limit, page, sortedBy, name, tags, location, duration, closed_day, opening_at, closing_at } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
       let query = this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect("detail.closingDays", "closingDay")
+        .leftJoinAndSelect("detail.schedules", "schedule")  
   
       if (tags) {
         const tagList = tags.split(',').map(tag => tag.trim());
@@ -63,6 +65,20 @@ export class ActivityService {
       if(duration) {
         query.andWhere('detail.duration = :duration', { duration })
       }
+
+        
+      if (closed_day) {
+        const closedDaysList = tags.split(',').map(closingDay => closingDay.trim());
+        query = query.andWhere('closingDay.date IN (:...closingDays)', { closingDays: closedDaysList });
+      }
+
+      if(opening_at) {
+        query.andWhere('schedule.opening_at = :opening_at', { opening_at })
+      }
+
+      if(closing_at) {
+        query.andWhere('schedule.closing_at = :closing_at', { closing_at })
+      }
   
       const activities = await query.skip((page - 1) * limit).take(limit).getMany();
       return activities;
@@ -75,12 +91,14 @@ export class ActivityService {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect("detail.closingDays", "closingDay")
+        .leftJoinAndSelect("detail.schedules", "schedule")
         .where('activity.id = :id', { id })
         .getOne()
     } catch (error) {
@@ -92,12 +110,14 @@ export class ActivityService {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.detail', 'detail')
+        .leftJoinAndSelect("detail.closingDays", "closingDay")
+        .leftJoinAndSelect("detail.schedules", "schedule")
         .where('activity.slug = :slug', { slug })
         .getOne()
     } catch (error) {
