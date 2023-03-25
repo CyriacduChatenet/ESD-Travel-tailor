@@ -1,4 +1,4 @@
-import { useProtectedRoute } from '@travel-tailor/hooks'
+import { useProtectedRoute, useTravelerProtectedRoute } from '@travel-tailor/hooks'
 import { WebCreateTasteForm } from '@travel-tailor/ui'
 import { NextPage } from 'next'
 import { useState } from 'react'
@@ -10,6 +10,8 @@ import { Taste } from '@travel-tailor/types'
 
 const CreateTastePage: NextPage = () => {
   useProtectedRoute(authUtil);
+  useTravelerProtectedRoute(authUtil);
+  
   const router = useRouter();
 
   const [tastes, setTastes] = useState<Taste[]>([]);

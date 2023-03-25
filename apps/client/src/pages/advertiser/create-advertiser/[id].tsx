@@ -1,12 +1,13 @@
 import { NextPage } from 'next'
 import { WebCreateAdvertiserForm } from '@travel-tailor/ui'
-import { useProtectedRoute } from '@travel-tailor/hooks'
+import { useAdvertiserProtectedRoute, useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
 
 import { Layout } from '@/layout'
 
 const CreateAdvertiser: NextPage = () => {
   useProtectedRoute(authUtil)
+  useAdvertiserProtectedRoute(authUtil)
 
   return (
     <Layout>

@@ -21,10 +21,10 @@ export const WebNavbar: FC = () => {
         />
       </NextLink>
       <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</NextLink>
-      {user.roles.length > 0 ? (
+      {user?.roles !== undefined && user.roles.length > 0 ? (
         <>
-        {user.roles.includes(ROLES.TRAVELER) ? <NextLink href={ROUTES.TRAVELER.DASHBOARD}>Traveler dashboard</NextLink> : null}
-        {user.roles.includes(ROLES.ADVERTISER) ? <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>Advertiser dashboard</NextLink> : null}
+        {user.roles === ROLES.TRAVELER ? <NextLink href={ROUTES.TRAVELER.DASHBOARD}>Traveler dashboard</NextLink> : null}
+        {user.roles === ROLES.ADVERTISER ? <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>Advertiser dashboard</NextLink> : null}
         </>
       ) : null}
       <NextLink href={ROUTES.AUTH.SIGNIN}>

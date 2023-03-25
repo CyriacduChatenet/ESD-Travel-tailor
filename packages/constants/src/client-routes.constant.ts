@@ -11,6 +11,7 @@ export const ROUTES = {
     TASTE: {
       CREATE: '/traveler/create-taste',
     },
+    TRAVELER: '/traveler',
   },
   ADVERTISER: {
     DASHBOARD: '/advertiser/dashboard',
@@ -19,10 +20,12 @@ export const ROUTES = {
       CREATE_ACTIVITY: '/advertiser/create-activity',
       UPDATE_ACTIVITY: '/advertiser/update-activity',
       LIST: '/activity',
-    }
+    },
+    ADVERTISER: '/advertiser'
   },
   ADMIN: {
     DASHBOARD: '/admin/dashboard',
+    ADMIN: '/admin',
   },
   ROOT: '/'
 }

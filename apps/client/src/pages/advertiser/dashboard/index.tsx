@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { ActivityService, AuthService, UserService } from '@travel-tailor/services'
-import { useProtectedRoute } from '@travel-tailor/hooks'
+import { useAdvertiserProtectedRoute, useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
 import { WebActivityCard } from '@travel-tailor/ui'
 import { Activity, User } from '@travel-tailor/types'
@@ -21,6 +21,7 @@ const AdvertiserDashboard: NextPage = () => {
   }
 
   useProtectedRoute(authUtil);
+  useAdvertiserProtectedRoute(authUtil);
 
   const handleDelete = (id: string) => {
     ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`,id);

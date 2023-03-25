@@ -1,4 +1,4 @@
-import { useProtectedRoute } from "@travel-tailor/hooks";
+import { useProtectedRoute, useTravelerProtectedRoute } from "@travel-tailor/hooks";
 import { WebUpdateTravelForm } from "@travel-tailor/ui";
 import { authUtil } from "@travel-tailor/utils";
 import { NextPage } from "next";
@@ -10,6 +10,7 @@ const EditTravel: NextPage = () => {
     const router = useRouter();
 
     useProtectedRoute(authUtil)
+    useTravelerProtectedRoute(authUtil)
     return (
         <Layout>
             <h1>Edit Travel</h1>

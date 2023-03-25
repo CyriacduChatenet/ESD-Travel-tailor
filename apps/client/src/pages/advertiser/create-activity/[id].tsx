@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
 import { WebCreateActivityForm } from '@travel-tailor/ui'
-import { useProtectedRoute } from '@travel-tailor/hooks'
+import { useAdvertiserProtectedRoute, useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
 import { ActivityClosingDay, ActivitySchedule, ActivityTag } from '@travel-tailor/types'
 import { FALSE_STRING_TYPE, TRUE_STRING_TYPE } from '@travel-tailor/constants'
@@ -10,6 +10,7 @@ import { Layout } from '@/layout'
 
 const CreateActivity: NextPage = () => {
   useProtectedRoute(authUtil)
+  useAdvertiserProtectedRoute(authUtil)
 
   const [tags, setTags] = useState<ActivityTag[]>([])
   const [schedules, setSchedules] = useState<ActivitySchedule[]>([])
