@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-
-import { Layout } from '@/layout';
 import { WebSignupForm } from '@travel-tailor/ui';
 import { ROUTES } from '@travel-tailor/constants';
+
+import { Layout } from '@/layout';
 
 const SignupPage: NextPage = () => {
   return (

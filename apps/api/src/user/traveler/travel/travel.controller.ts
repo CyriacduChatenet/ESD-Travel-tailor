@@ -9,6 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { TravelService } from './travel.service';
 import { CreateTravelDto } from './dto/create-travel.dto';
@@ -16,7 +17,6 @@ import { UpdateTravelDto } from './dto/update-travel.dto';
 import { Roles } from '../../../auth/decorators/roles.decorator';
 import { Role } from '../../../auth/decorators/role.enum';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
-import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 @Controller('travel')
 export class TravelController {

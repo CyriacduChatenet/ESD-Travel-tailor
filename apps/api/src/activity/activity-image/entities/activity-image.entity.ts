@@ -1,6 +1,7 @@
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Activity } from '../../../activity/entities/activity.entity';
 import { Timestamp } from '../../../utils/timestamp.util';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class ActivityImage extends Timestamp {

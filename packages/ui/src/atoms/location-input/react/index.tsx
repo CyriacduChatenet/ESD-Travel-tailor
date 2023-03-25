@@ -1,8 +1,8 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import { CreateActivityDetailDTO, CreateTravelDTO, UpdateTravelDTO } from "@travel-tailor/types";
 
 import Geocoder from "../../geocoder/react";
-import { CreateActivityDetailDTO, CreateTravelDTO, UpdateTravelDTO } from "@travel-tailor/types";
 
 interface IProps {
     mapboxAccessToken: string

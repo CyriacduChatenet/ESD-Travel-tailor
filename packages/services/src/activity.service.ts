@@ -4,10 +4,10 @@ import { ActivityDetailService } from './activity-detail.service'
 import { ActivityTagService } from './activity-tag.service'
 import { CommentService } from './comment.service'
 import { Dispatch, SetStateAction } from 'react'
+import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/constants'
 
 import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
-import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/constants'
 
 const findAllActivities = async (api_url: string): Promise<Activity[]> => {
   return await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}`)

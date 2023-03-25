@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
+import { WebResetPasswordForm } from '@travel-tailor/ui';
 
 import { Layout } from '@/layout';
-import { WebResetPasswordForm } from '@travel-tailor/ui';
 
 const ResetPasswordPage: NextPage = () => (
   <Layout>

@@ -1,11 +1,11 @@
 import { API_USER_ROUTE, ROLES } from '@travel-tailor/constants'
 import { jwtDecode } from '@travel-tailor/functions'
 import { useFetch } from '@travel-tailor/hooks'
+import { UpdateUserDTO, User } from '@travel-tailor/types'
 
 import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 import { AdvertiserService } from './advertiser.service'
-import { UpdateUserDTO, User } from '@travel-tailor/types'
 
 const updateUser = (api_url: string, id: string, body: UpdateUserDTO): Promise<User[]> => {
   return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`);

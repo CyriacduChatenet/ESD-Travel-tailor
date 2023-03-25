@@ -1,6 +1,7 @@
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
 import { User } from "../../../user/entities/user.entity";
 import { Timestamp } from "../../../utils/timestamp.util";
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class ResetPasswordToken extends Timestamp {

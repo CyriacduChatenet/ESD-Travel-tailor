@@ -4,9 +4,9 @@ import { WebCreateActivityForm } from '@travel-tailor/ui'
 import { useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
 import { ActivityClosingDay, ActivitySchedule, ActivityTag } from '@travel-tailor/types'
+import { FALSE_STRING_TYPE, TRUE_STRING_TYPE } from '@travel-tailor/constants'
 
 import { Layout } from '@/layout'
-import { FALSE_STRING_TYPE, TRUE_STRING_TYPE } from '@travel-tailor/constants'
 
 const CreateActivity: NextPage = () => {
   useProtectedRoute(authUtil)

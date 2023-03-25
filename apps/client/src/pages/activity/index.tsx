@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-
-import { Layout } from "@/layout";
 import { ActivityService } from "@travel-tailor/services";
 import { Activity } from "@travel-tailor/types";
 import Link from "next/link";
 import { ROUTES } from "@travel-tailor/constants";
+
+import { Layout } from "@/layout";
 
 const ActivityListPage: NextPage = () => {
     const [data, setData] = useState<Activity[]>([]);

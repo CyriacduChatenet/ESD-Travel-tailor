@@ -9,6 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { Role } from '../../auth/decorators/role.enum';
@@ -16,7 +17,6 @@ import { Roles } from '../../auth/decorators/roles.decorator';
 import { AdvertiserService } from './advertiser.service';
 import { CreateAdvertiserDto } from './dto/create-advertiser.dto';
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
-import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 @Controller('advertiser')
 export class AdvertiserController {

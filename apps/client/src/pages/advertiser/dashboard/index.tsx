@@ -7,10 +7,9 @@ import { authUtil } from '@travel-tailor/utils'
 import { WebActivityCard } from '@travel-tailor/ui'
 import { Activity, User } from '@travel-tailor/types'
 import { useUser } from '@travel-tailor/contexts'
-
+import { ROUTES } from '@travel-tailor/constants'
 
 import { Layout } from '@/layout'
-import { ROUTES } from '@travel-tailor/constants'
 
 const AdvertiserDashboard: NextPage = () => {
   const { user, setUser } = useUser()
