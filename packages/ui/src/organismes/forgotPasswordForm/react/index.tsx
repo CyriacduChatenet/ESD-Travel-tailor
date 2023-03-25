@@ -12,17 +12,32 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
     email: '',
   })
 
+  const [errors, setErrors] = useState<ForgotPasswordDTO>({
+    email: '',
+  })
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setCredentials({ ...credentials, [name]: value })
   }
 
+  const validate = (credentials: ForgotPasswordDTO) => {
+    if (!credentials.email) {
+      setErrors({ ...errors, email: 'Email is required' })
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    return AuthService.forgotPassword(
-      `${api_url}${API_FORGOT_PASSWORD_ROUTE}`,
-      credentials
-    )
+    const error = validate(credentials)
+    if (error) {
+      return AuthService.forgotPassword(
+        `${api_url}${API_FORGOT_PASSWORD_ROUTE}`,
+        credentials
+      )
+    }
   }
 
   return (
@@ -35,6 +50,7 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
           name="email"
           onChange={handleChange}
         />
+        {errors.email && <p>{errors.email}</p>}
       </label>
       <input type="submit" value={'forgot password'} />
     </form>

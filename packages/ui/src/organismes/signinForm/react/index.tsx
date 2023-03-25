@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useState, useRouter } from '@travel-tailor/functions'
 import { AuthService } from '@travel-tailor/services'
 import { SigninDTO } from '@travel-tailor/types'
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from '@travel-tailor/constants'
+import { testCityUtil } from '@travel-tailor/utils'
 
 interface IProps {
   api_url: string
@@ -13,7 +14,18 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
     password: '',
   })
 
+  const [errors, setErrors] = useState<SigninDTO>({
+    email: '',
+    password: '',
+  })
+
   const router = useRouter()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setCredentials({ ...credentials, [name]: value })
+  }
 
   const handleRedirect = async (user: { email: string, password: string, roles: string, iat: number, exp: number}) => {
     if (user.roles === ROLES.ADMIN) {
@@ -25,15 +37,24 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
     }
   }
 
-  const handleSubmit = async () => {
-    const user = await AuthService.signin(`${api_url}${API_SIGNIN_ROUTE}`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
-    handleRedirect(user)
-  }
+  const validate = (credentials: SigninDTO) => {
+    if (!credentials.email) {
+      setErrors({ ...errors, email: 'Email is required' })
+      return false
+    }
+    if (!credentials.password) {
+      setErrors({ ...errors, password: 'Password is required' })
+      return false
+    }
+    return true
+  };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const { name, value } = e.target
-    setCredentials({ ...credentials, [name]: value })
+  const handleSubmit = async () => {
+    const error = validate(credentials);
+    if(error === true) {
+      const user = await AuthService.signin(`${api_url}${API_SIGNIN_ROUTE}`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
+      handleRedirect(user)
+    }
   }
 
   return (
@@ -45,22 +66,24 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
       }}
     >
       <label htmlFor="">
-        <span>Email</span>
+        <p>Email</p>
         <input
           type="email"
           placeholder="Email"
           name="email"
           onChange={handleChange}
         />
+        {errors.email && <p>{errors.email}</p>}
       </label>
       <label htmlFor="">
-        <span>Password</span>
+        <p>Password</p>
         <input
           type="password"
           placeholder="Password"
           name="password"
           onChange={handleChange}
         />
+        {errors.password && <p>{errors.password}</p>}
       </label>
       <input type="submit" value={'Signin'} />
     </form>

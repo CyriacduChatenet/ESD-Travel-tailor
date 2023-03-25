@@ -6,6 +6,7 @@ import {
 } from '@travel-tailor/services'
 import { SignupDTO, User } from '@travel-tailor/types'
 import { ChangeEvent, FC, FormEvent, useState, useRouter } from '@travel-tailor/functions'
+import { testCityUtil } from '@travel-tailor/utils'
 
 interface IProps {
   api_url: string
@@ -19,7 +20,19 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     roles: '',
   })
 
+  const [errors, setErrors] = useState<SignupDTO>({
+    username: '',
+    email: '',
+    password: '',
+    roles: '',
+  });
+
   const router = useRouter()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setCredentials({ ...credentials, [name]: value })
+  }
 
   const handleRedirect = async (user: User) => {
     if (credentials.roles === ROLES.TRAVELER) {
@@ -39,15 +52,33 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     }
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setCredentials({ ...credentials, [name]: value })
-  }
+  const validate = (credentials: SignupDTO) => {
+    if (!credentials.username) {
+      setErrors({ ...errors, username: 'Username is required' })
+      return false
+    }
+    if (!credentials.email) {
+      setErrors({ ...errors, email: 'Email is required' })
+      return false
+    }
+    if (!credentials.password) {
+      setErrors({ ...errors, password: 'Password is required' })
+      return false
+    }
+    if (!credentials.roles) {
+      setErrors({ ...errors, roles: 'Role is required' })
+      return false
+    }
+    return true
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const user = await AuthService.signup(`${api_url}${API_SIGNUP_ROUTE}`, credentials)
-    handleRedirect(user)
+    const error = validate(credentials);
+    if(error === true) {
+      const user = await AuthService.signup(`${api_url}${API_SIGNUP_ROUTE}`, credentials)
+      handleRedirect(user)
+    }
   }
 
   return (
@@ -60,6 +91,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
           name="username"
           onChange={handleChange}
         />
+        {errors.username && <p>{errors.username}</p>}
       </label>
       <label htmlFor="">
         <span>Email</span>
@@ -69,6 +101,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
           name="email"
           onChange={handleChange}
         />
+        {errors.email && <p>{errors.email}</p>}
       </label>
       <label htmlFor="">
         <span>Password</span>
@@ -78,6 +111,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
           name="password"
           onChange={handleChange}
         />
+        {errors.password && <p>{errors.password}</p>}
       </label>
       <label htmlFor="">
         <span>Roles</span>
@@ -86,6 +120,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
           <option value="traveler">Traveler</option>
           <option value="advertiser">Advertiser</option>
         </select>
+        {errors.roles && <p>{errors.roles}</p>}
       </label>
       <input type="submit" value={'Signup'} />
     </form>

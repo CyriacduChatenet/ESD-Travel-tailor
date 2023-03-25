@@ -17,7 +17,7 @@ export type Activity = {
 
 export type CreateActivityDTO = {
   name: string
-  mark: number
+  mark?: number
   detail: CreateActivityDetailDTO
   image: CreateActivityImageDTO
   advertiser? : string

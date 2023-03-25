@@ -31,7 +31,7 @@ export class Activity extends Timestamp {
   })
   slug: string;
 
-  @Column({ nullable: false})
+  @Column({ nullable: false, default: 0})
   mark: number;
 
   @OneToOne(() => ActivityImage, (image) => image.activity, {

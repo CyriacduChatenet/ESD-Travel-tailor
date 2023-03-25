@@ -19,9 +19,8 @@ interface IProps {
 }
 
 export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, schedules, setSchedules, closingDays, setClosingDays, mapboxAccessToken }) => {
-  const [activityCredentials, setActivityCredentials] = useState<{name: string, mark: number}>({
+  const [activityCredentials, setActivityCredentials] = useState<{name: string}>({
     name: '',
-    mark: 0,
   });
   const [activityDetailCredentials, setActivityDetailCredentials] = useState<CreateActivityDetailDTO>({
     location: '',
@@ -37,6 +36,17 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
   const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<CreateActivityClosingDayDTO>({
     date: '',
     recurrence: false,
+  })
+
+  const [errors, setErrors] = useState({
+    name: '',
+    location: '',
+    duration: '',
+    source: '',
+    opening_at: '',
+    closing_at: '',
+    date: '',
+
   })
 
   const router = useRouter()
@@ -93,25 +103,52 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     setActivityClosingDayCredentials({ date: '', recurrence: false});
   };
 
+  const validate = (
+    activityCredentials: { name: string; },
+    activityDetailCredentials: { location: string; duration: string },
+    activityImageCredentials: { source: string }
+  ) => {
+    if (!activityCredentials.name) {
+      setErrors({ ...errors, name: 'Name is required' })
+      return false
+    }
+    if (!activityDetailCredentials.location) {
+      setErrors({ ...errors, location: 'Location is required' })
+      return false
+    }
+    if (!activityDetailCredentials.duration) {
+      setErrors({ ...errors, duration: 'Duration is required' })
+      return false
+    }
+    if (!activityImageCredentials.source) {
+      setErrors({ ...errors, source: 'Source is required' })
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const sendObject = {
-      ...activityCredentials,
-      detail: {
-        ...activityDetailCredentials,
-        schedules: [...schedules],
-        closingDays: [...closingDays],
-      },
-      image: {
-        ...activityImageCredentials,
-      },
-      advertiser: `${router.query.id}`,
-      tags: [],
+    const error = validate(activityCredentials, activityDetailCredentials, activityImageCredentials)
+    if (error) {
+      const sendObject = {
+        ...activityCredentials,
+        detail: {
+          ...activityDetailCredentials,
+          schedules: [...schedules],
+          closingDays: [...closingDays],
+        },
+        image: {
+          ...activityImageCredentials,
+        },
+        advertiser: `${router.query.id}`,
+        tags: [],
+      }
+      
+      await ActivityService.createActivityWithRelations(api_url, sendObject, tags);
+  
+      router.push(ROUTES.ADVERTISER.DASHBOARD)
     }
-    
-    await ActivityService.createActivityWithRelations(api_url, sendObject, tags);
-
-    router.push(ROUTES.ADVERTISER.DASHBOARD)
   }
 
   return (
@@ -119,24 +156,29 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       <label htmlFor="">
         <p>Name</p>
         <input type="text" name="name" placeholder="name" onChange={handleActivity} />
+        {errors.name && <p>{errors.name}</p>}
       </label>
       <label htmlFor="">
         <p>Duration</p>
         <input type="text" name="duration" placeholder="duration" onChange={handleActivityDetail} />
+        {errors.duration && <p>{errors.duration}</p>}
       </label>
       <label htmlFor="">
         <p>Location</p>
-        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION}/>
+        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
       </label>
       <label htmlFor="">
         <p>Image source</p>
         <input type="text" name="source" placeholder="Image source" onChange={handleActivityImage} />
+        {errors.source && <p>{errors.source}</p>}
       </label>
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
       <label htmlFor="">
         <p>Schedules</p>
         <input type="time" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
+        {errors.opening_at && <p>{errors.opening_at}</p>}
         <input type="time" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
+        {errors.closing_at && <p>{errors.closing_at}</p>}
         <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
           handleCreateSchedule();
@@ -146,6 +188,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       <label htmlFor="">
         <p>Closing day</p>
         <input type="date" name="date" placeholder="date" value={activityClosingDayCredentials.date} onChange={handleActivityClosingDay} />
+        {errors.date && <p>{errors.date}</p>}
         <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
         <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();

@@ -21,10 +21,13 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
     user: String(userId),
     location: '',
   })
-
   const [results, setResults] = useState<mapboxgl.MapboxGeoJSONFeature[]>([]);
   const [hideAutocomplete, setHideAutocomplete] = useState(true);
   const [geocoderQuery, setGeocoderQuery] = useState('')
+  const [errors, setErrors] = useState<Partial<CreateAdvertiserDTO>>({
+    name: '',
+    location: '',
+  })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -37,15 +40,31 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
     setGeocoderQuery(e.currentTarget.innerText);
   }
 
+  const validate = (credentials: Partial<CreateAdvertiserDTO>) => {
+    if (!credentials.name) {
+      setErrors({ ...errors, name: 'Name is required' })
+      return false
+    }
+    if (!credentials.location) {
+      setErrors({ ...errors, location: 'Location is required' })
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const advertiser = await AdvertiserService.createAdvertiser(
-      api_url,
-      credentials
-    )
-    await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
-    TokenService.removeSigninToken();
-    return router.push(ROUTES.AUTH.SIGNIN)
+    const error = validate(credentials)
+
+    if (error) {
+      const advertiser = await AdvertiserService.createAdvertiser(
+        api_url,
+        credentials
+      )
+      await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
+      TokenService.removeSigninToken();
+      return router.push(ROUTES.AUTH.SIGNIN)
+    }
   }
 
   return (
@@ -58,12 +77,15 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
           name="name"
           onChange={handleChange}
         />
+        {errors.name && <p>{errors.name}</p>}
       </label>
       <label htmlFor="">
         <span>Location</span>
         <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={OBJECT_KEYS.LOCATION}/>
         <br />
         {!hideAutocomplete ? results.map((result: any) => <p key={result.id} onClick={handleClick}>{result.place_name}</p>) : null}
+        <br />
+        {errors.location && <p>{errors.location}</p>}
       </label>
       <input type="submit" value="Create advertiser" />
     </form>

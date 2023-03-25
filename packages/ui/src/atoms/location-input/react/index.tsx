@@ -9,9 +9,10 @@ interface IProps {
     setStateCredentials: Dispatch<SetStateAction<any>>
     stateCredentials: CreateActivityDetailDTO | CreateTravelDTO | UpdateTravelDTO,
     objectKey: string
+    error: string
 };
 
-export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredentials, stateCredentials, objectKey }) => {
+export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredentials, stateCredentials, objectKey, error }) => {
     const [results, setResults] = useState<mapboxgl.MapboxGeoJSONFeature[]>([]);
     const [hideAutocomplete, setHideAutocomplete] = useState(true);
     const [geocoderQuery, setGeocoderQuery] = useState('');
@@ -29,6 +30,8 @@ export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredent
             <li key={result.id} onClick={() => handleCredentials(result.place_name)}>{result.place_name}</li>
           )) : null}
         </ul>
+        <br />
+        {error && <p>{error}</p>}
       </div>
     );
 }

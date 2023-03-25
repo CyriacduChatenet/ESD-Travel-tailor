@@ -11,7 +11,7 @@ const UpdateActivity: NextPage = () => {
   return (
     <Layout>
       <h1>Update activity</h1>
-      <WebUpdateActivityForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} />
+      <WebUpdateActivityForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`} />
     </Layout>
   )
 }

@@ -13,6 +13,7 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
     name: '',
     traveler: ''
   });
+  const [errors, setErrors] = useState<Partial<Taste>>({})
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -23,10 +24,21 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
     setCredentials({ name: '', traveler: ''});
   };
 
+  const validate = (credentials: Partial<Taste>) => {
+    if (!credentials.name) {
+      setErrors({ ...errors, name: 'Name is required' });
+      return false;
+    }
+    return true;
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTastes([...tastes, credentials])
-    handleResetTasteInput();
+    const error = validate(credentials);
+    if (error) {
+      setTastes([...tastes, credentials])
+      handleResetTasteInput();
+    }
   }
 
   return (
@@ -40,6 +52,7 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
           value={credentials.name}
           onChange={handleChange}
         />
+        {errors.name && <span>{errors.name}</span>}
       </label>
       <input type="submit" value="Create taste" />
     </form>
