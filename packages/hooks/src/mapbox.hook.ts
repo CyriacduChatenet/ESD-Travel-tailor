@@ -28,9 +28,6 @@ export const useMapbox = (mapContainer: RefObject<HTMLDivElement>, mapboxApiAcce
                 MapboxService.destroyMapControls(map, geocoder);
                 MapboxService.destroyMap(map);
             }
-            if (geocoder.current) {
-                MapboxService.destroyGeocoder(geocoder);
-            }
         }
     }, [mapContainer]);
 };
