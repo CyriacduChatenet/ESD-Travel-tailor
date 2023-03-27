@@ -24,7 +24,7 @@ export function WebPaymentForm({ amount, onSuccess, onError, api_url }: PaymentF
     }
 
     try {
-      const { paymentIntent } = await useFetch.post(api_url, { amount })
+      const { paymentIntent } = await useFetch.post(`${api_url}/payment`, { amount })
 
       const { error } = await stripe.confirmCardPayment(paymentIntent.client_secret, {
         payment_method: {
