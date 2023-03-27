@@ -165,6 +165,7 @@ importers:
       '@travel-tailor/services': workspace:*
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
+      '@travel-tailor/ui': workspace:*
       '@types/react': ^18.0.28
       prettier: ^2.8.4
     dependencies:
@@ -173,6 +174,7 @@ importers:
       '@travel-tailor/services': link:../services
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
+      '@travel-tailor/ui': link:../ui
       prettier: 2.8.4
     devDependencies:
       '@types/react': 18.0.28
