@@ -1,9 +1,14 @@
-import { StripeProvider } from "@travel-tailor/contexts";
+import { Layout } from "@/layout";
+import { WebPaymentForm } from "@travel-tailor/ui";
 import { NextPage } from "next";
 
 const AdvertiserPaymentPage: NextPage = () => {
     return (
-        <StripeProvider api_url={`${process.env.NEXT_PUBLIC_API_URL}`} stripe_api_key={`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`}/>
+        <Layout>
+            <h1>Payment</h1>
+            <br />
+            <WebPaymentForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} />
+        </Layout>
     );
 };
 

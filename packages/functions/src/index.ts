@@ -7,8 +7,6 @@ export { useRouter } from 'next/router';
 
 export { useEffect, useState, useContext, createContext, useRef, useMemo, useCallback } from 'react';
 export type { PropsWithChildren, MouseEvent, SetStateAction, RefObject, FC, Dispatch, FormEvent, ChangeEvent } from 'react';
-export { useStripe, useElements, CardElement, Elements as StripeElements } from '@stripe/react-stripe-js';
-export { loadStripe } from '@stripe/stripe-js';
 
 export const jwtDecode = jwt_decode;
 export const ReactD = React;
