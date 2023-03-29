@@ -6,7 +6,7 @@ import { TokenService } from '@travel-tailor/services';
 export const useProtectedRoute = (isAuth: boolean) => {
 
   useEffect(() => {
-    const token = TokenService.getAccessToken();
+    const token = TokenService.getAccessToken() || TokenService.getSigninToken();
     if (!isAuth) {
       window.location.href = ROUTES.AUTH.SIGNIN
 
@@ -29,7 +29,7 @@ export const useAdminProtectedRoute = (isAuth: boolean) => {
     if(!isAuth) {
       window.location.href = ROUTES.AUTH.SIGNIN
     }
-    const token = TokenService.getAccessToken();
+    const token = TokenService.getAccessToken() || TokenService.getSigninToken();
     
     const decodedToken = jwtDecode(`${token}`) as AccessToken;
 
@@ -44,7 +44,7 @@ export const useAdvertiserProtectedRoute = (isAuth: boolean) => {
     if(!isAuth) {
       window.location.href = ROUTES.AUTH.SIGNIN
     }
-    const token = TokenService.getAccessToken();
+    const token = TokenService.getAccessToken() || TokenService.getSigninToken();
     
     const decodedToken = jwtDecode(`${token}`) as AccessToken;
 
@@ -59,7 +59,7 @@ export const useTravelerProtectedRoute = (isAuth: boolean) => {
     if(!isAuth) {
       window.location.href = ROUTES.AUTH.SIGNIN
     }
-    const token = TokenService.getAccessToken();
+    const token = TokenService.getAccessToken() || TokenService.getSigninToken();
     
     const decodedToken = jwtDecode(`${token}`) as AccessToken;
 

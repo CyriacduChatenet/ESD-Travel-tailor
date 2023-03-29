@@ -64,11 +64,11 @@ export class TravelerService {
   }
 
   async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
-    // try {
+    try {
     return await this.travelerRepository.update(id, updateTravelerDto);
-    // } catch (error) {
-    //   throw new UnauthorizedException(error);
-    // }
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {

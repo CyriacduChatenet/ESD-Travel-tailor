@@ -20,7 +20,7 @@ const updateTraveler = async (api_url: string, travelerId: string, credentials: 
   return await useFetch.protectedPatch(
     `${api_url}${API_TRAVELER_ROUTE}/${travelerId}`,
     credentials,
-    `${TokenService.getAccessToken() ? TokenService.getAccessToken() : TokenService.getSigninToken()}`
+    `${TokenService.getSigninToken() ? TokenService.getSigninToken() : TokenService.getAccessToken()}`
   )
 };
 
