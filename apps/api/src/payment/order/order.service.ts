@@ -1,26 +1,71 @@
-import { Injectable } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
+import { Repository } from 'typeorm'
+
+import { CreateOrderDto } from './dto/create-order.dto'
+import { UpdateOrderDto } from './dto/update-order.dto'
+import { Order } from './entities/order.entity'
 
 @Injectable()
 export class OrderService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(
+    @InjectRepository(Order) private orderRepository: Repository<Order>
+  ) {}
+
+  async create(createOrderDto: CreateOrderDto) {
+    try {
+      const order = this.orderRepository.create(createOrderDto)
+      return await this.orderRepository.save(order)
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findAll(queries: ApiLimitResourceQuery) {
+    try {
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
+      return await this.orderRepository.createQueryBuilder('order')
+      .orderBy('order.createdAt', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getMany()
+
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string) {
+    try {
+      return await this.orderRepository.createQueryBuilder('order')
+      .where('order.id = :id', { id })
+      .getOne();
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, updateOrderDto: UpdateOrderDto) {
+    try {
+      return await this.orderRepository.update(id, updateOrderDto)
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: string) {
+    try {
+      return await this.orderRepository.softDelete(id)
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 }

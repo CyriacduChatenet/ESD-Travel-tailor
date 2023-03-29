@@ -27,7 +27,10 @@ export class CustomerService {
       limit = limit ? +limit : 10;
       
       return await this.customerRepository.createQueryBuilder('customer')
-      .orderBy('comment.createdAt', 'DESC')
+      .leftJoinAndSelect('customer.orders', 'orders')
+      .leftJoinAndSelect('customer.advertiser', 'advertiser')
+      .leftJoinAndSelect('customer.traveler', 'traveler')
+      .orderBy('customer.createdAt', 'DESC')
       .skip((page - 1) * limit)
       .take(limit)
       .getMany()

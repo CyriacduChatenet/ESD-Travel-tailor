@@ -9,6 +9,7 @@ import {
 import { User } from '../../entities/user.entity';
 import { Timestamp } from '../../../utils/timestamp.util';
 import { Activity } from '../../../activity/entities/activity.entity';
+import { Customer } from '../../../payment/customer/entities/customer.entity';
 
 @Entity()
 export class Advertiser extends Timestamp {
@@ -23,6 +24,9 @@ export class Advertiser extends Timestamp {
   
   @OneToOne(() => User, user => user.advertiser)
   user: User;
+
+  @OneToOne(() => Customer, customer => customer.advertiser)
+  customer: Customer;
 
   @OneToMany(() => Activity, (activity) => activity.advertiser)
   activities: Activity[];
