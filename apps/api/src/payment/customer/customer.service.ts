@@ -22,10 +22,15 @@ export class CustomerService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      const query = this.customerRepository.createQueryBuilder('customer')
-        .orderBy('customer.id', 'DESC');
-
-      return await query.getMany();
+      let { page, limit } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+      
+      return await this.customerRepository.createQueryBuilder('customer')
+      .orderBy('comment.createdAt', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getMany()
     } catch (error) {
       throw new NotFoundException(error);
     }
