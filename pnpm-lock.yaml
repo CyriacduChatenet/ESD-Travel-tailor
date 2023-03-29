@@ -181,15 +181,12 @@ importers:
 
   packages/functions:
     specifiers:
-      '@stripe/react-stripe-js': ^2.1.0
-      '@stripe/stripe-js': ^1.52.0
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
       '@types/jwt-decode': ^3.1.0
       '@types/next': ^9.0.0
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.11
-      '@types/stripe': ^8.0.417
       jwt-decode: ^3.1.2
       next: 13.2.3
       prettier: ^2.8.4
@@ -197,11 +194,8 @@ importers:
       react-dom: ^18.2.0
       stripe: ^11.16.0
     dependencies:
-      '@stripe/react-stripe-js': 2.1.0_wfk2ilwjwqlluiweqjchts7jtq
-      '@stripe/stripe-js': 1.52.0
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
-      '@types/stripe': 8.0.417
       jwt-decode: 3.1.2
       next: 13.2.3_biqbaboplfbrettd7655fr4n2y
       prettier: 2.8.4
@@ -1530,19 +1524,6 @@ packages:
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
     dev: false
 
-  /@stripe/react-stripe-js/2.1.0_wfk2ilwjwqlluiweqjchts7jtq:
-    resolution: {integrity: sha512-Zb6Ycrj5QuhYkvtlvvLzo+cysUyA6wkx3zWHQ7uVnHRYRM/n1jtQD6VGBrdmptC8e8PJN6L091gBCyB5P0FqmA==}
-    peerDependencies:
-      '@stripe/stripe-js': ^1.44.1
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@stripe/stripe-js': 1.52.0
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
   /@stripe/stripe-js/1.52.0:
     resolution: {integrity: sha512-Ja2VlaTf3kM5tN4Y0sC8T3ibZAnfGUU/QzMAlk/G+Adz2fF1ycTabtSkdSuVP4/adXox8NkPPV4Xndx/EP4fMg==}
     dev: false
@@ -1810,6 +1791,7 @@ packages:
     deprecated: This is a stub types definition. stripe provides its own type definitions, so you do not need this installed.
     dependencies:
       stripe: 11.16.0
+    dev: true
 
   /@typescript-eslint/eslint-plugin/5.49.0_iu322prlnwsygkcra5kbpy22si:
     resolution: {integrity: sha512-IhxabIpcf++TBaBa1h7jtOWyon80SXPRLDq0dVz5SLFC/eW6tofkw/O7Ar3lkx5z5U6wzbKDrl2larprp5kk5Q==}
