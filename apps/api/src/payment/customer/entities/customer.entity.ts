@@ -11,14 +11,17 @@ export class Customer extends Timestamp implements CreateCustomerDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ nullable: true })
+    @Column({ nullable: false })
     email: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: false })
     name: string;
 
     @Column({ nullable: true })
     address: string;
+
+    @Column({ nullable: false })
+    stripeId: string;
 
     @OneToMany(() => Order, (order) => order.customer)
     orders: Order[];

@@ -8,6 +8,11 @@ import { CreatePaymentDto } from './dto/create-payment.dto';
 export class PaymentService {
   constructor(@InjectStripe() private readonly stripeClient: Stripe) {}
 
+  async createStripeCustomer() {
+    const customer = await this.stripeClient.customers.create();
+    return customer;
+  }
+
   async createPaymentIntent(createPaymentDto: CreatePaymentDto) {
     const paymentMethod = await this.stripeClient.paymentMethods.create({
       type: 'card',

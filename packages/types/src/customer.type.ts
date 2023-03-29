@@ -5,8 +5,9 @@ import { Traveler } from "./traveler.type";
 export type Customer = {
     id: string;
     email: string;
+    stripeId: string;
     name: string;
-    address: string;
+    address?: string;
     orders: Order[] | string[];
     traveler: Traveler;
 }
@@ -14,7 +15,8 @@ export type Customer = {
 export type CreateCustomerDTO = {
     email: string;
     name: string;
-    address: string;
+    address?: string;
+    stripeId: string;
 }
 
 export type UpdateCustomerDTO = {
