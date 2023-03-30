@@ -16,6 +16,8 @@ export {
   API_ACTIVITY_TAG_ROUTE,
   API_COMMENT_ROUTE,
   API_TRAVEL_ROUTE,
+  API_PAYMENT_ROUTE,
+  API_CONFIRM_PAYMENT_ROUTE,
 } from './api.constant'
 
 export { ACCESS_TOKEN, SIGNIN_TOKEN, RESET_TOKEN } from './tokens.constant'
