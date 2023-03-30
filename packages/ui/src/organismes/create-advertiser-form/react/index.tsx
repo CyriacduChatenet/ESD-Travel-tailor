@@ -61,9 +61,11 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
         api_url,
         credentials
       )
-      await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
-      TokenService.removeSigninToken();
-      return router.push(ROUTES.AUTH.SIGNIN)
+      if(advertiser.id) {
+        await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
+        TokenService.removeSigninToken();
+        return router.push(`${ROUTES.ADVERTISER.PAYMENT}/${advertiser.id}`)
+      }
     }
   }
 
