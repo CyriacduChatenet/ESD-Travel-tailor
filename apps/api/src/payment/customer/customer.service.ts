@@ -51,14 +51,6 @@ export class CustomerService {
     }
   }
 
-  // async update(id: string, updateCustomerDto: UpdateCustomerDto) {
-  //   try {
-  //   return await this.customerRepository.update(id, updateCustomerDto);
-  //   } catch (error) {
-  //     throw new UnauthorizedException(error);
-  //   }
-  // }
-
   async update(id: string, updateCustomerDto: UpdateCustomerDto) {
     try {
       const mapper = (dto: UpdateCustomerDto) => {
