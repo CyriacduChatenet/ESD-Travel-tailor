@@ -4,19 +4,18 @@ import { Traveler } from "./traveler.type";
 
 export type Customer = {
     id: string;
-    email: string;
+    email?: string;
     stripeId: string;
-    name: string;
+    name?: string;
     address?: string;
-    orders: Order[] | string[];
-    traveler: Traveler;
+    traveler?: Traveler;
 }
 
 export type CreateCustomerDTO = {
-    email: string;
-    name: string;
+    email?: string;
+    name?: string;
     address?: string;
-    stripeId: string;
+    stripeId?: string;
 }
 
 export type UpdateCustomerDTO = {

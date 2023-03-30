@@ -1,15 +1,17 @@
 import { Activity } from './activity.type'
+import { Customer } from './customer.type'
 import { User } from './user.type'
 
 export type Advertiser = {
-  id: string
-  name: string
-  location: string
+  id?: string
+  name?: string
+  location?: string
   user?: User
   activities?: Activity[]
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
+  customer: Customer
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateAdvertiserDTO = {
