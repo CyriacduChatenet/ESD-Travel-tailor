@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 import { PaymentService } from '@travel-tailor/services'
 import {
   API_CONFIRM_PAYMENT_ROUTE,
@@ -6,11 +6,13 @@ import {
 } from '@travel-tailor/constants'
 import { PaymentCredentials } from '@travel-tailor/types'
 
-interface PaymentFormProps {
-  api_url: string
+interface IProps {
+  api_url: string;
+  amount: number;
+  customerId: string;
 }
 
-export function WebPaymentForm({ api_url }: PaymentFormProps) {
+export const WebPaymentForm: FC<IProps> = ({ api_url, amount, customerId }) => {
   const [credentials, setCredentials] = useState<PaymentCredentials>({
     number: '',
     exp_month: 0,
@@ -30,14 +32,15 @@ export function WebPaymentForm({ api_url }: PaymentFormProps) {
       `${api_url}${API_PAYMENT_ROUTE}`,
       `${api_url}${API_CONFIRM_PAYMENT_ROUTE}`,
       {
-        amount: 1000,
+        amount,
         card: {
           number: credentials.number,
           exp_month: credentials.exp_month,
           exp_year: credentials.exp_year,
           cvc: credentials.cvc,
         },
-      }
+      },
+      customerId,
     )
   }
 

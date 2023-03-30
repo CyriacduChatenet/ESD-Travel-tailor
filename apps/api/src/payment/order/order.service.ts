@@ -19,8 +19,10 @@ export class OrderService {
 
   async create(createOrderDto: CreateOrderDto) {
     try {
-      const order = this.orderRepository.create(createOrderDto)
-      return await this.orderRepository.save(order)
+      const order = this.orderRepository.create(
+        Object.assign({}, createOrderDto)
+      );
+      return await this.orderRepository.save(order);
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -33,6 +35,7 @@ export class OrderService {
       limit = limit ? +limit : 10;
 
       return await this.orderRepository.createQueryBuilder('order')
+      .leftJoinAndSelect('order.customer', 'customer')
       .orderBy('order.createdAt', 'DESC')
       .skip((page - 1) * limit)
       .take(limit)
@@ -46,6 +49,7 @@ export class OrderService {
   async findOne(id: string) {
     try {
       return await this.orderRepository.createQueryBuilder('order')
+      .leftJoinAndSelect('order.customer', 'customer')
       .where('order.id = :id', { id })
       .getOne();
     } catch (error) {

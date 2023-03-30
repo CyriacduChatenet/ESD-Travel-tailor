@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { StripeModule } from 'nestjs-stripe';
 import { ConfigModule } from '@nestjs/config';
 
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
-import { CustomerModule } from './customer/customer.module';
 import { OrderModule } from './order/order.module';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
   imports: [
@@ -14,10 +14,11 @@ import { OrderModule } from './order/order.module';
       apiKey: process.env.STRIPE_API_KEY,
       apiVersion: '2022-11-15',
     }),
-    CustomerModule,
     OrderModule,
+    forwardRef(() => CustomerModule),
   ],
   controllers: [PaymentController],
-  providers: [PaymentService]
+  providers: [PaymentService],
+  exports: [PaymentService],
 })
 export class PaymentModule {}

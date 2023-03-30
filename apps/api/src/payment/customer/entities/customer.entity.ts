@@ -8,13 +8,13 @@ import { Traveler } from "../../../user/traveler/entities/traveler.entity";
 
 @Entity()
 export class Customer extends Timestamp implements CreateCustomerDTO {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     email: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     name: string;
 
     @Column({ nullable: true })

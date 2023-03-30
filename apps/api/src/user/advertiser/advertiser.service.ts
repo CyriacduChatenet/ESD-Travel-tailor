@@ -2,46 +2,59 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ApiLimitResourceQuery } from '@travel-tailor/types';
-import { Repository } from 'typeorm';
+} from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
+import { Repository } from 'typeorm'
 
-import { CreateAdvertiserDto } from './dto/create-advertiser.dto';
-import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
-import { Advertiser } from './entities/advertiser.entity';
+import { CreateAdvertiserDto } from './dto/create-advertiser.dto'
+import { UpdateAdvertiserDto } from './dto/update-advertiser.dto'
+import { Advertiser } from './entities/advertiser.entity'
+import { CustomerService } from '../../payment/customer/customer.service'
 
 @Injectable()
 export class AdvertiserService {
   constructor(
     @InjectRepository(Advertiser)
     private advertiserRepository: Repository<Advertiser>,
+    private customerService: CustomerService
   ) {}
 
   async create(createAdvertiserDto: CreateAdvertiserDto) {
     try {
-      return await this.advertiserRepository.save(createAdvertiserDto);
+      const customer = await this.customerService.create({
+        address: createAdvertiserDto.location,
+        name: createAdvertiserDto.name,
+      })
+      const advertiser = this.advertiserRepository.create({
+        ...createAdvertiserDto,
+        customer,
+      })
+
+      return await this.advertiserRepository.save(advertiser)
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException(error)
     }
   }
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-      
+      let { page, limit } = queries
+      page = page ? +page : 1
+      limit = limit ? +limit : 10
+
       return await this.advertiserRepository
         .createQueryBuilder('advertiser')
         .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
+        .leftJoinAndSelect('advertiser.customer', 'customer')
+        .leftJoinAndSelect('customer.orders', 'customer')
         .orderBy('advertiser.createdAt', 'DESC')
         .skip((page - 1) * limit)
         .take(limit)
-        .getMany();
+        .getMany()
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException(error)
     }
   }
 
@@ -52,25 +65,27 @@ export class AdvertiserService {
         .where('advertiser.id = :id', { id })
         .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
-        .getOne();
+        .leftJoinAndSelect('advertiser.customer', 'customer')
+        .leftJoinAndSelect('customer.orders', 'orders')
+        .getOne()
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException(error)
     }
   }
 
   async update(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {
     try {
-      return await this.advertiserRepository.update(id, updateAdvertiserDto);
+      return await this.advertiserRepository.update(id, updateAdvertiserDto)
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException(error)
     }
   }
 
   async remove(id: string) {
     try {
-      return await this.advertiserRepository.softDelete(id);
+      return await this.advertiserRepository.softDelete(id)
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException(error)
     }
   }
 }
