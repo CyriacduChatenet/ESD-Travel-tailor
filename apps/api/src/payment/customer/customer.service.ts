@@ -2,21 +2,20 @@ import { forwardRef, Inject, Injectable, NotFoundException, UnauthorizedExceptio
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Repository } from 'typeorm';
-import { PaymentService } from '../payment.service';
+import { StripeCustomerService } from '../stripeCustomer.service';
 
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Customer } from './entities/customer.entity';
-// import { PaymentService } from '../payment.service';
 
 @Injectable()
 export class CustomerService {
-  constructor(@InjectRepository(Customer) private customerRepository: Repository<Customer>, @Inject(forwardRef(() => PaymentService))
-  private paymentService: PaymentService) {}
+  constructor(@InjectRepository(Customer) private customerRepository: Repository<Customer>, @Inject(forwardRef(() => StripeCustomerService))
+  private stripeCustomerService: StripeCustomerService) {}
 
   async create(createCustomerDto: CreateCustomerDto) {
     try {
-      const stripeCustomer = await this.paymentService.createStripeCustomer();
+      const stripeCustomer = await this.stripeCustomerService.createStripeCustomer();
       return await this.customerRepository.save({...createCustomerDto, stripeId:stripeCustomer.id});
     } catch (error) {
       throw new UnauthorizedException(error);

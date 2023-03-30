@@ -6,6 +6,7 @@ import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
 import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
+import { StripeCustomerService } from './stripeCustomer.service';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { CustomerModule } from './customer/customer.module';
     forwardRef(() => CustomerModule),
   ],
   controllers: [PaymentController],
-  providers: [PaymentService],
-  exports: [PaymentService],
+  providers: [PaymentService, StripeCustomerService],
+  exports: [PaymentService, StripeCustomerService],
 })
 export class PaymentModule {}

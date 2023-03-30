@@ -1,4 +1,4 @@
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { InjectStripe } from 'nestjs-stripe'
 import Stripe from 'stripe'
 
@@ -14,11 +14,6 @@ export class PaymentService {
     @Inject(forwardRef(() => CustomerService))
     private customerService: CustomerService
   ) {}
-
-  async createStripeCustomer() {
-    const customer = await this.stripeClient.customers.create()
-    return customer
-  }
 
   async createPaymentIntent(createPaymentDto: CreatePaymentDto) {
     const paymentMethod = await this.stripeClient.paymentMethods.create({

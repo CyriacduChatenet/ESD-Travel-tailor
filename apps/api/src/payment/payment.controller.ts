@@ -2,14 +2,15 @@ import { Controller, Post, Body } from '@nestjs/common'
 
 import { PaymentService } from './payment.service'
 import { CreatePaymentDto } from './dto/create-payment.dto'
+import { StripeCustomerService } from './stripeCustomer.service'
 
 @Controller('payment')
 export class PaymentController {
-  constructor(private readonly paymentService: PaymentService) {}
+  constructor(private readonly paymentService: PaymentService, private stripeCustomerService: StripeCustomerService) {}
 
   @Post('create-customer')
   async createStripeCustomer() {
-    const customer = await this.paymentService.createStripeCustomer()
+    const customer = await this.stripeCustomerService.createStripeCustomer()
     return customer
   }
 
