@@ -21,7 +21,8 @@ export const ROUTES = {
       UPDATE_ACTIVITY: '/advertiser/update-activity',
       LIST: '/activity',
     },
-    ADVERTISER: '/advertiser'
+    ADVERTISER: '/advertiser',
+    PAYMENT: '/advertiser/payment'
   },
   ADMIN: {
     DASHBOARD: '/admin/dashboard',

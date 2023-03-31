@@ -15,9 +15,9 @@
 [![pnpm](https://img.shields.io/badge/PNPM-F69220?style=for-the-badge&logo=pnpm&logoColor=white)](https://pnpm.io/fr/)
 [![Prettier](https://img.shields.io/badge/Prettier-1B2B34?style=for-the-badge&logo=prettier&logoColor=white)](https://prettier.io/)
 [![style-dictionary](https://img.shields.io/badge/Style_dictionary-3FC5C0?style=for-the-badge&logo=style_dictionary&logoColor=white)](https://amzn.github.io/style-dictionary/#/)
-[![mapbox](https://img.shields.io/badge/Mapbox-4164FB?style=for-the-badge&logo=mapbox&logoColor=white)](https://amzn.github.io/style-dictionary/#/)
+[![mapbox](https://img.shields.io/badge/Mapbox-4164FB?style=for-the-badge&logo=mapbox&logoColor=white)](https://www.mapbox.com/)
 [![stripe](https://img.shields.io/badge/Stripe-8A84FC?style=for-the-badge&logo=stripe&logoColor=white)](https://amzn.github.io/style-dictionary/#/)
-
+[![aws s3](https://img.shields.io/badge/AWS%20s3-F69220?style=for-the-badge&logo=amazon&logoColor=white)](https://aws.amazon.com)
 
 <br/>
 

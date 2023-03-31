@@ -39,6 +39,7 @@ export class UserService {
       return await this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('traveler.customer', 'customer')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .orderBy('user.createdAt', 'DESC')

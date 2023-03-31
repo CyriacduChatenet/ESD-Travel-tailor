@@ -24,6 +24,7 @@ importers:
       '@types/express': ^4.17.13
       '@types/node': 18.11.18
       '@types/nodemailer': ^6.4.7
+      '@types/stripe': ^8.0.417
       '@typescript-eslint/eslint-plugin': ^5.0.0
       '@typescript-eslint/parser': ^5.0.0
       aws-sdk: ^2.1344.0
@@ -35,6 +36,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       i: ^0.3.7
       jwt-decode: ^3.1.2
+      nestjs-stripe: ^1.0.0
       nodemailer: ^6.9.1
       passport: ^0.6.0
       passport-jwt: ^4.0.1
@@ -45,6 +47,7 @@ importers:
       reflect-metadata: ^0.1.13
       rxjs: ^7.2.0
       source-map-support: ^0.5.20
+      stripe: ^11.16.0
       swagger-ui-dist: ^4.17.0
       ts-loader: ^9.2.3
       ts-node: ^10.0.0
@@ -72,6 +75,7 @@ importers:
       bcrypt: 5.1.0
       i: 0.3.7
       jwt-decode: 3.1.2
+      nestjs-stripe: 1.0.0_cpwflnn2xbgaqlcenqdkf6mlwq
       nodemailer: 6.9.1
       passport: 0.6.0
       passport-jwt: 4.0.1
@@ -79,6 +83,7 @@ importers:
       pg: 8.8.0
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
+      stripe: 11.16.0
       swagger-ui-dist: 4.17.0
       typeorm: 0.3.11_pg@8.8.0+ts-node@10.9.1
     devDependencies:
@@ -86,6 +91,7 @@ importers:
       '@nestjs/schematics': 9.0.4_typescript@4.9.4
       '@types/express': 4.17.16
       '@types/node': 18.11.18
+      '@types/stripe': 8.0.417
       '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
       '@typescript-eslint/parser': 5.49.0_7uibuqfxkfaozanbtbziikiqje
       eslint: 8.32.0
@@ -163,6 +169,7 @@ importers:
       '@travel-tailor/services': workspace:*
       '@travel-tailor/tools': workspace:*
       '@travel-tailor/types': workspace:*
+      '@travel-tailor/ui': workspace:*
       '@types/react': ^18.0.28
       prettier: ^2.8.4
     dependencies:
@@ -171,6 +178,7 @@ importers:
       '@travel-tailor/services': link:../services
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
+      '@travel-tailor/ui': link:../ui
       prettier: 2.8.4
     devDependencies:
       '@types/react': 18.0.28
@@ -188,6 +196,7 @@ importers:
       prettier: ^2.8.4
       react: ^18.2.0
       react-dom: ^18.2.0
+      stripe: ^11.16.0
     dependencies:
       '@travel-tailor/tools': link:../tools
       '@travel-tailor/types': link:../types
@@ -196,6 +205,7 @@ importers:
       prettier: 2.8.4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      stripe: 11.16.0
     devDependencies:
       '@types/jwt-decode': 3.1.0
       '@types/next': 9.0.0_biqbaboplfbrettd7655fr4n2y
@@ -279,6 +289,7 @@ importers:
   packages/ui:
     specifiers:
       '@mapbox/mapbox-gl-geocoder': ^5.0.1
+      '@stripe/stripe-js': ^1.52.0
       '@travel-tailor/constants': workspace:*
       '@travel-tailor/contexts': workspace:*
       '@travel-tailor/functions': workspace:*
@@ -302,6 +313,7 @@ importers:
       vite: ^4.1.0
     dependencies:
       '@mapbox/mapbox-gl-geocoder': 5.0.1_mapbox-gl@2.13.0
+      '@stripe/stripe-js': 1.52.0
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/contexts': link:../contexts
       '@travel-tailor/functions': link:../functions
@@ -1516,6 +1528,10 @@ packages:
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
     dev: false
 
+  /@stripe/stripe-js/1.52.0:
+    resolution: {integrity: sha512-Ja2VlaTf3kM5tN4Y0sC8T3ibZAnfGUU/QzMAlk/G+Adz2fF1ycTabtSkdSuVP4/adXox8NkPPV4Xndx/EP4fMg==}
+    dev: false
+
   /@swc/helpers/0.4.14:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
@@ -1779,6 +1795,13 @@ packages:
     dependencies:
       '@types/mime': 3.0.1
       '@types/node': 18.11.18
+    dev: true
+
+  /@types/stripe/8.0.417:
+    resolution: {integrity: sha512-PTuqskh9YKNENnOHGVJBm4sM0zE8B1jZw1JIskuGAPkMB+OH236QeN8scclhYGPA4nG6zTtPXgwpXdp+HPDTVw==}
+    deprecated: This is a stub types definition. stripe provides its own type definitions, so you do not need this installed.
+    dependencies:
+      stripe: 11.16.0
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.49.0_iu322prlnwsygkcra5kbpy22si:
@@ -5835,6 +5858,22 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
+  /nestjs-stripe/1.0.0_cpwflnn2xbgaqlcenqdkf6mlwq:
+    resolution: {integrity: sha512-esBcx9CTix8hfk+wkwVg7IvJcCXXa8e7NAtJLWgW/fb4vOFCp1Ai5EpEgV3hZKoPCERL/DtvKM0tvME+iWWf0Q==}
+    peerDependencies:
+      '@nestjs/common': ^6.0.0 || ^7.0.0 || ^8.0.0
+      '@nestjs/core': ^6.0.0 || ^7.0.0 || ^8.0.0
+      reflect-metadata: ^0.1.12
+      rxjs: ^6.0.0 || ^7.1.0
+      stripe: ^8.0.0
+    dependencies:
+      '@nestjs/common': 9.2.1_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/core': 9.2.1_e6la6qvsclaae2becwjnmfvsuq
+      reflect-metadata: 0.1.13
+      rxjs: 7.8.0
+      stripe: 11.16.0
+    dev: false
+
   /netmask/2.0.2:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==}
     engines: {node: '>= 0.4.0'}
@@ -6749,7 +6788,6 @@ packages:
     engines: {node: '>=0.6'}
     dependencies:
       side-channel: 1.0.4
-    dev: false
 
   /querystring/0.2.0:
     resolution: {integrity: sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g==}
@@ -7382,6 +7420,13 @@ packages:
   /strip-json-comments/3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
+
+  /stripe/11.16.0:
+    resolution: {integrity: sha512-Ej1ZtbrMw+Z7L8Kxj80sDNF0E/lPypY2nwymU/wGcOjn7CppTa2HXxPTsQRQ8U0MSVRcwRWyGMrizQWuaUqVGw==}
+    engines: {node: '>=12.*'}
+    dependencies:
+      '@types/node': 18.11.18
+      qs: 6.11.0
 
   /style-data/2.0.0:
     resolution: {integrity: sha512-8RJ+MnHlwFUrf3B3gUjs9KIrOk0TppHHwfIHfBd6QjYmZcuzN1OGqeMkWA3ZnD6GiRWJjCVouY/l11v4rlfnPA==}
