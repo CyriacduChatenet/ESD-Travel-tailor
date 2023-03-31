@@ -26,14 +26,19 @@ export class UploadFileService {
   }
 
   async create(user: User, filesData: FileData) {
-    const file = await this.uploadFileAws(user, filesData)
+    try {
+        const file = await this.uploadFileAws(user, filesData)
 
-    const uploadFile = this.uploadFileRepository.create(file)
-    return await this.uploadFileRepository.save(uploadFile)
+        const uploadFile = this.uploadFileRepository.create(file)
+        return await this.uploadFileRepository.save(uploadFile)
+    } catch (error) {
+        throw new BadRequestException(error)
+    }
   }
 
   async uploadFileAws(user: User, fileData: FileData){
-    const fileName = `${Date.now()}.${fileData.originalname.split('.').pop()}`
+    try {
+        const fileName = `${Date.now()}.${fileData.originalname.split('.').pop()}`
     
     const uploadParams = {
         Bucket: this.bucketName,
@@ -42,5 +47,8 @@ export class UploadFileService {
     }
 
     return this.s3.upload(uploadParams).promise()
+    } catch (error) {
+        throw new ForbiddenException(error)
+    }
   }
 }
