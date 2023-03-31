@@ -11,20 +11,16 @@ import { Repository } from 'typeorm'
 import { CreateTravelerDto } from './dto/create-traveler.dto'
 import { UpdateTravelerDTO } from './dto/update-traveler.dto'
 import { Traveler } from './entities/traveler.entity'
-import { CustomerService } from '../../payment/customer/customer.service'
 
 @Injectable()
 export class TravelerService {
   constructor(
     @InjectRepository(Traveler)
-    private travelerRepository: Repository<Traveler>,
-    private customerService: CustomerService,
-  ) {}
+    private travelerRepository: Repository<Traveler>) {}
 
   async create(createTravelerDto: CreateTravelerDto) {
     try {
-      const customer = await this.customerService.create(createTravelerDto);
-      const traveler = this.travelerRepository.create({...createTravelerDto, customer})
+      const traveler = this.travelerRepository.create(createTravelerDto)
 
       return await this.travelerRepository.save(traveler)
     } catch (error) {

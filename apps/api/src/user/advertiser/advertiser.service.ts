@@ -10,26 +10,17 @@ import { Repository } from 'typeorm'
 import { CreateAdvertiserDto } from './dto/create-advertiser.dto'
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto'
 import { Advertiser } from './entities/advertiser.entity'
-import { CustomerService } from '../../payment/customer/customer.service'
 
 @Injectable()
 export class AdvertiserService {
   constructor(
     @InjectRepository(Advertiser)
     private advertiserRepository: Repository<Advertiser>,
-    private customerService: CustomerService
   ) {}
 
   async create(createAdvertiserDto: CreateAdvertiserDto) {
     try {
-      const customer = await this.customerService.create({
-        address: createAdvertiserDto.location,
-        name: createAdvertiserDto.name,
-      })
-      const advertiser = this.advertiserRepository.create({
-        ...createAdvertiserDto,
-        customer,
-      })
+      const advertiser = this.advertiserRepository.create(createAdvertiserDto)
 
       return await this.advertiserRepository.save(advertiser)
     } catch (error) {
@@ -37,7 +28,7 @@ export class AdvertiserService {
     }
   }
 
-  async findAll(queries: ApiLimitResourceQuery) {
+  async findAll(queries?: ApiLimitResourceQuery) {
     try {
       let { page, limit } = queries
       page = page ? +page : 1
@@ -47,8 +38,6 @@ export class AdvertiserService {
         .createQueryBuilder('advertiser')
         .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
-        .leftJoinAndSelect('advertiser.customer', 'customer')
-        .leftJoinAndSelect('customer.orders', 'customer')
         .orderBy('advertiser.createdAt', 'DESC')
         .skip((page - 1) * limit)
         .take(limit)
@@ -65,8 +54,6 @@ export class AdvertiserService {
         .where('advertiser.id = :id', { id })
         .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
-        .leftJoinAndSelect('advertiser.customer', 'customer')
-        .leftJoinAndSelect('customer.orders', 'orders')
         .getOne()
     } catch (error) {
       throw new NotFoundException(error)
