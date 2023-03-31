@@ -53,3 +53,5 @@ export type {
   UpdateActivityClosingDayDTO,
 } from './activity-closing-day.type'
 export type { ApiLimitResourceQuery } from './api.type'
+
+export type { FileData } from './file.type'

@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { InjectRepository } from '@nestjs/typeorm'
+import { FileData, User } from '@travel-tailor/types'
 import { S3 } from 'aws-sdk'
 import { Repository } from 'typeorm'
 
-import { CreateUploadFileDto } from './dto/create-upload-file.dto'
-import { UpdateUploadFileDto } from './dto/update-upload-file.dto'
 import { UploadFile } from './entities/upload-file.entity'
 
 @Injectable()
@@ -14,32 +14,31 @@ export class UploadFileService {
 
   constructor(
     @InjectRepository(UploadFile)
-    private uploadFileRepository: Repository<UploadFile>
+    private uploadFileRepository: Repository<UploadFile>,
+    private configService: ConfigService
   ) {
     this.s3 = new S3({
-      region: process.env.AWS_BUCKET_REGION,
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_KEY,
+      region: this.configService.get('AWS_BUCKET_REGION'),
+      accessKeyId: this.configService.get('AWS_ACCESS_KEY'),
+      secretAccessKey: this.configService.get('AWS_SECRET_KEY'),
     })
-    this.bucketName = process.env.AWS_BUCKET_NAME
+    this.bucketName = this.configService.get('AWS_BUCKET_NAME')
   }
 
-  async create(filesData, user) {
+  async create(user: User, filesData: FileData) {
     const file = await this.uploadFileAws(user, filesData)
 
-    console.log(file)
-
-    const uploadFile = await this.uploadFileRepository.create(file)
+    const uploadFile = this.uploadFileRepository.create(file)
     return await this.uploadFileRepository.save(uploadFile)
   }
 
-  async uploadFileAws(user, fileData) {
+  async uploadFileAws(user: User, fileData: FileData){
     const fileName = `${Date.now()}.${fileData.originalname.split('.').pop()}`
-
+    
     const uploadParams = {
-      Bucket: this.bucketName,
-      Body: fileData.buffer,
-      Key: `${user.id}/${fileName}`,
+        Bucket: this.bucketName,
+        Body: fileData.buffer,
+        Key: `${user.id}/${fileName}`,
     }
 
     return this.s3.upload(uploadParams).promise()
