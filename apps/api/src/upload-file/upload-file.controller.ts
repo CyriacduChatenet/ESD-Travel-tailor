@@ -11,7 +11,7 @@ export class UploadFileController {
 
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
-  async uploadFile(@User() user, @UploadedFiles() files: FileData) {
-    return await this.uploadFileService.create(user, files);
+  async uploadFile(@UploadedFiles() files: FileData) {
+    return await this.uploadFileService.create(files);
   }
 }

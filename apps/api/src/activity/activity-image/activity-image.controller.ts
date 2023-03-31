@@ -8,8 +8,11 @@ import {
   Delete,
   UseGuards,
   Query,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
-import { ApiLimitResourceQuery } from '@travel-tailor/types';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { ApiLimitResourceQuery, FileData } from '@travel-tailor/types';
 
 import { Role } from '../../auth/decorators/role.enum';
 import { Roles } from '../../auth/decorators/roles.decorator';
@@ -26,8 +29,9 @@ export class ActivityImageController {
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
-  create(@Body() createActivityImageDto: CreateActivityImageDto) {
-    return this.activityImageService.create(createActivityImageDto);
+  @UseInterceptors(FilesInterceptor('files'))
+  create(@Body() createActivityImageDto: CreateActivityImageDto, @UploadedFiles() files?: FileData[]) {
+    return this.activityImageService.create(createActivityImageDto, files);
   }
 
   @Get()
@@ -47,8 +51,9 @@ export class ActivityImageController {
   update(
     @Param('id') id: string,
     @Body() updateActivityImageDto: UpdateActivityImageDto,
+    @UploadedFiles() files?: FileData[]
   ) {
-    return this.activityImageService.update(id, updateActivityImageDto);
+    return this.activityImageService.update(id, updateActivityImageDto, files);
   }
 
   @Delete(':id')

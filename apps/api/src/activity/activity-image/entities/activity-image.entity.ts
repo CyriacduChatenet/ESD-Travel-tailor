@@ -8,7 +8,7 @@ export class ActivityImage extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   source: string;
 
   @OneToOne(() => Activity, (activity) => activity.image)
