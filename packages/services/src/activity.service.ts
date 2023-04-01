@@ -10,7 +10,8 @@ import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 
 const findAllActivities = async (api_url: string): Promise<Activity[]> => {
-  return await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}`)
+  const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}`)
+  return data.data
 }
 
 const findActivityById = async (api_url: string, id: string): Promise<Activity> => {
