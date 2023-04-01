@@ -39,20 +39,37 @@ export class AdvertiserService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries
+      let { page, limit, sortedBy, name, location } = queries
       page = page ? +page : 1
       limit = limit ? +limit : 10
 
-      return await this.advertiserRepository
-        .createQueryBuilder('advertiser')
-        .leftJoinAndSelect('advertiser.activities', 'activities')
-        .leftJoinAndSelect('advertiser.user', 'user')
-        .leftJoinAndSelect('advertiser.customer', 'customer')
-        .leftJoinAndSelect('customer.orders', 'customer')
-        .orderBy('advertiser.createdAt', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany()
+      const query = this.advertiserRepository
+      .createQueryBuilder('advertiser')
+      .leftJoinAndSelect('advertiser.activities', 'activities')
+      .leftJoinAndSelect('advertiser.user', 'user')
+      .leftJoinAndSelect('advertiser.customer', 'customer')
+      .leftJoinAndSelect('customer.orders', 'customer')
+
+      if(sortedBy) {
+        query.orderBy('advertiser.createdAt', sortedBy)
+      } else {
+        query.orderBy('advertiser.createdAt', 'DESC')
+      }
+
+      if(name) {
+        query.where('advertiser.name = :name', { name })
+      }
+
+      if(location) {
+        query.where('advertiser.location = :location', { location })
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
     } catch (error) {
       throw new NotFoundException(error)
     }

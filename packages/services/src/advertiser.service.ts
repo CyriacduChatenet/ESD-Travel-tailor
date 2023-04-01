@@ -3,7 +3,8 @@ import { useFetch } from '@travel-tailor/hooks';
 import { Advertiser, CreateAdvertiserDTO, UpdateAdvertiserDTO } from '@travel-tailor/types';
 
 const findAllAdvertiser = async (api_url: string): Promise<Advertiser[]> => {
-  return await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}`);
+ const data = await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}`);
+  return data.data
 };
 
 const findAdvertiserById = async (api_url: string, id: string): Promise<Advertiser> => {

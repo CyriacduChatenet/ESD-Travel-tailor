@@ -11,6 +11,7 @@ export type ApiLimitResourceQuery = {
     duration: string;
     location: string;
     author: string;
+    name: string;
 };
 
 export type ErrorResponse = {
