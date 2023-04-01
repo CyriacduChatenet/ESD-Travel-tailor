@@ -28,17 +28,30 @@ export class TasteService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, name } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return this.tasteRepository
-        .createQueryBuilder('taste')
-        .leftJoinAndSelect('taste.traveler', 'traveler')
-        .orderBy('taste.createdAt', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany();
+      const query = this.tasteRepository
+      .createQueryBuilder('taste')
+      .leftJoinAndSelect('taste.traveler', 'traveler')
+
+      if(sortedBy) {
+        query.orderBy('taste.createdAt', sortedBy)
+      } else {
+        query.orderBy('taste.createdAt', 'DESC')
+      }
+
+      if(name) {
+        query.andWhere('taste.name = :name', { name })
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
     } catch (error) {
       throw new NotFoundException(error);
     }
