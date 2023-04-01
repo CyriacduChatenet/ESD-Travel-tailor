@@ -6,7 +6,8 @@ import { Dispatch, SetStateAction } from "react";
 import { API_COMMENT_ROUTE } from "@travel-tailor/constants";
 
 const findAllComments = async (api_url: string): Promise<Comment[]> => {
-    return await useFetch.get(`${api_url}${API_COMMENT_ROUTE}`);
+    const data = await useFetch.get(`${api_url}${API_COMMENT_ROUTE}`);
+    return data.data;
 };
 
 const findCommentById = async (api_url: string, id: string): Promise<Comment> => {
