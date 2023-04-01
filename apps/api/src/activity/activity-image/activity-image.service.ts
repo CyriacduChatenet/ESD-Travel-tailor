@@ -30,17 +30,25 @@ export class ActivityImageService {
 
   findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return this.activityImageRepository
+      const query = this.activityImageRepository
         .createQueryBuilder('activityImage')
         .leftJoinAndSelect('activityImage.activity', 'activity')
-        .orderBy('activityImage.id', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany();
+
+      if (sortedBy) {
+        query.orderBy('activityImage.createdAt', sortedBy);
+      } else {
+        query.orderBy('activityImage.createdAt', 'DESC');
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        data: query.skip((page - 1) * limit).take(limit).getMany()
+      };
     } catch (error) {
       throw new NotFoundException(error);
     }
