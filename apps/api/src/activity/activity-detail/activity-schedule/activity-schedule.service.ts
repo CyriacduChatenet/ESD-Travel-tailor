@@ -20,7 +20,7 @@ export class ActivityScheduleService {
 
   async create(createActivityScheduleDto: CreateActivityScheduleDto) {
     try {
-      const activitySchedule = await this.activityScheduleRepository.create(
+      const activitySchedule = this.activityScheduleRepository.create(
         createActivityScheduleDto,
       );
       return await this.activityScheduleRepository.save(activitySchedule);
@@ -31,17 +31,33 @@ export class ActivityScheduleService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, opening_at, closing_at } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return await this.activityScheduleRepository
+      const query = this.activityScheduleRepository
         .createQueryBuilder('activitySchedule')
         .leftJoinAndSelect('activitySchedule.activityDetail', 'activityDetail')
-        .orderBy('activitySchedule.opening_at', 'ASC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany();
+
+        if(sortedBy) {
+          query.orderBy('activitySchedule.createdAt', sortedBy);
+        } else {
+          query.orderBy('activitySchedule.createdAt', 'DESC');
+        }
+
+        if(opening_at) {
+          query.where('activitySchedule.opening_at = :opening_at', { opening_at });
+        }
+
+        if(closing_at) {
+          query.where('activitySchedule.closing_at = :closing_at', { closing_at });
+        }
+
+        return {
+          page: page,
+          limit: limit,
+          data: await query.skip((page - 1) * limit).take(limit).getMany()
+        };
     } catch (error) {
       throw new NotFoundException(error);
     }
