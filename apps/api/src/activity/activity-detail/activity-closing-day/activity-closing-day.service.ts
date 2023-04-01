@@ -47,6 +47,7 @@ export class ActivityClosingDayService {
       return {
         page: page,
         limit: limit,
+        total: await query.getCount(),
         data: await query.skip((page - 1) * limit).take(limit).getMany()
       };
     } catch (error) {

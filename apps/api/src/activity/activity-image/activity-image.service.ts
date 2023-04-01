@@ -28,7 +28,7 @@ export class ActivityImageService {
     }
   }
 
-  findAll(queries: ApiLimitResourceQuery) {
+  async findAll(queries: ApiLimitResourceQuery) {
     try {
       let { page, limit, sortedBy } = queries;
       page = page ? +page : 1;
@@ -47,7 +47,8 @@ export class ActivityImageService {
       return {
         page: page,
         limit: limit,
-        data: query.skip((page - 1) * limit).take(limit).getMany()
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany()
       };
     } catch (error) {
       throw new NotFoundException(error);
