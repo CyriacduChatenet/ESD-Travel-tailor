@@ -45,4 +45,5 @@ export type ActivityQuery = {
   opening_at?: string
   closing_at?: string,
   closed_day?: string
+  mark?: number
 }

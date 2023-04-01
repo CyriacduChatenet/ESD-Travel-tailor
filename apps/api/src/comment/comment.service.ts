@@ -26,18 +26,32 @@ export class CommentService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, author } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return await this.commentRepository
-        .createQueryBuilder('comment')
-        .leftJoinAndSelect('comment.traveler', 'traveler')
-        .leftJoinAndSelect('comment.activity', 'activity')
-        .orderBy('comment.createdAt', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany()
+      const query = this.commentRepository
+      .createQueryBuilder('comment')
+      .leftJoinAndSelect('comment.traveler', 'traveler')
+      .leftJoinAndSelect('traveler.user', 'user')
+      .leftJoinAndSelect('comment.activity', 'activity')
+
+      if(sortedBy) {
+        query.orderBy('comment.createdAt', sortedBy);
+      } else {
+        query.orderBy('comment.createdAt', 'DESC');
+      }
+
+      if(author) {
+        query.where('user.username = :author', { author });
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany()
+      }
     } catch (error) {
       throw new NotFoundException(error)
     }

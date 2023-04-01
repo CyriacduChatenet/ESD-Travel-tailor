@@ -35,7 +35,7 @@ export class ActivityTagService {
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      const query = await this.activityTagRepository
+      const query = this.activityTagRepository
       .createQueryBuilder('activityTag')
       .leftJoinAndSelect('activityTag.activities', 'activity')
 
@@ -43,7 +43,12 @@ export class ActivityTagService {
         query.where('activityTag.name LIKE :name', { name: `%${name}%` })
       }
       
-      return query.skip((page - 1) * limit).take(limit).getMany()
+      return {
+        page,
+        limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany()
+      }
     } catch (error) {
       throw new NotFoundException(error)
     }

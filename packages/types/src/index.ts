@@ -8,7 +8,6 @@ export type {
 export type { ValidateUserDTO } from './validateUser.type'
 
 export type { AccessToken, AccessTokenPayload } from './accessToken.type'
-export type { ErrorResponse, SuccessResponse } from './api-response.type'
 
 export type {
   Advertiser,
@@ -52,7 +51,7 @@ export type {
   CreateActivityClosingDayDTO,
   UpdateActivityClosingDayDTO,
 } from './activity-closing-day.type'
-export type { ApiLimitResourceQuery } from './api.type'
+export type { ApiLimitResourceQuery, ErrorResponse, SuccessResponse } from './api.type'
 export type { CreatePaymentDTO, PaymentCredentials } from './payment.type'
 export type { CreateOrderDTO, UpdateOrderDTO, Order } from './order.type'
 export type { CreateCustomerDTO, UpdateCustomerDTO, Customer } from './customer.type'

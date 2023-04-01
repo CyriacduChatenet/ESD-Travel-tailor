@@ -6,7 +6,8 @@ import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 
 const findAllTastes = async (api_url: string): Promise<Taste[]> => {
-  return await useFetch.get(`${api_url}${API_TASTE_ROUTE}`)
+  const data = await useFetch.get(`${api_url}${API_TASTE_ROUTE}`)
+  return data.data
 }
 
 const findOneTaste = async (api_url: string, id: string): Promise<Taste> => {

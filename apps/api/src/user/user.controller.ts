@@ -29,7 +29,7 @@ export class UserController {
   }
 
   @Get()
-  async findAll(@Query() queries: ApiLimitResourceQuery): Promise<User[]> {
+  async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.userService.findAll(queries)
   }
 

@@ -5,7 +5,8 @@ import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from "@
 import { TokenService } from "./token.service";
 
 const findAllActivityImages = async (api_url: string): Promise<ActivityImage[]> => {
-    return await useFetch.get(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}`)
+    const data = await useFetch.get(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}`)
+    return data.data
 };
 
 const findActivityImageById = async (api_url: string, id: string): Promise<ActivityImage>  => {

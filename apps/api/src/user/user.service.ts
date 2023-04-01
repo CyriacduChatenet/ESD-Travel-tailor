@@ -30,22 +30,43 @@ export class UserService {
     }
   }
 
-  async findAll(queries: ApiLimitResourceQuery): Promise<User[]> {
+  async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, username, email, roles } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return await this.userRepository
+      const query = this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.traveler', 'traveler')
         .leftJoinAndSelect('traveler.customer', 'customer')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
-        .orderBy('user.createdAt', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany()
+
+      if (sortedBy) {
+        query.orderBy('user.createdAt', sortedBy)
+      } else {
+        query.orderBy('user.createdAt', 'DESC')
+      }
+
+      if (username) {
+        query.andWhere('user.username LIKE :username', { username })
+      }
+
+      if (email) {
+        query.andWhere('user.email LIKE :email', { email })
+      }
+
+      if (roles) {
+        query.andWhere('user.roles = :roles', { roles })
+      }
+      
+        return {
+          page: page,
+          limit: limit,
+          total: await query.getCount(),
+          data: await query.skip((page - 1) * limit).take(limit).getMany()
+        }
     } catch (error) {
       throw new NotFoundException(error)
     }

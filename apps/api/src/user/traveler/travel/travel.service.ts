@@ -28,18 +28,43 @@ export class TravelService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, departureCity, destinationCity, departureDate, returnDate } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
       
-      return await this.travelRepository
-        .createQueryBuilder('travel')
-        .leftJoinAndSelect('travel.traveler', 'traveler')
-        .leftJoinAndSelect('travel.activities', 'activities')
-        .orderBy('travel.createdAt', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany();
+      const query = this.travelRepository
+      .createQueryBuilder('travel')
+      .leftJoinAndSelect('travel.traveler', 'traveler')
+      .leftJoinAndSelect('travel.activities', 'activities')
+
+      if(sortedBy) {
+        query.orderBy('travel.createdAt', sortedBy)
+      } else {
+        query.orderBy('travel.createdAt', 'DESC')
+      }
+
+      if(departureCity) {
+        query.andWhere('travel.departureCity = :departureCity', { departureCity })
+      }
+
+      if(destinationCity) {
+        query.andWhere('travel.destinationCity = :destinationCity', { destinationCity })
+      }
+
+      if(departureDate) {
+        query.andWhere('travel.departureDate = :departureDate', { departureDate })
+      }
+
+      if(returnDate) {
+        query.andWhere('travel.returnDate = :returnDate', { returnDate })
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      };
     } catch (error) {
       throw new NotFoundException(error);
     }

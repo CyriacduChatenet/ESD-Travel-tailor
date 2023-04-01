@@ -19,7 +19,7 @@ export class ActivityDetailService {
   ) {}
 
   async create(createActivityDetailDto: CreateActivityDetailDto) {
-    const activityDetail = await this.activityDetailRepository.create(
+    const activityDetail = this.activityDetailRepository.create(
       createActivityDetailDto,
     );
     return await this.activityDetailRepository.save(activityDetail);
@@ -27,19 +27,36 @@ export class ActivityDetailService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, duration, location } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return await this.activityDetailRepository
+      const query = this.activityDetailRepository
         .createQueryBuilder('activityDetail')
         .leftJoinAndSelect('activityDetail.activity', 'activity')
         .leftJoinAndSelect('activityDetail.schedules', 'activitySchedule')
         .leftJoinAndSelect('activityDetail.closingDays', 'activityClosingDay')
-        .orderBy('activityDetail.id', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany();
+
+      if (sortedBy) {
+        query.orderBy('activityDetail.createdAt', sortedBy);
+      } else {
+        query.orderBy('activityDetail.createdAt', 'DESC');
+      }
+
+      if (duration) {
+        query.andWhere('activityDetail.duration = :duration', { duration });
+      }
+
+      if (location) {
+        query.andWhere('activityDetail.location = :location', { location });
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      };
     } catch (error) {
       throw new NotFoundException(error);
     }

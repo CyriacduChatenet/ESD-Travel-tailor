@@ -32,7 +32,7 @@ export class ActivityService {
 
   async findAll(queries: ActivityQuery) {
     try {
-      let { limit, page, sortedBy, name, tags, location, duration, closed_day, opening_at, closing_at } = queries;
+      let { limit, page, sortedBy, name, tags, location, duration, closed_day, opening_at, closing_at, mark } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
@@ -66,6 +66,9 @@ export class ActivityService {
         query.andWhere('detail.duration = :duration', { duration })
       }
 
+      if(mark) {
+        query.andWhere('activity.mark = :mark', { mark })
+      }
         
       if (closed_day) {
         const closedDaysList = tags.split(',').map(closingDay => closingDay.trim());
@@ -79,9 +82,13 @@ export class ActivityService {
       if(closing_at) {
         query.andWhere('schedule.closing_at = :closing_at', { closing_at })
       }
-  
-      const activities = await query.skip((page - 1) * limit).take(limit).getMany();
-      return activities;
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany()
+      }
     } catch (error) {
       throw new NotFoundException(error)
     }

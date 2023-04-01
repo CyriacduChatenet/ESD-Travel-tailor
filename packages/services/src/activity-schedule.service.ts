@@ -5,7 +5,8 @@ import { ActivitySchedule, CreateActivityScheduleDTO, UpdateActivityScheduleDTO 
 import { TokenService } from "./token.service";
 
 const findAllActivitySchedules = async (api_url: string): Promise<ActivitySchedule[]> => {
-    return await useFetch.get(`${api_url}${API_ACTIVITY_SCHEDULE_ROUTE}`)
+    const data = await useFetch.get(`${api_url}${API_ACTIVITY_SCHEDULE_ROUTE}`)
+    return data.data
 };
 
 const findActivityScheduleById = async (api_url: string, id: string): Promise<ActivitySchedule> => {

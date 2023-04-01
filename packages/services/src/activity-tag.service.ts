@@ -5,7 +5,8 @@ import { ActivityTag, CreateActivityTagDTO, UpdateActivityTagDTO } from "@travel
 import { TokenService } from "./token.service";
 
 const findAllActivityTags = async (api_url: string, query: string): Promise<ActivityTag[]> => {
-    return await useFetch.get(`${api_url}${API_ACTIVITY_TAG_ROUTE}${query}`)
+    const data = await useFetch.get(`${api_url}${API_ACTIVITY_TAG_ROUTE}${query}`)
+    return data.data
 };
 
 const findActivityTagById = async (api_url: string, id: string): Promise<ActivityTag> => {

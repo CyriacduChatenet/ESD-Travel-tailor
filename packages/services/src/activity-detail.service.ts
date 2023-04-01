@@ -5,7 +5,8 @@ import { ActivityDetail, CreateActivityDetailDTO, UpdateActivityDetailDTO } from
 import { TokenService } from "./token.service";
 
 const findAllActivityDetails = async (api_url: string):Promise<ActivityDetail[]> => {
-    return await useFetch.get(`${api_url}${API_ACTIVITY_DETAIL_ROUTE}`)
+    const data = await useFetch.get(`${api_url}${API_ACTIVITY_DETAIL_ROUTE}`);
+    return data.data
 };
 
 const findActivityDetailById = async (api_url: string, id: string): Promise<ActivityDetail> => {
