@@ -34,11 +34,11 @@ export class TravelerService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries
+      let { page, limit, sortedBy } = queries
       page = page ? +page : 1
       limit = limit ? +limit : 10
 
-      return await this.travelerRepository
+      const query = this.travelerRepository
         .createQueryBuilder('traveler')
         .leftJoinAndSelect('traveler.user', 'user')
         .leftJoinAndSelect('traveler.customer', 'customer')
@@ -46,10 +46,19 @@ export class TravelerService {
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.travels', 'travels')
         .leftJoinAndSelect('traveler.comments', 'comments')
-        .orderBy('traveler.createdAt', 'DESC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany()
+
+      if (sortedBy) {
+        query.orderBy('traveler.createdAt', sortedBy)
+      } else {
+        query.orderBy('traveler.createdAt', 'DESC')
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
     } catch (error) {
       throw new NotFoundException(error)
     }

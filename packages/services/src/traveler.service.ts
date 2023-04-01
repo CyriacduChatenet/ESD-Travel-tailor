@@ -5,7 +5,8 @@ import { API_TRAVELER_ROUTE } from '@travel-tailor/constants';
 import { TokenService } from './token.service';
 
 const findAllTravelers = async (api_url: string): Promise<Traveler[]> => {
-  return await useFetch.get(`${api_url}${API_TRAVELER_ROUTE}`);
+  const data = await useFetch.get(`${api_url}${API_TRAVELER_ROUTE}`);
+  return data.data;
 };
 
 const findTravelerById = async (api_url: string, travelerId: string): Promise<Traveler> => {
