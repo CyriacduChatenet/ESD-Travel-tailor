@@ -45,6 +45,8 @@ export class TravelerService {
         .leftJoinAndSelect('customer.orders', 'orders')
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.travels', 'travels')
+        .leftJoinAndSelect('travel.days', 'day')
+        .leftJoinAndSelect('day.activities', 'activity')
         .leftJoinAndSelect('traveler.comments', 'comments')
 
       if (sortedBy) {
@@ -74,6 +76,8 @@ export class TravelerService {
         .leftJoinAndSelect('customer.orders', 'orders')
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.travels', 'travels')
+        .leftJoinAndSelect('travel.days', 'day')
+        .leftJoinAndSelect('day.activities', 'activity')
         .leftJoinAndSelect('traveler.comments', 'comments')
         .getOne()
     } catch (error) {

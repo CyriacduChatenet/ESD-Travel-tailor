@@ -1,15 +1,14 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Activity } from '../../../../activity/entities/activity.entity';
 import { Traveler } from '../../../../user/traveler/entities/traveler.entity';
 import { Timestamp } from '../../../../utils/timestamp.util';
+import { Day } from '../day/entities/day.entity';
 
 @Entity()
 export class Travel extends Timestamp {
@@ -31,7 +30,6 @@ export class Travel extends Timestamp {
   @ManyToOne(() => Traveler, (traveler) => traveler.travels)
   traveler: Traveler;
 
-  @ManyToMany(() => Activity, activity => activity.travels)
-  @JoinTable()
-  activities: Activity[];
+  @OneToMany(() => Day, day => day.travel)
+  days: Day[];
 }

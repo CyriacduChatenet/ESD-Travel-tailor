@@ -17,6 +17,7 @@ import { Timestamp } from '../../utils/timestamp.util';
 import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
 import { Comment } from '../../comment/entities/comment.entity';
 import { Advertiser } from '../../user/advertiser/entities/advertiser.entity';
+import { Day } from 'src/user/traveler/travel/day/entities/day.entity';
 
 @Entity()
 export class Activity extends Timestamp {
@@ -49,8 +50,9 @@ export class Activity extends Timestamp {
   @OneToMany(() => Comment, comment => comment.activity)
   comments: Comment[];
 
-  @ManyToMany(() => Travel, travel => travel.activities)
-  travels: Travel[];
+  @ManyToMany(() => Day, day => day.activities)
+  @JoinTable()
+  days: Day[];
 
   @ManyToOne(() => Advertiser, (advertiser) => advertiser.activities)
   advertiser: Advertiser;

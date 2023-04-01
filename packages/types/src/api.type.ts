@@ -19,6 +19,9 @@ export type ApiLimitResourceQuery = {
     username: string;
     email: string;
     roles: string;
+    date: string;
+    startTime: string;
+    endTime: string;
 };
 
 export type ErrorResponse = {

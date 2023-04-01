@@ -40,9 +40,10 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.days', 'days')
+        .leftJoinAndSelect('days.travel', 'travel')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect("detail.closingDays", "closingDay")
         .leftJoinAndSelect("detail.schedules", "schedule")  
@@ -100,9 +101,10 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.days', 'days')
+        .leftJoinAndSelect('days.travel', 'travel')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect("detail.closingDays", "closingDay")
         .leftJoinAndSelect("detail.schedules", "schedule")
@@ -119,9 +121,10 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.days', 'days')
+        .leftJoinAndSelect('days.travel', 'travel')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect("detail.closingDays", "closingDay")
         .leftJoinAndSelect("detail.schedules", "schedule")
@@ -139,9 +142,10 @@ export class ActivityService {
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tags')
+        .leftJoinAndSelect('activity.days', 'days')
+        .leftJoinAndSelect('days.travel', 'travel')
         .where('activity.id = :id', { id })
         .getOne()
 
@@ -150,7 +154,6 @@ export class ActivityService {
       activity.detail.duration = updateActivityDto?.detail.duration
       activity.detail.location = updateActivityDto?.detail.location
       activity.comments = updateActivityDto?.comments
-      activity.travels = updateActivityDto?.travels
       activity.advertiser = updateActivityDto?.advertiser
       activity.tags = updateActivityDto?.tags
 
