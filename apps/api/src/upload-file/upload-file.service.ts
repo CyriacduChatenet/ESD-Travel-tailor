@@ -25,9 +25,9 @@ export class UploadFileService {
     this.bucketName = this.configService.get('AWS_BUCKET_NAME')
   }
 
-  async create(filesData: FileData) {
+  async create(filesData: FileData, user: User) {
     try {
-        const file = await this.uploadFileAws(filesData)
+        const file = await this.uploadFileAws(filesData, user)
 
         const uploadFile = this.uploadFileRepository.create(file)
         return await this.uploadFileRepository.save(uploadFile)
@@ -36,14 +36,14 @@ export class UploadFileService {
     }
   }
 
-  async uploadFileAws(fileData: FileData){
+  async uploadFileAws(fileData: FileData, user: User){
     try {
         const fileName = `${Date.now()}.${fileData.originalname.split('.').pop()}`
     
     const uploadParams = {
         Bucket: this.bucketName,
         Body: fileData.buffer,
-        Key: `${fileName}`,
+        Key: `${user.id}/${fileName}`,
     }
 
     return this.s3.upload(uploadParams).promise()

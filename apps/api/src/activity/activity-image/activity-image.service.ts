@@ -4,8 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ApiLimitResourceQuery, FileData } from '@travel-tailor/types';
-import { UploadFileService } from 'src/upload-file/upload-file.service';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Repository } from 'typeorm';
 
 import { CreateActivityImageDto } from './dto/create-activity-image.dto';
@@ -17,21 +16,12 @@ export class ActivityImageService {
   constructor(
     @InjectRepository(ActivityImage)
     private activityImageRepository: Repository<ActivityImage>,
-    private uploadFileService: UploadFileService,
   ) {}
-
-  async create(createActivityImageDto: CreateActivityImageDto, files: FileData[]) {
+  async create(createActivityImageDto: CreateActivityImageDto) {
     try {
-      if(files) {
-        const uploadFile = await this.uploadFileService.create(files[0]) as unknown as { Location: string };
-      
-        const activityImage = this.activityImageRepository.create({
-          source: uploadFile.Location,
-      });
-        return await this.activityImageRepository.save(activityImage);
-      }
-      
-      const activityImage = this.activityImageRepository.create(createActivityImageDto);
+      const activityImage = await this.activityImageRepository.create(
+        createActivityImageDto,
+      );
       return await this.activityImageRepository.save(activityImage);
     } catch (error) {
       throw new UnauthorizedException(error);
@@ -68,14 +58,9 @@ export class ActivityImageService {
     }
   }
 
-  async update(id: string, updateActivityImageDto: UpdateActivityImageDto, files: FileData[]) {
+  update(id: string, updateActivityImageDto: UpdateActivityImageDto) {
     try {
-      if(files) {
-        const uploadFile = await this.uploadFileService.create(files[0]) as unknown as { Location: string };
-        return await this.activityImageRepository.update(id, { source: uploadFile.Location });
-      }
-
-      return await this.activityImageRepository.update(id, updateActivityImageDto);
+      return this.activityImageRepository.update(id, updateActivityImageDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
