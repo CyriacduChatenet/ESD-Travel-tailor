@@ -8,6 +8,8 @@ export type ApiLimitResourceQuery = {
     traveler: string;
     opening_at: string;
     closing_at: string;
+    duration: string;
+    location: string;
 };
 
 export type ErrorResponse = {
