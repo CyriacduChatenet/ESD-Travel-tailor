@@ -5,7 +5,8 @@ import { ActivityClosingDay, CreateActivityClosingDayDTO, UpdateActivityClosingD
 import { TokenService } from "./token.service";
 
 const findAllActivityClosingDays = async (api_url: string): Promise<ActivityClosingDay[]> => {
-    return await useFetch.get(`${api_url}${API_ACTIVITY_CLOSING_DAY_ROUTE}`)
+    const data = await useFetch.get(`${api_url}${API_ACTIVITY_CLOSING_DAY_ROUTE}`)
+    return data.data;
 };
 
 const findActivityClosingDayById = async (api_url: string, id: string): Promise<ActivityClosingDay> => {

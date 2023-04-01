@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Repository } from 'typeorm';
@@ -15,7 +15,7 @@ export class ActivityClosingDayService {
   ) {}
   async create(createActivityClosingDayDto: CreateActivityClosingDayDto) {
     try {
-      const activityClosingDay = await this.activityClosingDayRepository.create(
+      const activityClosingDay = this.activityClosingDayRepository.create(
         createActivityClosingDayDto,
       );
       return await this.activityClosingDayRepository.save(activityClosingDay);
@@ -26,19 +26,31 @@ export class ActivityClosingDayService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
+      let { page, limit, sortedBy, activityDetail } = queries;
       page = page ? +page : 1;
       limit = limit ? +limit : 10;
 
-      return await this.activityClosingDayRepository
+      const query = this.activityClosingDayRepository
         .createQueryBuilder('activityClosingDay')
         .leftJoinAndSelect('activityClosingDay.activityDetail', 'activityDetail')
-        .orderBy('activityClosingDay.day', 'ASC')
-        .skip((page - 1) * limit)
-        .take(limit)
-        .getMany();
+
+      if (sortedBy) {
+        query.orderBy('activityClosingDay.createdAt', sortedBy);
+      } else {
+        query.orderBy('activityClosingDay.createdAt', 'DESC');
+      }
+
+      if (activityDetail) {
+        query.where('activityClosingDay.activityDetail = :activityDetail', { activityDetail });
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        data: await query.skip((page - 1) * limit).take(limit).getMany()
+      };
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new NotFoundException(error);
     }
   }
 
