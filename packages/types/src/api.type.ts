@@ -12,6 +12,10 @@ export type ApiLimitResourceQuery = {
     location: string;
     author: string;
     name: string;
+    departureCity: string;
+    destinationCity: string;
+    departureDate: string;
+    returnDate: string;
 };
 
 export type ErrorResponse = {
