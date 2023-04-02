@@ -1,9 +1,11 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common'
-import { Activity, ActivityQuery, ActivityTag, User } from '@travel-tailor/types'
+import { Activity, ActivityQuery, ActivityTag, Travel, User } from '@travel-tailor/types'
 
 import { UserService } from '../../../../user/user.service'
 import { TravelService } from '../travel.service'
 import { ActivityService } from '../../../../activity/activity.service'
+
+type Day = { date: Date; dayOfWeek: string }
 
 @Injectable()
 export class PlanningService {
@@ -15,8 +17,8 @@ export class PlanningService {
   ) {}
 
 
-  private getTravelDays(startDate: Date, endDate: Date): { date: Date; dayOfWeek: string }[] {
-    const days = [];
+  private getTravelDays(startDate: Date, endDate: Date): Day[] {
+    const days: Day[] = [];
     let currentDate = new Date(startDate);
   
     while (currentDate <= endDate) {
@@ -34,7 +36,7 @@ export class PlanningService {
   }
 
 
-  private async filterActivitiesWithQueriesAndTastes(travel, tastes: Partial<ActivityTag[]>) {
+  private async filterActivitiesWithQueriesAndTastes(travel: Partial<Travel>, tastes: Partial<ActivityTag[]>) {
     const days = this.getTravelDays(travel.departureDate, travel.returnDate);
     console.log(days)
     
@@ -46,10 +48,10 @@ export class PlanningService {
     return activities.data
   }
 
-  private filterActivitiesByOpenDays(activitiesQuery, days) {
+  private filterActivitiesByOpenDays(activitiesQuery, days: Day[]) {
     const filteredActivities = activitiesQuery.filter(activity => {
       // Vérifier si tous les jours de fermeture sont différents de tous les jours dans le tableau days
-      const shouldKeepActivity = activity.detail.closingDays.every(closureDay => {
+      const shouldKeepActivity = activity.detail.closingDays.every((closureDay: Day) => {
         return days.every(day => day.date.getTime() !== closureDay.date.getTime());
       });
 
@@ -62,8 +64,8 @@ export class PlanningService {
 
   private async filterActivities(travel, tastes: Partial<ActivityTag[]>) {
     const activitiesQuery = await this.filterActivitiesWithQueriesAndTastes(travel, tastes)
-    const activities = this.filterActivitiesByOpenDays(activitiesQuery, this.getTravelDays(travel.departureDate, travel.returnDate))
-    return activities
+    const activitiesFilteredByOpeneddDays = this.filterActivitiesByOpenDays(activitiesQuery, this.getTravelDays(travel.departureDate, travel.returnDate))
+    return activitiesFilteredByOpeneddDays
   }
 
 
