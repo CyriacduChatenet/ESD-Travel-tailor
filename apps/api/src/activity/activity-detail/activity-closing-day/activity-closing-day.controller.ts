@@ -13,6 +13,7 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { ActivityClosingDayService } from './activity-closing-day.service';
 import { CreateActivityClosingDayDto } from './dto/create-activity-closing-day.dto';
 import { UpdateActivityClosingDayDto } from './dto/update-activity-closing-day.dto';
+import { DatePipe } from '../../../config/pipes/date.pipe';
 
 @Controller('activity-closing-day')
 export class ActivityClosingDayController {
@@ -21,7 +22,7 @@ export class ActivityClosingDayController {
   ) {}
 
   @Post()
-  create(@Body() createActivityClosingDayDto: CreateActivityClosingDayDto) {
+  create(@Body(DatePipe) createActivityClosingDayDto: CreateActivityClosingDayDto) {
     return this.activityClosingDayService.create(createActivityClosingDayDto);
   }
 
