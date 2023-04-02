@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { AccessToken } from '@travel-tailor/types';
 import jwt_decode from 'jwt-decode';
 
-import { Role } from '../decorators/role.enum';
+import { Role } from '../../config/enum/role.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

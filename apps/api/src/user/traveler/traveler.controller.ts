@@ -14,8 +14,8 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { TravelerService } from './traveler.service';
 import { CreateTravelerDto } from './dto/create-traveler.dto';
 import { UpdateTravelerDTO } from './dto/update-traveler.dto';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { Role } from '../../auth/decorators/role.enum';
+import { Roles } from '../../config/decorators/roles.decorator';
+import { Role } from '../../config/enum/role.enum';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @Controller('traveler')

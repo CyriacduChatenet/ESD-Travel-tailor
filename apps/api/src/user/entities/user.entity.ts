@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Role } from '../../auth/decorators/role.enum';
+import { Role } from '../../config/enum/role.enum';
 import { Advertiser } from '../advertiser/entities/advertiser.entity';
 import { Traveler } from '../traveler/entities/traveler.entity';
 import { Timestamp } from '../../utils/timestamp.util';
