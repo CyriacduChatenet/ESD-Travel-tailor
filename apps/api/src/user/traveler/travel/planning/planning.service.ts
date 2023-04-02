@@ -43,10 +43,11 @@ export class PlanningService {
     const tasteNames: string[] = []
     this.setTasteNames(tastes, tasteNames)
 
-    const query: ActivityQuery = { location: travel.destinationCity,}
+    const query: ActivityQuery = { location: travel.destinationCity, limit: 50 }
     const activities = await this.activityService.findAll(query)
     return activities.data
   }
+  
 
   private filterActivitiesByOpenDays(activitiesQuery, days: Day[]) {
     const filteredActivities = activitiesQuery.filter(activity => {
@@ -72,7 +73,6 @@ export class PlanningService {
   async create(userConnected: User, travel) {
     const user = await this.userService.findOneByEmail(userConnected.email)
     const travelInDB = await this.travelService.findOne(travel.id)
-
     const tastes = user.traveler.tastes
 
     const activities = await this.filterActivities(travelInDB, tastes)
