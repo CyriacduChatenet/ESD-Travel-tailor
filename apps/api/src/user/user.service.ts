@@ -39,6 +39,7 @@ export class UserService {
       const query = this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.customer', 'customer')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
@@ -72,12 +73,13 @@ export class UserService {
     }
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  public async findOneByEmail(email: string): Promise<User> {
     try {
       return await this.userRepository
         .createQueryBuilder('user')
         .where('user.email = :email', { email })
         .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .getOne()

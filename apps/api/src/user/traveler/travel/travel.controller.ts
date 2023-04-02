@@ -9,7 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { ApiLimitResourceQuery } from '@travel-tailor/types'
+import { ApiLimitResourceQuery, User as UserType } from '@travel-tailor/types'
 
 import { TravelService } from './travel.service'
 import { CreateTravelDto } from './dto/create-travel.dto'
@@ -18,7 +18,7 @@ import { Roles } from '../../../auth/decorators/roles.decorator'
 import { Role } from '../../../auth/decorators/role.enum'
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
 import { User } from '../../../auth/decorators/user.decorator'
-import { PlanningService } from './planning.service'
+import { PlanningService } from './planning/planning.service'
 
 @Controller('travel')
 export class TravelController {
@@ -31,8 +31,10 @@ export class TravelController {
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
-  async create(@Body() createTravelDto: CreateTravelDto, @User() user) {
-    return await this.travelService.create(createTravelDto)
+  async create(@Body() createTravelDto: CreateTravelDto, @User() user: UserType) {
+    const travel = await this.travelService.create(createTravelDto);
+    await this.planningService.create(user, travel);
+    return travel;
   }
 
   @Get()
