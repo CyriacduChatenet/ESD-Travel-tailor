@@ -14,7 +14,24 @@ export class PlanningService {
     private travelService: TravelService
   ) {}
 
+  private getDaysBetweenDates(startDate: Date, endDate: Date): { date: Date; dayOfWeek: string }[] {
+    const days = [];
+    let currentDate = new Date(startDate);
+  
+    while (currentDate <= endDate) {
+      const dayOfWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(currentDate);
+      days.push({ date: currentDate, dayOfWeek });
+      currentDate = new Date(currentDate);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    console.log(days)
+    return days;
+  }
+
   private async filterActivities(travel, tastes: Partial<ActivityTag[]>) {
+    this.getDaysBetweenDates(travel.departureDate, travel.returnDate);
+    
     const query: ActivityQuery = { location: travel.destinationCity, tags: JSON.stringify(tastes)}
     return await this.activityService.findAll(query)
   }
