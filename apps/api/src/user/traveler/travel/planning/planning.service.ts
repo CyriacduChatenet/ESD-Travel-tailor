@@ -38,16 +38,13 @@ export class PlanningService {
 
   private async filterActivitiesWithQueriesAndTastes(travel: Partial<Travel>, tastes: Partial<ActivityTag[]>) {
     const days = this.getTravelDays(travel.departureDate, travel.returnDate);
-    console.log(days)
-    
     const tasteNames: string[] = []
     this.setTasteNames(tastes, tasteNames)
-
     const query: ActivityQuery = { location: travel.destinationCity, limit: 50 }
     const activities = await this.activityService.findAll(query)
     return activities.data
   }
-  
+
 
   private filterActivitiesByOpenDays(activitiesQuery, days: Day[]) {
     const filteredActivities = activitiesQuery.filter(activity => {
@@ -70,12 +67,19 @@ export class PlanningService {
   }
 
 
+  private createPlanning (travel: Travel, days: Day[], activities: Activity[]) {
+    console.log('travel', travel)
+    console.log('days', days)
+    console.log('activities', activities)
+  }
+
+
   async create(userConnected: User, travel) {
     const user = await this.userService.findOneByEmail(userConnected.email)
     const travelInDB = await this.travelService.findOne(travel.id)
     const tastes = user.traveler.tastes
 
     const activities = await this.filterActivities(travelInDB, tastes)
-    console.log('activities', activities)
+    const planning = this.createPlanning(travel, this.getTravelDays(travel.departureDate, travel.returnDate), activities)
   }
 }
