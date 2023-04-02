@@ -29,3 +29,5 @@ export { ROLES } from './roles.constants';
 export { OBJECT_KEYS } from './object.constants';
 
 export { TRUE_STRING_TYPE, FALSE_STRING_TYPE } from './primitive.constant';
+
+export { DAY_DURATION, DAY_END_TIME, DAY_START_TIME } from './day.constantes';

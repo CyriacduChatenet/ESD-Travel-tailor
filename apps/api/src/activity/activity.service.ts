@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ActivityQuery } from '@travel-tailor/types'
+import { ActivityQuery, ActivityTag } from '@travel-tailor/types'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
@@ -94,6 +94,26 @@ export class ActivityService {
       throw new NotFoundException(error)
     }
   }
+
+  async findAllByTags(tags: ActivityTag[]) {
+    try {
+    return await this.activityRepository
+    .createQueryBuilder('activity')
+    .leftJoinAndSelect('activity.image', 'image')
+    .leftJoinAndSelect('activity.comments', 'comments')
+    .leftJoinAndSelect('activity.advertiser', 'advertiser')
+    .leftJoinAndSelect('activity.tags', 'tag')
+    .leftJoinAndSelect('activity.days', 'days')
+    .leftJoinAndSelect('days.travel', 'travel')
+    .leftJoinAndSelect('activity.detail', 'detail')
+    .leftJoinAndSelect("detail.closingDays", "closingDay")
+    .leftJoinAndSelect("detail.schedules", "schedule")
+    .andWhere('tag.name IN (:...tags)', { tags })
+    .getMany()
+    } catch (error) {
+    throw new NotFoundException(error)
+    }
+    }
 
   async findOne(id: string) {
     try {

@@ -8,6 +8,7 @@ import { Day } from './entities/day.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Day])],
   controllers: [DayController],
-  providers: [DayService]
+  providers: [DayService],
+  exports: [DayService],
 })
 export class DayModule {}

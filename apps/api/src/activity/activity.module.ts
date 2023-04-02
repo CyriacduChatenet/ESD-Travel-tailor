@@ -17,5 +17,6 @@ import { ActivityTagModule } from './activity-tag/activity-tag.module'
   ],
   controllers: [ActivityController],
   providers: [ActivityService],
+  exports: [ActivityService]
 })
 export class ActivityModule {}
