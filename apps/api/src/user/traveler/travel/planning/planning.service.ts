@@ -1,5 +1,5 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common'
-import { ActivityQuery, ActivityTag, Taste, User } from '@travel-tailor/types'
+import { Activity, ActivityQuery, ActivityTag, User } from '@travel-tailor/types'
 
 import { UserService } from '../../../../user/user.service'
 import { TravelService } from '../travel.service'
@@ -14,7 +14,8 @@ export class PlanningService {
     private travelService: TravelService
   ) {}
 
-  private getDaysBetweenDates(startDate: Date, endDate: Date): { date: Date; dayOfWeek: string }[] {
+
+  private getTravelDays(startDate: Date, endDate: Date): { date: Date; dayOfWeek: string }[] {
     const days = [];
     let currentDate = new Date(startDate);
   
@@ -24,24 +25,51 @@ export class PlanningService {
       currentDate = new Date(currentDate);
       currentDate.setDate(currentDate.getDate() + 1);
     }
-
-    console.log(days)
     return days;
   }
 
-  private async filterActivities(travel, tastes: Partial<ActivityTag[]>) {
-    this.getDaysBetweenDates(travel.departureDate, travel.returnDate);
-    
-    const query: ActivityQuery = { location: travel.destinationCity, tags: JSON.stringify(tastes)}
-    return await this.activityService.findAll(query)
+
+  private setTasteNames(tastes: Partial<ActivityTag[]>, tasteNames: string[]) {
+    return tastes.map(taste => tasteNames.push(taste.name))
   }
+
+
+  private async filterActivitiesWithQueriesAndTastes(travel, tastes: Partial<ActivityTag[]>) {
+    const days = this.getTravelDays(travel.departureDate, travel.returnDate);
+    console.log(days)
+    
+    const tasteNames: string[] = []
+    this.setTasteNames(tastes, tasteNames)
+
+    const query: ActivityQuery = { location: travel.destinationCity,}
+    const activities = await this.activityService.findAll(query)
+    return activities.data
+  }
+
+  private filterActivitiesByOpenDays(activitiesQuery, days) {
+    const filteredActivities = activitiesQuery.filter(activity => {
+      // Vérifier si tous les jours de fermeture sont différents de tous les jours dans le tableau days
+      const shouldKeepActivity = activity.detail.closingDays.every(closureDay => {
+        return days.every(day => day.date.getTime() !== closureDay.date.getTime());
+      });
+
+      return shouldKeepActivity;
+    });
+  
+    return filteredActivities;
+  }
+
+
+  private async filterActivities(travel, tastes: Partial<ActivityTag[]>) {
+    const activitiesQuery = await this.filterActivitiesWithQueriesAndTastes(travel, tastes)
+    const activities = this.filterActivitiesByOpenDays(activitiesQuery, this.getTravelDays(travel.departureDate, travel.returnDate))
+    return activities
+  }
+
 
   async create(userConnected: User, travel) {
     const user = await this.userService.findOneByEmail(userConnected.email)
-    console.log('user', user)
-
     const travelInDB = await this.travelService.findOne(travel.id)
-    console.log('travelInDB', travelInDB)
 
     const tastes = user.traveler.tastes
 
