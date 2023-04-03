@@ -24,7 +24,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
   });
   const [activityDetailCredentials, setActivityDetailCredentials] = useState<CreateActivityDetailDTO>({
     location: '',
-    duration: '',
+    duration: 0,
   })
   const [activityImageCredentials, setActivityImageCredentials] = useState<CreateActivityImageDTO>({
     source: '',
@@ -105,7 +105,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
 
   const validate = (
     activityCredentials: { name: string; },
-    activityDetailCredentials: { location: string; duration: string },
+    activityDetailCredentials: { location: string; duration: number },
     activityImageCredentials: { source: string }
   ) => {
     if (!activityCredentials.name) {

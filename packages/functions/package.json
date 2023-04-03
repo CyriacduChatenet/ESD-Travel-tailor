@@ -10,6 +10,7 @@
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "next": "13.2.3",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
