@@ -36,7 +36,6 @@ export class TravelService {
       .createQueryBuilder('travel')
       .leftJoinAndSelect('travel.traveler', 'traveler')
       .leftJoinAndSelect('travel.days', 'day')
-      .leftJoinAndSelect('day.activities', 'activity')
 
       if(sortedBy) {
         query.orderBy('travel.createdAt', sortedBy)
@@ -78,7 +77,6 @@ export class TravelService {
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
         .leftJoinAndSelect('travel.days', 'day')
-        .leftJoinAndSelect('day.activities', 'activity')
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);
