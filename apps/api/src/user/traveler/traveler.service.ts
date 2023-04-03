@@ -46,7 +46,6 @@ export class TravelerService {
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.travels', 'travel')
         .leftJoinAndSelect('travel.days', 'day')
-        .leftJoinAndSelect('day.activities', 'activity')
         .leftJoinAndSelect('traveler.comments', 'comments')
 
       if (sortedBy) {
@@ -77,7 +76,6 @@ export class TravelerService {
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.travels', 'travel')
         .leftJoinAndSelect('travel.days', 'day')
-        .leftJoinAndSelect('day.activities', 'activity')
         .leftJoinAndSelect('traveler.comments', 'comments')
         .getOne()
     } catch (error) {
