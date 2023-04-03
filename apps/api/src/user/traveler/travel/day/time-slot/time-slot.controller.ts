@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { TimeSlotService } from './time-slot.service';
 import { CreateTimeSlotDto } from './dto/create-time-slot.dto';
@@ -9,27 +10,27 @@ export class TimeSlotController {
   constructor(private readonly timeSlotService: TimeSlotService) {}
 
   @Post()
-  create(@Body() createTimeSlotDto: CreateTimeSlotDto) {
-    return this.timeSlotService.create(createTimeSlotDto);
+  async create(@Body() createTimeSlotDto: CreateTimeSlotDto) {
+    return await this.timeSlotService.create(createTimeSlotDto);
   }
 
   @Get()
-  findAll() {
-    return this.timeSlotService.findAll();
+  async findAll(@Query() queries: ApiLimitResourceQuery) {
+    return await this.timeSlotService.findAll(queries);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.timeSlotService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.timeSlotService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTimeSlotDto: UpdateTimeSlotDto) {
-    return this.timeSlotService.update(id, updateTimeSlotDto);
+  async update(@Param('id') id: string, @Body() updateTimeSlotDto: UpdateTimeSlotDto) {
+    return await this.timeSlotService.update(id, updateTimeSlotDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.timeSlotService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.timeSlotService.remove(id);
   }
 }

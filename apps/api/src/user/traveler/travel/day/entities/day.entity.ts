@@ -2,7 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColum
 
 import { Timestamp } from "../../../../../utils/timestamp.util";
 import { Travel } from "../../entities/travel.entity";
-import { Activity } from "src/activity/entities/activity.entity";
+import { TimeSlot } from "../time-slot/entities/time-slot.entity";
 
 @Entity()
 export class Day extends Timestamp {
@@ -21,7 +21,7 @@ export class Day extends Timestamp {
     @ManyToOne(() => Travel, (travel) => travel.days)
     travel: Travel;
 
-    @ManyToMany(() => Activity)
+    @ManyToMany(() => TimeSlot)
     @JoinTable()
-    activities: Activity[]
+    timeSlots: TimeSlot[]
 }

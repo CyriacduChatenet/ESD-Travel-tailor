@@ -1,27 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
-import { CreateTimeSlotDto } from './dto/create-time-slot.dto';
-import { UpdateTimeSlotDto } from './dto/update-time-slot.dto';
+import { CreateTimeSlotDto } from './dto/create-time-slot.dto'
+import { UpdateTimeSlotDto } from './dto/update-time-slot.dto'
+import { TimeSlot } from './entities/time-slot.entity'
 
 @Injectable()
 export class TimeSlotService {
-  create(createTimeSlotDto: CreateTimeSlotDto) {
-    return 'This action adds a new timeSlot';
+  constructor(@InjectRepository(TimeSlot) private timeSlotRepository: Repository<TimeSlot>) {}
+
+  async create(createTimeSlotDto: CreateTimeSlotDto) {
+    try {
+      const timeSlot = this.timeSlotRepository.create(createTimeSlotDto);
+      return await this.timeSlotRepository.save(timeSlot)
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 
-  findAll() {
-    return `This action returns all timeSlot`;
+  async findAll(queries: ApiLimitResourceQuery) {
+    try {
+      let {} = queries;
+      return await `This action returns all timeSlot`
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} timeSlot`;
+  async findOne(id: string) {
+    try {
+      return await `This action returns a #${id} timeSlot`
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
-  update(id: string, updateTimeSlotDto: UpdateTimeSlotDto) {
-    return `This action updates a #${id} timeSlot`;
+  async update(id: string, updateTimeSlotDto: UpdateTimeSlotDto) {
+    try {
+      return await `This action updates a #${id} timeSlot`
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} timeSlot`;
+  async remove(id: string) {
+    try {
+      return await `This action removes a #${id} timeSlot`
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 }

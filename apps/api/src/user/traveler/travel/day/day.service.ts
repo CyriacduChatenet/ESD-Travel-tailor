@@ -28,7 +28,7 @@ export class DayService {
 
       const query = this.dayRepository.createQueryBuilder('day')
       .leftJoinAndSelect('day.travel', 'travel')
-      .leftJoinAndSelect('day.activities', 'activities')
+      .leftJoinAndSelect('day.timeSlots', 'timeSlots')
 
       if(sortedBy) {
         query.orderBy('day.createdAt', sortedBy)
@@ -63,7 +63,7 @@ export class DayService {
     try {
       return await this.dayRepository.createQueryBuilder('day')
       .leftJoinAndSelect('day.travel', 'travel')
-      .leftJoinAndSelect('day.activities', 'activity')
+      .leftJoinAndSelect('day.timeSlots', 'timeSlots')
       .where('day.id = :id', { id })
       .getOne()
     } catch (error) {
