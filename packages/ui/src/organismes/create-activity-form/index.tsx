@@ -160,7 +160,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       </label>
       <label htmlFor="">
         <p>Duration</p>
-        <input type="text" name="duration" placeholder="duration" onChange={handleActivityDetail} />
+        <input type="number" name="duration" placeholder="duration" onChange={handleActivityDetail} />
         {errors.duration && <p>{errors.duration}</p>}
       </label>
       <label htmlFor="">

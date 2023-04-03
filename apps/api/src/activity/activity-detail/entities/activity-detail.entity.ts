@@ -18,7 +18,7 @@ export class ActivityDetail extends Timestamp {
   id: string;
 
   @Column({ nullable: false})
-  duration: string;
+  duration: number;
 
   @Column({ nullable: false})
   location: string;
