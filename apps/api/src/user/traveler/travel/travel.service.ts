@@ -36,6 +36,7 @@ export class TravelService {
       .createQueryBuilder('travel')
       .leftJoinAndSelect('travel.traveler', 'traveler')
       .leftJoinAndSelect('travel.days', 'day')
+      .leftJoinAndSelect('day.timeSlots', 'timeSlots')
 
       if(sortedBy) {
         query.orderBy('travel.createdAt', sortedBy)
@@ -77,13 +78,14 @@ export class TravelService {
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
         .leftJoinAndSelect('travel.days', 'day')
+        .leftJoinAndSelect('day.timeSlots', 'timeSlots')
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }
   }
 
-  async update(id: string, updateTravelDto: UpdateTravelDto) {
+  async update(id: string, updateTravelDto) {
     try {
       return this.travelRepository.update(id, updateTravelDto);
     } catch (error) {

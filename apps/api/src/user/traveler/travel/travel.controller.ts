@@ -19,12 +19,14 @@ import { Role } from '../../../config/enum/role.enum'
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
 import { User } from '../../../config/decorators/user.decorator'
 import { PlanningService } from './planning/planning.service'
+import { UserService } from '../../../user/user.service'
 
 @Controller('travel')
 export class TravelController {
   constructor(
     private readonly travelService: TravelService,
-    private planningService: PlanningService
+    private planningService: PlanningService,
+    private userService: UserService,
   ) {}
 
   @Post()
@@ -32,7 +34,14 @@ export class TravelController {
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
   async create(@Body() createTravelDto: CreateTravelDto, @User() user: UserType) {
-    const travel = await this.travelService.create(createTravelDto);
+    const userInDB = await this.userService.findOneByEmail(user.email);
+
+    const createTravelDTO = {
+      ...createTravelDto,
+      traveler: userInDB.traveler.id,
+    }
+    
+    const travel = await this.travelService.create(createTravelDTO);
     await this.planningService.create(user, travel);
     return travel;
   }

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { DeepPartial, Repository } from 'typeorm'
 
 import { CreateDayDto } from './dto/create-day.dto'
 import { UpdateDayDto } from './dto/update-day.dto'

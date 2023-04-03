@@ -9,14 +9,14 @@ export class Day extends Timestamp {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ nullable: false, default: '8:00' })
-    startTime: string;
+    @Column({ nullable: true })
+    startTime: Date;
 
-    @Column({ nullable: false, default: '0:00' })
-    endTime: string;
+    @Column({ nullable: true })
+    endTime: Date;
 
     @Column({ nullable: false })
-    date: string;
+    date: Date;
 
     @ManyToOne(() => Travel, (travel) => travel.days)
     travel: Travel;

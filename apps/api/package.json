@@ -33,6 +33,7 @@
     "bcrypt": "^5.1.0",
     "i": "^0.3.7",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "nestjs-stripe": "^1.0.0",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",

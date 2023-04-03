@@ -6,6 +6,7 @@ import { UserModule } from '../../../../user/user.module'
 import { TravelerModule } from '../../traveler.module'
 import { TravelModule } from '../travel.module'
 import { ActivityModule } from '../../../../activity/activity.module'
+import { TimeSlotModule } from '../day/time-slot/time-slot.module'
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ActivityModule } from '../../../../activity/activity.module'
     UserModule,
     TravelerModule,
     ActivityModule,
+    TimeSlotModule,
     forwardRef(() => TravelModule),
   ],
   providers: [PlanningService],
