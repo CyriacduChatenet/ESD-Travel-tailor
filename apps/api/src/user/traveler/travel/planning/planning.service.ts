@@ -3,9 +3,9 @@ import {
   Activity,
   ActivityQuery,
   ActivityTag,
-  TimeSlot as TimeSlotType,
   Travel,
   User,
+  Day
 } from '@travel-tailor/types'
 import * as moment from 'moment'
 
@@ -14,13 +14,6 @@ import { TravelService } from '../travel.service'
 import { ActivityService } from '../../../../activity/activity.service'
 import { DayService } from '../day/day.service'
 import { TimeSlotService } from '../day/time-slot/time-slot.service'
-
-type DaySubType = {
-  id?: string
-  date?: Date
-  dayOfWeek?: string
-  timeSlots?: TimeSlotType[]
-}
 
 const MAX_TIME_SLOTS_PER_DAY = 5
 
@@ -35,16 +28,15 @@ export class PlanningService {
     private travelService: TravelService,
   ) {}
 
-  private getTravelDays(startDate: Date, endDate: Date): DaySubType[] {
-    const days: DaySubType[] = []
+  private getTravelDays(startDate: Date, endDate: Date): Day[] {
+    const days: Day[] = []
 
     let currentDate = moment(startDate.toISOString()) // utiliser toISOString()
     const lastDate = moment(endDate.toISOString()) // utiliser toISOString()
 
     while (currentDate <= lastDate) {
-      const day: DaySubType = {
+      const day: Day = {
         date: currentDate.toDate(),
-        dayOfWeek: currentDate.format('dddd'),
       }
       days.push(day)
       currentDate = currentDate.clone().add(1, 'day')
@@ -68,11 +60,11 @@ export class PlanningService {
     return activities.data
   }
 
-  private filterActivitiesByOpenDays(activitiesQuery, days: DaySubType[]) {
+  private filterActivitiesByOpenDays(activitiesQuery, days: Day[]) {
     const filteredActivities = activitiesQuery.filter((activity) => {
       // Vérifier si tous les jours de fermeture sont différents de tous les jours dans le tableau days
       const shouldKeepActivity = activity.detail.closingDays.every(
-        (closureDay: DaySubType) => {
+        (closureDay: Day) => {
           return days.every(
             (day) => day.date.getTime() !== closureDay.date.getTime()
           )
@@ -96,18 +88,6 @@ export class PlanningService {
     )
     return activitiesFilteredByOpenedDays
   }
-
-  // private async createPlanning(travel, activities: Activity[]) {
-  //   const days = this.getTravelDays(travel.departureDate, travel.returnDate);
-
-  //   for (const day of days) {
-  //     const createDayDto = {
-  //       date: day.date,
-  //       travel,
-  //     };
-  //     const createdDay = await this.dayService.create(createDayDto);
-  //   }
-  // }
 
   private async createPlanning(travel, activities: Activity[]) {
     const days = this.getTravelDays(travel.departureDate, travel.returnDate)

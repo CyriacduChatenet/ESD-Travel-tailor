@@ -2,15 +2,15 @@ import { TimeSlot } from "./time-slot.type"
 import { Travel } from "./travel.type"
 
 export type Day = {
-    id: string
-    startTime: Date
-    endTime: Date
-    date: Date
-    activities: string[]
-    travel: Travel
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    id?: string
+    startTime?: Date
+    endTime?: Date
+    date?: Date
+    activities?: string[]
+    travel?: Travel
+    created_at?: Date
+    updated_at?: Date
+    deleted_at?: Date | null
 }
 
 export type CreateDayDTO = {
