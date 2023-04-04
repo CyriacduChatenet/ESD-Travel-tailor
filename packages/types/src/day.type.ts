@@ -3,8 +3,8 @@ import { Travel } from "./travel.type"
 
 export type Day = {
     id: string
-    startTime: string
-    endTime: string
+    startTime: Date
+    endTime: Date
     date: Date
     activities: string[]
     travel: Travel
@@ -14,15 +14,15 @@ export type Day = {
 }
 
 export type CreateDayDTO = {
-    startTime?: string
-    endTime?: string
+    startTime?: Date
+    endTime?: Date
     date?: Date,
     travel?: Travel
 }
 
 export type UpdateDayDTO = {
-    startTime?: string
-    endTime?: string
+    startTime?: Date
+    endTime?: Date
     date?: Date
     travel?: Travel
     timeSlots?: TimeSlot[]

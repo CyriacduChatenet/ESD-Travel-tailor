@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Timestamp } from "../../../../../../config/utils/timestamp.util";
 import { Activity } from "../../../../../../activity/entities/activity.entity";
@@ -18,8 +18,7 @@ export class TimeSlot extends Timestamp {
     @OneToOne(() => Activity)
     @JoinColumn()
     activity: Activity
-    
-    @ManyToMany(() => Day, day => day.timeSlots)
-    @JoinTable()
-    days: Day[];
+
+    @ManyToOne(() => Day, (day) => day.timeSlots)
+    day: Day
 }

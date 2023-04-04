@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { Timestamp } from "../../../../../config/utils/timestamp.util";
 import { Travel } from "../../entities/travel.entity";
@@ -21,7 +21,6 @@ export class Day extends Timestamp {
     @ManyToOne(() => Travel, (travel) => travel.days)
     travel: Travel;
 
-    @ManyToMany(() => TimeSlot)
-    @JoinTable()
-    timeSlots: TimeSlot[]
+    @OneToMany(() => TimeSlot, (timeSlot) => timeSlot.day)
+    timeSlots: TimeSlot[];
 }

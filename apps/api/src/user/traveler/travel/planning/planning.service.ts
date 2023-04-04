@@ -14,8 +14,6 @@ import { TravelService } from '../travel.service'
 import { ActivityService } from '../../../../activity/activity.service'
 import { DayService } from '../day/day.service'
 import { TimeSlotService } from '../day/time-slot/time-slot.service'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
 
 type DaySubType = {
   id?: string
@@ -23,6 +21,8 @@ type DaySubType = {
   dayOfWeek?: string
   timeSlots?: TimeSlotType[]
 }
+
+const MAX_TIME_SLOTS_PER_DAY = 5
 
 @Injectable()
 export class PlanningService {
@@ -110,26 +110,38 @@ export class PlanningService {
   // }
 
   private async createPlanning(travel, activities: Activity[]) {
-    const days = this.getTravelDays(travel.departureDate, travel.returnDate);
+    const days = this.getTravelDays(travel.departureDate, travel.returnDate)
   
     for (const day of days) {
       const createDayDto = {
         date: day.date,
         travel,
         dayTimeSlots: [],
-      };
-      const createdDay = await this.dayService.create(createDayDto);
-    
-      const createTimeSlotDto = {
-        startTime: new Date(),
-        endTime: new Date(),
-        dayTimeSlots: [],
       }
-    
-      const timeSlot = await this.timeSlotService.create(createTimeSlotDto);
+      const createdDay = await this.dayService.create(createDayDto)
+  
+      const timeSlots = [];
+      for (let i = 0; i < MAX_TIME_SLOTS_PER_DAY; i++) {
+        const createTimeSlotDto = {
+          startTime: new Date(),
+          endTime: new Date(),
+          day: createdDay,
+        }
+        const timeSlot = await this.timeSlotService.create(createTimeSlotDto)
+        timeSlots.push(timeSlot);
+      }
+  
+      if (createdDay.timeSlots) {
+        createdDay.timeSlots.push(...timeSlots);
+        await this.dayService.update(createdDay.id, createdDay);
+  
+        for (const timeSlot of timeSlots) {
+          await this.timeSlotService.update(timeSlot.id, { day: createdDay });
+        }
+      }
     }
-  }  
-
+  }
+  
 
   async create(userConnected: User, travel) {
     const user = await this.userService.findOneByEmail(userConnected.email)
