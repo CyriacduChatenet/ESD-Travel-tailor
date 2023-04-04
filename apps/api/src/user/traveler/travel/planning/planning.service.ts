@@ -92,7 +92,6 @@ export class PlanningService {
 
   private async createPlanning(travel, activities: Activity[]) {
     const days = this.getTravelDays(travel.departureDate, travel.returnDate);
-    const numberOfDays = days.length;
   
     let activityIndex = 0;
   
