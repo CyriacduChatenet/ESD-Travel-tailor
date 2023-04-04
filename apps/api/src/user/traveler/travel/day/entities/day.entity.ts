@@ -1,6 +1,6 @@
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import { Timestamp } from "../../../../../utils/timestamp.util";
+import { Timestamp } from "../../../../../config/utils/timestamp.util";
 import { Travel } from "../../entities/travel.entity";
 import { TimeSlot } from "../time-slot/entities/time-slot.entity";
 

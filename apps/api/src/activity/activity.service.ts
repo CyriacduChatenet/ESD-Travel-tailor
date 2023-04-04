@@ -10,7 +10,7 @@ import { ActivityQuery, ActivityTag } from '@travel-tailor/types'
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
 import { Activity } from './entities/activity.entity'
-import { regexNormalizeSlug } from '../utils/regex-normalize.util'
+import { regexNormalizeSlug } from '../config/utils/regex-normalize.util'
 
 @Injectable()
 export class ActivityService {

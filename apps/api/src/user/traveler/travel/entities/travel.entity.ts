@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 import { Traveler } from '../../../../user/traveler/entities/traveler.entity';
-import { Timestamp } from '../../../../utils/timestamp.util';
+import { Timestamp } from '../../../../config/utils/timestamp.util';
 import { Day } from '../day/entities/day.entity';
 
 @Entity()

@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import { Timestamp } from "../../../../../../utils/timestamp.util";
+import { Timestamp } from "../../../../../../config/utils/timestamp.util";
 import { Activity } from "../../../../../../activity/entities/activity.entity";
 import { Day } from "../../entities/day.entity";
 

@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Timestamp } from '../../../../utils/timestamp.util';
+import { Timestamp } from '../../../../config/utils/timestamp.util';
 import { ActivityDetail } from '../../entities/activity-detail.entity';
 
 @Entity()

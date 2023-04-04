@@ -10,7 +10,7 @@ import { Comment } from '../../../comment/entities/comment.entity';
 import { Taste } from '../../../user/traveler/taste/entities/taste.entity';
 import { Travel } from '../../../user/traveler/travel/entities/travel.entity';
 import { User } from '../../entities/user.entity';
-import { Timestamp } from '../../../utils/timestamp.util';
+import { Timestamp } from '../../../config/utils/timestamp.util';
 import { Customer } from '../../../payment/customer/entities/customer.entity';
 
 @Entity()

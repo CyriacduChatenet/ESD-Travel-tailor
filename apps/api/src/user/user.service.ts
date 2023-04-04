@@ -11,7 +11,7 @@ import { DeleteResult, Repository } from 'typeorm'
 import { SignupUserInputDTO } from './dto/signup-user.dto'
 import { UpdateUserDTO } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
-import { testEmailUtil } from '../utils/regex-test-email.util'
+import { testEmailUtil } from '../config/utils/regex-test-email.util'
 
 @Injectable()
 export class UserService {

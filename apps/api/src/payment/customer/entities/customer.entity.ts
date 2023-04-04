@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CreateCustomerDTO } from "@travel-tailor/types";
 
-import { Timestamp } from "../../../utils/timestamp.util";
+import { Timestamp } from "../../../config/utils/timestamp.util";
 import { Order } from "../../../payment/order/entities/order.entity";
 import { Advertiser } from "../../../user/advertiser/entities/advertiser.entity";
 import { Traveler } from "../../../user/traveler/entities/traveler.entity";
