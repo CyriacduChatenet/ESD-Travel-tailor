@@ -36,7 +36,7 @@ export class TravelService {
       .createQueryBuilder('travel')
       .leftJoinAndSelect('travel.traveler', 'traveler')
       .leftJoinAndSelect('travel.days', 'day')
-      .leftJoinAndSelect('day.timeSlots', 'timeSlots')
+      .leftJoinAndSelect('day.timeSlots', 'timeSlot')
 
       if(sortedBy) {
         query.orderBy('travel.createdAt', sortedBy)

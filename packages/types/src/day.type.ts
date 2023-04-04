@@ -1,3 +1,4 @@
+import { TimeSlot } from "./time-slot.type"
 import { Travel } from "./travel.type"
 
 export type Day = {
@@ -24,4 +25,5 @@ export type UpdateDayDTO = {
     endTime?: string
     date?: Date
     travel?: Travel
+    timeSlots?: TimeSlot[]
 }
