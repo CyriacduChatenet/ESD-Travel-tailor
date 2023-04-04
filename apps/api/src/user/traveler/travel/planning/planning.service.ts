@@ -89,8 +89,13 @@ export class PlanningService {
     return activitiesFilteredByOpenedDays
   }
 
+
   private async createPlanning(travel, activities: Activity[]) {
-    const days = this.getTravelDays(travel.departureDate, travel.returnDate)
+    const days = this.getTravelDays(travel.departureDate, travel.returnDate);
+    const numberOfDays = days.length;
+    const numberOfActivitiesPerDay = Math.ceil(activities.length / numberOfDays);
+  
+    let activityIndex = 0;
   
     for (const day of days) {
       const createDayDto = {
@@ -99,8 +104,8 @@ export class PlanningService {
         dayTimeSlots: [],
       }
       const createdDay = await this.dayService.create(createDayDto)
-  
       const timeSlots = [];
+  
       for (let i = 0; i < MAX_TIME_SLOTS_PER_DAY; i++) {
         const createTimeSlotDto = {
           startTime: new Date(),
@@ -116,7 +121,24 @@ export class PlanningService {
         await this.dayService.update(createdDay.id, createdDay);
   
         for (const timeSlot of timeSlots) {
-          await this.timeSlotService.update(timeSlot.id, { day: createdDay });
+          if (activityIndex < activities.length) {
+            const activity = activities[activityIndex];
+            const activityInDB = await this.activityService.findOne(activity.id);
+            console.log(activityInDB);
+  
+            // Liaison entre TimeSlot et Activity
+            await this.timeSlotService.update(timeSlot.id, { activity: activityInDB });
+  
+            // Ajout du TimeSlot à la liste des TimeSlots de l'Activity
+            if (activityInDB.timeSlots) {
+              activityInDB.timeSlots.push(timeSlot);
+            } else {
+              activityInDB.timeSlots = [timeSlot];
+            }
+            await this.activityService.update(activity.id, activityInDB);
+  
+            activityIndex++;
+          }
         }
       }
     }

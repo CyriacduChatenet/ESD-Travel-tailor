@@ -37,6 +37,7 @@ export class TravelService {
       .leftJoinAndSelect('travel.traveler', 'traveler')
       .leftJoinAndSelect('travel.days', 'day')
       .leftJoinAndSelect('day.timeSlots', 'timeSlot')
+      .leftJoinAndSelect('timeSlot.activity', 'activity')
 
       if(sortedBy) {
         query.orderBy('travel.createdAt', sortedBy)
@@ -78,7 +79,8 @@ export class TravelService {
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
         .leftJoinAndSelect('travel.days', 'day')
-        .leftJoinAndSelect('day.timeSlots', 'timeSlots')
+        .leftJoinAndSelect('day.timeSlots', 'timeSlot')
+        .leftJoinAndSelect('timeSlot.activity', 'activity')
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);

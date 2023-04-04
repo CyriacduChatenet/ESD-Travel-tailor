@@ -61,7 +61,18 @@ export class TimeSlotService {
 
   async update(id: string, updateTimeSlotDto: UpdateTimeSlotDto) {
     try {
-      return await this.timeSlotRepository.update(id, updateTimeSlotDto)
+      const timeSlot = await this.timeSlotRepository.createQueryBuilder('timeSlot')
+      .leftJoinAndSelect('timeSlot.day', 'day')
+      .leftJoinAndSelect('timeSlot.activity', 'activity')
+      .where('timeSlot.id = :id', { id })
+      .getOne()
+
+      timeSlot.startTime = updateTimeSlotDto.startTime ? updateTimeSlotDto.startTime : timeSlot.startTime;
+      timeSlot.endTime = updateTimeSlotDto.endTime ? updateTimeSlotDto.endTime : timeSlot.endTime;
+      timeSlot.day = updateTimeSlotDto.day ? updateTimeSlotDto.day : timeSlot.day;
+      timeSlot.activity = updateTimeSlotDto.activity ? updateTimeSlotDto.activity : timeSlot.activity;
+
+      return await this.timeSlotRepository.save(timeSlot)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

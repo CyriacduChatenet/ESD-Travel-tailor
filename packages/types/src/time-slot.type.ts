@@ -6,10 +6,13 @@ export type TimeSlot = {
     created_at?: Date;
     updated_at?: Date;
     deleted_at?: Date | null;
-    day: string | Day;
-    activity: string | Activity;
+    day:Day;
+    activity: Activity;
 };
 
 export type CreateTimeSlotDTO = {}
 
-export type UpdateTimeSlotDTO = {}
+export type UpdateTimeSlotDTO = {
+    day?:Day;
+    activity?: Activity;
+}

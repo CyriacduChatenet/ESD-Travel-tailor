@@ -56,6 +56,6 @@ export class Activity extends Timestamp {
   @JoinTable()
   tags: ActivityTag[]
 
-  @OneToOne(() => TimeSlot, timeSlot => timeSlot.activity)
-  timeSlot: TimeSlot;
+  @OneToMany(() => TimeSlot, (timeSlot) => timeSlot.activity)
+  timeSlots: TimeSlot[]
 }
