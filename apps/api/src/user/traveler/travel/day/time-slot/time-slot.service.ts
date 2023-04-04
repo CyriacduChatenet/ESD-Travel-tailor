@@ -22,8 +22,26 @@ export class TimeSlotService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let {} = queries;
-      return await `This action returns all timeSlot`
+      let { page, limit, sortedBy } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
+      const query = this.timeSlotRepository.createQueryBuilder('timeSlot')
+      .leftJoinAndSelect('timeSlot.days', 'days')
+      .leftJoinAndSelect('timeSlot.activities', 'activities')
+
+      if(sortedBy) {
+        query.orderBy('timeSlot.createdAt', sortedBy)
+      } else {
+        query.orderBy('timeSlot.createdAt', 'DESC')
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -31,7 +49,11 @@ export class TimeSlotService {
 
   async findOne(id: string) {
     try {
-      return await `This action returns a #${id} timeSlot`
+      return await this.timeSlotRepository.createQueryBuilder('timeSlot')
+      .leftJoinAndSelect('timeSlot.days', 'days')
+      .leftJoinAndSelect('timeSlot.activities', 'activities')
+      .where('timeSlot.id = :id', { id })
+      .getOne()
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -39,7 +61,7 @@ export class TimeSlotService {
 
   async update(id: string, updateTimeSlotDto: UpdateTimeSlotDto) {
     try {
-      return await `This action updates a #${id} timeSlot`
+      return await this.timeSlotRepository.update(id, updateTimeSlotDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -47,7 +69,7 @@ export class TimeSlotService {
 
   async remove(id: string) {
     try {
-      return await `This action removes a #${id} timeSlot`
+      return await this.timeSlotRepository.softDelete(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
