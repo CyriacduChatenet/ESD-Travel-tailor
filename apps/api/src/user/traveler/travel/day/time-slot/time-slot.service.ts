@@ -27,8 +27,8 @@ export class TimeSlotService {
       limit = limit ? +limit : 10;
 
       const query = this.timeSlotRepository.createQueryBuilder('timeSlot')
-      .leftJoinAndSelect('timeSlot.days', 'days')
-      .leftJoinAndSelect('timeSlot.activities', 'activities')
+      .leftJoinAndSelect('timeSlot.days', 'day')
+      .leftJoinAndSelect('timeSlot.activity', 'activity')
 
       if(sortedBy) {
         query.orderBy('timeSlot.createdAt', sortedBy)
@@ -50,8 +50,8 @@ export class TimeSlotService {
   async findOne(id: string) {
     try {
       return await this.timeSlotRepository.createQueryBuilder('timeSlot')
-      .leftJoinAndSelect('timeSlot.days', 'days')
-      .leftJoinAndSelect('timeSlot.activities', 'activities')
+      .leftJoinAndSelect('timeSlot.days', 'day')
+      .leftJoinAndSelect('timeSlot.activity', 'activity')
       .where('timeSlot.id = :id', { id })
       .getOne()
     } catch (error) {
