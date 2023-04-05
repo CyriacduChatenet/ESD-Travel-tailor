@@ -6,6 +6,9 @@ import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
 import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
+import { StripeCustomerService } from './stripe-customer.service';
+import { SubscriptionService } from './subscription.service';
+import { OpencageModule } from '../opencage/opencage.module';
 
 @Module({
   imports: [
@@ -16,9 +19,10 @@ import { CustomerModule } from './customer/customer.module';
     }),
     OrderModule,
     forwardRef(() => CustomerModule),
+    OpencageModule,
   ],
   controllers: [PaymentController],
-  providers: [PaymentService],
-  exports: [PaymentService],
+  providers: [PaymentService, StripeCustomerService, SubscriptionService],
+  exports: [PaymentService, StripeCustomerService, SubscriptionService],
 })
 export class PaymentModule {}

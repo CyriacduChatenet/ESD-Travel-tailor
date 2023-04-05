@@ -1,32 +1,24 @@
-import { Controller, Post, Body } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 
 import { PaymentService } from './payment.service'
-import { CreatePaymentDto } from './dto/create-payment.dto'
+import { CreateCheckoutDto } from './dto/create-checkout.dto';
+import { OpencageService } from '../opencage/opencage.service';
 
 @Controller('payment')
 export class PaymentController {
-  constructor(private readonly paymentService: PaymentService) {}
+  constructor(private readonly paymentService: PaymentService, private opencageService: OpencageService) {}
 
-  @Post('create-customer')
-  async createStripeCustomer() {
-    const customer = await this.paymentService.createStripeCustomer()
-    return customer
-  }
 
-  @Post()
-  async createPaymentIntent(@Body() createPaymentDto: CreatePaymentDto) {
-    const paymentIntent = await this.paymentService.createPaymentIntent(
-      createPaymentDto
-    )
-    return paymentIntent
-  }
+  @Post('checkout')
+  async createCheckoutSession(@Body() { location, amount}: { location: string, amount: number}): Promise<{ sessionId: string }> {
+    const currency = await this.opencageService.getCurrency({ location });
 
-  @Post('/confirm')
-  async confirmPaymentIntent(@Body('paymentIntentId') paymentIntentId: string, @Body('userId') customer: string) {
-    const paymentIntent = await this.paymentService.confirmPaymentIntent(
-      paymentIntentId,
-      customer
-    )
-    return paymentIntent
+    const createCheckoutDto: {currency: string, amount: number } = {
+      currency,
+      amount,
+    };
+
+    const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
+    return { sessionId };
   }
 }

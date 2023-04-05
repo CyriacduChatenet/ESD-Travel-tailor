@@ -107,6 +107,7 @@ importers:
 
   apps/client:
     specifiers:
+      '@stripe/stripe-js': ^1.52.0
       '@travel-tailor/constants': workspace:*
       '@travel-tailor/contexts': workspace:*
       '@travel-tailor/functions': workspace:*
@@ -129,6 +130,7 @@ importers:
       sass: ^1.58.3
       typescript: ^4.7.4
     dependencies:
+      '@stripe/stripe-js': 1.52.0
       '@travel-tailor/constants': link:../../packages/constants
       '@travel-tailor/contexts': link:../../packages/contexts
       '@travel-tailor/functions': link:../../packages/functions
@@ -214,6 +216,7 @@ importers:
 
   packages/hooks:
     specifiers:
+      '@stripe/stripe-js': ^1.52.0
       '@travel-tailor/constants': 'workspace: *'
       '@travel-tailor/functions': 'workspace: *'
       '@travel-tailor/services': 'workspace: *'
@@ -223,6 +226,7 @@ importers:
       prettier: ^2.8.4
       react: ^18.2.0
     dependencies:
+      '@stripe/stripe-js': 1.52.0
       '@travel-tailor/constants': link:../constants
       '@travel-tailor/functions': link:../functions
       '@travel-tailor/services': link:../services
