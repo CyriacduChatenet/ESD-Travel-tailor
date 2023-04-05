@@ -9,7 +9,7 @@ const findAllTravels = async (api_url: string): Promise<Travel[]> => {
   return data.data
 };
 
-const findTravelById = async (api_url: string | undefined, travelId: string): Promise<Travel> => {
+const findTravelById = async (api_url: string, travelId: string): Promise<Travel> => {
   return await useFetch.get(`${api_url}${API_TRAVEL_ROUTE}/${travelId}`);
 };
 
