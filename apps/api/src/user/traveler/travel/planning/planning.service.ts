@@ -92,7 +92,6 @@ export class PlanningService {
 
   private async createPlanning(travel, activities: Activity[]) {
     const days = this.getTravelDays(travel.departureDate, travel.returnDate);
-  
     let activityIndex = 0;
   
     for (const day of days) {
@@ -100,23 +99,55 @@ export class PlanningService {
         date: day.date,
         travel,
         dayTimeSlots: [],
-      }
-      const createdDay = await this.dayService.create(createDayDto)
+      };
+      const createdDay = await this.dayService.create(createDayDto);
       const timeSlots = [];
   
-      for (let i = 0; i < MAX_TIME_SLOTS_PER_DAY; i++) {
-        if (activityIndex < activities.length) {
-          const activity = activities[activityIndex];
-          const activityInDB = await this.activityService.findOne(activity.id);
+      let endTimeOfDay = moment(day.date).startOf('day');
   
-          const createTimeSlotDto = {
-            startTime: moment(activity.detail.schedules[0].opening_at, 'HH:mm:ss').toDate(),
-            endTime: moment(activity.detail.schedules[0].closing_at, 'HH:mm:ss').toDate(),
-            day: createdDay,
-            activity: activityInDB,
+      while (endTimeOfDay.isSameOrBefore(moment(day.date).endOf('day')) && activityIndex < activities.length) {
+        const activity = activities[activityIndex];
+        const activityInDB = await this.activityService.findOne(activity.id);
+        const schedules = activity.detail.schedules;
+        const startTimes = schedules.map(schedule => moment(schedule.opening_at, 'HH:mm:ss'));
+        const endTimes = schedules.map(schedule => moment(schedule.closing_at, 'HH:mm:ss'));
+  
+        let availableSlotFound = false;
+        let selectedScheduleIndex;
+  
+        for (let i = 0; i < startTimes.length; i++) {
+          const startTime = startTimes[i];
+          const endTime = endTimes[i];
+  
+          if (endTime.isBefore(endTimeOfDay)) {
+            continue;
           }
   
-          const timeSlot = await this.timeSlotService.create(createTimeSlotDto)
+          let scheduleAvailable = true;
+  
+          for (const timeSlot of timeSlots) {
+            if (moment(timeSlot.startTime).isBetween(startTime, endTime, undefined, '[]') || moment(timeSlot.endTime).isBetween(startTime, endTime, undefined, '[]')) {
+              scheduleAvailable = false;
+              break;
+            }
+          }
+  
+          if (scheduleAvailable) {
+            selectedScheduleIndex = i;
+            availableSlotFound = true;
+            break;
+          }
+        }
+  
+        if (availableSlotFound) {
+          const createTimeSlotDto = {
+            startTime: startTimes[selectedScheduleIndex].toDate(),
+            endTime: endTimes[selectedScheduleIndex].toDate(),
+            day: createdDay,
+            activity: activityInDB,
+          };
+  
+          const timeSlot = await this.timeSlotService.create(createTimeSlotDto);
           timeSlots.push(timeSlot);
   
           if (activityInDB.timeSlots) {
@@ -126,7 +157,10 @@ export class PlanningService {
           }
           await this.activityService.update(activity.id, activityInDB);
   
+          endTimeOfDay = moment(timeSlot.endTime);
           activityIndex++;
+        } else {
+          endTimeOfDay = moment(day.date).endOf('day');
         }
       }
   
@@ -136,7 +170,6 @@ export class PlanningService {
       }
     }
   }
-  
   
 
   async create(userConnected: User, travel) {
