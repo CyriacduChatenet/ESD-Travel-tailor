@@ -1,33 +1,29 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectStripe } from 'nestjs-stripe'
 import Stripe from 'stripe'
 import { ConfigService } from '@nestjs/config'
 
-import { OrderService } from './order/order.service'
-import { CustomerService } from './customer/customer.service'
+import { CreateCheckoutDto } from './dto/create-checkout.dto';
 
 @Injectable()
 export class PaymentService {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
-    private orderService: OrderService,
-    @Inject(forwardRef(() => CustomerService))
-    private customerService: CustomerService,
     private configService: ConfigService,
   ) {}
 
-  async createCheckoutSession(): Promise<string> {
+  async createCheckoutSession(createCheckoutDto: CreateCheckoutDto): Promise<string> {
     const session = await this.stripeClient.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
-            currency: 'eur',
+            currency: createCheckoutDto.currency,
             product_data: {
               name: 'Product Name',
               description: 'Product Description',
             },
-            unit_amount: 1000,
+            unit_amount: createCheckoutDto.amount * 100,
           },
           quantity: 1,
         },

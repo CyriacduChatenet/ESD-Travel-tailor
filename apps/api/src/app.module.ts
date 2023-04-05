@@ -23,6 +23,7 @@ import { DayModule } from './user/traveler/travel/day/day.module';
 import { CustomerModule } from './payment/customer/customer.module';
 import { OrderModule } from './payment/order/order.module';
 import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.module';
+import { OpencageModule } from './opencage/opencage.module';
 
 @Module({
   imports: [
@@ -55,7 +56,8 @@ import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.m
     DayModule,
     CustomerModule,
     OrderModule,
-    TimeSlotModule
+    TimeSlotModule,
+    OpencageModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -14,6 +14,7 @@ const AdvertiserPaymentPage: NextPage = () => {
   const [advertiser, setAdvertiser] = useState<Advertiser>({
     id: '',
     name: '',
+    location: '',
     customer: {
       id: '',
       email: '',
@@ -41,7 +42,7 @@ const AdvertiserPaymentPage: NextPage = () => {
     <Layout>
       <h1>Payment</h1>
       <p>{amount} €</p>
-      <button onClick={() => usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripePromise)}>Payer</button>
+      <button onClick={() => usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripePromise, {location: `${advertiser.location}`, amount: 100})}>Payer</button>
       <br />
     </Layout>
   )
