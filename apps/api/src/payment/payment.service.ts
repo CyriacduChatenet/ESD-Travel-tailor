@@ -1,8 +1,7 @@
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { InjectStripe } from 'nestjs-stripe'
 import Stripe from 'stripe'
 
-import { CreatePaymentDto } from './dto/create-payment.dto'
 import { OrderService } from './order/order.service'
 import { CustomerService } from './customer/customer.service'
 
@@ -15,59 +14,26 @@ export class PaymentService {
     private customerService: CustomerService
   ) {}
 
-  async createStripeCustomer() {
-    const customer = await this.stripeClient.customers.create()
-    return customer
-  }
-
-  async createPaymentIntent(createPaymentDto: CreatePaymentDto) {
-    const paymentMethod = await this.stripeClient.paymentMethods.create({
-      type: 'card',
-      card: createPaymentDto.card,
-    })
-
-    const paymentIntent = await this.stripeClient.paymentIntents.create({
-      amount: createPaymentDto.amount,
-      currency: 'eur',
-      payment_method: paymentMethod.id,
-    })
-
-    return paymentIntent
-  }
-
-  async confirmPaymentIntent(paymentIntentId: string, customerId: string) {
-      const paymentIntent = await this.stripeClient.paymentIntents.confirm(paymentIntentId);
-  
-        const custom = await this.customerService.findOne(customerId);
-
-        if (custom && custom.orders) {
-        const order = await this.orderService.create({
-            amount: paymentIntent.amount,
-            payment_id: paymentIntent.id,
-            capture_method: paymentIntent.capture_method,
-            client_secret: paymentIntent.client_secret,
-            confirmation_method: paymentIntent.confirmation_method,
-            payment_created_at: paymentIntent.created,
-            currency: paymentIntent.currency,
-            paymentMethodTypes: paymentIntent.payment_method_types[0],
-            status: paymentIntent.status,
-            customer: {
-              id: custom.id,
-              email: custom.email,
-              orders: [...custom.orders],
+  async createCheckoutSession(): Promise<string> {
+    const session = await this.stripeClient.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: 'Product Name',
+              description: 'Product Description',
             },
-          });
-        
-          const customer = await this.customerService.findOne(customerId);
-        
-          if (customer && customer.orders) {
-            await this.customerService.update(customerId, {
-              ...customer,
-              orders: [...customer.orders, order.id],
-            });
-          }
-        }
-  
-      return paymentIntent;
+            unit_amount: 1000,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'https://example.com/success',
+      cancel_url: 'https://example.com/cancel',
+    });
+    return session.id;
   }
 }

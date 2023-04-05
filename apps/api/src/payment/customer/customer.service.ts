@@ -16,8 +16,8 @@ export class CustomerService {
 
   async create(createCustomerDto: CreateCustomerDto) {
     try {
-      const stripeCustomer = await this.paymentService.createStripeCustomer();
-      return await this.customerRepository.save({...createCustomerDto, stripeId:stripeCustomer.id});
+      // const stripeCustomer = await this.paymentService.createStripeCustomer();
+      return await this.customerRepository.save({...createCustomerDto});
     } catch (error) {
       throw new UnauthorizedException(error);
     }
