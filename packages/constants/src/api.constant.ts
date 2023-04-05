@@ -23,5 +23,4 @@ export const API_ACTIVITY_TAG_ROUTE = '/activity-tag'
 
 export const API_COMMENT_ROUTE = '/comment'
 
-export const API_PAYMENT_ROUTE = '/payment'
-export const API_CONFIRM_PAYMENT_ROUTE = '/payment/confirm'
+export const API_PAYMENT_CHECKOUT_ROUTE = '/payment/checkout'

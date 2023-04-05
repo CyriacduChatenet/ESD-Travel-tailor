@@ -7,6 +7,7 @@
 		"format": "prettier --write ./src"
 	},
 	"dependencies": {
+		"@stripe/stripe-js": "^1.52.0",
 		"@travel-tailor/constants": "workspace: *",
 		"@travel-tailor/functions": "workspace: *",
 		"@travel-tailor/services": "workspace: *",
@@ -15,7 +16,6 @@
 		"prettier": "^2.8.4",
 		"react": "^18.2.0"
 	},
-
 	"devDependencies": {
 		"@types/react": "^18.0.28"
 	},
