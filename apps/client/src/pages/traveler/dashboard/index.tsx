@@ -66,12 +66,12 @@ const TravelerDashboard: NextPage = () => {
         <WebTravelCard
           key={index}
           id={travel.id}
-          departureCity={travel.departureCity}
-          destinationCity={travel.destinationCity}
+          departureCity={`${travel.departureCity}`}
+          destinationCity={`${travel.destinationCity}`}
           departureDate={travel.departureDate}
           returnDate={travel.returnDate}
-          remove={(e) => handleDelete(e, travel.id)}
-          redirect={() => handleRedirect(travel.id)}
+          remove={(e) => handleDelete(e, `${travel.id}`)}
+          redirect={() => handleRedirect(`${travel.id}`)}
         />
       ))}
     </Layout>
