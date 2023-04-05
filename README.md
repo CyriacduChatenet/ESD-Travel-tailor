@@ -18,11 +18,19 @@
 [![mapbox](https://img.shields.io/badge/Mapbox-4164FB?style=for-the-badge&logo=mapbox&logoColor=white)](https://www.mapbox.com/)
 [![stripe](https://img.shields.io/badge/Stripe-8A84FC?style=for-the-badge&logo=stripe&logoColor=white)](https://amzn.github.io/style-dictionary/#/)
 [![aws s3](https://img.shields.io/badge/AWS%20s3-F69220?style=for-the-badge&logo=amazon&logoColor=white)](https://aws.amazon.com)
+[![aws s3](https://img.shields.io/badge/ChatGPT-0DA47F?style=for-the-badge&logo=openai&logoColor=white)](https://chat.openai.com/)
+[![unsplash](https://img.shields.io/badge/unsplash-000000?style=for-the-badge&logo=unsplash&logoColor=white)](https://unsplash.com/)
 
 <br/>
 
 ### Project structure
 <img src="./assets/images/lib-schema.jpg" alt="Lib schema">
+
+<br/>
+<br/>
+
+### API structure
+<img src="./assets/images/api-schema.jpg" alt="Lib schema">
 
 <br/>
 
