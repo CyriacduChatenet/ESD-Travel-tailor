@@ -48,7 +48,6 @@ export class AdvertiserService {
       .leftJoinAndSelect('advertiser.activities', 'activities')
       .leftJoinAndSelect('advertiser.user', 'user')
       .leftJoinAndSelect('advertiser.customer', 'customer')
-      .leftJoinAndSelect('customer.orders', 'customer')
 
       if(sortedBy) {
         query.orderBy('advertiser.createdAt', sortedBy)
@@ -83,7 +82,6 @@ export class AdvertiserService {
         .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('advertiser.user', 'user')
         .leftJoinAndSelect('advertiser.customer', 'customer')
-        .leftJoinAndSelect('customer.orders', 'orders')
         .getOne()
     } catch (error) {
       throw new NotFoundException(error)
