@@ -55,7 +55,7 @@ export class PlanningService {
   ) {
     const tasteNames: string[] = []
     this.setTasteNames(tastes, tasteNames)
-    const query: ActivityQuery = { location: travel.destinationCity, limit: 50 }
+    const query: ActivityQuery = { location: travel.destinationCity, tags: tasteNames.join(','), limit: 50 }
     const activities = await this.activityService.findAll(query)
     return activities.data
   }
