@@ -1,6 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { InjectStripe } from 'nestjs-stripe'
 import Stripe from 'stripe'
+import { ConfigService } from '@nestjs/config'
 
 import { OrderService } from './order/order.service'
 import { CustomerService } from './customer/customer.service'
@@ -11,7 +12,8 @@ export class PaymentService {
     @InjectStripe() private readonly stripeClient: Stripe,
     private orderService: OrderService,
     @Inject(forwardRef(() => CustomerService))
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private configService: ConfigService,
   ) {}
 
   async createCheckoutSession(): Promise<string> {
@@ -31,8 +33,8 @@ export class PaymentService {
         },
       ],
       mode: 'payment',
-      success_url: 'https://example.com/success',
-      cancel_url: 'https://example.com/cancel',
+      success_url: `${this.configService.get('CLIENT_APP_URL')}/payment/success`,
+      cancel_url: `${this.configService.get('CLIENT_APP_URL')}/payment/cancel`,
     });
     return session.id;
   }
