@@ -38,6 +38,7 @@ export class TravelService {
       .leftJoinAndSelect('travel.days', 'day')
       .leftJoinAndSelect('day.timeSlots', 'timeSlot')
       .leftJoinAndSelect('timeSlot.activity', 'activity')
+      .leftJoinAndSelect('activity.detail', 'detail')
 
       if(sortedBy) {
         query.orderBy('travel.createdAt', sortedBy)
@@ -81,6 +82,7 @@ export class TravelService {
         .leftJoinAndSelect('travel.days', 'day')
         .leftJoinAndSelect('day.timeSlots', 'timeSlot')
         .leftJoinAndSelect('timeSlot.activity', 'activity')
+        .leftJoinAndSelect('activity.detail', 'detail')
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);
