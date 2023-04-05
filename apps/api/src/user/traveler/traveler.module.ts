@@ -10,5 +10,6 @@ import { CustomerModule } from '../../payment/customer/customer.module';
   imports: [TypeOrmModule.forFeature([Traveler]), CustomerModule],
   controllers: [TravelerController],
   providers: [TravelerService],
+  exports: [TravelerService],
 })
 export class TravelerModule {}

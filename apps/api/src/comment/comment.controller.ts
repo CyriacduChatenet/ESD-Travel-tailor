@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { Role } from '../auth/decorators/role.enum'
-import { Roles } from '../auth/decorators/roles.decorator'
+import { Role } from '../config/enum/role.enum'
+import { Roles } from '../config/decorators/roles.decorator'
 import { CommentService } from './comment.service'
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'

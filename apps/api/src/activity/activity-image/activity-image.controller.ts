@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
-import { Role } from '../../auth/decorators/role.enum';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { Role } from '../../config/enum/role.enum';
+import { Roles } from '../../config/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ActivityImageService } from './activity-image.service';
 import { CreateActivityImageDto } from './dto/create-activity-image.dto';

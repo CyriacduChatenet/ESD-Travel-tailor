@@ -15,7 +15,7 @@ const findAllActivities = async (api_url: string): Promise<Activity[]> => {
 }
 
 const findActivityById = async (api_url: string, id: string): Promise<Activity> => {
-  return await useFetch.get(`${api_url}/${API_ACTIVITY_ROUTE}${id}`)
+  return await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}/${id}`)
 }
 
 const findActivityBySlug = async (api_url: string, slug: string): Promise<Activity> => {

@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { ActivityTagQuery } from '@travel-tailor/types';
 
-import { Role } from '../../auth/decorators/role.enum';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { Role } from '../../config/enum/role.enum';
+import { Roles } from '../../config/decorators/roles.decorator';
 import { ActivityTagService } from './activity-tag.service';
 import { CreateActivityTagDto } from './dto/create-activity-tag.dto';
 import { UpdateActivityTagDto } from './dto/update-activity-tag.dto';

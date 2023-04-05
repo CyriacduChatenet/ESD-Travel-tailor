@@ -19,7 +19,7 @@ export class TravelService {
 
   async create(createTravelDto: CreateTravelDto) {
     try {
-      const travel = await this.travelRepository.create(createTravelDto);
+      const travel = this.travelRepository.create(createTravelDto);
       return await this.travelRepository.save(travel);
     } catch (error) {
       throw new UnauthorizedException(error);
@@ -35,7 +35,10 @@ export class TravelService {
       const query = this.travelRepository
       .createQueryBuilder('travel')
       .leftJoinAndSelect('travel.traveler', 'traveler')
-      .leftJoinAndSelect('travel.activities', 'activities')
+      .leftJoinAndSelect('travel.days', 'day')
+      .leftJoinAndSelect('day.timeSlots', 'timeSlot')
+      .leftJoinAndSelect('timeSlot.activity', 'activity')
+      .leftJoinAndSelect('activity.detail', 'detail')
 
       if(sortedBy) {
         query.orderBy('travel.createdAt', sortedBy)
@@ -76,14 +79,17 @@ export class TravelService {
         .createQueryBuilder('travel')
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
-        .leftJoinAndSelect('travel.activities', 'activities')
+        .leftJoinAndSelect('travel.days', 'day')
+        .leftJoinAndSelect('day.timeSlots', 'timeSlot')
+        .leftJoinAndSelect('timeSlot.activity', 'activity')
+        .leftJoinAndSelect('activity.detail', 'detail')
         .getOne();
     } catch (error) {
       throw new NotFoundException(error);
     }
   }
 
-  async update(id: string, updateTravelDto: UpdateTravelDto) {
+  async update(id: string, updateTravelDto) {
     try {
       return this.travelRepository.update(id, updateTravelDto);
     } catch (error) {

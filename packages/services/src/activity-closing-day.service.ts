@@ -14,7 +14,7 @@ const findActivityClosingDayById = async (api_url: string, id: string): Promise<
 };
 
 const createActivityClosingDay = async (api_url: string, credentials: CreateActivityClosingDayDTO): Promise<ActivityClosingDay> => {
-    return await useFetch.post(`${api_url}${API_ACTIVITY_CLOSING_DAY_ROUTE}`, credentials);
+    return await useFetch.post(`${api_url}${API_ACTIVITY_CLOSING_DAY_ROUTE}`, { ...credentials, date: new Date(credentials.date)});
 };
 
 const updateActivityClosingDay = async (api_url: string, id: string, credentials: UpdateActivityClosingDayDTO): Promise<ActivityClosingDay> => {

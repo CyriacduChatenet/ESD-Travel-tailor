@@ -53,5 +53,7 @@ export type {
 } from './activity-closing-day.type'
 export type { ApiLimitResourceQuery, ErrorResponse, SuccessResponse } from './api.type'
 export type { CreatePaymentDTO, PaymentCredentials } from './payment.type'
+export type { CreateDayDTO, UpdateDayDTO, Day } from './day.type'
 export type { CreateOrderDTO, UpdateOrderDTO, Order } from './order.type'
 export type { CreateCustomerDTO, UpdateCustomerDTO, Customer } from './customer.type'
+export type { CreateTimeSlotDTO, UpdateTimeSlotDTO, TimeSlot } from './time-slot.type'

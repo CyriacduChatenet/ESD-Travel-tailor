@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Traveler } from '../../user/traveler/entities/traveler.entity';
 import { Activity } from '../../activity/entities/activity.entity';
-import { Timestamp } from '../../utils/timestamp.util';
+import { Timestamp } from '../../config/utils/timestamp.util';
 
 @Entity()
 export class Comment extends Timestamp {

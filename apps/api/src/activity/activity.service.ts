@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ActivityQuery } from '@travel-tailor/types'
+import { ActivityQuery, ActivityTag } from '@travel-tailor/types'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
 import { Activity } from './entities/activity.entity'
-import { regexNormalizeSlug } from '../utils/regex-normalize.util'
+import { regexNormalizeSlug } from '../config/utils/regex-normalize.util'
 
 @Injectable()
 export class ActivityService {
@@ -40,9 +40,9 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect("detail.closingDays", "closingDay")
         .leftJoinAndSelect("detail.schedules", "schedule")  
@@ -94,15 +94,34 @@ export class ActivityService {
     }
   }
 
+  async findAllByTags(tags: ActivityTag[]) {
+    try {
+    return await this.activityRepository
+    .createQueryBuilder('activity')
+    .leftJoinAndSelect('activity.image', 'image')
+    .leftJoinAndSelect('activity.comments', 'comments')
+    .leftJoinAndSelect('activity.advertiser', 'advertiser')
+    .leftJoinAndSelect('activity.tags', 'tag')
+    .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
+    .leftJoinAndSelect('activity.detail', 'detail')
+    .leftJoinAndSelect("detail.closingDays", "closingDay")
+    .leftJoinAndSelect("detail.schedules", "schedule")
+    .andWhere('tag.name IN (:...tags)', { tags })
+    .getMany()
+    } catch (error) {
+    throw new NotFoundException(error)
+    }
+    }
+
   async findOne(id: string) {
     try {
       return await this.activityRepository
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect("detail.closingDays", "closingDay")
         .leftJoinAndSelect("detail.schedules", "schedule")
@@ -119,9 +138,9 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
+        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect("detail.closingDays", "closingDay")
         .leftJoinAndSelect("detail.schedules", "schedule")
@@ -139,8 +158,8 @@ export class ActivityService {
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.travels', 'travels')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
+        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
         .leftJoinAndSelect('activity.tags', 'tags')
         .where('activity.id = :id', { id })
         .getOne()
@@ -150,7 +169,6 @@ export class ActivityService {
       activity.detail.duration = updateActivityDto?.detail.duration
       activity.detail.location = updateActivityDto?.detail.location
       activity.comments = updateActivityDto?.comments
-      activity.travels = updateActivityDto?.travels
       activity.advertiser = updateActivityDto?.advertiser
       activity.tags = updateActivityDto?.tags
 

@@ -8,51 +8,67 @@ import {
   Delete,
   UseGuards,
   Query,
-} from '@nestjs/common';
-import { ApiLimitResourceQuery } from '@travel-tailor/types';
+} from '@nestjs/common'
+import { ApiLimitResourceQuery, User as UserType } from '@travel-tailor/types'
 
-import { TravelService } from './travel.service';
-import { CreateTravelDto } from './dto/create-travel.dto';
-import { UpdateTravelDto } from './dto/update-travel.dto';
-import { Roles } from '../../../auth/decorators/roles.decorator';
-import { Role } from '../../../auth/decorators/role.enum';
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { TravelService } from './travel.service'
+import { CreateTravelDto } from './dto/create-travel.dto'
+import { UpdateTravelDto } from './dto/update-travel.dto'
+import { Roles } from '../../../config/decorators/roles.decorator'
+import { Role } from '../../../config/enum/role.enum'
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
+import { User } from '../../../config/decorators/user.decorator'
+import { PlanningService } from './planning/planning.service'
+import { UserService } from '../../../user/user.service'
 
 @Controller('travel')
 export class TravelController {
-  constructor(private readonly travelService: TravelService) {}
+  constructor(
+    private readonly travelService: TravelService,
+    private planningService: PlanningService,
+    private userService: UserService,
+  ) {}
 
   @Post()
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
-  create(@Body() createTravelDto: CreateTravelDto) {
-    return this.travelService.create(createTravelDto);
+  async create(@Body() createTravelDto: CreateTravelDto, @User() user: UserType) {
+    const userInDB = await this.userService.findOneByEmail(user.email);
+
+    const createTravelDTO = {
+      ...createTravelDto,
+      traveler: userInDB.traveler.id,
+    }
+    
+    const travel = await this.travelService.create(createTravelDTO);
+    await this.planningService.create(user, travel);
+    return travel;
   }
 
   @Get()
-  findAll(@Query() queries: ApiLimitResourceQuery) {
-    return this.travelService.findAll(queries);
+  async findAll(@Query() queries: ApiLimitResourceQuery) {
+    return await this.travelService.findAll(queries)
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.travelService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.travelService.findOne(id)
   }
 
   @Patch(':id')
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
-  update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto) {
-    return this.travelService.update(id, updateTravelDto);
+  async update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto) {
+    return await this.travelService.update(id, updateTravelDto)
   }
 
   @Delete(':id')
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Admin)
-  remove(@Param('id') id: string) {
-    return this.travelService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.travelService.remove(id)
   }
 }

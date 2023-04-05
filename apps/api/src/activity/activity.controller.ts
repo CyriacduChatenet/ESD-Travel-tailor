@@ -12,8 +12,8 @@ import {
 import { ActivityQuery } from '@travel-tailor/types'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { Role } from '../auth/decorators/role.enum'
-import { Roles } from '../auth/decorators/roles.decorator'
+import { Role } from '../config/enum/role.enum'
+import { Roles } from '../config/decorators/roles.decorator'
 import { ActivityService } from './activity.service'
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'

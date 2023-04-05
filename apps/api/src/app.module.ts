@@ -19,8 +19,10 @@ import { ActivityTagModule } from './activity/activity-tag/activity-tag.module';
 import { ActivityScheduleModule } from './activity/activity-detail/activity-schedule/activity-schedule.module';
 import { ActivityClosingDayModule } from './activity/activity-detail/activity-closing-day/activity-closing-day.module';
 import { PaymentModule } from './payment/payment.module';
+import { DayModule } from './user/traveler/travel/day/day.module';
 import { CustomerModule } from './payment/customer/customer.module';
 import { OrderModule } from './payment/order/order.module';
+import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.module';
 
 @Module({
   imports: [
@@ -50,8 +52,10 @@ import { OrderModule } from './payment/order/order.module';
     ActivityScheduleModule,
     ActivityClosingDayModule,
     PaymentModule,
+    DayModule,
     CustomerModule,
     OrderModule,
+    TimeSlotModule
   ],
   controllers: [AppController],
   providers: [AppService],

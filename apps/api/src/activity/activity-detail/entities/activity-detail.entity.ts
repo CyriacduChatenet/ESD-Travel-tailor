@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Timestamp } from '../../../utils/timestamp.util';
+import { Timestamp } from '../../../config/utils/timestamp.util';
 import { ActivitySchedule } from '../activity-schedule/entities/activity-schedule.entity';
 import { ActivityClosingDay } from '../activity-closing-day/entities/activity-closing-day.entity';
 
@@ -18,7 +18,7 @@ export class ActivityDetail extends Timestamp {
   id: string;
 
   @Column({ nullable: false})
-  duration: string;
+  duration: number;
 
   @Column({ nullable: false})
   location: string;

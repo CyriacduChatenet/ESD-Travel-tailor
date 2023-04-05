@@ -1,6 +1,6 @@
 import { UpdateActivityDetailDTO } from '@travel-tailor/types';
 
 export class UpdateActivityDetailDto implements UpdateActivityDetailDTO {
-  duration: string;
+  duration: number;
   location: string;
 }

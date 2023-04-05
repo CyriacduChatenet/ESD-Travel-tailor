@@ -22,10 +22,10 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
   })
   const [activityDetailCredentials, setActivityDetailCredentials] = useState<{
     location: string
-    duration: string
+    duration: number
   }>({
     location: '',
-    duration: '',
+    duration: 0,
   })
   const [activityImageCredentials, setActivityImageCredentials] = useState<{
     source: string
@@ -70,7 +70,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
 
   const validate = (
     activityCredentials: { name: string; },
-    activityDetailCredentials: { location: string; duration: string },
+    activityDetailCredentials: { location: string; duration: number },
     activityImageCredentials: { source: string }
   ) => {
     if (!activityCredentials.name) {

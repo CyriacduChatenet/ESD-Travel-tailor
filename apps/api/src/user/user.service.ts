@@ -11,7 +11,7 @@ import { DeleteResult, Repository } from 'typeorm'
 import { SignupUserInputDTO } from './dto/signup-user.dto'
 import { UpdateUserDTO } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
-import { testEmailUtil } from '../utils/regex-test-email.util'
+import { testEmailUtil } from '../config/utils/regex-test-email.util'
 
 @Injectable()
 export class UserService {
@@ -39,6 +39,8 @@ export class UserService {
       const query = this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('traveler.tastes', 'tastes')
+        .leftJoinAndSelect('traveler.travels', 'travels')
         .leftJoinAndSelect('traveler.customer', 'customer')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
@@ -72,12 +74,14 @@ export class UserService {
     }
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  public async findOneByEmail(email: string): Promise<User> {
     try {
       return await this.userRepository
         .createQueryBuilder('user')
         .where('user.email = :email', { email })
         .leftJoinAndSelect('user.traveler', 'traveler')
+        .leftJoinAndSelect('traveler.travels', 'travels')
+        .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .getOne()

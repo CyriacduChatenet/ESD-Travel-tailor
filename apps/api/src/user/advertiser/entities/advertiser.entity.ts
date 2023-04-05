@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 import { User } from '../../entities/user.entity';
-import { Timestamp } from '../../../utils/timestamp.util';
+import { Timestamp } from '../../../config/utils/timestamp.util';
 import { Activity } from '../../../activity/entities/activity.entity';
 import { Customer } from '../../../payment/customer/entities/customer.entity';
 

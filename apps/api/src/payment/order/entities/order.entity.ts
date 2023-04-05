@@ -2,7 +2,7 @@ import { CreateOrderDTO } from "@travel-tailor/types";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Customer } from "../../../payment/customer/entities/customer.entity";
-import { Timestamp } from "../../../utils/timestamp.util";
+import { Timestamp } from "../../../config/utils/timestamp.util";
 
 @Entity()
 export class Order extends Timestamp implements CreateOrderDTO {

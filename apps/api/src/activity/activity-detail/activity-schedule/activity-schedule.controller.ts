@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
-import { Role } from '../../../auth/decorators/role.enum';
-import { Roles } from '../../../auth/decorators/roles.decorator';
+import { Role } from '../../../config/enum/role.enum';
+import { Roles } from '../../../config/decorators/roles.decorator';
 import { ActivityScheduleService } from './activity-schedule.service';
 import { CreateActivityScheduleDto } from './dto/create-activity-schedule.dto';
 import { UpdateActivityScheduleDto } from './dto/update-activity-schedule.dto';

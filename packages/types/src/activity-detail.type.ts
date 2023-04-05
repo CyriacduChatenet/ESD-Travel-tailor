@@ -4,7 +4,7 @@ import { ActivitySchedule } from './activity-schedule.type'
 
 export type ActivityDetail = {
   id: string
-  duration: string
+  duration: number
   location: string
   activity?: Activity
   schedules?: ActivitySchedule[]
@@ -12,7 +12,7 @@ export type ActivityDetail = {
 }
 
 export type CreateActivityDetailDTO = {
-  duration: string
+  duration: number
   location: string
   activity?: Activity
   schedules?: ActivitySchedule[]
@@ -20,7 +20,7 @@ export type CreateActivityDetailDTO = {
 }
 
 export type UpdateActivityDetailDTO = {
-  duration: string
+  duration: number
   location: string
   activity?: Activity
   schedules?: ActivitySchedule[]

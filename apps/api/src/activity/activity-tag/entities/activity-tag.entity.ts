@@ -1,7 +1,7 @@
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Activity } from '../../../activity/entities/activity.entity';
-import { Timestamp } from '../../../utils/timestamp.util';
+import { Timestamp } from '../../../config/utils/timestamp.util';
 
 @Entity()
 export class ActivityTag extends Timestamp {

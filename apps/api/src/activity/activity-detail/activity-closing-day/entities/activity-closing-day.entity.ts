@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Timestamp } from '../../../../utils/timestamp.util';
+import { Timestamp } from '../../../../config/utils/timestamp.util';
 import { ActivityDetail } from '../../entities/activity-detail.entity';
 
 @Entity()
@@ -9,7 +9,7 @@ export class ActivityClosingDay extends Timestamp {
   id: string;
 
   @Column({ nullable: false})
-  date: string;
+  date: Date;
 
   @Column({ nullable: false})
   recurrence: boolean;

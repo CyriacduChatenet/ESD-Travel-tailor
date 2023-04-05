@@ -10,13 +10,13 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Travel } from '../../user/traveler/travel/entities/travel.entity';
 import { ActivityDetail } from '../activity-detail/entities/activity-detail.entity';
 import { ActivityImage } from '../activity-image/entities/activity-image.entity';
-import { Timestamp } from '../../utils/timestamp.util';
+import { Timestamp } from '../../config/utils/timestamp.util';
 import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
 import { Comment } from '../../comment/entities/comment.entity';
 import { Advertiser } from '../../user/advertiser/entities/advertiser.entity';
+import { TimeSlot } from '../../user/traveler/travel/day/time-slot/entities/time-slot.entity';
 
 @Entity()
 export class Activity extends Timestamp {
@@ -49,13 +49,13 @@ export class Activity extends Timestamp {
   @OneToMany(() => Comment, comment => comment.activity)
   comments: Comment[];
 
-  @ManyToMany(() => Travel, travel => travel.activities)
-  travels: Travel[];
-
   @ManyToOne(() => Advertiser, (advertiser) => advertiser.activities)
   advertiser: Advertiser;
 
   @ManyToMany(() => ActivityTag)
   @JoinTable()
   tags: ActivityTag[]
+
+  @OneToMany(() => TimeSlot, (timeSlot) => timeSlot.activity)
+  timeSlots: TimeSlot[]
 }
