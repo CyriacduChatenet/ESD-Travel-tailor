@@ -7,6 +7,7 @@ import { Activity } from './entities/activity.entity'
 import { ActivityDetailModule } from './activity-detail/activity-detail.module'
 import { ActivityImageModule } from './activity-image/activity-image.module'
 import { ActivityTagModule } from './activity-tag/activity-tag.module'
+import { UploadFileModule } from '../upload-file/upload-file.module'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ActivityTagModule } from './activity-tag/activity-tag.module'
     ActivityDetailModule,
     ActivityImageModule,
     ActivityTagModule,
+    UploadFileModule
   ],
   controllers: [ActivityController],
   providers: [ActivityService],
