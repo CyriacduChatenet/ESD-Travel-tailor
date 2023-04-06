@@ -1,5 +1,5 @@
 import { UpdateActivityImageDTO } from '@travel-tailor/types';
 
-export class UpdateActivityImageDto implements UpdateActivityImageDTO {
+export class UpdateActivityImageDto {
   source: string;
 }

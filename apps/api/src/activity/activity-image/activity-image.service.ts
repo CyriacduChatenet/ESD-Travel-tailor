@@ -37,6 +37,7 @@ export class ActivityImageService {
       const query = this.activityImageRepository
         .createQueryBuilder('activityImage')
         .leftJoinAndSelect('activityImage.activity', 'activity')
+        .leftJoinAndSelect('activityImage.uploadFile', 'uploadFile')
 
       if (sortedBy) {
         query.orderBy('activityImage.createdAt', sortedBy);
@@ -60,6 +61,7 @@ export class ActivityImageService {
       return this.activityImageRepository
         .createQueryBuilder('activityImage')
         .leftJoinAndSelect('activityImage.activity', 'activity')
+        .leftJoinAndSelect('activityImage.uploadFile', 'uploadFile')
         .where('activityImage.id = :id', { id })
         .getOne();
     } catch (error) {

@@ -33,12 +33,35 @@ const createActivity = async (
   )
 }
 
+const createActivityFormData = async (
+  api_url: string,
+  credentials: FormData
+): Promise<Activity> => {
+  return await useFetch.protectedPostFormData(
+    `${api_url}${API_ACTIVITY_ROUTE}`,
+    credentials,
+    `${TokenService.getAccessToken()}`
+  )
+}
+
 const updateActivity = async (
   api_url: string,
   id: string,
   credentials: UpdateActivityDTO
 ): Promise<Activity> => {
   return await useFetch.protectedPatch(
+    `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
+    credentials,
+    `${TokenService.getAccessToken()}`
+  )
+}
+
+const updateActivityFormData = async (
+  api_url: string,
+  id: string,
+  credentials: FormData
+): Promise<Activity> => {
+  return await useFetch.protectedPatchFormData(
     `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
     credentials,
     `${TokenService.getAccessToken()}`
@@ -54,15 +77,29 @@ const deleteActivity = async (api_url: string, id: string) => {
 
 const createActivityWithRelations = async (
   api_url: string,
-  credentials: CreateActivityDTO,
+  credentials: CreateActivityDTO | any | FormData,
   tags: ActivityTag[]
-): Promise<Activity> => {
-  const activity = await createActivity(api_url, credentials)
-  tags.map(async (t) => {
-    await updateActivity(api_url, activity.id, {...credentials, tags: [{id: t.id}]});
-    await ActivityTagService.updateActivityTag(api_url, t.id, {name: t.name, activities: [{id: activity.id}]});
-  })
-  return await findActivityById(api_url, activity.id);
+) => {
+  if(credentials instanceof FormData) {
+    const activity = await createActivityFormData(api_url, credentials);
+    tags.map(async (t) => {
+      const formData = new FormData();
+      formData.append('tags', JSON.stringify([{ id: t.id }]));
+      await updateActivityFormData(api_url, activity.id, formData);
+      formData.delete('tags'); // Efface la valeur ajoutée précédemment pour pouvoir ajouter une nouvelle valeur à la prochaine itération de la boucle
+      formData.append('name', t.name);
+      formData.append('activities', JSON.stringify([{ id: activity.id }]));
+      await ActivityTagService.updateActivityTagFormData(api_url, t.id, formData);
+    });
+    return await findActivityById(api_url, activity.id);
+  } else {
+      const activity = await createActivity(api_url, credentials)
+      tags.map(async (t) => {
+        await updateActivity(api_url, activity.id, {...credentials, tags: [{id: t.id}]});
+        await ActivityTagService.updateActivityTag(api_url, t.id, {name: t.name, activities: [{id: activity.id}]});
+      })
+      return await findActivityById(api_url, activity.id);
+  }
 }
 
 const findActivityBySlugWithRelations = async (api_url: string, slug: string, setData: Dispatch<SetStateAction<Activity>>, setComments: Dispatch<SetStateAction<Comment[]>>) => {

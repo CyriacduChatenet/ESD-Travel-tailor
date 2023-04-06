@@ -11,13 +11,16 @@ import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
 import { Activity } from './entities/activity.entity'
 import { regexNormalizeSlug } from '../config/utils/regex-normalize.util'
+import { UploadFileService } from '../upload-file/upload-file.service'
 
 @Injectable()
 export class ActivityService {
   constructor(
     @InjectRepository(Activity)
-    private activityRepository: Repository<Activity>
+    private activityRepository: Repository<Activity>,
+    private readonly uploadFileService: UploadFileService,
   ) {}
+
   async create(createActivityDto: CreateActivityDto) {
     try {
       const activity = this.activityRepository.create({
