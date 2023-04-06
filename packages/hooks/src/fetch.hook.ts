@@ -36,6 +36,15 @@ const post = async (api_url: string, body: any) => {
   return responseJSON
 }
 
+const postFormData = async (api_url: string, body: any) => {
+  const response = await fetch(api_url, {
+    method: 'POST',
+    body: body,
+  })
+  const responseJSON = await response.json()
+  return responseJSON
+}
+
 const protectedPost = async (api_url: string, body: any, token: string) => {
   const response = await fetch(api_url, {
     method: 'POST',
@@ -45,6 +54,18 @@ const protectedPost = async (api_url: string, body: any, token: string) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
+  })
+  const responseJSON = await response.json()
+  return responseJSON
+}
+
+const protectedPostFormData = async (api_url: string, body: any, token: string) => {
+  const response = await fetch(api_url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: body,
   })
   const responseJSON = await response.json()
   return responseJSON
@@ -107,7 +128,9 @@ export const useFetch = {
   get,
   protectedGet,
   post,
+  postFormData,
   protectedPost,
+  protectedPostFormData,
   patch,
   protectedPatch,
   remove,
