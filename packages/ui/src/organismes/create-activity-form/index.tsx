@@ -103,6 +103,15 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     setActivityClosingDayCredentials({ date: '', recurrence: false});
   };
 
+  const handleActivityImageUpload = (e: any) => {
+    e.preventDefault()
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target?.files[0]);
+    reader.onload = (event) => {
+      setActivityImageCredentials({ ...activityImageCredentials, source: event.target?.result as string });
+    };
+  };
+
   const validate = (
     activityCredentials: { name: string; },
     activityDetailCredentials: { location: string; duration: number },
@@ -170,6 +179,11 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       <label htmlFor="">
         <p>Image source</p>
         <input type="text" name="source" placeholder="Image source" onChange={handleActivityImage} />
+        {errors.source && <p>{errors.source}</p>}
+      </label>
+      <label htmlFor="">
+        <p>Image file</p>
+        <input type="file" name="image" onChange={handleActivityImageUpload} />
         {errors.source && <p>{errors.source}</p>}
       </label>
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
