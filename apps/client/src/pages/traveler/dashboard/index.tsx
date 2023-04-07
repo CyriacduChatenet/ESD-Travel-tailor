@@ -6,6 +6,8 @@ import { useUser } from '@travel-tailor/contexts'
 import { Travel, User } from '@travel-tailor/types'
 import { authUtil, formatDateUtil } from '@travel-tailor/utils'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { ROUTES } from '@travel-tailor/constants'
 
 import { Layout } from '@/layout'
 
@@ -43,13 +45,15 @@ const TravelerDashboard: NextPage = () => {
       <br />
       <br />
       <h2>Travels</h2>
-      {user.travels?.map((travel: Travel, index: number) => <div key={index}>
+      {user.travels?.map((travel: Travel, index: number) => <Link href={`${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`} key={index}>
+        <div>
         <p>{travel.departureCity} - {travel.destinationCity} &nbsp; {formatDateUtil(travel.departureDate, false)} - {formatDateUtil(travel.returnDate, false)}</p>
         <button onClick={() => handleRedirect(travel.id)}>Edit</button>
         &nbsp;
         &nbsp;
         <button onClick={(e) => handleDelete(e, travel.id)}>Delete</button>
-      </div>)}
+      </div>
+      </Link>)}
     </Layout>
   )
 }
