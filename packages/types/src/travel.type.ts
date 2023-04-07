@@ -1,4 +1,3 @@
-import { Activity } from './activity.type'
 import { Traveler } from './traveler.type'
 import { Day } from './day.type'
 
@@ -9,7 +8,7 @@ export type Travel = {
   destinationCity: string
   departureDate: Date
   returnDate: Date
-  activities?: Activity[]
+  days?: Day[]
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -19,14 +18,14 @@ export type CreateTravelDTO = {
   traveler?: string
   departureCity?: string
   destinationCity?: string
-  activities?: string[]
+  days?: Day[]
   departureDate?: string | Date
   returnDate?: string | Date
 }
 
 export type UpdateTravelDTO = {
   traveler?: string
-  activities?: string[]
+  days?: Day[]
   departureCity?: string
   destinationCity?: string
   departureDate?: Date
