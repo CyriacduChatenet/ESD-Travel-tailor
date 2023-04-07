@@ -6,6 +6,7 @@ import { FC } from 'react'
 import { Layout } from '@/layout'
 import { formatDateUtil, sortDatebyASC } from '@travel-tailor/utils'
 import Image from 'next/image'
+import { WebMapbox } from '@travel-tailor/ui'
 
 interface IProps {
   travel: Travel
@@ -27,6 +28,9 @@ const TravelPage: FC<IProps> = ({ travel }) => {
                 <Image src={timeSlot.activity.image.source} alt='activity image'/>
             </div>)}</section>
         </div>)}
+      </section>
+      <section>
+        <WebMapbox mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`} addresse={travel.destinationCity}/>
       </section>
     </Layout>
   )
