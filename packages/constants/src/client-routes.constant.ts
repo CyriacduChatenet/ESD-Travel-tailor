@@ -14,6 +14,7 @@ export const ROUTES = {
     TRAVELER: '/traveler',
     TRAVEL: {
       FIND: '/travel',
+      PAYMENT: '/travel/payment',
     }
   },
   ADVERTISER: {
