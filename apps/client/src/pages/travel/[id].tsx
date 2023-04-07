@@ -25,7 +25,6 @@ const TravelPage: FC<IProps> = ({ travel }) => {
             <section>{day?.timeSlots?.map((timeSlot: TimeSlot, index: number) => <div key={index}>
                 <h4>{timeSlot.activity.name}</h4>
                 <p>{timeSlot.activity.mark}/10</p>
-                <Image src={timeSlot.activity.image.source} alt='activity image'/>
             </div>)}</section>
         </div>)}
       </section>

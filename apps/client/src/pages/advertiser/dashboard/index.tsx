@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { ActivityService, AuthService, UserService } from '@travel-tailor/services'
 import { useAdvertiserProtectedRoute, useProtectedRoute } from '@travel-tailor/hooks'
 import { authUtil } from '@travel-tailor/utils'
-import { WebActivityCard } from '@travel-tailor/ui'
+import { WebActivityCard, WebMapbox } from '@travel-tailor/ui'
 import { Activity, User } from '@travel-tailor/types'
 import { useUser } from '@travel-tailor/contexts'
 import { ROUTES } from '@travel-tailor/constants'
@@ -49,6 +49,8 @@ const AdvertiserDashboard: NextPage = () => {
       <p>
         {user?.name}, {user?.location}
       </p>
+      <br />
+      <WebMapbox mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`} addresse={`${user.advertiser?.location}`} />
       <br />
       <h2>Activities</h2>
       <br />
