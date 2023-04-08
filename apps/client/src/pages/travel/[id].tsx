@@ -2,17 +2,24 @@ import { GetServerSideProps } from 'next'
 import { TravelService } from '@travel-tailor/services'
 import { Day, TimeSlot, Travel } from '@travel-tailor/types'
 import { FC } from 'react'
+import { formatDateUtil, sortDatebyASC } from '@travel-tailor/utils'
+import { WebMapbox } from '@travel-tailor/ui'
+import { useRouter } from 'next/router'
+import { ROUTES } from '@travel-tailor/constants'
 
 import { Layout } from '@/layout'
-import { formatDateUtil, sortDatebyASC } from '@travel-tailor/utils'
-import Image from 'next/image'
-import { WebMapbox } from '@travel-tailor/ui'
 
 interface IProps {
   travel: Travel
 }
 
 const TravelPage: FC<IProps> = ({ travel }) => {
+  const router = useRouter();
+
+  const handlePayment = () => {
+    router.push(`${ROUTES.TRAVELER.TRAVEL.PAYMENT}/${travel.id}`)
+  };
+
   return (
     <Layout>
       <h1>
@@ -30,6 +37,11 @@ const TravelPage: FC<IProps> = ({ travel }) => {
       </section>
       <section>
         <WebMapbox mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`} addresse={travel.destinationCity}/>
+        <br />
+        <br />
+        <button onClick={handlePayment}>Payer</button>
+        <br />
+        <br />
       </section>
     </Layout>
   )
