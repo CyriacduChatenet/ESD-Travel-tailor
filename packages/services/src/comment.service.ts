@@ -59,6 +59,11 @@ const dislikeComment = async (api_url: string, comment: Comment, setComments: Di
     setComments(updatedComments);
   };
 
+  const activityMarkAverage = (comments: Comment[]): number => {
+    const total = comments.reduce((acc, comment: Comment) => acc + comment.mark, 0);
+    return Math.round(total / comments.length);
+  };
+
 export const CommentService = {
     findAllComments,
     findCommentById,

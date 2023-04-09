@@ -3,7 +3,8 @@ import { Traveler } from './traveler.type'
 export type Comment = {
   id: string
   content: string
-  likes: number
+  likes: number,
+  mark: number,
   traveler?: Traveler
   createdAt: Date
   updatedAt: Date
@@ -12,7 +13,8 @@ export type Comment = {
 
 export type CreateCommentDTO = {
   content: string
-  likes?: number
+  likes?: number,
+  mark: number,
   traveler?: string
   activity?: string
 }
