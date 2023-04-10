@@ -15,6 +15,9 @@ export class Comment extends Timestamp {
   @Column({ default: 0})
   likes: number;
 
+  @Column({ default: 0})
+  mark: number;
+
   @ManyToOne(() => Traveler, (traveler) => traveler.comments)
   traveler: Traveler;
 

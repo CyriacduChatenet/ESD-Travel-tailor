@@ -118,6 +118,7 @@ const ActivityPage: NextPage = () => {
                   : 'Anonymous'}
               </b>
               &nbsp; created at : {formatDateUtil(comment.createdAt, true)}
+              &nbsp; mark: {comment.mark}/10
               &nbsp; likes: {comment.likes}
               &nbsp;
               <button onClick={() => handleLike(comment)}>like</button>
