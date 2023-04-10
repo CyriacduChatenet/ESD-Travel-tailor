@@ -21,7 +21,7 @@ const createComment = async (api_url: string, createCommentCredential: CreateCom
 const createCommentWithRelations = async (api_url: string, createCommentCredential: CreateCommentDTO, activity_id: string): Promise<Comment> => {
     const activity = await ActivityService.findActivityById(api_url, activity_id);
     const comment = await useFetch.protectedPost(`${api_url}${API_COMMENT_ROUTE}`, {...createCommentCredential, activity: activity_id, likes: 0}, `${TokenService.getAccessToken()}`);
-    await ActivityService.updateActivity(api_url, activity_id, {comments: [...activity.comments, comment._id]});
+    await ActivityService.updateActivity(api_url, activity_id, {mark:  activityMarkAverage(activity.comments), comments: [...activity.comments, comment._id]});
     return comment;
 };
 
@@ -60,6 +60,7 @@ const dislikeComment = async (api_url: string, comment: Comment, setComments: Di
   };
 
   const activityMarkAverage = (comments: Comment[]): number => {
+    console.log('comments',comments)
     const total = comments.reduce((acc, comment: Comment) => acc + comment.mark, 0);
     return Math.round(total / comments.length);
   };

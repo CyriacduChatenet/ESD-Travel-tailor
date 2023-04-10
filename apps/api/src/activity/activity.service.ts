@@ -166,11 +166,11 @@ export class ActivityService {
       
       if(!activity) throw new NotFoundException('Activity not found')
 
-      if(updateActivityDto?.detail?.closingDays) {
+      if(updateActivityDto?.detail && updateActivityDto?.detail?.closingDays) {
         activity.detail.closingDays = updateActivityDto?.detail.closingDays
       }
 
-      if(updateActivityDto?.detail?.schedules) {
+      if(updateActivityDto?.detail && updateActivityDto?.detail?.schedules) {
         activity.detail.schedules = updateActivityDto?.detail.schedules
       }
 
@@ -186,15 +186,15 @@ export class ActivityService {
         activity.mark = updateActivityDto?.mark
       }
 
-      if(updateActivityDto?.image.source){
-        activity.image.source = updateActivityDto?.image.source
+      if(updateActivityDto?.image && updateActivityDto.image.source){
+        activity.image.source = updateActivityDto.image.source
       }
 
-      if(updateActivityDto?.detail.duration){
+      if(updateActivityDto?.detail && updateActivityDto?.detail.duration){
         activity.detail.duration = updateActivityDto?.detail.duration
       }
 
-      if(updateActivityDto?.detail.location){
+      if(updateActivityDto?.detail && updateActivityDto?.detail.location){
         activity.detail.location = updateActivityDto?.detail.location
       }
 
