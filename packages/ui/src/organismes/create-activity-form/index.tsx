@@ -26,12 +26,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     location: '',
     duration: 0,
   })
-  const [activityImageCredentials, setActivityImageCredentials] = useState<Partial<CreateActivityImageDTO>>({
-    source: '',
-  })
-  const [activityImageFileCredentials, setActivityImageFileCredentials] = useState<Partial<CreateActivityImageDTO>>({
-    file: null,
-  })
+  const [activityImageFileCredentials, setActivityImageFileCredentials] = useState<any>({})
   const [activityScheduleCredentials, setActivityScheduleCredentials] = useState<CreateActivityScheduleDTO>({
     opening_at: '',
     closing_at: '',
@@ -49,7 +44,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     opening_at: '',
     closing_at: '',
     date: '',
-
   })
 
   const router = useRouter()
@@ -64,12 +58,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     e.preventDefault()
     const { name, value } = e.target
     setActivityDetailCredentials({ ...activityDetailCredentials, [name]: value })
-  }
-
-  const handleActivityImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const { name, value } = e.target
-    setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
   }
 
   const handleActivitySchedule = (e: ChangeEvent<HTMLInputElement>) => {
@@ -113,14 +101,13 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event) => {
-      setActivityImageFileCredentials({ file });
+      setActivityImageFileCredentials(file);
     };
   };
 
   const validate = (
     activityCredentials: { name: string; },
     activityDetailCredentials: { location: string; duration: number },
-    activityImageCredentials: Partial<CreateActivityImageDTO>,
   ) => {
     if (!activityCredentials.name) {
       setErrors({ ...errors, name: 'Name is required' })
@@ -151,41 +138,42 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const error = validate(activityCredentials, activityDetailCredentials, activityImageCredentials)
+    const error = validate(activityCredentials, activityDetailCredentials)
     if (error) {
-      if(activityImageFileCredentials.file) {
         const formData = new FormData();
+
         formData.append('name', activityCredentials.name);
-        formData.append('detail', JSON.stringify({
-          location: activityDetailCredentials.location,
-          duration: activityDetailCredentials.duration,
-          schedules: schedules.map((s) => ({ opening_at: s.opening_at, closing_at: s.closing_at })),
-          closingDays: closingDays.map((c) => ({ date: c.date, recurrence: c.recurrence })),
-        }));
-        formData.append('image', activityImageFileCredentials.file);
-        formData.append('advertiser', router.query.id as string);
-        formData.append('tags', '[]');
+        formData.append('detail[location]', activityDetailCredentials.location);
+        formData.append('detail[duration]', activityDetailCredentials.duration.toString());
+
+        schedules.forEach((schedule, index) => {
+          formData.append(`detail[schedules][${index}][opening_at]`, schedules[index].opening_at);
+          formData.append(`detail[schedules][${index}][closing_at]`, schedules[index].closing_at);
+        });
+
+        closingDays.forEach((closingDay, index) => {
+          formData.append(`detail[closingDays][${index}][date]`, closingDays[index].date);
+          formData.append(`detail[closingDays][${index}][recurrence]`, closingDays[index].recurrence.toString());
+        });
+
+        formData.append('image', activityImageFileCredentials);
+        formData.append('advertiser', `${router.query.id}`);
+
+        // const response = await fetch(`${api_url}/activity`, {
+        //   method: 'POST',
+        //   headers: {
+        //     authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        //   },
+        //   body: formData,
+        // })
+        
+        // const data = await response.json();
+
+        // console.log(data)
 
         await ActivityService.createActivityWithRelations(api_url, formData, tags);
-      }
-
-        const sendObject = {
-          ...activityCredentials,
-          detail: {
-            ...activityDetailCredentials,
-            schedules: [...schedules],
-            closingDays: [...closingDays],
-          },
-          image: {
-            ...activityImageCredentials,
-          },
-          advertiser: `${router.query.id}`,
-          tags: [],
-        }
-        
-        await ActivityService.createActivityWithRelations(api_url, sendObject, tags);
   
-        router.push(ROUTES.ADVERTISER.DASHBOARD)
+        // router.push(ROUTES.ADVERTISER.DASHBOARD)
     }
   }
 
@@ -204,11 +192,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       <label htmlFor="">
         <p>Location</p>
         <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
-      </label>
-      <label htmlFor="">
-        <p>Image source</p>
-        <input type="text" name="source" placeholder="Image source" onChange={handleActivityImage} />
-        {errors.source && <p>{errors.source}</p>}
       </label>
       <label htmlFor="">
         <p>Image file</p>
