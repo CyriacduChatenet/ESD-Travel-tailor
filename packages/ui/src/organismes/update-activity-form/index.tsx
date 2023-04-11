@@ -10,7 +10,7 @@ import {
   SetStateAction,
 } from '@travel-tailor/functions'
 import { WebLocationInput } from '../../atoms/location-input/react'
-import { ActivityClosingDay, ActivitySchedule, ActivityTag, CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityScheduleDTO } from '@travel-tailor/types'
+import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag, CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityScheduleDTO } from '@travel-tailor/types'
 import { MouseEvent, useEffect } from 'react'
 import { WebTagInput } from '../../atoms/tag-input/react'
 
@@ -26,7 +26,7 @@ interface IProps {
 }
 
 export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, tags, setTags, schedules, setSchedules, closingDays, setClosingDays, }) => {
-  const [activity, setActivity] = useState<any>({})
+  const [activity, setActivity] = useState<Activity | any>({})
   const [activityCredentials, setActivityCredentials] = useState<{name: string}>({
     name: '',
   });
@@ -87,11 +87,11 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
   }
 
   const handleUpdateSchedule = async () => {
-    return setSchedules([...schedules, await ActivityScheduleService.updateActivitySchedule(api_url, activity.detail.schedules[0].id, activityScheduleCredentials)])
+    return setSchedules([...schedules, await ActivityScheduleService.createActivitySchedule(api_url, activityScheduleCredentials)])
   };
 
   const handleUpdateClosingDay = async () => {
-    return setClosingDays([...closingDays, await ActivityClosingDayService.updateActivityClosingDay(api_url, activity.detail.closingDays[0].id, activityClosingDayCredentials)])
+    return setClosingDays([...closingDays, await ActivityClosingDayService.createActivityClosingDay(api_url, activityClosingDayCredentials)])
   };
 
   const handleResetScheduleInput = () => {
@@ -167,7 +167,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
         formData.append('image', activityImageFileCredentials);
         formData.append('advertiser', `${router.query.id}`);
 
-        await ActivityService.createActivityWithRelations(api_url, formData, tags);
+        await ActivityService.updateActivityWithRelations(api_url, `${router.query.id}`, formData, tags);
   
         router.push(ROUTES.ADVERTISER.DASHBOARD)
     }

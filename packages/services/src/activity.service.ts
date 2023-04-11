@@ -82,7 +82,11 @@ const deleteActivity = async (api_url: string, id: string) => {
 const createActivityWithRelations = async (api_url: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[]) => {
       const activity = await createActivityFormData(api_url, credentials)
       const ac = await findActivityById(api_url, activity.id)
-      activity.tags = [...ac.tags, ...tags];
+      if (Array.isArray(ac.tags)) {
+        ac.tags = [...ac.tags, ...tags];
+      } else {
+        ac.tags = tags;
+      }
 
       await updateActivity(api_url, activity.id, activity);
       
@@ -109,7 +113,11 @@ const findActivityBySlugWithRelations = async (api_url: string, slug: string, se
 
 const updateActivityWithRelations = async (api_url: string, activityId: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[]) => {
   const ac = await findActivityById(api_url, activityId)
-  ac.tags = [...ac.tags, ...tags];
+  if (Array.isArray(ac.tags)) {
+    ac.tags = [...ac.tags, ...tags];
+  } else {
+    ac.tags = tags;
+  }
   const activity = await updateActivityFormData(api_url,activityId, credentials)
   
   return activity;
