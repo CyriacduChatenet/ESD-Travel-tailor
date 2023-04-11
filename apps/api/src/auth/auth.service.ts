@@ -1,10 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import {
-  SigninDTO,
-  SignupDTO,
-  ForgotPasswordDTO,
-} from '@travel-tailor/types'
+import { SigninDTO, SignupDTO, ForgotPasswordDTO } from '@travel-tailor/types'
 import * as bcrypt from 'bcrypt'
 
 import { MailService } from '../mail/mail.service'
@@ -32,6 +28,40 @@ export class AuthService {
     if (user && isMatch) {
       const { password, ...result } = user
       return result
+    }
+  }
+
+  public async validateGoogleOAuth(user: any): Promise<any> {
+    if (!user) {
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED)
+    }
+
+    const email = user.emails[0].value
+    const findUser = await this.userService.findOneByEmail(email)
+
+    if (!findUser) {
+      const newUser = await this.userService.create({
+        email: email,
+        username: user.username,
+      })
+
+      const payload = {
+        email: newUser.email,
+        roles: newUser.roles,
+      }
+      return {
+        accessToken: this.jwtService.sign(payload),
+        user: newUser,
+      }
+    } else {
+      const payload = {
+        email: findUser.email,
+        roles: findUser.roles,
+      }
+      return {
+        accessToken: this.jwtService.sign(payload),
+        user: findUser,
+      }
     }
   }
 
@@ -96,8 +126,13 @@ export class AuthService {
     return userUpdated
   }
 
-  public async resetPassword(resetToken: string, resetPasswordDto: ResetPasswordDTO) {
-    const token = await this.resetPasswordTokenService.findOneByToken(resetToken.slice(0, -1));
+  public async resetPassword(
+    resetToken: string,
+    resetPasswordDto: ResetPasswordDTO
+  ) {
+    const token = await this.resetPasswordTokenService.findOneByToken(
+      resetToken.slice(0, -1)
+    )
     const user = await this.userService.findOneByEmail(token.user.email)
     const userUpdated = await this.userService.update(user.id, {
       ...user,
@@ -105,5 +140,5 @@ export class AuthService {
     })
     await this.mailService.sendConfirmResetPasswordMail(user.email)
     return userUpdated
-  };
+  }
 }

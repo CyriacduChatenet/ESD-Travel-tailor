@@ -17,6 +17,7 @@ export {
   API_COMMENT_ROUTE,
   API_TRAVEL_ROUTE,
   API_PAYMENT_CHECKOUT_ROUTE,
+  API_GOOGLE_AUTH,
 } from './api.constant'
 
 export { ACCESS_TOKEN, SIGNIN_TOKEN, RESET_TOKEN } from './tokens.constant'
