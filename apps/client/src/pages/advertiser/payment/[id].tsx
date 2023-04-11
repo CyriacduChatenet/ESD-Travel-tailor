@@ -1,12 +1,11 @@
 import { Layout } from '@/layout'
 import { AdvertiserService } from '@travel-tailor/services'
 import { Advertiser } from '@travel-tailor/types'
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { usePayment } from '@travel-tailor/hooks'
-
 
 const AdvertiserPaymentPage: NextPage = () => {
   const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`)
