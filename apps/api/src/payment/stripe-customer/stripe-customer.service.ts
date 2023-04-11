@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import Stripe from 'stripe';
 import { InjectStripe } from 'nestjs-stripe';
 
@@ -10,22 +10,42 @@ export class StripeCustomerService {
   constructor(@InjectStripe() private readonly stripeClient: Stripe) {}
 
   async create(createStripeCustomerDto: CreateStripeCustomerDto) {
-    return await this.stripeClient.customers.create({ email: createStripeCustomerDto.email });
+    try {
+      return await this.stripeClient.customers.create({ email: createStripeCustomerDto.email });
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findAll() {
-    return await this.stripeClient.customers.list();
+    try {
+      return await this.stripeClient.customers.list();
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async findOne(id: string) {
-    return await this.stripeClient.customers.retrieve(id);
+    try {
+      return await this.stripeClient.customers.retrieve(id);
+    } catch (error) {
+        throw new UnauthorizedException(error);
+    }
   }
 
   async update(id: string, updateStripeCustomerDto: UpdateStripeCustomerDto) {
-    return await this.stripeClient.customers.update(id, { email: updateStripeCustomerDto.email });
+    try {
+      return await this.stripeClient.customers.update(id, { email: updateStripeCustomerDto.email });
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 
   async remove(id: string) {
-    return await this.stripeClient.customers.del(id);
+    try {
+      return await this.stripeClient.customers.del(id);
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
   }
 }
