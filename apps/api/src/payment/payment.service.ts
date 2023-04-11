@@ -12,6 +12,7 @@ export class PaymentService {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
     private configService: ConfigService,
+    private subscriptionService: SubscriptionService
   ) {}
 
   async createCheckoutSession(createCheckoutDto: CreateCheckoutDto, user: User): Promise<string> {
@@ -37,10 +38,10 @@ export class PaymentService {
         cancel_url: `${this.configService.get('CLIENT_APP_URL')}/payment/cancel`,
       });
 
-      // if(user.advertiser) {
-      //   console.log('create subscription');
-      //   await this.subscriptionService.createSubscription({ customerId: createCheckoutDto.customer, priceId: `${createCheckoutDto.amount * 100}` });
-      // }
+      if(user.advertiser) {
+        console.log('create subscription');
+        await this.subscriptionService.createSubscription({ customerId: createCheckoutDto.customer, priceId: `${createCheckoutDto.amount * 100}` });
+      }
 
       return session.id;
     } catch (err) {

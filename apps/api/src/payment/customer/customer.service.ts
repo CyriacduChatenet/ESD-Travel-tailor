@@ -11,14 +11,13 @@ import { Repository } from 'typeorm'
 
 import { CreateCustomerDto } from './dto/create-customer.dto'
 import { UpdateCustomerDto } from './dto/update-customer.dto'
+import { StripeCustomerService } from '../stripe/stripe-customer.service'
 import { Customer } from './entities/customer.entity'
-import { StripeCustomerService } from '../stripe-customer.service'
 
 @Injectable()
 export class CustomerService {
   constructor(
-    @InjectRepository(Customer)
-    private customerRepository: Repository<Customer>,
+    @InjectRepository(Customer) private customerRepository: Repository<Customer>,
     private stripeCustomerService: StripeCustomerService
   ) {}
 

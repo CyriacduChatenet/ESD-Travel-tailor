@@ -26,10 +26,7 @@ export class AdvertiserService {
         address: createAdvertiserDto.location,
         name: createAdvertiserDto.name,
       })
-      const advertiser = this.advertiserRepository.create({
-        ...createAdvertiserDto,
-        customer,
-      })
+      const advertiser = this.advertiserRepository.create({...createAdvertiserDto, customer})
 
       return await this.advertiserRepository.save(advertiser)
     } catch (error) {
