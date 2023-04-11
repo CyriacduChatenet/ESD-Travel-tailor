@@ -181,14 +181,52 @@ export class ActivityService {
         .leftJoinAndSelect('activity.tags', 'tags')
         .where('activity.id = :id', { id })
         .getOne()
+      
+      if(!activity) throw new NotFoundException('Activity not found')
 
-      activity.name = updateActivityDto?.name
-      activity.detail.duration = updateActivityDto?.detail.duration
-      activity.detail.location = updateActivityDto?.detail.location
-      activity.image.uploadFile = updateActivityDto?.image.uploadFile
-      activity.comments = updateActivityDto?.comments
-      activity.advertiser = updateActivityDto?.advertiser
-      activity.tags = updateActivityDto?.tags
+      if(updateActivityDto?.detail && updateActivityDto?.detail?.closingDays) {
+        activity.detail.closingDays = updateActivityDto?.detail.closingDays
+      }
+
+      if(updateActivityDto?.detail && updateActivityDto?.detail?.schedules) {
+        activity.detail.schedules = updateActivityDto?.detail.schedules
+      }
+
+      if(updateActivityDto?.timeSlots) {
+        activity.timeSlots = updateActivityDto?.timeSlots
+      }
+
+      if(updateActivityDto?.name) {
+        activity.name = updateActivityDto?.name
+      }
+
+      if(updateActivityDto?.mark) {
+        activity.mark = updateActivityDto?.mark
+      }
+
+      if(updateActivityDto?.image && updateActivityDto.image.source){
+        activity.image.source = updateActivityDto.image.source
+      }
+
+      if(updateActivityDto?.detail && updateActivityDto?.detail.duration){
+        activity.detail.duration = updateActivityDto?.detail.duration
+      }
+
+      if(updateActivityDto?.detail && updateActivityDto?.detail.location){
+        activity.detail.location = updateActivityDto?.detail.location
+      }
+
+      if(updateActivityDto?.comments){
+        activity.comments = updateActivityDto?.comments
+      }
+
+      if(updateActivityDto?.advertiser){
+        activity.advertiser = updateActivityDto?.advertiser
+      }
+
+      if(updateActivityDto?.tags){
+        activity.tags = updateActivityDto?.tags
+      }
 
       return this.activityRepository.save(activity)
     } catch (error) {

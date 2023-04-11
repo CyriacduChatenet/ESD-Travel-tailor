@@ -7,9 +7,10 @@ import { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { usePayment } from '@travel-tailor/hooks'
 
-const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`)
 
 const AdvertiserPaymentPage: NextPage = () => {
+  const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`)
+
   const [amount, setAmount] = useState(1000)
   const [advertiser, setAdvertiser] = useState<Advertiser>({
     id: '',
@@ -35,6 +36,10 @@ const AdvertiserPaymentPage: NextPage = () => {
     setAdvertiser(ad)
   }
 
+  const handlePayed = async () => {
+     usePayment(`${process.env.NEXT_PUBLIC_API_URL}`,stripePromise, { amount, location: `${advertiser.location}`})
+  };
+
   useEffect(() => {
     handleFetch()
   }, [id])
@@ -42,7 +47,7 @@ const AdvertiserPaymentPage: NextPage = () => {
     <Layout>
       <h1>Payment</h1>
       <p>{amount} €</p>
-      <button onClick={() => usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripePromise, {location: `${advertiser.location}`, amount: 100})}>Payer</button>
+      <button onClick={handlePayed}>Payer</button>
       <br />
     </Layout>
   )

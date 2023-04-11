@@ -6,7 +6,7 @@ export type Day = {
     startTime?: Date
     endTime?: Date
     date?: Date
-    activities?: string[]
+    timeSlots?: TimeSlot[]
     travel?: Travel
     created_at?: Date
     updated_at?: Date

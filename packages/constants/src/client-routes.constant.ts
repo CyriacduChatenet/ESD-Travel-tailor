@@ -12,6 +12,10 @@ export const ROUTES = {
       CREATE: '/traveler/create-taste',
     },
     TRAVELER: '/traveler',
+    TRAVEL: {
+      FIND: '/travel',
+      PAYMENT: '/travel/payment',
+    }
   },
   ADVERTISER: {
     DASHBOARD: '/advertiser/dashboard',
