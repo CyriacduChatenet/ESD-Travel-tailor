@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
 
@@ -10,18 +10,20 @@ export class SubscriptionService {
     @InjectStripe() private readonly stripeClient: Stripe,
   ) {}
 
-  async createSubscription(createSubscriptionDto: CreateSubscriptionDto) {
-    const { customerId, priceId } = createSubscriptionDto;
-
+  async createSubscription(createSubscriptionDto: CreateSubscriptionDto): Promise<Stripe.Subscription> {
+    try {
     const subscription = await this.stripeClient.subscriptions.create({
-      customer: customerId,
-      items: [
-        {
-          price: priceId,
-        },
-      ],
+    customer: createSubscriptionDto.customerId,
+    items: [
+    {
+    price: createSubscriptionDto.priceId,
+    },
+    ],
+    expand: ['latest_invoice.payment_intent'],
     });
-
     return subscription;
-  }
+    } catch (err) {
+    throw new HttpException(err.message, 402);
+    }
+    }
 }
