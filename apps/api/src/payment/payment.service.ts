@@ -29,6 +29,7 @@ export class PaymentService {
             quantity: 1,
           },
         ],
+        customer: createCheckoutDto.customer,
         mode: 'payment',
         success_url: `${this.configService.get('CLIENT_APP_URL')}/payment/success`,
         cancel_url: `${this.configService.get('CLIENT_APP_URL')}/payment/cancel`,
