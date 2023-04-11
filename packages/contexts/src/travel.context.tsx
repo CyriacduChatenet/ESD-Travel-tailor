@@ -10,7 +10,7 @@ const travelContext = createContext<Context>({
     setTravelId: () => {}
 })
 
-export const TravelContextProvider: FC = ({ children }: PropsWithChildren) => {
+export const TravelContextProvider = ({ children }: PropsWithChildren) => {
     const [travelId, setTravelId] = useState('');
   return (
   <travelContext.Provider value={{travelId, setTravelId}}>{children}</travelContext.Provider>
