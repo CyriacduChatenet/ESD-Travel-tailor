@@ -25,6 +25,7 @@ import { OrderModule } from './payment/order/order.module';
 import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.module';
 import { OpencageModule } from './opencage/opencage.module';
 import { UploadFileModule } from './upload-file/upload-file.module';
+import { StripeCustomerModule } from './payment/stripe-customer/stripe-customer.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { UploadFileModule } from './upload-file/upload-file.module';
     TimeSlotModule,
     OpencageModule,
     UploadFileModule,
+    StripeCustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

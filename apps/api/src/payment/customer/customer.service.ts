@@ -11,8 +11,8 @@ import { Repository } from 'typeorm'
 
 import { CreateCustomerDto } from './dto/create-customer.dto'
 import { UpdateCustomerDto } from './dto/update-customer.dto'
-import { StripeCustomerService } from '../stripe/stripe-customer.service'
 import { Customer } from './entities/customer.entity'
+import { StripeCustomerService } from '../stripe-customer/stripe-customer.service'
 
 @Injectable()
 export class CustomerService {
@@ -23,7 +23,7 @@ export class CustomerService {
 
   async create(createCustomerDto: CreateCustomerDto) {
     try {
-      const stripeCustomer = await this.stripeCustomerService.create(createCustomerDto.email)
+      const stripeCustomer = await this.stripeCustomerService.create({ email: createCustomerDto.email })
       return await this.customerRepository.save({ ...createCustomerDto, stripeId: stripeCustomer.id })
     } catch (error) {
       throw new UnauthorizedException(error)

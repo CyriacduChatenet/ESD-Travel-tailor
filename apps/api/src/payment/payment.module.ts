@@ -8,7 +8,6 @@ import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
 import { OpencageModule } from '../opencage/opencage.module';
 import { SubscriptionModule } from './subscription/subscription.module';
-import { StripeModule as StripeCustomModule } from './stripe/stripe.module';
 
 @Module({
   imports: [
@@ -21,7 +20,6 @@ import { StripeModule as StripeCustomModule } from './stripe/stripe.module';
     OpencageModule,
     forwardRef(() => CustomerModule),
     StripeModule,
-    StripeCustomModule,
     SubscriptionModule,
   ],
   controllers: [PaymentController],

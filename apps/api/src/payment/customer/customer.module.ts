@@ -6,10 +6,10 @@ import { CustomerService } from './customer.service';
 import { CustomerController } from './customer.controller';
 import { PaymentModule } from '../payment.module';
 import { SubscriptionModule } from '../subscription/subscription.module';
-import { StripeModule } from '../stripe/stripe.module';
+import { StripeCustomerModule } from '../stripe-customer/stripe-customer.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Customer]), forwardRef(() => PaymentModule), SubscriptionModule, StripeModule],
+  imports: [TypeOrmModule.forFeature([Customer]), forwardRef(() => PaymentModule), SubscriptionModule, StripeCustomerModule],
   controllers: [CustomerController],
   providers: [CustomerService],
   exports: [CustomerService],
