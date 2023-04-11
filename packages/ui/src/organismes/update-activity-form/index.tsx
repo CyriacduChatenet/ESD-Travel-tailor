@@ -1,4 +1,4 @@
-import { ActivityService } from '@travel-tailor/services'
+import { ActivityClosingDayService, ActivityScheduleService, ActivityService } from '@travel-tailor/services'
 import { OBJECT_KEYS, ROUTES } from '@travel-tailor/constants'
 import {
   ChangeEvent,
@@ -6,39 +6,52 @@ import {
   FormEvent,
   useState,
   useRouter,
+  Dispatch,
+  SetStateAction,
 } from '@travel-tailor/functions'
 import { WebLocationInput } from '../../atoms/location-input/react'
+import { ActivityClosingDay, ActivitySchedule, ActivityTag, CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityScheduleDTO } from '@travel-tailor/types'
+import { MouseEvent, useEffect } from 'react'
+import { WebTagInput } from '../../atoms/tag-input/react'
 
 interface IProps {
   api_url: string
   mapboxAccessToken: string
+  tags: ActivityTag[];
+  setTags: Dispatch<SetStateAction<ActivityTag[]>>;
+  schedules: ActivitySchedule[];
+  setSchedules: Dispatch<SetStateAction<ActivitySchedule[]>>;
+  closingDays: ActivityClosingDay[];
+  setClosingDays: Dispatch<SetStateAction<ActivityClosingDay[]>>;
 }
 
-export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }) => {
-  const [activityCredentials, setActivityCredentials] = useState<{
-    name: string
-  }>({
+export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, tags, setTags, schedules, setSchedules, closingDays, setClosingDays, }) => {
+  const [activity, setActivity] = useState<any>({})
+  const [activityCredentials, setActivityCredentials] = useState<{name: string}>({
     name: '',
-  })
-  const [activityDetailCredentials, setActivityDetailCredentials] = useState<{
-    location: string
-    duration: number
-  }>({
+  });
+  const [activityDetailCredentials, setActivityDetailCredentials] = useState<CreateActivityDetailDTO>({
     location: '',
     duration: 0,
   })
   const [activityImageFileCredentials, setActivityImageFileCredentials] = useState<any>({})
+  const [activityScheduleCredentials, setActivityScheduleCredentials] = useState<CreateActivityScheduleDTO>({
+    opening_at: '',
+    closing_at: '',
+  })
+  const [activityClosingDayCredentials, setActivityClosingDayCredentials] = useState<CreateActivityClosingDayDTO>({
+    date: '',
+    recurrence: false,
+  })
 
-  const [errors, setErrors] = useState<{
-    name: string
-    location: string
-    duration: string
-    source: string
-  }>({
+  const [errors, setErrors] = useState({
     name: '',
     location: '',
     duration: '',
     source: '',
+    opening_at: '',
+    closing_at: '',
+    date: '',
   })
 
   const router = useRouter()
@@ -52,11 +65,42 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
   const handleActivityDetail = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const { name, value } = e.target
-    setActivityDetailCredentials({
-      ...activityDetailCredentials,
-      [name]: value,
-    })
+    setActivityDetailCredentials({ ...activityDetailCredentials, [name]: value })
   }
+
+  const handleActivitySchedule = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setActivityScheduleCredentials({ ...activityScheduleCredentials, [name]: value })
+  }
+
+  const handleIsChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const { name, checked } = e.target
+    setActivityClosingDayCredentials({ ...activityClosingDayCredentials, [name]: checked })
+  };
+
+  const handleActivityClosingDay = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setActivityClosingDayCredentials({ ...activityClosingDayCredentials, [name]: value })
+  }
+
+  const handleUpdateSchedule = async () => {
+    return setSchedules([...schedules, await ActivityScheduleService.updateActivitySchedule(api_url, activity.detail.schedules[0].id, activityScheduleCredentials)])
+  };
+
+  const handleUpdateClosingDay = async () => {
+    return setClosingDays([...closingDays, await ActivityClosingDayService.updateActivityClosingDay(api_url, activity.detail.closingDays[0].id, activityClosingDayCredentials)])
+  };
+
+  const handleResetScheduleInput = () => {
+    setActivityScheduleCredentials({ opening_at: '', closing_at: ''});
+  };
+
+  const handleResetClosingDayInput = () => {
+    setActivityClosingDayCredentials({ date: '', recurrence: false});
+  };
 
   const handleActivityImageUpload = (e: any) => {
     e.preventDefault()
@@ -88,21 +132,44 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
     return true
   }
 
+  const handleScheduleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleUpdateSchedule();
+    handleResetScheduleInput();
+  }
+
+  const handleClosingDaysSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleUpdateClosingDay();
+    handleResetClosingDayInput();
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const error = validate(activityCredentials, activityDetailCredentials);
+    const error = validate(activityCredentials, activityDetailCredentials)
     if (error) {
-      const formData = new FormData();
+        const formData = new FormData();
 
-      formData.append('name', activityCredentials.name);
-      formData.append('detail[location]', activityDetailCredentials.location);
-      formData.append('detail[duration]', activityDetailCredentials.duration.toString());
+        formData.append('name', activityCredentials.name);
+        formData.append('detail[location]', activityDetailCredentials.location);
+        formData.append('detail[duration]', activityDetailCredentials.duration.toString());
 
-      formData.append('image', activityImageFileCredentials);
-      formData.append('advertiser', `${router.query.id}`);
+        schedules.forEach((schedule, index) => {
+          formData.append(`detail[schedules][${index}][opening_at]`, schedules[index].opening_at);
+          formData.append(`detail[schedules][${index}][closing_at]`, schedules[index].closing_at);
+        });
 
-      await ActivityService.updateActivityFormData(api_url,`${router.query.id}`, formData)
-      router.push(ROUTES.ADVERTISER.DASHBOARD)
+        closingDays.forEach((closingDay, index) => {
+          formData.append(`detail[closingDays][${index}][date]`, closingDays[index].date);
+          formData.append(`detail[closingDays][${index}][recurrence]`, closingDays[index].recurrence.toString());
+        });
+
+        formData.append('image', activityImageFileCredentials);
+        formData.append('advertiser', `${router.query.id}`);
+
+        await ActivityService.createActivityWithRelations(api_url, formData, tags);
+  
+        router.push(ROUTES.ADVERTISER.DASHBOARD)
     }
   }
 
@@ -110,22 +177,12 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
     <form action="" onSubmit={handleSubmit}>
       <label htmlFor="">
         <p>Name</p>
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          onChange={handleActivity}
-        />
+        <input type="text" name="name" placeholder="name" onChange={handleActivity} />
         {errors.name && <p>{errors.name}</p>}
       </label>
       <label htmlFor="">
         <p>Duration</p>
-        <input
-          type="text"
-          name="duration"
-          placeholder="duration"
-          onChange={handleActivityDetail}
-        />
+        <input type="number" name="duration" placeholder="duration" onChange={handleActivityDetail} />
         {errors.duration && <p>{errors.duration}</p>}
       </label>
       <label htmlFor="">
@@ -137,7 +194,25 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
         <input type="file" name="image" onChange={handleActivityImageUpload} />
         {errors.source && <p>{errors.source}</p>}
       </label>
-      <input type="submit" value="Update activity" />
+      <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
+      <label htmlFor="">
+        <p>Schedules</p>
+        <input type="time" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
+        {errors.opening_at && <p>{errors.opening_at}</p>}
+        <input type="time" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
+        {errors.closing_at && <p>{errors.closing_at}</p>}
+        <button onClick={handleScheduleSubmit}>Create schedule</button>
+      </label>
+      <label htmlFor="">
+        <p>Closing day</p>
+        <input type="date" name="date" placeholder="date" value={activityClosingDayCredentials.date} onChange={handleActivityClosingDay} />
+        {errors.date && <p>{errors.date}</p>}
+        <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
+        <button onClick={handleClosingDaysSubmit}>Create closing day</button>
+      </label>
+      <br />
+      <br />
+      <input type="submit" value="update activity" />
     </form>
   )
 }

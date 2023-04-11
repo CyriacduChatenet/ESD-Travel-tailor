@@ -8,9 +8,10 @@ interface Props {
   geocoderQuery: string;
   setGeocoderQuery: Dispatch<SetStateAction<string>>;
   placeholder: string;
+  value?: string | number;
 }
 
-const Geocoder: React.FC<Props> = ({ setResults, accessToken, geocoderQuery, setGeocoderQuery, placeholder }) => {
+const Geocoder: React.FC<Props> = ({ setResults, accessToken, geocoderQuery, setGeocoderQuery, placeholder, value }) => {
     mapboxgl.accessToken = accessToken;;
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,7 @@ const Geocoder: React.FC<Props> = ({ setResults, accessToken, geocoderQuery, set
 
   return (
     <div>
-      <input type="text" value={geocoderQuery} placeholder={placeholder} onChange={handleQueryChange} />
+      <input type="text" value={value ? value : geocoderQuery} placeholder={placeholder} onChange={handleQueryChange} />
     </div>
   );
 };

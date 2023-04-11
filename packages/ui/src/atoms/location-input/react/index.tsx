@@ -10,9 +10,10 @@ interface IProps {
     stateCredentials: CreateActivityDetailDTO | CreateTravelDTO | UpdateTravelDTO,
     objectKey: string
     error: string
+    value?: string | number
 };
 
-export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredentials, stateCredentials, objectKey, error }) => {
+export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredentials, stateCredentials, objectKey, error, value }) => {
     const [results, setResults] = useState<mapboxgl.MapboxGeoJSONFeature[]>([]);
     const [hideAutocomplete, setHideAutocomplete] = useState(true);
     const [geocoderQuery, setGeocoderQuery] = useState('');
@@ -24,7 +25,7 @@ export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredent
 
     return (
         <div onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
-        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={objectKey} />
+        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={objectKey}value={value} />
         <ul>
           {!hideAutocomplete ? results.map((result: any) => (
             <li key={result.id} onClick={() => handleCredentials(result.place_name)}>{result.place_name}</li>
