@@ -5,23 +5,36 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ActivityQuery, ActivityTag } from '@travel-tailor/types'
+import { ActivityImage as ImageType, ActivityQuery, ActivityTag } from '@travel-tailor/types'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
 import { Activity } from './entities/activity.entity'
 import { regexNormalizeSlug } from '../config/utils/regex-normalize.util'
+import { UploadFileService } from '../upload-file/upload-file.service'
+import { ActivityImageService } from './activity-image/activity-image.service'
 
 @Injectable()
 export class ActivityService {
   constructor(
     @InjectRepository(Activity)
-    private activityRepository: Repository<Activity>
+    private activityRepository: Repository<Activity>,
+    private readonly uploadFileService: UploadFileService,
+    private readonly activityImageService: ActivityImageService,
   ) {}
-  async create(createActivityDto: CreateActivityDto) {
+
+  async create(createActivityDto: CreateActivityDto, user, files) {
     try {
+      const activityImage = await this.activityImageService.create({});
+
+      const uploadFile = await this.uploadFileService.create(files[0], user, activityImage);
+      console.log(uploadFile);
+      await this.activityImageService.update(activityImage.id, {...activityImage, uploadFile});
+
+
       const activity = this.activityRepository.create({
         ...createActivityDto,
+        image: activityImage,
         slug: regexNormalizeSlug(createActivityDto.name.toLowerCase()),
       })
       return this.activityRepository.save(activity)
@@ -39,6 +52,7 @@ export class ActivityService {
       let query = this.activityRepository
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
@@ -99,6 +113,7 @@ export class ActivityService {
     return await this.activityRepository
     .createQueryBuilder('activity')
     .leftJoinAndSelect('activity.image', 'image')
+    .leftJoinAndSelect('image.uploadFile', 'uploadFile')
     .leftJoinAndSelect('activity.comments', 'comments')
     .leftJoinAndSelect('activity.advertiser', 'advertiser')
     .leftJoinAndSelect('activity.tags', 'tag')
@@ -118,6 +133,7 @@ export class ActivityService {
       return await this.activityRepository
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
@@ -137,6 +153,7 @@ export class ActivityService {
       return await this.activityRepository
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
@@ -157,6 +174,7 @@ export class ActivityService {
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.detail', 'detail')
         .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
         .leftJoinAndSelect('activity.comments', 'comments')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.timeSlots', 'timeSlot')

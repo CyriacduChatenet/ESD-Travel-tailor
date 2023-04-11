@@ -23,9 +23,6 @@ export class TasteController {
   constructor(private readonly tasteService: TasteService) {}
 
   @Post()
-  // @UseGuards(JwtAuthGuard)
-  // @Roles(Role.Traveler)
-  // @Roles(Role.Admin)
   async create(@Body() createTasteDto: CreateTasteDto) {
     return this.tasteService.create(createTasteDto);
   }

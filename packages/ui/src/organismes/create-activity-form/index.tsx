@@ -26,9 +26,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     location: '',
     duration: 0,
   })
-  const [activityImageCredentials, setActivityImageCredentials] = useState<CreateActivityImageDTO>({
-    source: '',
-  })
+  const [activityImageFileCredentials, setActivityImageFileCredentials] = useState<any>({})
   const [activityScheduleCredentials, setActivityScheduleCredentials] = useState<CreateActivityScheduleDTO>({
     opening_at: '',
     closing_at: '',
@@ -46,7 +44,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     opening_at: '',
     closing_at: '',
     date: '',
-
   })
 
   const router = useRouter()
@@ -61,12 +58,6 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     e.preventDefault()
     const { name, value } = e.target
     setActivityDetailCredentials({ ...activityDetailCredentials, [name]: value })
-  }
-
-  const handleActivityImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const { name, value } = e.target
-    setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
   }
 
   const handleActivitySchedule = (e: ChangeEvent<HTMLInputElement>) => {
@@ -103,10 +94,20 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     setActivityClosingDayCredentials({ date: '', recurrence: false});
   };
 
+  const handleActivityImageUpload = (e: any) => {
+    e.preventDefault()
+    const file = e.target?.files[0];
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      setActivityImageFileCredentials(file);
+    };
+  };
+
   const validate = (
     activityCredentials: { name: string; },
     activityDetailCredentials: { location: string; duration: number },
-    activityImageCredentials: { source: string }
   ) => {
     if (!activityCredentials.name) {
       setErrors({ ...errors, name: 'Name is required' })
@@ -120,34 +121,47 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
       setErrors({ ...errors, duration: 'Duration is required' })
       return false
     }
-    if (!activityImageCredentials.source) {
-      setErrors({ ...errors, source: 'Source is required' })
-      return false
-    }
     return true
+  }
+
+  const handleScheduleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleCreateSchedule();
+    handleResetScheduleInput();
+  }
+
+  const handleClosingDaysSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleCreateClosingDay();
+    handleResetClosingDayInput();
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const error = validate(activityCredentials, activityDetailCredentials, activityImageCredentials)
+    const error = validate(activityCredentials, activityDetailCredentials)
     if (error) {
-      const sendObject = {
-        ...activityCredentials,
-        detail: {
-          ...activityDetailCredentials,
-          schedules: [...schedules],
-          closingDays: [...closingDays],
-        },
-        image: {
-          ...activityImageCredentials,
-        },
-        advertiser: `${router.query.id}`,
-        tags: [],
-      }
-      
-      await ActivityService.createActivityWithRelations(api_url, sendObject, tags);
+        const formData = new FormData();
+
+        formData.append('name', activityCredentials.name);
+        formData.append('detail[location]', activityDetailCredentials.location);
+        formData.append('detail[duration]', activityDetailCredentials.duration.toString());
+
+        schedules.forEach((schedule, index) => {
+          formData.append(`detail[schedules][${index}][opening_at]`, schedules[index].opening_at);
+          formData.append(`detail[schedules][${index}][closing_at]`, schedules[index].closing_at);
+        });
+
+        closingDays.forEach((closingDay, index) => {
+          formData.append(`detail[closingDays][${index}][date]`, closingDays[index].date);
+          formData.append(`detail[closingDays][${index}][recurrence]`, closingDays[index].recurrence.toString());
+        });
+
+        formData.append('image', activityImageFileCredentials);
+        formData.append('advertiser', `${router.query.id}`);
+
+        await ActivityService.createActivityWithRelations(api_url, formData, tags);
   
-      router.push(ROUTES.ADVERTISER.DASHBOARD)
+        router.push(ROUTES.ADVERTISER.DASHBOARD)
     }
   }
 
@@ -168,8 +182,8 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
       </label>
       <label htmlFor="">
-        <p>Image source</p>
-        <input type="text" name="source" placeholder="Image source" onChange={handleActivityImage} />
+        <p>Image file</p>
+        <input type="file" name="image" onChange={handleActivityImageUpload} />
         {errors.source && <p>{errors.source}</p>}
       </label>
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
@@ -179,22 +193,14 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         {errors.opening_at && <p>{errors.opening_at}</p>}
         <input type="time" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
         {errors.closing_at && <p>{errors.closing_at}</p>}
-        <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault();
-          handleCreateSchedule();
-          handleResetScheduleInput();
-          }}>Create schedule</button>
+        <button onClick={handleScheduleSubmit}>Create schedule</button>
       </label>
       <label htmlFor="">
         <p>Closing day</p>
         <input type="date" name="date" placeholder="date" value={activityClosingDayCredentials.date} onChange={handleActivityClosingDay} />
         {errors.date && <p>{errors.date}</p>}
         <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
-        <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault();
-          handleCreateClosingDay();
-          handleResetClosingDayInput();
-          }}>Create closing day</button>
+        <button onClick={handleClosingDaysSubmit}>Create closing day</button>
       </label>
       <br />
       <br />

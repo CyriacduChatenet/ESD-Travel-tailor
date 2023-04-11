@@ -8,7 +8,10 @@ import {
   Delete,
   UseGuards,
   Query,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common'
+import { FilesInterceptor } from '@nestjs/platform-express'
 import { ActivityQuery } from '@travel-tailor/types'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
@@ -17,6 +20,7 @@ import { Roles } from '../config/decorators/roles.decorator'
 import { ActivityService } from './activity.service'
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
+import { User } from '../config/decorators/user.decorator'
 
 @Controller('activity')
 export class ActivityController {
@@ -26,8 +30,9 @@ export class ActivityController {
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser)
   @Roles(Role.Admin)
-  create(@Body() createActivityDto: CreateActivityDto) {
-    return this.activityService.create(createActivityDto)
+  @UseInterceptors(FilesInterceptor('image'))
+  create(@Body() createActivityDto: CreateActivityDto, @User() user, @UploadedFiles() files) {
+    return this.activityService.create(createActivityDto, user, files)
   }
 
   @Get()

@@ -33,12 +33,39 @@ const createActivity = async (
   )
 }
 
+const createActivityFormData = async (
+  api_url: string,
+  credentials: FormData
+): Promise<Activity> => {
+  const response = await fetch(`${api_url}${API_ACTIVITY_ROUTE}`, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${TokenService.getAccessToken()}`,
+    },
+    body: credentials,
+  })
+  const data = await response.json()
+  return data;
+}
+
 const updateActivity = async (
   api_url: string,
   id: string,
   credentials: UpdateActivityDTO
 ): Promise<Activity> => {
   return await useFetch.protectedPatch(
+    `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
+    credentials,
+    `${TokenService.getAccessToken()}`
+  )
+}
+
+const updateActivityFormData = async (
+  api_url: string,
+  id: string,
+  credentials: UpdateActivityDTO | any | FormData,
+): Promise<Activity> => {
+  return await useFetch.protectedPatchFormData(
     `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
     credentials,
     `${TokenService.getAccessToken()}`
@@ -54,15 +81,16 @@ const deleteActivity = async (api_url: string, id: string) => {
 
 const createActivityWithRelations = async (
   api_url: string,
-  credentials: CreateActivityDTO,
+  credentials: CreateActivityDTO | any | FormData,
   tags: ActivityTag[]
-): Promise<Activity> => {
-  const activity = await createActivity(api_url, credentials)
-  tags.map(async (t) => {
-    await updateActivity(api_url, activity.id, {...credentials, tags: [{id: t.id}]});
-    await ActivityTagService.updateActivityTag(api_url, t.id, {name: t.name, activities: [{id: activity.id}]});
-  })
-  return await findActivityById(api_url, activity.id);
+) => {
+      const activity = await createActivityFormData(api_url, credentials)
+      const ac = await findActivityById(api_url, activity.id)
+      activity.tags = [...ac.tags, ...tags];
+
+      await updateActivity(api_url, activity.id, activity);
+      
+      return ac;
 }
 
 const findActivityBySlugWithRelations = async (api_url: string, slug: string, setData: Dispatch<SetStateAction<Activity>>, setComments: Dispatch<SetStateAction<Comment[]>>) => {
@@ -91,5 +119,6 @@ export const ActivityService = {
   createActivity,
   createActivityWithRelations,
   updateActivity,
+  updateActivityFormData,
   deleteActivity,
 }

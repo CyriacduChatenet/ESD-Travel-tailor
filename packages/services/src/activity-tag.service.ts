@@ -21,6 +21,10 @@ const updateActivityTag = async (api_url: string, id: string, credentials: Updat
     return await useFetch.protectedPatch(`${api_url}${API_ACTIVITY_TAG_ROUTE}/${id}`, credentials, `${TokenService.getAccessToken()}`);
 };
 
+const updateActivityTagFormData = async (api_url: string, id: string, credentials: FormData): Promise<ActivityTag> => {
+    return await useFetch.protectedPatchFormData(`${api_url}${API_ACTIVITY_TAG_ROUTE}/${id}`, credentials, `${TokenService.getAccessToken()}`);
+};
+
 const deleteActivityTag = async (api_url: string, id: string) => {
     return await useFetch.protectedRemove(`${api_url}${API_ACTIVITY_TAG_ROUTE}/${id}`, `${TokenService.getAccessToken()}`);
 };
@@ -30,5 +34,6 @@ export const ActivityTagService = {
     findActivityTagById,
     createActivityTag,
     updateActivityTag,
+    updateActivityTagFormData,
     deleteActivityTag
 };

@@ -27,11 +27,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
     location: '',
     duration: 0,
   })
-  const [activityImageCredentials, setActivityImageCredentials] = useState<{
-    source: string
-  }>({
-    source: '',
-  })
+  const [activityImageFileCredentials, setActivityImageFileCredentials] = useState<any>({})
 
   const [errors, setErrors] = useState<{
     name: string
@@ -62,16 +58,20 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
     })
   }
 
-  const handleActivityImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleActivityImageUpload = (e: any) => {
     e.preventDefault()
-    const { name, value } = e.target
-    setActivityImageCredentials({ ...activityImageCredentials, [name]: value })
-  }
+    const file = e.target?.files[0];
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      setActivityImageFileCredentials(file);
+    };
+  };
 
   const validate = (
     activityCredentials: { name: string; },
     activityDetailCredentials: { location: string; duration: number },
-    activityImageCredentials: { source: string }
   ) => {
     if (!activityCredentials.name) {
       setErrors({ ...errors, name: 'Name is required' })
@@ -85,31 +85,23 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
       setErrors({ ...errors, duration: 'Duration is required' })
       return false
     }
-    if (!activityImageCredentials.source) {
-      setErrors({ ...errors, source: 'Source is required' })
-      return false
-    }
     return true
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const error = validate(activityCredentials, activityDetailCredentials, activityImageCredentials);
+    const error = validate(activityCredentials, activityDetailCredentials);
     if (error) {
-      const sendObject = {
-        ...activityCredentials,
-        detail: {
-          ...activityDetailCredentials,
-        },
-        image: {
-          ...activityImageCredentials,
-        },
-      }
-      await ActivityService.updateActivity(
-        api_url,
-        `${router.query.id}`,
-        sendObject
-      )
+      const formData = new FormData();
+
+      formData.append('name', activityCredentials.name);
+      formData.append('detail[location]', activityDetailCredentials.location);
+      formData.append('detail[duration]', activityDetailCredentials.duration.toString());
+
+      formData.append('image', activityImageFileCredentials);
+      formData.append('advertiser', `${router.query.id}`);
+
+      await ActivityService.updateActivityFormData(api_url,`${router.query.id}`, formData)
       router.push(ROUTES.ADVERTISER.DASHBOARD)
     }
   }
@@ -141,13 +133,8 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken }
         <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
       </label>
       <label htmlFor="">
-        <p>Image source</p>
-        <input
-          type="text"
-          name="source"
-          placeholder="Image source"
-          onChange={handleActivityImage}
-        />
+        <p>Image file</p>
+        <input type="file" name="image" onChange={handleActivityImageUpload} />
         {errors.source && <p>{errors.source}</p>}
       </label>
       <input type="submit" value="Update activity" />
