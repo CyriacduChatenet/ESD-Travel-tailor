@@ -63,7 +63,7 @@ const updateActivity = async (
 const updateActivityFormData = async (
   api_url: string,
   id: string,
-  credentials: FormData
+  credentials: UpdateActivityDTO | any | FormData,
 ): Promise<Activity> => {
   return await useFetch.protectedPatchFormData(
     `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
@@ -119,5 +119,6 @@ export const ActivityService = {
   createActivity,
   createActivityWithRelations,
   updateActivity,
+  updateActivityFormData,
   deleteActivity,
 }
