@@ -5,6 +5,9 @@ export type ActivityImage = {
   source: string
   file: File | null
   activity?: Activity
+  uploadFile?: {
+    Location: string
+  }
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null
