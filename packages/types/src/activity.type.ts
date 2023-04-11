@@ -2,6 +2,7 @@ import { ActivityDetail, CreateActivityDetailDTO, UpdateActivityDetailDTO } from
 import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from './activiity-image.type'
 import { ActivityTag, CreateActivityTagDTO } from './activity-tag.type'
 import { Comment } from './comment.type'
+import { TimeSlot } from './time-slot.type'
 
 export type Activity = {
   id: string
@@ -12,6 +13,7 @@ export type Activity = {
   image: ActivityImage
   comments: Comment[]
   tags: ActivityTag[]
+  timeSlots: TimeSlot[]
   advertiser: string;
 }
 
@@ -22,6 +24,7 @@ export type CreateActivityDTO = {
   image: CreateActivityImageDTO
   advertiser? : string
   tags?: CreateActivityTagDTO[]
+  timeSlots?: TimeSlot[]
   comments?: Comment[]
 }
 
