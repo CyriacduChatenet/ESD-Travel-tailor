@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
 import { ActivityService } from "@travel-tailor/services";
 import { Activity } from "@travel-tailor/types";
 import Link from "next/link";
@@ -7,24 +6,18 @@ import { ROUTES } from "@travel-tailor/constants";
 
 import { Layout } from "@/layout";
 
-const ActivityListPage: NextPage = () => {
-    const [data, setData] = useState<Activity[]>([]);
 
-    const handleFetch = async () => {
-        const activities = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`);
-        return setData(activities);
-    };
+interface IProps {
+    activities: Activity[];
+}
 
-    useEffect(() => {
-        handleFetch();
-    }, []);
-
+const ActivityListPage: NextPage<IProps> = ({ activities }) => {
     return (
         <Layout>
             <div>
                 <h1>Activities</h1>
                 <section>
-                    {data.map((activity: Activity, index) => <Link href={`${ROUTES.ADVERTISER.ACTIVITY.LIST}/${activity.slug}`} key={index}>
+                    {activities.map((activity: Activity, index) => <Link href={`${ROUTES.ADVERTISER.ACTIVITY.LIST}/${activity.slug}`} key={index}>
                         <div>
                             <p>{activity.name}</p>
                         </div>
@@ -36,3 +29,12 @@ const ActivityListPage: NextPage = () => {
 };
 
 export default ActivityListPage;
+
+export const getServerSideProps = async () => {
+    const activities = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`);
+    return {
+        props: {
+            activities,
+        },
+    };
+};
