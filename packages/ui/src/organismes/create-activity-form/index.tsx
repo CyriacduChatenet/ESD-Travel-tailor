@@ -159,21 +159,9 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         formData.append('image', activityImageFileCredentials);
         formData.append('advertiser', `${router.query.id}`);
 
-        // const response = await fetch(`${api_url}/activity`, {
-        //   method: 'POST',
-        //   headers: {
-        //     authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        //   },
-        //   body: formData,
-        // })
-        
-        // const data = await response.json();
-
-        // console.log(data)
-
         await ActivityService.createActivityWithRelations(api_url, formData, tags);
   
-        // router.push(ROUTES.ADVERTISER.DASHBOARD)
+        router.push(ROUTES.ADVERTISER.DASHBOARD)
     }
   }
 

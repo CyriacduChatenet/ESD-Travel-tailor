@@ -169,7 +169,7 @@ export class ActivityService {
   }
 
   async update(id: string, updateActivityDto: UpdateActivityDto) {
-    // try {
+    try {
       const activity = await this.activityRepository
         .createQueryBuilder('activity')
         .leftJoinAndSelect('activity.detail', 'detail')
@@ -191,9 +191,9 @@ export class ActivityService {
       activity.tags = updateActivityDto?.tags
 
       return this.activityRepository.save(activity)
-    // } catch (error) {
-    //   throw new UnauthorizedException(error)
-    // }
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 
   async remove(id: string) {

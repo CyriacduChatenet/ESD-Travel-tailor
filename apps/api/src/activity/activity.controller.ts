@@ -51,9 +51,9 @@ export class ActivityController {
   }
 
   @Patch(':id')
-  // @UseGuards(JwtAuthGuard)
-  // @Roles(Role.Advertiser)
-  // @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser)
+  @Roles(Role.Admin)
   update(
     @Param('id') id: string,
     @Body() updateActivityDto: UpdateActivityDto
