@@ -59,7 +59,7 @@ import { UploadFileModule } from './upload-file/upload-file.module';
     OrderModule,
     TimeSlotModule,
     OpencageModule,
-    UploadFileModule
+    UploadFileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -21,7 +21,7 @@ export class PaymentController {
       customer: user.advertiser ? user.advertiser.customer.id : user.traveler.customer.id,
     };
 
-    const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
+    const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto, user);
     return { sessionId };
   }
 }

@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
-import { Customer } from "./customer/entities/customer.entity";
+
+import { Customer } from "../customer/entities/customer.entity";
 import { Repository } from "typeorm";
-import { CreateSubscriptionDto } from "./dto/create-subscription.dto";
+import { CreateSubscriptionDto } from "../dto/create-subscription.dto";
 
 @Injectable()
 export class SubscriptionService {
