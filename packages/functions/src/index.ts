@@ -2,6 +2,7 @@ import jwt_decode from 'jwt-decode';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import GoogleLogin from 'react-google-login'
 
 export { useRouter } from 'next/router';
 
@@ -12,3 +13,4 @@ export const jwtDecode = jwt_decode;
 export const ReactD = React;
 export const NextImage = Image;
 export const NextLink = Link;
+export const GoogleAuthLogin = GoogleLogin;

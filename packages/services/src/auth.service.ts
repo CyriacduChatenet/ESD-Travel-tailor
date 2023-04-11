@@ -8,7 +8,7 @@ import {
 } from '@travel-tailor/types'
 import { useFetch } from '@travel-tailor/hooks'
 import { jwtDecode } from '@travel-tailor/functions'
-import { API_RESET_PASSWORD_ROUTE, ROUTES } from '@travel-tailor/constants'
+import { API_GOOGLE_AUTH, API_RESET_PASSWORD_ROUTE, ROUTES } from '@travel-tailor/constants'
 
 import { TokenService } from './token.service'
 
@@ -18,6 +18,14 @@ const signin = async (api_url: string, signinCredentials: SigninDTO): Promise<Ac
   const tokenDecode = jwtDecode(token.accessToken) as AccessToken
   return tokenDecode
 }
+
+const signinWithGoogle = async (api_url: string, value: { accessToken: string }) => {
+  try {
+    const response = await useFetch.post(`${api_url}${API_GOOGLE_AUTH}`, { access_token: value.accessToken })
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const signup = async (api_url: string, signupCredentials: SignupDTO): Promise<User> => {
   const { user, signinToken } = await useFetch.post(api_url, signupCredentials)
@@ -43,6 +51,7 @@ const resetPassword = async (api_url: string, resetToken: string, resetPasswordC
 
 export const AuthService = {
   signin,
+  signinWithGoogle,
   signup,
   forgotPassword,
   resetPassword,
