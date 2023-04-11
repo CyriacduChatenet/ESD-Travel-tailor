@@ -204,8 +204,8 @@ export class ActivityService {
         activity.mark = updateActivityDto?.mark
       }
 
-      if(updateActivityDto?.image && updateActivityDto.image.source){
-        activity.image.source = updateActivityDto.image.source
+      if(updateActivityDto?.image && updateActivityDto.image.uploadFile){
+        activity.image.uploadFile = updateActivityDto.image.uploadFile
       }
 
       if(updateActivityDto?.detail && updateActivityDto?.detail.duration){
