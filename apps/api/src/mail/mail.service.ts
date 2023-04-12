@@ -11,10 +11,10 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Welcome to Travel Tailor',
-      text: 'welcome',
-      html: `<div>
-      <p>Welcome to Travel tailor your account has been successfully created</p>
-      </div>`,
+      template: './confirmation', // `.hbs` extension is appended automatically
+      context: { // ✏️ filling curly brackets with content
+        name: reciever,
+      },
     })
   }
 
@@ -23,11 +23,10 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Reset password demand',
-      text: 'welcome',
-      html: `<div>
-      <p>You have send demand to reset your password</p>
-      <a href="${resetLink}}">Reset your password here</a>
-      </div>`,
+      template: './forgot-password', // `.hbs` extension is appended automatically
+      context: { // ✏️ filling curly brackets with content
+        resetLink,
+      },
     })
   }
 
@@ -36,10 +35,10 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Your password has been reset',
-      text: 'welcome',
-      html: `<div>
-      <p>Your password has been successfully reset</p>
-      </div>`,
+      template: './reset-password', // `.hbs` extension is appended automatically
+      context: { // ✏️ filling curly brackets with content
+        reciever,
+      },
     })
   }
 }

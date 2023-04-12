@@ -33,6 +33,7 @@ importers:
       eslint-config-prettier: ^8.3.0
       eslint-plugin-airbnb-base: 0.0.1-security
       eslint-plugin-prettier: ^4.0.0
+      handlebars: ^4.7.7
       i: ^0.3.7
       jwt-decode: ^3.1.2
       moment: ^2.29.4
@@ -73,6 +74,7 @@ importers:
       '@types/nodemailer': 6.4.7
       aws-sdk: 2.1351.0
       bcrypt: 5.1.0
+      handlebars: 4.7.7
       i: 0.3.7
       jwt-decode: 3.1.2
       moment: 2.29.4
@@ -1103,7 +1105,7 @@ packages:
     optionalDependencies:
       '@types/ejs': 3.1.1
       '@types/pug': 2.0.6
-      ejs: 3.1.8
+      ejs: 3.1.9
       handlebars: 4.7.7
       pug: 3.0.2
     transitivePeerDependencies:
@@ -3244,8 +3246,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: false
 
-  /ejs/3.1.8:
-    resolution: {integrity: sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==}
+  /ejs/3.1.9:
+    resolution: {integrity: sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     requiresBuild: true
@@ -4340,7 +4342,6 @@ packages:
     optionalDependencies:
       uglify-js: 3.17.4
     dev: false
-    optional: true
 
   /hard-rejection/2.1.0:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
@@ -8309,7 +8310,6 @@ packages:
   /wordwrap/1.0.0:
     resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
     dev: false
-    optional: true
 
   /wrap-ansi/7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
