@@ -36,7 +36,7 @@ const AdvertiserPaymentPage: NextPage = () => {
   }
 
   const handlePayed = async () => {
-     usePayment(`${process.env.NEXT_PUBLIC_API_URL}`,stripePromise, { amount, location: `${advertiser.location}`})
+     usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, `${id}` ,stripePromise, { amount, location: `${advertiser.location}`})
   };
 
   useEffect(() => {

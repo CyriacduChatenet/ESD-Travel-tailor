@@ -10,5 +10,6 @@ import { CustomerModule } from '../../payment/customer/customer.module';
   imports: [TypeOrmModule.forFeature([Advertiser]), CustomerModule],
   controllers: [AdvertiserController],
   providers: [AdvertiserService],
+  exports: [AdvertiserService],
 })
 export class AdvertiserModule {}
