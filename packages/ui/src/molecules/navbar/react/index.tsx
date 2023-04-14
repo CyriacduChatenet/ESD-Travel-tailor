@@ -5,6 +5,7 @@ import { FC, NextImage, NextLink } from '@travel-tailor/functions'
 import { WebButton } from '../../../atoms/button/react'
 
 import styles from './style.module.scss'
+import { AuthService } from '@travel-tailor/services'
 
 export const WebNavbar: FC = () => {
   const { user } = useUser()
@@ -23,13 +24,26 @@ export const WebNavbar: FC = () => {
       <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</NextLink>
       {user?.roles !== undefined && user.roles.length > 0 ? (
         <>
-        {user.roles === ROLES.TRAVELER ? <NextLink href={ROUTES.TRAVELER.DASHBOARD}>Traveler dashboard</NextLink> : null}
-        {user.roles === ROLES.ADVERTISER ? <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>Advertiser dashboard</NextLink> : null}
+          {user.roles === ROLES.TRAVELER ? (
+            <NextLink href={ROUTES.TRAVELER.DASHBOARD}>
+              Traveler dashboard
+            </NextLink>
+          ) : null}
+          {user.roles === ROLES.ADVERTISER ? (
+            <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>
+              Advertiser dashboard
+            </NextLink>
+          ) : null}
         </>
       ) : null}
+      {user.name === undefined ? (
+        <NextLink href={ROUTES.AUTH.SIGNIN}>
+          <WebButton label={'Signin'} />
+        </NextLink>
+      ) : 
       <NextLink href={ROUTES.AUTH.SIGNIN}>
-        <WebButton label={'Connexion'} />
-      </NextLink>
+      <WebButton label={'Logout'} onClick={() => AuthService.logout()} />
+    </NextLink>}
     </nav>
   )
 }
