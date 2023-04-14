@@ -485,12 +485,18 @@ importers:
 
   packages/utils:
     dependencies:
+      '@travel-tailor/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@travel-tailor/functions':
         specifier: workspace:*
         version: link:../functions
       '@travel-tailor/services':
         specifier: workspace:*
         version: link:../services
+      '@travel-tailor/types':
+        specifier: workspace:*
+        version: link:../types
       prettier:
         specifier: ^2.3.2
         version: 2.8.4
