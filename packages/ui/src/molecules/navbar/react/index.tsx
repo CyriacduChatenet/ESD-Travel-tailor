@@ -23,13 +23,23 @@ export const WebNavbar: FC = () => {
       <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</NextLink>
       {user?.roles !== undefined && user.roles.length > 0 ? (
         <>
-        {user.roles === ROLES.TRAVELER ? <NextLink href={ROUTES.TRAVELER.DASHBOARD}>Traveler dashboard</NextLink> : null}
-        {user.roles === ROLES.ADVERTISER ? <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>Advertiser dashboard</NextLink> : null}
+          {user.roles === ROLES.TRAVELER ? (
+            <NextLink href={ROUTES.TRAVELER.DASHBOARD}>
+              Traveler dashboard
+            </NextLink>
+          ) : null}
+          {user.roles === ROLES.ADVERTISER ? (
+            <NextLink href={ROUTES.ADVERTISER.DASHBOARD}>
+              Advertiser dashboard
+            </NextLink>
+          ) : null}
         </>
       ) : null}
-      <NextLink href={ROUTES.AUTH.SIGNIN}>
-        <WebButton label={'Connexion'} />
-      </NextLink>
+      {user.name === undefined ? (
+        <NextLink href={ROUTES.AUTH.SIGNIN}>
+          <WebButton label={'Connexion'} />
+        </NextLink>
+      ) : null}
     </nav>
   )
 }

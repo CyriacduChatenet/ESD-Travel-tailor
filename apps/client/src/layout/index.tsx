@@ -10,10 +10,12 @@ export const Layout = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (
+      window.location.pathname !== ROUTES.ROOT &&
       window.location.pathname !== ROUTES.AUTH.SIGNIN &&
       window.location.pathname !== ROUTES.AUTH.SIGNUP &&
       window.location.pathname !== ROUTES.AUTH.RESET_PASSWORD &&
-      window.location.pathname !== ROUTES.AUTH.FORGOT_PASSWORD
+      window.location.pathname !== ROUTES.AUTH.FORGOT_PASSWORD &&
+      window.location.pathname !== ROUTES.ADVERTISER.ACTIVITY.LIST
     ) {
       findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
     }
