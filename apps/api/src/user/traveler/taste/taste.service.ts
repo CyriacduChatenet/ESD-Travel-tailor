@@ -43,7 +43,7 @@ export class TasteService {
       }
 
       if(name) {
-        query.andWhere('taste.name = :name', { name })
+        query.andWhere('taste.name LIKE :name', { name: `%${name}%`})
       }
 
       return {

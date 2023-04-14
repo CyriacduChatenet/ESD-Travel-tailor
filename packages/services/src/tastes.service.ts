@@ -15,7 +15,6 @@ const findOneTaste = async (api_url: string, id: string): Promise<Taste> => {
 }
 
 const createTaste = async (api_url: string, credentials: CreateTasteDTO): Promise<Taste> => {
-  console.log(TokenService.getSigninToken())
   return await useFetch.protectedPost(
     `${api_url}${API_TASTE_ROUTE}`,
     credentials,

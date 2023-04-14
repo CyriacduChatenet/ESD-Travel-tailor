@@ -31,7 +31,7 @@ const CreateTastePage: NextPage = () => {
   return (
     <div>
       <h1> Create Taste</h1>
-      <WebCreateTasteForm tastes={tastes} setTastes={setTastes} />
+      <WebCreateTasteForm tastes={tastes} setTastes={setTastes} api_url={`${process.env.NEXT_PUBLIC_API_URL}`} />
       <br />
       <br />
       <p>Tastes</p>
