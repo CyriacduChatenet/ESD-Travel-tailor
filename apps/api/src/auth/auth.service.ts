@@ -104,7 +104,6 @@ export class AuthService {
 
     const payload = {
       email: signupUserInputDTO.email,
-      password: signupUserInputDTO.password,
       roles: signupUserInputDTO.roles,
     }
     return {
