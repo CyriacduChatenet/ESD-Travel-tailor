@@ -18,7 +18,7 @@ export const formatDateUtil = (date: Date, displayHours: boolean) => {
     }
 }
 
-export const sortDatebyASC = (a: { date: any }, b: { date: any }) => {
+export const sortDatebyASC = (a: any, b: any) => {
         if (a.date < b.date) {
           return -1;
         }
