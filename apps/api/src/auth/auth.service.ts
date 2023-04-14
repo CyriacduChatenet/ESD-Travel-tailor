@@ -31,7 +31,7 @@ export class AuthService {
     }
   }
 
-  public async validateGoogleOAuth(user: any): Promise<any> {
+  public async validateGoogleOAuth(user: { emails: [{value: string}], username: string}): Promise<any> {
     if (!user) {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED)
     }

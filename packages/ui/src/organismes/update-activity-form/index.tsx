@@ -102,9 +102,9 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
     setActivityClosingDayCredentials({ date: '', recurrence: false});
   };
 
-  const handleActivityImageUpload = (e: any) => {
+  const handleActivityImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const file = e.target?.files[0];
+    const file = e.target?.files?.[0] as File;
   
     const reader = new FileReader();
     reader.readAsDataURL(file);
