@@ -61,7 +61,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-airbnb-base": "0.0.1-security",
     "eslint-plugin-prettier": "^4.0.0",
-    "pnpm": "^7.30.1",
+    "pnpm": "^8.2.0",
     "prettier": "^2.8.3",
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
