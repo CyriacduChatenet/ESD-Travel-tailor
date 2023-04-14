@@ -5,6 +5,7 @@ import { FC, NextImage, NextLink } from '@travel-tailor/functions'
 import { WebButton } from '../../../atoms/button/react'
 
 import styles from './style.module.scss'
+import { AuthService } from '@travel-tailor/services'
 
 export const WebNavbar: FC = () => {
   const { user } = useUser()
@@ -37,9 +38,12 @@ export const WebNavbar: FC = () => {
       ) : null}
       {user.name === undefined ? (
         <NextLink href={ROUTES.AUTH.SIGNIN}>
-          <WebButton label={'Connexion'} />
+          <WebButton label={'Signin'} />
         </NextLink>
-      ) : null}
+      ) : 
+      <NextLink href={ROUTES.AUTH.SIGNIN}>
+      <WebButton label={'Logout'} onClick={() => AuthService.logout()} />
+    </NextLink>}
     </nav>
   )
 }

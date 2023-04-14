@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import {
   ActivityService,
-  AuthService,
   UserService,
 } from '@travel-tailor/services'
 import {
@@ -50,7 +49,6 @@ const AdvertiserDashboard: NextPage = () => {
       <h1>Advertiser Dashboard</h1>
       <br />
       <div>
-        <button onClick={() => AuthService.logout()}>logout</button>
         <br />
         <br />
         <Link

@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { MouseEvent, useEffect } from 'react'
-import { AuthService, TravelService, UserService } from '@travel-tailor/services'
+import { TravelService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute, useTravelerProtectedRoute } from '@travel-tailor/hooks'
 import { useUser } from '@travel-tailor/contexts'
 import { Travel, User } from '@travel-tailor/types'
@@ -41,7 +41,6 @@ const TravelerDashboard: NextPage = () => {
   return (
     <Layout>
       <h1>Traveler Dashboard</h1>
-      <button onClick={() => AuthService.logout()}>logout</button>
       <br />
       <br />
       <h2>Travels</h2>
