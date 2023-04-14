@@ -34,6 +34,6 @@
   },
   "prettier": "@travel-tailor/tools/prettier.config.js",
   "devDependencies": {
-    "pnpm": "^7.30.1"
+    "pnpm": "^8.2.0"
   }
 }

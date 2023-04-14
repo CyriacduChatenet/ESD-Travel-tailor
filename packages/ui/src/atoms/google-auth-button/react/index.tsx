@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export const WebGoogleAuthButton: FC<IProps> = ({ api_url }) => {
-    const handleGoogleFetch = async (value: any) => {
+    const handleGoogleFetch = async (value: { accessToken: string }) => {
         await AuthService.signinWithGoogle(api_url,value)
       }
     
