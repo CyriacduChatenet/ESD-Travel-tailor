@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@travel-tailor/functions": "workspace:*",
+    "@travel-tailor/types": "workspace:*",
     "@travel-tailor/services": "workspace:*",
+    "@travel-tailor/constants": "workspace:*",
     "prettier": "^2.3.2"
   },
   "keywords": [],
