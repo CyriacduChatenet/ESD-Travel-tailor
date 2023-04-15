@@ -7,7 +7,7 @@ const PaymentCancelPage: NextPage = () => {
   return (
     <Layout>
       <div>
-        <h1>Payment Cancel Page</h1>
+        <h1>402 - Payment isn't accepted</h1>
         <Link href={'/'}>Home</Link>
       </div>
     </Layout>
