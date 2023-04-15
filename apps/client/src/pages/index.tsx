@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 import { Layout } from '@/layout';
 import { useUser } from '@travel-tailor/contexts';
 import { ROLES } from '@travel-tailor/constants';
+import { useState } from 'react';
 
 interface IProps {
   message: string;
@@ -26,8 +27,10 @@ const Home: NextPage<IProps> = ({ message }) => {
 export default Home;
 
 export const getServerSideProps = async () => {
+  const [submitError, setSubmitError] = useState({});
   const response = await HelloService.getHello(
     `${process.env.NEXT_PUBLIC_API_URL}`,
+    setSubmitError
   );
   return {
     props: {

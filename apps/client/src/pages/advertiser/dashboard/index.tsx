@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ActivityService,
   UserService,
@@ -19,9 +19,12 @@ import { Layout } from '@/layout'
 
 const AdvertiserDashboard: NextPage = () => {
   const { user, setUser } = useUser()
+  const [submitError, setSubmitError] = useState({})
+
   const getData = async () => {
     const response = await UserService.getUserInfo(
-      `${process.env.NEXT_PUBLIC_API_URL}`
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      setSubmitError
     ) as User
     setUser(response)
   }
@@ -30,7 +33,7 @@ const AdvertiserDashboard: NextPage = () => {
   useAdvertiserProtectedRoute(authUtil)
 
   const handleDelete = (id: string) => {
-    ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`, id)
+    ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`, id, setSubmitError)
     const updatedData = {
       ...user,
       activities: user.activities?.filter(

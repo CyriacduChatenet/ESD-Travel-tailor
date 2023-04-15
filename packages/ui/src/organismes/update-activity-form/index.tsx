@@ -54,6 +54,8 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
     date: '',
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const router = useRouter()
 
   const handleActivity = (e: ChangeEvent<HTMLInputElement>) => {
@@ -87,11 +89,11 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
   }
 
   const handleUpdateSchedule = async () => {
-    return setSchedules([...schedules, await ActivityScheduleService.createActivitySchedule(api_url, activityScheduleCredentials)])
+    return setSchedules([...schedules, await ActivityScheduleService.createActivitySchedule(api_url, activityScheduleCredentials, setSubmitError)])
   };
 
   const handleUpdateClosingDay = async () => {
-    return setClosingDays([...closingDays, await ActivityClosingDayService.createActivityClosingDay(api_url, activityClosingDayCredentials)])
+    return setClosingDays([...closingDays, await ActivityClosingDayService.createActivityClosingDay(api_url, activityClosingDayCredentials, setSubmitError)])
   };
 
   const handleResetScheduleInput = () => {
@@ -167,7 +169,7 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
         formData.append('image', activityImageFileCredentials);
         formData.append('advertiser', `${router.query.id}`);
 
-        await ActivityService.updateActivityWithRelations(api_url, `${router.query.id}`, formData, tags);
+        await ActivityService.updateActivityWithRelations(api_url, `${router.query.id}`, formData, tags, setSubmitError);
   
         router.push(ROUTES.ADVERTISER.DASHBOARD)
     }

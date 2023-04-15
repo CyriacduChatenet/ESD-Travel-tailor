@@ -15,6 +15,7 @@ const CreateTastePage: NextPage = () => {
   const router = useRouter();
 
   const [tastes, setTastes] = useState<Taste[]>([]);
+  const [submitError, setSubmitError] = useState({});
 
   const travelerId = router.query.id;
 
@@ -23,7 +24,7 @@ const CreateTastePage: NextPage = () => {
   };
 
   const handleSubmit = async () => {
-    TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, `${travelerId}`)
+    TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, `${travelerId}`, setSubmitError)
     TokenService.removeSigninToken();
     return router.push(ROUTES.AUTH.SIGNIN);
   };

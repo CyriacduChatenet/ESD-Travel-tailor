@@ -33,6 +33,8 @@ export const WebUpdateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken, tr
         returnDate: '',
     })
 
+    const [submitError, setSubmitError] = useState({});
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -63,7 +65,7 @@ export const WebUpdateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken, tr
         e.preventDefault();
         const error = validate(credentials);
         if (error) {
-            await TravelService.updateTravel(api_url, `${router.query.id}`, {departureCity: cities.departureCity, destinationCity: cities.destinationCity, departureDate: credentials.departureDate, returnDate: credentials.returnDate});
+            await TravelService.updateTravel(api_url, `${router.query.id}`, {departureCity: cities.departureCity, destinationCity: cities.destinationCity, departureDate: credentials.departureDate, returnDate: credentials.returnDate}, setSubmitError);
             return router.push(ROUTES.TRAVELER.DASHBOARD)
         }
     };

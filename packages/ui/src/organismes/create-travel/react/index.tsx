@@ -31,6 +31,8 @@ export const WebCreateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) 
         destinationCity: '',
     });
 
+    const [submitError, setSubmitError] = useState({});
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -62,7 +64,7 @@ export const WebCreateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) 
         const error = validate(credentials, cities);
 
         if(error) {
-            await TravelService.createTravel(api_url, {...credentials, ...cities});
+            await TravelService.createTravel(api_url, {...credentials, ...cities}, setSubmitError);
         }
     };
 

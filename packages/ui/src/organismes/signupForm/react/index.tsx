@@ -27,6 +27,8 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     roles: '',
   });
 
+  const [submitError, setSubmitError] = useState({});
+
   const router = useRouter()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -38,8 +40,8 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     if (credentials.roles === ROLES.TRAVELER) {
       const traveler = await TravelerService.createTraveler(api_url, {
         user: user.id,
-      })
-      await UserService.updateUser(api_url, await user.id, { traveler: traveler.id })
+      }, setSubmitError)
+      await UserService.updateUser(api_url, await user.id, { traveler: traveler.id }, setSubmitError)
       router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
     }
 
@@ -76,7 +78,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     e.preventDefault()
     const error = validate(credentials);
     if(error === true) {
-      const user = await AuthService.signup(`${api_url}${API_SIGNUP_ROUTE}`, credentials)
+      const user = await AuthService.signup(`${api_url}${API_SIGNUP_ROUTE}`, credentials, setSubmitError)
       handleRedirect(user)
     }
   }
