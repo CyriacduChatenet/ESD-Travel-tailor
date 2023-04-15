@@ -24,7 +24,8 @@ const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<an
   if ((user.roles) === ROLES.TRAVELER) {
     const traveler = await TravelerService.findTravelerById(
       api_url,
-      `${user?.traveler?.id}`
+      `${user?.traveler?.id}`,
+      setError
     )
     return { ...user, ...traveler }
   }
@@ -32,7 +33,8 @@ const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<an
   if ((user.roles) === ROLES.ADVERTISER) {
     const advertiser = await AdvertiserService.findAdvertiserById(
       api_url,
-      `${user?.advertiser?.id}`
+      `${user?.advertiser?.id}`,
+      setError
     )
     return { ...user, ...advertiser }
   }
