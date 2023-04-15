@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { formatDateUtil } from '@travel-tailor/utils'
 import { ROUTES } from '@travel-tailor/constants'
 import { useTravel } from '@travel-tailor/contexts'
+import { useState } from 'react'
 
 interface IProps {
     activity: Activity
@@ -61,10 +62,13 @@ export default TravelActivityPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { id } = context.params!
+
+    const [submitError, setSubmitError] = useState({});
     
     const response = await ActivityService.findActivityById(
         `${process.env.NEXT_PUBLIC_API_URL}`,
-        id as string
+        id as string,
+        setSubmitError,
     )
     
     return {

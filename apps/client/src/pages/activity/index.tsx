@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ROUTES } from "@travel-tailor/constants";
 
 import { Layout } from "@/layout";
+import { useState } from "react";
 
 
 interface IProps {
@@ -31,7 +32,9 @@ const ActivityListPage: NextPage<IProps> = ({ activities }) => {
 export default ActivityListPage;
 
 export const getServerSideProps = async () => {
-    const activities = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`);
+    const [submitError, setSubmitError] = useState({});
+
+    const activities = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`, setSubmitError);
     return {
         props: {
             activities,

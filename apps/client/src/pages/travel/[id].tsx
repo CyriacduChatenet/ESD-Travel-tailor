@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { TravelService } from '@travel-tailor/services'
 import { Day, TimeSlot, Travel } from '@travel-tailor/types'
-import { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, useState } from 'react'
 import { formatDateUtil, sortDatebyASC } from '@travel-tailor/utils'
 import { WebMapbox } from '@travel-tailor/ui'
 import { useRouter } from 'next/router'
@@ -78,9 +78,12 @@ export default TravelPage
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!
 
+  const [submitError, setSubmitError] = useState({});
+
   const response = await TravelService.findTravelById(
     `${process.env.NEXT_PUBLIC_API_URL}`,
-    id as string
+    id as string,
+    setSubmitError
   )
 
   return {

@@ -12,6 +12,8 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
     password: '',
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const router = useRouter()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +24,7 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const resetTokenParam = router.query.resetToken;
-    await AuthService.resetPassword(api_url, `${resetTokenParam}`, credentials)
+    await AuthService.resetPassword(api_url, `${resetTokenParam}`, credentials, setSubmitError)
     router.push(ROUTES.AUTH.SIGNIN)
   }
 

@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { MouseEvent, useEffect } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { TravelService, UserService } from '@travel-tailor/services'
 import { useProtectedRoute, useTravelerProtectedRoute } from '@travel-tailor/hooks'
 import { useUser } from '@travel-tailor/contexts'
@@ -15,9 +15,12 @@ const TravelerDashboard: NextPage = () => {
   const { user, setUser } = useUser()
   const router = useRouter()
 
+  const [submitError, setSubmitError] = useState({});
+
   const getData = async () => {
     const response = await UserService.getUserInfo(
-      `${process.env.NEXT_PUBLIC_API_URL}`
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      setSubmitError
     ) as User
     setUser(response)
   }
@@ -31,7 +34,7 @@ const TravelerDashboard: NextPage = () => {
 
   const handleDelete = async (e: MouseEvent<HTMLButtonElement>, travel_id: string) => {
     e.preventDefault();
-    await TravelService.deleteTravel(`${process.env.NEXT_PUBLIC_API_URL}`, travel_id);
+    await TravelService.deleteTravel(`${process.env.NEXT_PUBLIC_API_URL}`, travel_id, setSubmitError);
     setUser({...user, travels: user.travels?.filter((travel: Travel) => travel.id !== travel_id)});
   };
 

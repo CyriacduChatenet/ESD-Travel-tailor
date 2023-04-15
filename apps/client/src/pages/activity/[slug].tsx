@@ -22,12 +22,15 @@ const ActivityPage: NextPage = () => {
 
   const router = useRouter()
 
+  const [submitError, setSubmitError] = useState({});
+
   const handleFetch = async (slug: string) => {
     await ActivityService.findActivityBySlugWithRelations(
       `${process.env.NEXT_PUBLIC_API_URL}`,
       slug,
       setData,
-      setComments
+      setComments,
+      setSubmitError
     )
   }
 
@@ -36,7 +39,8 @@ const ActivityPage: NextPage = () => {
       `${process.env.NEXT_PUBLIC_API_URL}`,
       comment,
       setComments,
-      comments
+      comments,
+      setSubmitError
     )
   }
 
@@ -45,7 +49,8 @@ const ActivityPage: NextPage = () => {
       `${process.env.NEXT_PUBLIC_API_URL}`,
       comment,
       setComments,
-      comments
+      comments,
+      setSubmitError
     )
   }
 

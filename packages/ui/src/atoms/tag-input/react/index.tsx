@@ -21,10 +21,12 @@ export const WebTagInput: FC<IProps> = ({ tags, setTags, api_url}) => {
         activities: []
     });
 
+    const [submitError, setSubmitError] = useState({});
+
     const [hideAutocomplete, setHideAutocomplete] = useState(true);
 
     const handleCreateTag = async () => {
-        return setTags([...tags, await ActivityTagService.createActivityTag(api_url, activityTagCredentials)])
+        return setTags([...tags, await ActivityTagService.createActivityTag(api_url, activityTagCredentials, setSubmitError)])
       };
 
       const handleActivityTag = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +47,7 @@ export const WebTagInput: FC<IProps> = ({ tags, setTags, api_url}) => {
       };
 
       useMemo(async () => {
-        const response = await ActivityTagService.findAllActivityTags(api_url, `?name=${activityTagCredentials.name}`);
+        const response = await ActivityTagService.findAllActivityTags(api_url, `?name=${activityTagCredentials.name}`, setSubmitError);
         setSearchResults(response);
       }, [activityTagCredentials]);
 

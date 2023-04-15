@@ -13,6 +13,8 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }
         content: "",
     });
 
+    const [submitError, setSubmitError] = useState({});
+
     const [mark, setMark] = useState<number>(0);
 
     const { user } = useUser();
@@ -25,7 +27,7 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const comment = CommentService.createCommentWithRelations(api_url, {content: credentials.content, traveler: user.traveler?.id, mark }, activity_id);
+        const comment = CommentService.createCommentWithRelations(api_url, {content: credentials.content, traveler: user.traveler?.id, mark }, activity_id, setSubmitError);
         setComments((prevComments: Comment[]) => [...prevComments, comment])
     };
     

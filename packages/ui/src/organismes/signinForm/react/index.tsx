@@ -19,6 +19,8 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
     password: '',
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const router = useRouter()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +54,7 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
   const handleSubmit = async () => {
     const error = validate(credentials);
     if(error === true) {
-      const user = await AuthService.signin(`${api_url}${API_SIGNIN_ROUTE}`, credentials) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
+      const user = await AuthService.signin(`${api_url}${API_SIGNIN_ROUTE}`, credentials, setSubmitError) as unknown as { email: string, password: string, roles: string, iat: number, exp: number}
       handleRedirect(user)
     }
   }

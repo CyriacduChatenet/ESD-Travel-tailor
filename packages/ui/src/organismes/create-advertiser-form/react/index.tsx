@@ -29,6 +29,8 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
     location: '',
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
@@ -59,10 +61,11 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
     if (error) {
       const advertiser = await AdvertiserService.createAdvertiser(
         api_url,
-        credentials
+        credentials,
+        setSubmitError
       )
       if(advertiser.id) {
-        await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id })
+        await UserService.updateUser(`${api_url}`, String(userId), { advertiser: advertiser.id }, setSubmitError)
         TokenService.removeSigninToken();
         return router.push(`${ROUTES.ADVERTISER.PAYMENT}/${advertiser.id}`)
       }

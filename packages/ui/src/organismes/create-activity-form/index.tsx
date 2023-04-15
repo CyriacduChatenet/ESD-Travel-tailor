@@ -46,6 +46,8 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
     date: '',
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const router = useRouter()
 
   const handleActivity = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,11 +81,11 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
   }
 
   const handleCreateSchedule = async () => {
-    return setSchedules([...schedules, await ActivityScheduleService.createActivitySchedule(api_url, activityScheduleCredentials)])
+    return setSchedules([...schedules, await ActivityScheduleService.createActivitySchedule(api_url, activityScheduleCredentials, setSubmitError)])
   };
 
   const handleCreateClosingDay = async () => {
-    return setClosingDays([...closingDays, await ActivityClosingDayService.createActivityClosingDay(api_url, activityClosingDayCredentials)])
+    return setClosingDays([...closingDays, await ActivityClosingDayService.createActivityClosingDay(api_url, activityClosingDayCredentials, setSubmitError)])
   };
 
   const handleResetScheduleInput = () => {
@@ -159,7 +161,7 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
         formData.append('image', activityImageFileCredentials);
         formData.append('advertiser', `${router.query.id}`);
 
-        await ActivityService.createActivityWithRelations(api_url, formData, tags);
+        await ActivityService.createActivityWithRelations(api_url, formData, tags, setSubmitError);
   
         router.push(ROUTES.ADVERTISER.DASHBOARD)
     }

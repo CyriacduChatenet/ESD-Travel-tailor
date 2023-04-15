@@ -47,9 +47,11 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     },
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const findUserInfo = async (api_url: string) => {
     if (TokenService.getSigninToken() !== undefined || TokenService.getAccessToken() !== undefined) {
-      const u = await UserService.getUserInfo(api_url) as User
+      const u = await UserService.getUserInfo(api_url, setSubmitError) as User
       setUser(u)
     }
   }

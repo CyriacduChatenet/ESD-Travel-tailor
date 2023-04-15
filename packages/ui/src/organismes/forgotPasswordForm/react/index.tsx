@@ -16,6 +16,8 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
     email: '',
   })
 
+  const [submitError, setSubmitError] = useState({});
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setCredentials({ ...credentials, [name]: value })
@@ -35,7 +37,8 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
     if (error) {
       return AuthService.forgotPassword(
         `${api_url}${API_FORGOT_PASSWORD_ROUTE}`,
-        credentials
+        credentials,
+        setSubmitError
       )
     }
   }
