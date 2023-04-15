@@ -10,9 +10,10 @@ const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`)
 
 const TravelPaymentPage: NextPage = () => {
     const [amount, setAmount] = useState(400);
+    const [submitError, setSubmitError] = useState({});
 
     const handlePayed = async () => {
-        usePayment(`${process.env.NEXT_PUBLIC_API_URL}`,stripePromise, { amount, location: `Bordeaux, Gironde, France`})
+        usePayment(`${process.env.NEXT_PUBLIC_API_URL}`,stripePromise, { amount, location: `Bordeaux, Gironde, France`}, setSubmitError)
      };
 
     return (
