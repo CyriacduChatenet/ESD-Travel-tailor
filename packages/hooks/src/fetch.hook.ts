@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 
-const get = async (api_url: string, setError: Dispatch<SetStateAction<any>>) => {
+const get = async (api_url: string, setError?: Dispatch<SetStateAction<any>>) => {
   try {
     const response = await fetch(api_url, {
       method: 'GET',
@@ -13,7 +13,9 @@ const get = async (api_url: string, setError: Dispatch<SetStateAction<any>>) => 
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
