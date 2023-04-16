@@ -5,6 +5,7 @@ import { ChangeEvent, FC, FormEvent, MouseEvent, useState, useRouter } from '@tr
 import mapboxgl from 'mapbox-gl'
 
 import Geocoder from '../../../atoms/geocoder/react'
+import { WebInputLabel } from '../../../atoms/input-label/react'
 
 interface IProps {
   api_url: string
@@ -74,16 +75,7 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
 
   return (
     <form action="" onSubmit={handleSubmit} onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
-      <label htmlFor="">
-        <span>Name</span>
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          onChange={handleChange}
-        />
-        {errors.name && <p>{errors.name}</p>}
-      </label>
+      <WebInputLabel type={'text'} name={'name'} placeholder={'Name'} onChange={() => handleChange} error={errors.name}/>
       <label htmlFor="">
         <span>Location</span>
         <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={OBJECT_KEYS.LOCATION}/>

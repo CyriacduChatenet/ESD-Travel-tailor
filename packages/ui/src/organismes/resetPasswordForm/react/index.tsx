@@ -2,6 +2,7 @@ import { ROUTES } from '@travel-tailor/constants'
 import { AuthService } from '@travel-tailor/services'
 import { ResetPasswordDTO } from '@travel-tailor/types'
 import { ChangeEvent, FC, FormEvent, useState, useRouter } from '@travel-tailor/functions'
+import { WebInputLabel } from '../../../atoms/input-label/react'
 
 interface IProps {
   api_url: string
@@ -30,15 +31,7 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <label htmlFor="">
-        <span>Password</span>
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={handleChange}
-        />
-      </label>
+      <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={() => handleChange}/>
       <input type="submit" value={'reset password'} />
     </form>
   )

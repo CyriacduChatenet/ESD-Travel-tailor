@@ -13,6 +13,8 @@ import { WebLocationInput } from '../../atoms/location-input/react'
 import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag, CreateActivityClosingDayDTO, CreateActivityDetailDTO, CreateActivityScheduleDTO } from '@travel-tailor/types'
 import { MouseEvent, useEffect } from 'react'
 import { WebTagInput } from '../../atoms/tag-input/react'
+import { WebInputLabel } from '../../atoms/input-label/react'
+import { WebInput } from '../../atoms/input/react'
 
 interface IProps {
   api_url: string
@@ -177,39 +179,27 @@ export const WebUpdateActivityForm: FC<IProps> = ({ api_url, mapboxAccessToken, 
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <label htmlFor="">
-        <p>Name</p>
-        <input type="text" name="name" placeholder="name" onChange={handleActivity} />
-        {errors.name && <p>{errors.name}</p>}
-      </label>
-      <label htmlFor="">
-        <p>Duration</p>
-        <input type="number" name="duration" placeholder="duration" onChange={handleActivityDetail} />
-        {errors.duration && <p>{errors.duration}</p>}
-      </label>
+       <WebInputLabel type={'text'} name={'name'} onChange={() => handleActivity} label={'Name'} error={errors.name}/>
+      <WebInputLabel type={'text'} name={'duration'} onChange={() => handleActivityDetail} label={'Duration'} error={errors.duration}/>
       <label htmlFor="">
         <p>Location</p>
         <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
       </label>
-      <label htmlFor="">
-        <p>Image file</p>
-        <input type="file" name="image" onChange={handleActivityImageUpload} />
-        {errors.source && <p>{errors.source}</p>}
-      </label>
+      <WebInputLabel type={'file'} name={'image'} onChange={() => handleActivityImageUpload} label={'Image file'} error={errors.source}/>
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
       <label htmlFor="">
         <p>Schedules</p>
-        <input type="time" name="opening_at" placeholder="opening at" value={activityScheduleCredentials.opening_at} onChange={handleActivitySchedule} />
+        <WebInput type={'time'} name={'opening_at'} onChange={() => handleActivitySchedule} value={activityScheduleCredentials.opening_at}/>
         {errors.opening_at && <p>{errors.opening_at}</p>}
-        <input type="time" name="closing_at" placeholder="closing at" value={activityScheduleCredentials.closing_at} onChange={handleActivitySchedule} />
+        <WebInput type={'time'} name={'closing_at'} onChange={() => handleActivitySchedule} value={activityScheduleCredentials.closing_at}/>
         {errors.closing_at && <p>{errors.closing_at}</p>}
         <button onClick={handleScheduleSubmit}>Create schedule</button>
       </label>
       <label htmlFor="">
         <p>Closing day</p>
-        <input type="date" name="date" placeholder="date" value={activityClosingDayCredentials.date} onChange={handleActivityClosingDay} />
+        <WebInput type={'date'} name={'date'} onChange={() => handleActivityClosingDay} value={activityClosingDayCredentials.date}/>
         {errors.date && <p>{errors.date}</p>}
-        <input type="checkbox" name="recurrence" onChange={handleIsChecked} />
+        <WebInput type={'checkbox'} name={'recurrence'} onChange={() => handleIsChecked} />
         <button onClick={handleClosingDaysSubmit}>Create closing day</button>
       </label>
       <br />
