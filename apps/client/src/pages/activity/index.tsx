@@ -32,9 +32,9 @@ const ActivityListPage: NextPage<IProps> = ({ activities }) => {
 export default ActivityListPage;
 
 export const getServerSideProps = async () => {
-    const [submitError, setSubmitError] = useState({});
+    const error = {}
 
-    const activities = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`, setSubmitError);
+    const activities = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`, error);
     return {
         props: {
             activities,

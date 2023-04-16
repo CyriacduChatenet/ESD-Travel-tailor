@@ -9,6 +9,7 @@ import { formatDateUtil } from '@travel-tailor/utils'
 import { ROUTES } from '@travel-tailor/constants'
 import { useTravel } from '@travel-tailor/contexts'
 import { useState } from 'react'
+import { error } from 'console'
 
 interface IProps {
     activity: Activity
@@ -63,12 +64,12 @@ export default TravelActivityPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { id } = context.params!
 
-    const [submitError, setSubmitError] = useState({});
+    const error = {}
     
     const response = await ActivityService.findActivityById(
         `${process.env.NEXT_PUBLIC_API_URL}`,
         id as string,
-        setSubmitError,
+        error
     )
     
     return {
