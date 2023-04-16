@@ -11,7 +11,7 @@ interface IProps {
     value?: string | number;
     label?: string;
     customLabel?: JSX.Element;
-    error?: string | Date
+    error?: any
 };
 
 export const WebInputLabel: FC<IProps> = ({ type, name, placeholder, onChange, style, value, label, customLabel, error }) => {
