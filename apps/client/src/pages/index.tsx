@@ -27,12 +27,14 @@ const Home: NextPage<IProps> = ({ message }) => {
 export default Home;
 
 export const getServerSideProps = async () => {
+  const error = {};
   const response = await HelloService.getHello(
     `${process.env.NEXT_PUBLIC_API_URL}`,
   );
   return {
     props: {
       message: response.message,
+      error
     },
   };
 };

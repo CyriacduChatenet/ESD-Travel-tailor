@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 
-const get = async (api_url: string, setError?: Dispatch<SetStateAction<any>>) => {
+const get = async (api_url: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'GET',
@@ -19,7 +19,7 @@ const get = async (api_url: string, setError?: Dispatch<SetStateAction<any>>) =>
   }
 }
 
-const protectedGet = async (api_url: string, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const protectedGet = async (api_url: string, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'GET',
@@ -33,11 +33,13 @@ const protectedGet = async (api_url: string, token: string, setError: Dispatch<S
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const post = async (api_url: string, body: any, setError: Dispatch<SetStateAction<any>>) => {
+const post = async (api_url: string, body: any, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'POST',
@@ -51,11 +53,13 @@ const post = async (api_url: string, body: any, setError: Dispatch<SetStateActio
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const postFormData = async (api_url: string, body: any, setError: Dispatch<SetStateAction<any>>) => {
+const postFormData = async (api_url: string, body: any, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'POST',
@@ -65,11 +69,13 @@ const postFormData = async (api_url: string, body: any, setError: Dispatch<SetSt
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const protectedPost = async (api_url: string, body: any, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const protectedPost = async (api_url: string, body: any, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'POST',
@@ -84,11 +90,13 @@ const protectedPost = async (api_url: string, body: any, token: string, setError
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const protectedPostFormData = async (api_url: string, body: any, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const protectedPostFormData = async (api_url: string, body: any, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'POST',
@@ -101,11 +109,13 @@ const protectedPostFormData = async (api_url: string, body: any, token: string, 
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const patch = async (api_url: string, body: Object, setError: Dispatch<SetStateAction<any>>) => {
+const patch = async (api_url: string, body: Object, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'PATCH',
@@ -119,11 +129,13 @@ const patch = async (api_url: string, body: Object, setError: Dispatch<SetStateA
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const patchFormData = async (api_url: string, body: any, setError: Dispatch<SetStateAction<any>>) => {
+const patchFormData = async (api_url: string, body: any, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'PATCH',
@@ -133,11 +145,13 @@ const patchFormData = async (api_url: string, body: any, setError: Dispatch<SetS
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const protectedPatch = async (api_url: string, body: Object, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const protectedPatch = async (api_url: string, body: Object, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'PATCH',
@@ -152,11 +166,13 @@ const protectedPatch = async (api_url: string, body: Object, token: string, setE
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const protectedPatchFormData = async (api_url: string, body: any, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const protectedPatchFormData = async (api_url: string, body: any, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'PATCH',
@@ -169,11 +185,13 @@ const protectedPatchFormData = async (api_url: string, body: any, token: string,
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 
-const remove = async (api_url: string, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const remove = async (api_url: string, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
  try {
   const response = await fetch(api_url, {
     method: 'DELETE',
@@ -187,11 +205,13 @@ const remove = async (api_url: string, token: string, setError: Dispatch<SetStat
   return responseJSON
  } catch (err) {
   console.error(err)
-  setError(err)
+  if(setError) {
+    setError(err)
+  }
  }
 }
 
-const protectedRemove = async (api_url: string, token: string, setError: Dispatch<SetStateAction<any>>) => {
+const protectedRemove = async (api_url: string, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
       method: 'DELETE',
@@ -205,7 +225,9 @@ const protectedRemove = async (api_url: string, token: string, setError: Dispatc
     return responseJSON
   } catch (err) {
     console.error(err)
-    setError(err)
+    if(setError) {
+      setError(err)
+    }
   }
 }
 

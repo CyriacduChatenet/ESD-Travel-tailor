@@ -9,23 +9,23 @@ import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/c
 import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 
-const findAllActivities = async (api_url: string, setError: Dispatch<SetStateAction<any>>): Promise<Activity[]> => {
+const findAllActivities = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Activity[]> => {
   const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}`, setError)
   return data.data
 }
 
-const findActivityById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>>): Promise<Activity> => {
+const findActivityById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Activity> => {
   return await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}/${id}`, setError)
 }
 
-const findActivityBySlug = async (api_url: string, slug: string, setError: Dispatch<SetStateAction<any>>): Promise<Activity> => {
+const findActivityBySlug = async (api_url: string, slug: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Activity> => {
   return await useFetch.get(`${api_url}${API_ACTIVITY_BY_NAME_ROUTE}/${slug}`, setError)
 }
 
 const createActivity = async (
   api_url: string,
   credentials: CreateActivityDTO,
-  setError: Dispatch<SetStateAction<any>>
+  setError: Dispatch<SetStateAction<any>> | any
 ): Promise<Activity> => {
   return await useFetch.protectedPost(
     `${api_url}${API_ACTIVITY_ROUTE}`,
@@ -54,7 +54,7 @@ const updateActivity = async (
   api_url: string,
   id: string,
   credentials: UpdateActivityDTO,
-  setError: Dispatch<SetStateAction<any>>
+  setError: Dispatch<SetStateAction<any>> | any
 ): Promise<Activity> => {
   return await useFetch.protectedPatch(
     `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
@@ -68,7 +68,7 @@ const updateActivityFormData = async (
   api_url: string,
   id: string,
   credentials: UpdateActivityDTO | any | FormData,
-  setError: Dispatch<SetStateAction<any>>
+  setError: Dispatch<SetStateAction<any>> | any
 ): Promise<Activity> => {
   return await useFetch.protectedPatchFormData(
     `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
@@ -78,7 +78,7 @@ const updateActivityFormData = async (
   )
 }
 
-const deleteActivity = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>>) => {
+const deleteActivity = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any) => {
   return await useFetch.protectedRemove(
     `${api_url}${API_ACTIVITY_ROUTE}/${id}`,
     `${TokenService.getAccessToken()}`,
@@ -86,7 +86,7 @@ const deleteActivity = async (api_url: string, id: string, setError: Dispatch<Se
   )
 }
 
-const createActivityWithRelations = async (api_url: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[], setError: Dispatch<SetStateAction<any>>) => {
+const createActivityWithRelations = async (api_url: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[], setError: Dispatch<SetStateAction<any>> | any) => {
       const activity = await createActivityFormData(api_url, credentials)
       const ac = await findActivityById(api_url, activity.id, setError)
       if (Array.isArray(ac.tags)) {
@@ -100,7 +100,7 @@ const createActivityWithRelations = async (api_url: string, credentials: CreateA
       return ac;
 }
 
-const findActivityBySlugWithRelations = async (api_url: string, slug: string, setData: Dispatch<SetStateAction<Activity>>, setComments: Dispatch<SetStateAction<Comment[]>>, setError: Dispatch<SetStateAction<any>>) => {
+const findActivityBySlugWithRelations = async (api_url: string, slug: string, setData: Dispatch<SetStateAction<Activity>>, setComments: Dispatch<SetStateAction<Comment[]>>, setError: Dispatch<SetStateAction<any>> | any) => {
   const a = await findActivityBySlug(api_url, slug, setError);
   const activityDetail = await ActivityDetailService.findActivityDetailById(api_url, a?.detail?.id, setError);
   const activity = { ...a, detail: activityDetail }
@@ -118,7 +118,7 @@ const findActivityBySlugWithRelations = async (api_url: string, slug: string, se
   });
 };
 
-const updateActivityWithRelations = async (api_url: string, activityId: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[], setError: Dispatch<SetStateAction<any>>) => {
+const updateActivityWithRelations = async (api_url: string, activityId: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[], setError: Dispatch<SetStateAction<any>> | any) => {
   const ac = await findActivityById(api_url, activityId, setError)
   if (Array.isArray(ac.tags)) {
     ac.tags = [...ac.tags, ...tags];

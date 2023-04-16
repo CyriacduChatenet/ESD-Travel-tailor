@@ -5,24 +5,24 @@ import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from "@
 import { TokenService } from "./token.service";
 import { Dispatch, SetStateAction } from "@travel-tailor/functions";
 
-const findAllActivityImages = async (api_url: string, setError: Dispatch<SetStateAction<any>>): Promise<ActivityImage[]> => {
+const findAllActivityImages = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any): Promise<ActivityImage[]> => {
     const data = await useFetch.get(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}`, setError)
     return data.data
 };
 
-const findActivityImageById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>>): Promise<ActivityImage>  => {
+const findActivityImageById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<ActivityImage>  => {
     return await useFetch.get(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}/${id}`, setError)
 };
 
-const createActivityImage = async (api_url: string, credentials: CreateActivityImageDTO, setError: Dispatch<SetStateAction<any>>): Promise<ActivityImage>  => {
+const createActivityImage = async (api_url: string, credentials: CreateActivityImageDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<ActivityImage>  => {
     return await useFetch.post(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}`, credentials, setError);
 };
 
-const updateActivityImage = async (api_url: string, id: string, credentials: UpdateActivityImageDTO, setError: Dispatch<SetStateAction<any>>): Promise<ActivityImage>  => {
+const updateActivityImage = async (api_url: string, id: string, credentials: UpdateActivityImageDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<ActivityImage>  => {
     return await useFetch.protectedPatch(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}/${id}`, credentials, `${TokenService.getAccessToken()}`, setError);
 };
 
-const deleteActivityImage = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>>) => {
+const deleteActivityImage = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any) => {
     return await useFetch.protectedRemove(`${api_url}${API_ACTIVITY_IMAGE_ROUTE}/${id}`, `${TokenService.getAccessToken()}`, setError);
 };
 

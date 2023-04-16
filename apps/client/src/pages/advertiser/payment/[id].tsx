@@ -54,13 +54,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   })
 
-  const [submitError, setSubmitError] = useState({});
+  const error = {}
 
   const handleFetch = async () => {
     const ad = await AdvertiserService.findAdvertiserById(
       `${process.env.NEXT_PUBLIC_API_URL}`,
       `${id}`,
-      setSubmitError
+      error
     )
     setAdvertiser(ad)
   }

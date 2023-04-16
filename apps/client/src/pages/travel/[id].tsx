@@ -78,12 +78,12 @@ export default TravelPage
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!
 
-  const [submitError, setSubmitError] = useState({});
+  const error = {}
 
   const response = await TravelService.findTravelById(
     `${process.env.NEXT_PUBLIC_API_URL}`,
     id as string,
-    setSubmitError
+    error
   )
 
   return {
