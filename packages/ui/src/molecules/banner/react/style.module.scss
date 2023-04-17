@@ -1,0 +1,17 @@
+.WebBanner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30rem;
+}
+
+.webBannerBackground {
+    position: absolute;
+    z-index: 0;
+}
+
+.webBannerLabel {
+    position: absolute;
+    color: #fff;
+}

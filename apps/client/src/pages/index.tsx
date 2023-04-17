@@ -1,4 +1,4 @@
-import { WebCreateTravelForm } from '@travel-tailor/ui';
+import { WebBanner, WebCreateTravelForm } from '@travel-tailor/ui';
 import { NextPage } from 'next';
 
 import { Layout } from '@/layout';
@@ -12,6 +12,8 @@ const Home: NextPage = () => {
     <Layout>
       <>
       <h1>Travel tailor app</h1>
+        <br />
+        <WebBanner />
         <br />
         { user.roles.includes(ROLES.TRAVELER) ? <WebCreateTravelForm api_url={`${process.env.NEXT_PUBLIC_API_URL}`} mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}/> : null}
       </>
