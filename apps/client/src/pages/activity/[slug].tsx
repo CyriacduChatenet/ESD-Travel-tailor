@@ -14,6 +14,8 @@ import { useRouter } from 'next/router'
 
 import { Layout } from '@/layout'
 
+import styles from "./slug-style.module.scss";
+
 const ActivityPage: NextPage = () => {
   const [data, setData] = useState<any>({})
   const [comments, setComments] = useState<Comment[]>([])
