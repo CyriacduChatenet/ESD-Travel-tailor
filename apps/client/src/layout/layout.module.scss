@@ -1,16 +1,33 @@
+.layout {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  margin: 0 2.5rem;
+}
+
 .main {
-  width: 100%;
-  padding: 0 3rem;
+  grid-column: span 12 / span 12;
 }
 
 @media all and (min-width: 768px) {
+  .layout {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin: 0 5rem;
+  }
+
   .main {
-    padding: 0 6rem;
+    grid-column: span 12 / span 12;
   }
 }
 
 @media all and (min-width: 1024px) {
+  .layout {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin: 0 8rem;
+  }
+
   .main {
-    padding: 0 8rem;
+    grid-column: span 12 / span 12;
   }
 }

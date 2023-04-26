@@ -15,7 +15,7 @@ export const WebBanner: FC = () => {
         height={600}
         className={styles.webBannerBackground}
       />
-      <p className={styles.webBannerLabel}>Banner</p>
+      <p className={styles.webBannerLabel}>Reykjavik</p>
     </div>
   )
 }
