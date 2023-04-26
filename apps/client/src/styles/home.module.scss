@@ -1,19 +1,44 @@
-.sectionTextLeft {
-    width: 100%;
-    height: 20%;
-    background-color: rebeccapurple;
-    color: black;
+.sectionText {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column-reverse;
     align-items: center;
+    justify-content: center;
 }
 
-.sectionTextRight {
-    width: 100%;
-    height: 20%;
-    background-color: rebeccapurple;
-    color: black;
+.title {
+    grid-column: 4 span / 4 span;
+}
+
+.content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    grid-column: 4 span / 4 span;
+}
+
+@media all and (min-width: 768px) {
+    .title {
+        grid-column: 8 span / 8 span;
+    }
+    
+    .content {
+        grid-column: 8 span / 8 span;
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .title {
+        grid-column: 12 span / 12 span;
+    }
+    
+    .content {
+        grid-column: 12 span / 12 span;
+    }
+
+    .sectionText {
+        flex-direction: row;
+    }
+
+    .sectionText:nth-child(1) {
+        flex-direction: row-reverse;
+    }
 }

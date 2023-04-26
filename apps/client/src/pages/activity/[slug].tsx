@@ -98,21 +98,6 @@ const ActivityPage: NextPage = () => {
             addresse={data.detail.location}
           />
         ) : null}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />      <br />
-        <br />
-        <br />
-        <br />
         <h3>Comments</h3>
         {comments.map((comment: Comment, index: number) => (
           <div key={index}>

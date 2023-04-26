@@ -13,8 +13,9 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <>
-        <h1>Travel tailor app</h1>
+        <h1 className={styles.title}>Travel tailor app</h1>
         <br />
+          <div className={styles.content}>
           <WebBanner />
           <br />
           {user.roles.includes(ROLES.TRAVELER) ? (
@@ -23,24 +24,28 @@ const Home: NextPage = () => {
               mapboxAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
             />
           ) : null}
-          <section className={styles.sectionTextLeft}>
-            <div>
-              <h2></h2>
-            </div>
-            <NextImage src={''} alt={''}/>
-          </section>
-          <section className={styles.sectionTextRight}>
-            <NextImage src={''} alt={''}/>
+          <section className={styles.sectionText}>
             <div>
               <h2>a</h2>
-            </div>
-          </section>
-          <section className={styles.sectionTextLeft}>
-            <div>
-              <h2>a</h2>
+              <p></p>
             </div>
             <NextImage src={''} alt={''}/>
           </section>
+          <section className={styles.sectionText}>
+            <div>
+              <h2>a</h2>
+              <p></p>
+            </div>
+            <NextImage src={''} alt={''}/>
+          </section>
+          <section className={styles.sectionText}>
+            <div>
+              <h2>a</h2>
+              <p></p>
+            </div>
+            <NextImage src={''} alt={''}/>
+          </section>
+          </div>
       </>
     </Layout>
   )
