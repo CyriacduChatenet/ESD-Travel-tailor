@@ -2,7 +2,9 @@ import { ChangeEvent, FC, useState, useRouter } from '@travel-tailor/functions'
 import { AuthService } from '@travel-tailor/services'
 import { SigninDTO } from '@travel-tailor/types'
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from '@travel-tailor/constants'
-import { testCityUtil } from '@travel-tailor/utils'
+import { WebInputLabel } from '../../../atoms/input-label/react'
+
+import styles from './style.module.scss';
 
 interface IProps {
   api_url: string
@@ -67,27 +69,9 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
         handleSubmit()
       }}
     >
-      <label htmlFor="">
-        <p>Email</p>
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          onChange={handleChange}
-        />
-        {errors.email && <p>{errors.email}</p>}
-      </label>
-      <label htmlFor="">
-        <p>Password</p>
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={handleChange}
-        />
-        {errors.password && <p>{errors.password}</p>}
-      </label>
+       <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={() => handleChange} error={errors.email}/>
+       <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={() => handleChange} error={errors.password}/>
       <input type="submit" value={'Signin'} />
     </form>
-  )
+  )                                                                                                                   
 }

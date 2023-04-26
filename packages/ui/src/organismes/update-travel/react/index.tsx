@@ -5,6 +5,7 @@ import { UpdateTravelDTO } from "@travel-tailor/types";
 import { FC, useState, useRouter } from "@travel-tailor/functions";
 
 import { WebLocationInput } from "../../../atoms/location-input/react";
+import { WebInputLabel } from "../../../atoms/input-label/react";
 
 interface IProps {
     api_url: string;
@@ -80,16 +81,8 @@ export const WebUpdateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken, tr
                 <p>Destination city</p>
                 <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DESTINATION_CITY} error={errors.destinationCity}/>
             </label>
-            <label htmlFor="">
-                <p>Departure date</p>
-                <input type="date" name="departureDate" placeholder="Departure date" onChange={handleChange} />
-                {errors.departureDate && <p>{errors.departureDate}</p>}
-            </label>
-            <label htmlFor="">
-                <p>Return date</p>
-                <input type="date" name="returnDate" placeholder="Return date" onChange={handleChange} />
-                {errors.returnDate && <p>{errors.returnDate}</p>}
-            </label>
+            <WebInputLabel type={"date"} name={"departureDate"}  placeholder={"Departure date"} onChange={() => handleChange} error={errors.departureDate}/>
+            <WebInputLabel type={"date"} name={"returnDate"}  placeholder={"Return date"} onChange={() => handleChange} error={errors.returnDate}/>
             <br />
             <br />
             <input type="submit" value={'update travel'} />

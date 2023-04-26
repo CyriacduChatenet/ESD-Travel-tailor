@@ -29,9 +29,9 @@ export const Layout = ({ children }: PropsWithChildren) => {
   }, [])
 
   return (
-    <>
+    <div className={styles.layout}>
       <WebNavbar />
       <main className={styles.main}>{children}</main>
-    </>
+    </div>
   )
 }

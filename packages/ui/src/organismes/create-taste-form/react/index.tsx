@@ -1,6 +1,7 @@
 
 import { Taste } from '@travel-tailor/types';
 import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from '@travel-tailor/functions'
+import { WebInputLabel } from '../../../atoms/input-label/react';
 
 interface IProps {
   setTastes: Dispatch<SetStateAction<Taste[]>>
@@ -43,17 +44,7 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <label htmlFor="">
-        <span>Name</span>
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          value={credentials.name}
-          onChange={handleChange}
-        />
-        {errors.name && <span>{errors.name}</span>}
-      </label>
+      <WebInputLabel type={'text'} name={'name'} placeholder={'Name'} onChange={() => handleChange} value={credentials.name} error={errors.name} />
       <input type="submit" value="Create taste" />
     </form>
   )

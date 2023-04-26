@@ -7,6 +7,7 @@ import {
 import { SignupDTO, User } from '@travel-tailor/types'
 import { ChangeEvent, FC, FormEvent, useState, useRouter } from '@travel-tailor/functions'
 import { testCityUtil } from '@travel-tailor/utils'
+import { WebInputLabel } from '../../../atoms/input-label/react'
 
 interface IProps {
   api_url: string
@@ -85,36 +86,9 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <label htmlFor="">
-        <span>Username</span>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          onChange={handleChange}
-        />
-        {errors.username && <p>{errors.username}</p>}
-      </label>
-      <label htmlFor="">
-        <span>Email</span>
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          onChange={handleChange}
-        />
-        {errors.email && <p>{errors.email}</p>}
-      </label>
-      <label htmlFor="">
-        <span>Password</span>
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={handleChange}
-        />
-        {errors.password && <p>{errors.password}</p>}
-      </label>
+      <WebInputLabel type={'text'} label='Username' name={'username'} placeholder="Username" onChange={() => handleChange} error={errors.username}/>
+      <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={() => handleChange} error={errors.email}/>
+       <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={() => handleChange} error={errors.password}/>
       <label htmlFor="">
         <span>Roles</span>
         <select name="roles" onChange={handleChange}>

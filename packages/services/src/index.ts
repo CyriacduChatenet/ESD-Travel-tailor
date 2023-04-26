@@ -1,4 +1,3 @@
-export { HelloService } from './hello.service';
 export { AuthService } from './auth.service';
 export { TokenService } from './token.service';
 export { AdvertiserService } from './advertiser.service';

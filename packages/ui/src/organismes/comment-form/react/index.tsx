@@ -1,6 +1,8 @@
 import { CommentService } from "@travel-tailor/services";
 import { useUser } from "@travel-tailor/contexts";
 import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from "@travel-tailor/functions";
+import { WebInputLabel } from "../../../atoms/input-label/react";
+import { WebStar } from "../../../atoms/star/react";
 
 interface IProps {
     api_url: string;
@@ -34,86 +36,16 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label>
-                    <input type="radio" name="mark" value="1" onChange={() => setMark(1)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="2" onChange={() => setMark(2)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="3" onChange={() => setMark(3)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="4" onChange={() => setMark(4)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="5" onChange={() => setMark(5)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="6" onChange={() => setMark(6)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="7" onChange={() => setMark(7)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="8" onChange={() => setMark(8)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="9" onChange={() => setMark(9)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="mark" value="10" onChange={() => setMark(10)} style={{ display: "none" }} />
-                    <span style={{ display: "inline-block", position: "relative", width: "1.5em", height: "1.5em" }}>
-                        <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
-                        <path d="M12 1.125L8.52 7.794L0.443 8.953L6.16 14.229L4.527 22.407L12 18.262L19.473 22.407L17.84 14.229L23.557 8.953L15.48 7.794L12 1.125Z" />
-                        </svg>
-                    </span>
-                </label>
+                <WebInputLabel type={"radio"} name={"mark"} value={1} onChange={() => setMark(1)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={2} onChange={() => setMark(2)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={3} onChange={() => setMark(3)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={4} onChange={() => setMark(4)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={5} onChange={() => setMark(5)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={6} onChange={() => setMark(6)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={7} onChange={() => setMark(7)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={8} onChange={() => setMark(8)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={9} onChange={() => setMark(9)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+                <WebInputLabel type={"radio"} name={"mark"} value={10} onChange={() => setMark(10)} customLabel={<WebStar/>} style={{ display: "none" }}/>
             </div>
             <textarea name="content" placeholder="Comment" onChange={handleChange} id="" cols={30} rows={10}></textarea>
             <input type="submit" value="Send" />
