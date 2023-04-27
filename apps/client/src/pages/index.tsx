@@ -13,9 +13,8 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <>
-        <h1 className={styles.title}>Travel tailor app</h1>
         <br />
-          <div className={styles.content}>
+        <div className={styles.content}>
           <WebBanner />
           <br />
           {user.roles.includes(ROLES.TRAVELER) ? (
@@ -26,26 +25,85 @@ const Home: NextPage = () => {
           ) : null}
           <section className={styles.sectionText}>
             <div>
-              <h2>a</h2>
-              <p></p>
+              <h2>Une solution innovante</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                non elit ut ante commodo semper non sit amet turpis. Nullam
+                interdum imperdiet lorem, vel consectetur leo pellentesque ac.
+                Pellentesque semper molestie nisl, at ultricies metus eleifend
+                quis. Class aptent taciti sociosqu ad litora torquent per
+                conubia nostra, per inceptos himenaeos. In maximus mauris
+                gravida tellus suscipit tempor. Curabitur nec libero quis turpis
+                convallis tincidunt vitae a diam. Nulla sit amet maximus dui.
+                Sed ut neque ex. Morbi quis enim volutpat, tempus urna sit amet,
+                facilisis tellus. Sed sit amet felis in massa condimentum
+                rutrum. Aenean finibus pulvinar dignissim. Donec sit amet lacus
+                nulla. In sollicitudin dolor et diam gravida hendrerit. Interdum
+                et malesuada fames ac ante ipsum primis in faucibus.
+              </p>
             </div>
-            <NextImage src={''} alt={''}/>
+            <NextImage
+              src={
+                'https://images.unsplash.com/photo-1500043357865-c6b8827edf10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
+              }
+              alt={''}
+              width={200}
+              height={200}
+            />
+          </section>
+          <section className={styles.sectionTextRight}>
+            <div>
+              <h2>Des activités adaptés aux goûts de l’utilisateur</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                non elit ut ante commodo semper non sit amet turpis. Nullam
+                interdum imperdiet lorem, vel consectetur leo pellentesque ac.
+                Pellentesque semper molestie nisl, at ultricies metus eleifend
+                quis. Class aptent taciti sociosqu ad litora torquent per
+                conubia nostra, per inceptos himenaeos. In maximus mauris
+                gravida tellus suscipit tempor. Curabitur nec libero quis turpis
+                convallis tincidunt vitae a diam. Nulla sit amet maximus dui.
+                Sed ut neque ex. Morbi quis enim volutpat, tempus urna sit amet,
+                facilisis tellus. Sed sit amet felis in massa condimentum
+                rutrum. Aenean finibus pulvinar dignissim. Donec sit amet lacus
+                nulla. In sollicitudin dolor et diam gravida hendrerit. Interdum
+                et malesuada fames ac ante ipsum primis in faucibus.</p>
+            </div>
+            <NextImage
+              src={
+                'https://images.unsplash.com/photo-1500043357865-c6b8827edf10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
+              }
+              alt={''}
+              width={200}
+              height={200}
+            />
           </section>
           <section className={styles.sectionText}>
             <div>
-              <h2>a</h2>
-              <p></p>
+              <h2>Les activités des annonceurs mise en avant  </h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                non elit ut ante commodo semper non sit amet turpis. Nullam
+                interdum imperdiet lorem, vel consectetur leo pellentesque ac.
+                Pellentesque semper molestie nisl, at ultricies metus eleifend
+                quis. Class aptent taciti sociosqu ad litora torquent per
+                conubia nostra, per inceptos himenaeos. In maximus mauris
+                gravida tellus suscipit tempor. Curabitur nec libero quis turpis
+                convallis tincidunt vitae a diam. Nulla sit amet maximus dui.
+                Sed ut neque ex. Morbi quis enim volutpat, tempus urna sit amet,
+                facilisis tellus. Sed sit amet felis in massa condimentum
+                rutrum. Aenean finibus pulvinar dignissim. Donec sit amet lacus
+                nulla. In sollicitudin dolor et diam gravida hendrerit. Interdum
+                et malesuada fames ac ante ipsum primis in faucibus.</p>
             </div>
-            <NextImage src={''} alt={''}/>
+            <NextImage
+              src={
+                'https://images.unsplash.com/photo-1500043357865-c6b8827edf10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
+              }
+              alt={''}
+              width={200}
+              height={200}
+            />
           </section>
-          <section className={styles.sectionText}>
-            <div>
-              <h2>a</h2>
-              <p></p>
-            </div>
-            <NextImage src={''} alt={''}/>
-          </section>
-          </div>
+        </div>
       </>
     </Layout>
   )
