@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     margin: 2rem 0;
+    width: 100%;
 }
 
 .sectionTextRight {
@@ -12,6 +13,14 @@
     align-items: center;
     justify-content: center;
     margin: 2rem 0;
+    width: 100%;
+}
+
+.sectionTitle {
+    width: 100%;
+}
+.sectionParagraphe {
+    margin: 10%;
 }
 
 .title {
@@ -48,5 +57,12 @@
     }
     .sectionTextRight {
         flex-direction: row-reverse;
+    }
+
+    .sectionTitle {
+        margin: 1rem;
+    }
+    .sectionParagraphe {
+        margin: 1rem;
     }
 }

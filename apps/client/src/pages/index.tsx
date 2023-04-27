@@ -25,8 +25,8 @@ const Home: NextPage = () => {
           ) : null}
           <section className={styles.sectionText}>
             <div>
-              <h2>Une solution innovante</h2>
-              <p>
+              <h2 className={styles.sectionTitle}>Une solution innovante</h2>
+              <p className={styles.sectionParagraphe}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
                 non elit ut ante commodo semper non sit amet turpis. Nullam
                 interdum imperdiet lorem, vel consectetur leo pellentesque ac.
@@ -47,14 +47,14 @@ const Home: NextPage = () => {
                 'https://images.unsplash.com/photo-1500043357865-c6b8827edf10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
               }
               alt={''}
-              width={200}
-              height={200}
+              width={350}
+              height={300}
             />
           </section>
           <section className={styles.sectionTextRight}>
             <div>
-              <h2>Des activités adaptés aux goûts de l’utilisateur</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+              <h2 className={styles.sectionTitle}>Des activités adaptés aux goûts de l’utilisateur</h2>
+              <p className={styles.sectionParagraphe}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
                 non elit ut ante commodo semper non sit amet turpis. Nullam
                 interdum imperdiet lorem, vel consectetur leo pellentesque ac.
                 Pellentesque semper molestie nisl, at ultricies metus eleifend
@@ -73,14 +73,14 @@ const Home: NextPage = () => {
                 'https://images.unsplash.com/photo-1500043357865-c6b8827edf10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
               }
               alt={''}
-              width={200}
-              height={200}
+              width={350}
+              height={300}
             />
           </section>
           <section className={styles.sectionText}>
             <div>
-              <h2>Les activités des annonceurs mise en avant  </h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+              <h2 className={styles.sectionTitle}>Les activités des annonceurs mise en avant  </h2>
+              <p className={styles.sectionParagraphe}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
                 non elit ut ante commodo semper non sit amet turpis. Nullam
                 interdum imperdiet lorem, vel consectetur leo pellentesque ac.
                 Pellentesque semper molestie nisl, at ultricies metus eleifend
@@ -99,8 +99,8 @@ const Home: NextPage = () => {
                 'https://images.unsplash.com/photo-1500043357865-c6b8827edf10?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
               }
               alt={''}
-              width={200}
-              height={200}
+              width={350}
+              height={300}
             />
           </section>
         </div>
