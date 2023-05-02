@@ -42,7 +42,7 @@ const CreateTastePage: NextPage = () => {
       </div>)}
       <br />
       <br />
-      <button onClick={() => handleSubmit()}>Add tastes</button>
+      <button onClick={() => handleSubmit()} id='add-taste'>Add tastes</button>
     </div>
   )
 }

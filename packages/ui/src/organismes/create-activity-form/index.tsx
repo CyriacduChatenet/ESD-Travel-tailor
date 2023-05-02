@@ -171,11 +171,11 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <WebInputLabel type={'text'} name={'name'} onChange={ handleActivity} label={'Name'} error={errors.name}/>
-      <WebInputLabel type={'text'} name={'duration'} onChange={ handleActivityDetail} label={'Duration'} error={errors.duration}/>
+      <WebInputLabel type={'text'} name={'name'} onChange={ handleActivity} label={'Name'} error={errors.name} className='create-activity-name'/>
+      <WebInputLabel type={'text'} name={'duration'} onChange={ handleActivityDetail} label={'Duration'} error={errors.duration} className='create-activity-duration'/>
       <label htmlFor="">
         <p>Location</p>
-        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
+        <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location} className='create-activity-location'/>
       </label>
       <WebInputLabel type={'file'} name={'image'} onChange={ handleActivityImageUpload} label={'Image file'} error={errors.source}/>
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />

@@ -85,7 +85,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
   }
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form action="" onSubmit={handleSubmit} id='signup-form'>
       <WebInputLabel type={'text'} label='Username' name={'username'} placeholder="Username" onChange={handleChange} error={errors.username} className='username-signup-input'/>
       <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={handleChange} error={errors.email} className='email-signup-input'/>
        <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={handleChange} error={errors.password} className='password-signup-input'/>
@@ -98,7 +98,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
         </select>
         {errors.roles && <p>{errors.roles}</p>}
       </label>
-      <input type="submit" value={'Signup'} id='signup-form' />
+      <input type="submit" value={'Signup'} />
     </form>
   )
 }

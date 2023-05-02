@@ -55,7 +55,7 @@ const AdvertiserDashboard: NextPage = () => {
         <br />
         <br />
         <Link
-          href={`${ROUTES.ADVERTISER.ACTIVITY.CREATE_ACTIVITY}/${user.advertiser?.id}`}
+          href={`${ROUTES.ADVERTISER.ACTIVITY.CREATE_ACTIVITY}/${user.advertiser?.id}`} id='create-activity-link'
         >
           <button>Create activty</button>
         </Link>
