@@ -79,8 +79,8 @@ export const WebCreateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) 
                 <p>Destination city</p>
                 <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DESTINATION_CITY} error={`${errors.destinationCity}`}/>
             </label>
-            <WebInputLabel type={"date"} name={"departureDate"}  placeholder={"Departure date"} onChange={() => handleChange} error={errors.departureDate}/>
-            <WebInputLabel type={"date"} name={"returnDate"}  placeholder={"Return date"} onChange={() => handleChange} error={errors.returnDate}/>
+            <WebInputLabel type={"date"} name={"departureDate"}  placeholder={"Departure date"} onChange={ handleChange} error={errors.departureDate}/>
+            <WebInputLabel type={"date"} name={"returnDate"}  placeholder={"Return date"} onChange={ handleChange} error={errors.returnDate}/>
             <br />
             <br />
             <input type="submit" value={'create travel'} />

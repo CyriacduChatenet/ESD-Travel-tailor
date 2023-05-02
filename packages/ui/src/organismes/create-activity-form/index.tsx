@@ -171,27 +171,27 @@ export const WebCreateActivityForm: FC<IProps> = ({ api_url, tags, setTags, sche
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <WebInputLabel type={'text'} name={'name'} onChange={() => handleActivity} label={'Name'} error={errors.name}/>
-      <WebInputLabel type={'text'} name={'duration'} onChange={() => handleActivityDetail} label={'Duration'} error={errors.duration}/>
+      <WebInputLabel type={'text'} name={'name'} onChange={ handleActivity} label={'Name'} error={errors.name}/>
+      <WebInputLabel type={'text'} name={'duration'} onChange={ handleActivityDetail} label={'Duration'} error={errors.duration}/>
       <label htmlFor="">
         <p>Location</p>
         <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setActivityDetailCredentials} stateCredentials={activityDetailCredentials} objectKey={OBJECT_KEYS.LOCATION} error={errors.location}/>
       </label>
-      <WebInputLabel type={'file'} name={'image'} onChange={() => handleActivityImageUpload} label={'Image file'} error={errors.source}/>
+      <WebInputLabel type={'file'} name={'image'} onChange={ handleActivityImageUpload} label={'Image file'} error={errors.source}/>
       <WebTagInput api_url={api_url} tags={tags} setTags={setTags} />
       <label htmlFor="">
         <p>Schedules</p>
-        <WebInput type={'time'} name={'opening_at'} onChange={() => handleActivitySchedule} value={activityScheduleCredentials.opening_at}/>
+        <WebInput type={'time'} name={'opening_at'} onChange={ handleActivitySchedule} value={activityScheduleCredentials.opening_at}/>
         {errors.opening_at && <p>{errors.opening_at}</p>}
-        <WebInput type={'time'} name={'closing_at'} onChange={() => handleActivitySchedule} value={activityScheduleCredentials.closing_at}/>
+        <WebInput type={'time'} name={'closing_at'} onChange={ handleActivitySchedule} value={activityScheduleCredentials.closing_at}/>
         {errors.closing_at && <p>{errors.closing_at}</p>}
         <button onClick={handleScheduleSubmit}>Create schedule</button>
       </label>
       <label htmlFor="">
         <p>Closing day</p>
-        <WebInput type={'date'} name={'date'} onChange={() => handleActivityClosingDay} value={activityClosingDayCredentials.date}/>
+        <WebInput type={'date'} name={'date'} onChange={ handleActivityClosingDay} value={activityClosingDayCredentials.date}/>
         {errors.date && <p>{errors.date}</p>}
-        <WebInput type={'checkbox'} name={'recurrence'} onChange={() => handleIsChecked} />
+        <WebInput type={'checkbox'} name={'recurrence'} onChange={ handleIsChecked} />
         <button onClick={handleClosingDaysSubmit}>Create closing day</button>
       </label>
       <br />

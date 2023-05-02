@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 
 import { WebInput } from "../../input/react";
 
@@ -6,7 +6,7 @@ interface IProps {
     type: string;
     name: string;
     placeholder?: string;
-    onChange: () => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     style?: {};
     value?: string | number;
     label?: string;
@@ -19,7 +19,7 @@ export const WebInputLabel: FC<IProps> = ({ type, name, placeholder, onChange, s
     return (
         <label htmlFor="">
             {customLabel ? customLabel: <p>{label}</p>}
-            <WebInput type={type} name={name} placeholder={placeholder} onChange={() => onChange} style={style} value={value} className={className} />
+            <WebInput type={type} name={name} placeholder={placeholder} onChange={onChange} style={style} value={value} className={className} />
             <p>{error}</p>
         </label>
     );

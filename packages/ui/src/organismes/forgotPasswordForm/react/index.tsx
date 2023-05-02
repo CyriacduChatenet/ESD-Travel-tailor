@@ -46,7 +46,7 @@ export const WebForgotPasswordForm: FC<IProps> = ({ api_url }) => {
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={() => handleChange} error={errors.email}/>
+      <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={handleChange} error={errors.email}/>
       <input type="submit" value={'forgot password'} />
     </form>
   )

@@ -31,7 +31,7 @@ export const WebResetPasswordForm: FC<IProps> = ({ api_url }) => {
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={() => handleChange}/>
+      <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={handleChange}/>
       <input type="submit" value={'reset password'} />
     </form>
   )
