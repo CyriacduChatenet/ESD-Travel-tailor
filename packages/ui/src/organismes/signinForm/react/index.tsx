@@ -63,6 +63,7 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
 
   return (
     <form
+    className={styles.form}
       action=""
       onSubmit={(e) => {
         e.preventDefault()
