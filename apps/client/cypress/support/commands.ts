@@ -1,3 +1,5 @@
+import React from "react";
+
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
