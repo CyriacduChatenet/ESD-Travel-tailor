@@ -3,6 +3,21 @@
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
+    margin: 0;
+    width: 100%;
+}
+
+.sectionTextRight {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+}
+
+.sectionTitle {
+    width: 100%;
 }
 
 .title {
@@ -37,8 +52,14 @@
     .sectionText {
         flex-direction: row;
     }
-
-    .sectionText:nth-child(1) {
+    .sectionTextRight {
         flex-direction: row-reverse;
+    }
+
+    .sectionTitle {
+        margin: 1rem;
+    }
+    .sectionParagraphe {
+        margin: 1rem;
     }
 }

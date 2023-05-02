@@ -1,11 +1,11 @@
 import { useUser } from '@travel-tailor/contexts'
-import { WebNavbar } from '@travel-tailor/ui'
-import { PropsWithChildren, useEffect } from 'react'
-import { ROUTES } from '@travel-tailor/constants'
-
-import styles from '@/layout/layout.module.scss'
+import { WebNavbar, WebFooter } from '@travel-tailor/ui'
 import { TokenService } from '@travel-tailor/services'
 import { checkJwtValidity } from '@travel-tailor/utils'
+import { ROUTES } from '@travel-tailor/constants'
+import { PropsWithChildren, useEffect } from 'react'
+
+import styles from '@/layout/layout.module.scss'
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const { findUserInfo } = useUser()
@@ -32,6 +32,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
     <div className={styles.layout}>
       <WebNavbar />
       <main className={styles.main}>{children}</main>
+      <WebFooter/>
     </div>
   )
 }
