@@ -1,7 +1,5 @@
 import { useUser } from '@travel-tailor/contexts'
 import { WebNavbar, WebFooter } from '@travel-tailor/ui'
-import { TokenService } from '@travel-tailor/services'
-import { checkJwtValidity } from '@travel-tailor/utils'
 import { ROUTES } from '@travel-tailor/constants'
 import { PropsWithChildren, useEffect } from 'react'
 
@@ -20,11 +18,6 @@ export const Layout = ({ children }: PropsWithChildren) => {
       window.location.pathname !== ROUTES.ADVERTISER.ACTIVITY.LIST
     ) {
       findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
-    }
-    
-    const token = TokenService.getAccessToken()
-    if (token) {
-      checkJwtValidity(token)
     }
   }, [])
 

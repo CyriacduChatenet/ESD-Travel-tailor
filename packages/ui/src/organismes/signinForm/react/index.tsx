@@ -69,8 +69,8 @@ export const WebSigninForm: FC<IProps> = ({ api_url }) => {
         handleSubmit()
       }}
     >
-       <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={() => handleChange} error={errors.email}/>
-       <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={() => handleChange} error={errors.password}/>
+       <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={handleChange} error={errors.email} className='email-signin'/>
+       <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={handleChange} error={errors.password} className='password-signin'/>
       <input type="submit" value={'Signin'} />
     </form>
   )                                                                                                                   

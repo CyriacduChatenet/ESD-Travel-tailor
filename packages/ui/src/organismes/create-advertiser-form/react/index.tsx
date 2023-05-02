@@ -74,11 +74,11 @@ export const WebCreateAdvertiserForm: FC<IProps> = ({ api_url, mapboxAccessToken
   }
 
   return (
-    <form action="" onSubmit={handleSubmit} onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
-      <WebInputLabel type={'text'} name={'name'} placeholder={'Name'} onChange={() => handleChange} error={errors.name}/>
+    <form action="" onSubmit={handleSubmit} onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)} id='create-advertiser-form'>
+      <WebInputLabel type={'text'} name={'name'} placeholder={'Name'} onChange={ handleChange} error={errors.name} className='create-advertiser-name'/>
       <label htmlFor="">
         <span>Location</span>
-        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={OBJECT_KEYS.LOCATION}/>
+        <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={OBJECT_KEYS.LOCATION} className='create-advertiser-location'/>
         <br />
         {!hideAutocomplete ? results.map((result: any) => <p key={result.id} onClick={handleClick}>{result.place_name}</p>) : null}
         <br />

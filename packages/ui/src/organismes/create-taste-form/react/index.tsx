@@ -43,8 +43,8 @@ export const WebCreateTasteForm: FC<IProps> = ({ setTastes, tastes }) => {
   }
 
   return (
-    <form action="" onSubmit={handleSubmit}>
-      <WebInputLabel type={'text'} name={'name'} placeholder={'Name'} onChange={() => handleChange} value={credentials.name} error={errors.name} />
+    <form action="" onSubmit={handleSubmit} id='create-taste-form'>
+      <WebInputLabel type={'text'} name={'name'} placeholder={'Name'} onChange={ handleChange} value={credentials.name} error={errors.name} className='create-taste-name' />
       <input type="submit" value="Create taste" />
     </form>
   )
