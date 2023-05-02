@@ -9,6 +9,8 @@ import { ChangeEvent, FC, FormEvent, useState, useRouter } from '@travel-tailor/
 import { testCityUtil } from '@travel-tailor/utils'
 import { WebInputLabel } from '../../../atoms/input-label/react'
 
+import styles from './style.module.scss'
+
 interface IProps {
   api_url: string
 }
@@ -85,7 +87,7 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
   }
 
   return (
-    <form action="" onSubmit={handleSubmit} id='signup-form'>
+    <form action="" onSubmit={handleSubmit} id='signup-form' className={styles.form}>
       <WebInputLabel type={'text'} label='Username' name={'username'} placeholder="Username" onChange={handleChange} error={errors.username} className='username-signup-input'/>
       <WebInputLabel type={'email'} label='Email' name={'email'} placeholder="Email" onChange={handleChange} error={errors.email} className='email-signup-input'/>
        <WebInputLabel type={'password'} name={'password'} placeholder="Password" label='Password' onChange={handleChange} error={errors.password} className='password-signup-input'/>
