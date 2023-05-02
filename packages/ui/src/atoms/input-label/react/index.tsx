@@ -11,14 +11,15 @@ interface IProps {
     value?: string | number;
     label?: string;
     customLabel?: JSX.Element;
-    error?: any
+    error?: any,
+    className: string;
 };
 
-export const WebInputLabel: FC<IProps> = ({ type, name, placeholder, onChange, style, value, label, customLabel, error }) => {
+export const WebInputLabel: FC<IProps> = ({ type, name, placeholder, onChange, style, value, label, customLabel, error, className }) => {
     return (
         <label htmlFor="">
             {customLabel ? customLabel: <p>{label}</p>}
-            <WebInput type={type} name={name} placeholder={placeholder} onChange={() => onChange} style={style} value={value} />
+            <WebInput type={type} name={name} placeholder={placeholder} onChange={() => onChange} style={style} value={value} className={className} />
             <p>{error}</p>
         </label>
     );
