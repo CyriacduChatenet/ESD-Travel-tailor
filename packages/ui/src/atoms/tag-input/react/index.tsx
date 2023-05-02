@@ -54,11 +54,11 @@ export const WebTagInput: FC<IProps> = ({ tags, setTags, api_url}) => {
     return (
         <label htmlFor="" onMouseEnter={() => setHideAutocomplete(!hideAutocomplete)} onMouseLeave={() => setHideAutocomplete(!hideAutocomplete)}>
         <p>Tags</p>
-        <input type="text" name="name" value={activityTagCredentials.name} placeholder="tag name" onChange={handleActivityTag} />
+        <input type="text" name="name" value={activityTagCredentials.name} placeholder="tag name" id="create-tag-input" onChange={handleActivityTag} />
         {!hideAutocomplete ? searchResults.map((tag: ActivityTag) => <div key={tag.id}>
           <p onClick={() => handleSelected(tag)}>{tag.name}</p>
         </div>) : null}
-        <button onClick={handleClick}>Add tag</button>
+        <button onClick={handleClick} id="add-tag-btn">Add tag</button>
       </label>
     );
 };
