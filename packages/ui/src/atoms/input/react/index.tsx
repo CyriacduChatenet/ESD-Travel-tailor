@@ -7,7 +7,7 @@ interface IProps {
     onChange: () => void;
     style?: {};
     value?: string | number;
-    className: string;
+    className?: string;
 };
 
 export const WebInput: FC<IProps> = ({ type, name, placeholder, onChange, style, value, className }) => {

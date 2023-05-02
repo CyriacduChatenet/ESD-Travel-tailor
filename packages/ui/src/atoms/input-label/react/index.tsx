@@ -12,7 +12,7 @@ interface IProps {
     label?: string;
     customLabel?: JSX.Element;
     error?: any,
-    className: string;
+    className?: string;
 };
 
 export const WebInputLabel: FC<IProps> = ({ type, name, placeholder, onChange, style, value, label, customLabel, error, className }) => {
