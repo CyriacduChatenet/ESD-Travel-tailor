@@ -65,7 +65,7 @@ const TravelPage: FC<IProps> = ({ travel }) => {
         />
         <br />
         <br />
-        <button onClick={handlePayment}>Payer</button>
+        <button onClick={handlePayment} id='travel-pay-btn'>Payer</button>
         <br />
         <br />
       </section>

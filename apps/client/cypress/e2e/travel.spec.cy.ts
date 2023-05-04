@@ -15,17 +15,31 @@ describe('Travel', () => {
     cy.wait(2000)
     cy.get('#create-travel-form').submit()
     cy.get('#traveler-dashboard').click()
-    expect(cy.get('.card-title').contains(
-        'Paris, France - Bordeaux, Gironde, France 08/09/2023 - 10/09/2023'
-      ))
+    expect(
+      cy
+        .get('.card-title')
+        .contains(
+          'Paris, France - Bordeaux, Gironde, France 08/09/2023 - 10/09/2023'
+        )
+    )
   })
 
-    it('should delete a travel', () => {
-        cy.wait(1000)
-        cy.get('#travel-0 > .card-title').contains(
-            'Bordeaux - Bordeaux, Gironde, France 25/12/2020 - 05/01/2021'
-          )
-        cy.get('#travel-0 > .delete-travel-btn').click()
-        expect(cy.get('#travel-145').should('not.exist'))
-    })
+  it('should delete a travel', () => {
+    cy.wait(1000)
+    cy.get('#travel-0 > .card-title').contains(
+      'Bordeaux - Bordeaux, Gironde, France 25/12/2020 - 05/01/2021'
+    )
+    cy.get('#travel-0 > .delete-travel-btn').click()
+    expect(cy.get('#travel-145').should('not.exist'))
+  })
+
+  it.only('should pay a travel', () => {
+    cy.wait(1000)
+    cy.get('#travel-0 > .card-title').contains(
+      'Bordeaux - Bordeaux, Gironde, France 25/12/2020 - 05/01/2021'
+    )
+    cy.get('#travel-0').click()
+    cy.get('#travel-pay-btn').click()
+    cy.get('#travel-recap-pay-btn').click()
+  })
 })
