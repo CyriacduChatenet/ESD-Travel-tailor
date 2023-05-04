@@ -1,4 +1,4 @@
-import { Order } from "src/payment/order/entities/order.entity";
+import { Order } from "../../../payment/order/entities/order.entity";
 
 export class UpdateCustomerDto {
     email: string;
