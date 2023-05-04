@@ -70,17 +70,17 @@ export const WebCreateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) 
     };
 
     return (
-        <form action="" onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleSubmit} id="create-travel-form">
             <label htmlFor="">
                 <p>Departure city</p>
-                <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DEPARTURE_CITY} error={`${errors.departureCity}`}/>
+                <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DEPARTURE_CITY} error={`${errors.departureCity}`} className="create-travel-departure-city"/>
             </label>
             <label htmlFor="">
                 <p>Destination city</p>
-                <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DESTINATION_CITY} error={`${errors.destinationCity}`}/>
+                <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DESTINATION_CITY} error={`${errors.destinationCity}`} className="create-travel-destination-city" />
             </label>
-            <WebInputLabel type={"date"} name={"departureDate"}  placeholder={"Departure date"} onChange={ handleChange} error={errors.departureDate}/>
-            <WebInputLabel type={"date"} name={"returnDate"}  placeholder={"Return date"} onChange={ handleChange} error={errors.returnDate}/>
+            <WebInputLabel type={"date"} name={"departureDate"}  placeholder={"Departure date"} onChange={ handleChange} error={errors.departureDate} className="create-travel-departure-date"/>
+            <WebInputLabel type={"date"} name={"returnDate"}  placeholder={"Return date"} onChange={ handleChange} error={errors.returnDate} className="create-travel-destination-date"/>
             <br />
             <br />
             <input type="submit" value={'create travel'} />
