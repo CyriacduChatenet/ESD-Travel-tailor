@@ -29,7 +29,7 @@ export const WebLocationInput:FC<IProps> = ({ mapboxAccessToken, setStateCredent
         <Geocoder setResults={setResults} accessToken={mapboxAccessToken} geocoderQuery={geocoderQuery} setGeocoderQuery={setGeocoderQuery} placeholder={objectKey}value={value} className={className} />
         <ul>
           {!hideAutocomplete ? results.map((result: any) => (
-            <li key={result.id} onClick={() => handleCredentials(result.place_name)}>{result.place_name}</li>
+            <li key={result.id} className="location-input" onClick={() => handleCredentials(result.place_name)}>{result.place_name}</li>
           )) : null}
         </ul>
         <br />

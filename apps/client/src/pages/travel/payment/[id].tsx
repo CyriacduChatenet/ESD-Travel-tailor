@@ -21,7 +21,7 @@ const TravelPaymentPage: NextPage = () => {
             <div>
                 <h1>Travel Payment Page</h1>
                 <p>{amount} €</p>
-                <button onClick={handlePayed}>Payer</button>
+                <button onClick={handlePayed} id="travel-recap-pay-btn">Payer</button>
             </div>
         </Layout>
     );

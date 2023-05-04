@@ -11,7 +11,7 @@ export const WebNavbar: FC = () => {
   const { user } = useUser()
   return (
     <nav className={styles.navbar}>
-      <NextLink href={ROUTES.ROOT}>
+      <NextLink href={ROUTES.ROOT} id='nav-home'>
         <NextImage
           src={
             'https://images.unsplash.com/photo-1677612968800-4d9f1104d251?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
@@ -21,11 +21,11 @@ export const WebNavbar: FC = () => {
           height={50}
         />
       </NextLink>
-      <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</NextLink>
+      <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST} id='activity-link'>Activities</NextLink>
       {user?.roles !== undefined && user.roles.length > 0 ? (
         <>
           {user.roles === ROLES.TRAVELER ? (
-            <NextLink href={ROUTES.TRAVELER.DASHBOARD}>
+            <NextLink href={ROUTES.TRAVELER.DASHBOARD} id='traveler-dashboard'>
               Traveler dashboard
             </NextLink>
           ) : null}

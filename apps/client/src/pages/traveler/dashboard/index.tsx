@@ -48,12 +48,12 @@ const TravelerDashboard: NextPage = () => {
       <br />
       <h2>Travels</h2>
       {user.travels?.map((travel: Travel, index: number) => <Link href={`${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`} key={index}>
-        <div>
-        <p>{travel.departureCity} - {travel.destinationCity} &nbsp; {formatDateUtil(travel.departureDate, false)} - {formatDateUtil(travel.returnDate, false)}</p>
-        <button onClick={() => handleRedirect(travel.id)}>Edit</button>
+        <div id={`travel-${index}`}>
+        <p className='card-title'>{travel.departureCity} - {travel.destinationCity} &nbsp; {formatDateUtil(travel.departureDate, false)} - {formatDateUtil(travel.returnDate, false)}</p>
+        <button onClick={() => handleRedirect(travel.id)} className='edit-travel-btn'>Edit</button>
         &nbsp;
         &nbsp;
-        <button onClick={(e) => handleDelete(e, travel.id)}>Delete</button>
+        <button onClick={(e) => handleDelete(e, travel.id)} className='delete-travel-btn'>Delete</button>
       </div>
       </Link>)}
     </Layout>
