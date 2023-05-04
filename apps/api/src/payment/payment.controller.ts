@@ -11,10 +11,10 @@ export class PaymentController {
 
   @Post('checkout')
   async createCheckoutSession(@Body() { location, amount}: { location: string, amount: number}): Promise<{ sessionId: string }> {
-    const currency = await this.opencageService.getCurrency({ location });
+    // const currency = await this.opencageService.getCurrency({ location });
 
     const createCheckoutDto: {currency: string, amount: number } = {
-      currency,
+      currency: 'eur',
       amount,
     };
 
