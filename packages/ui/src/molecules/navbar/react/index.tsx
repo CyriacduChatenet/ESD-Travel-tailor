@@ -21,7 +21,7 @@ export const WebNavbar: FC = () => {
           height={50}
         />
       </NextLink>
-      <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST}>Activities</NextLink>
+      <NextLink href={ROUTES.ADVERTISER.ACTIVITY.LIST} id='activity-link'>Activities</NextLink>
       {user?.roles !== undefined && user.roles.length > 0 ? (
         <>
           {user.roles === ROLES.TRAVELER ? (

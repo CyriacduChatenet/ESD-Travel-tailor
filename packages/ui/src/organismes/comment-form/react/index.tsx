@@ -4,6 +4,8 @@ import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from "
 import { WebInputLabel } from "../../../atoms/input-label/react";
 import { WebStar } from "../../../atoms/star/react";
 
+import styles from './style.module.scss';
+
 interface IProps {
     api_url: string;
     activity_id: string;
@@ -34,20 +36,20 @@ export const WebCommentForm: FC<IProps> = ({ api_url, activity_id, setComments }
     };
     
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <WebInputLabel type={"radio"} name={"mark"} value={1} onChange={() => setMark(1)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={2} onChange={() => setMark(2)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={3} onChange={() => setMark(3)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={4} onChange={() => setMark(4)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={5} onChange={() => setMark(5)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={6} onChange={() => setMark(6)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={7} onChange={() => setMark(7)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={8} onChange={() => setMark(8)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={9} onChange={() => setMark(9)} customLabel={<WebStar/>} style={{ display: "none" }}/>
-                <WebInputLabel type={"radio"} name={"mark"} value={10} onChange={() => setMark(10)} customLabel={<WebStar/>} style={{ display: "none" }}/>
+        <form onSubmit={handleSubmit} id="comment-form">
+            <div className={styles.stars}>
+                <WebInputLabel type={"radio"} name={"mark"} value={1} onChange={() => setMark(1)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-1"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={2} onChange={() => setMark(2)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-2"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={3} onChange={() => setMark(3)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-3"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={4} onChange={() => setMark(4)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-4"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={5} onChange={() => setMark(5)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-5"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={6} onChange={() => setMark(6)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-6"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={7} onChange={() => setMark(7)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-7"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={8} onChange={() => setMark(8)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-8"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={9} onChange={() => setMark(9)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-9"/>
+                <WebInputLabel type={"radio"} name={"mark"} value={10} onChange={() => setMark(10)} customLabel={<WebStar/>} style={{ display: "none" }} className="star-10"/>
             </div>
-            <textarea name="content" placeholder="Comment" onChange={handleChange} id="" cols={30} rows={10}></textarea>
+            <textarea name="content" placeholder="Comment" onChange={handleChange} id="comment-input" cols={30} rows={10}></textarea>
             <input type="submit" value="Send" />
         </form>
     );
