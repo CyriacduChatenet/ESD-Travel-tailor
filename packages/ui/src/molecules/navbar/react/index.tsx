@@ -10,7 +10,7 @@ import { AuthService } from '@travel-tailor/services'
 export const WebNavbar: FC = () => {
   const { user } = useUser()
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar} id='navbar'>
       <NextLink href={ROUTES.ROOT} id='nav-home'>
         <NextImage
           src={

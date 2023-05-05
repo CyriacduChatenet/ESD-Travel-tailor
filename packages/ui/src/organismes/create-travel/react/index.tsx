@@ -7,6 +7,8 @@ import { FC, useState } from "@travel-tailor/functions";
 import { WebLocationInput } from "../../../atoms/location-input/react";
 import { WebInputLabel } from "../../../atoms/input-label/react";
 
+import styles from './style.module.scss';
+
 interface IProps {
     api_url: string;
     mapboxAccessToken: string;
@@ -70,7 +72,7 @@ export const WebCreateTravelForm: FC<IProps> = ({ api_url, mapboxAccessToken }) 
     };
 
     return (
-        <form action="" onSubmit={handleSubmit} id="create-travel-form">
+        <form action="" onSubmit={handleSubmit} id="create-travel-form" className={styles.form}>
             <label htmlFor="">
                 <p>Departure city</p>
                 <WebLocationInput mapboxAccessToken={mapboxAccessToken} setStateCredentials={setCities} stateCredentials={cities} objectKey={OBJECT_KEYS.DEPARTURE_CITY} error={`${errors.departureCity}`} className="create-travel-departure-city"/>
