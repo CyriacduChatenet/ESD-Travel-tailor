@@ -439,9 +439,6 @@ importers:
       '@travel-tailor/services':
         specifier: workspace:*
         version: link:../services
-      '@travel-tailor/styles':
-        specifier: workspace:*
-        version: link:../styles
       '@travel-tailor/tools':
         specifier: workspace:*
         version: link:../tools

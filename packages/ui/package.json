@@ -16,7 +16,6 @@
     "@travel-tailor/functions": "workspace:*",
     "@travel-tailor/hooks": "workspace:*",
     "@travel-tailor/services": "workspace:*",
-    "@travel-tailor/styles": "workspace:*",
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
     "@travel-tailor/utils": "workspace:*",
