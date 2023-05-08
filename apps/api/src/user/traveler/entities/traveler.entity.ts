@@ -22,7 +22,8 @@ export class Traveler extends Timestamp {
   @JoinColumn()
   user: User;
 
-  @OneToOne(() => Customer, (customer) => customer.traveler)
+  @OneToOne(() => Customer, (customer) => customer.traveler, { cascade: true })
+  @JoinColumn()
   customer: Customer;
 
   @OneToMany(() => Taste, (taste) => taste.traveler)

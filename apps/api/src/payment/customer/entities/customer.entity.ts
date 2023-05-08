@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CreateCustomerDTO } from "@travel-tailor/types";
 
 import { Timestamp } from "../../../config/utils/timestamp.util";
@@ -27,10 +27,8 @@ export class Customer extends Timestamp implements CreateCustomerDTO {
     orders: Order[];
 
     @OneToOne(() => Advertiser)
-    @JoinColumn()
     advertiser: Advertiser;
   
     @OneToOne(() => Traveler)
-    @JoinColumn()
     traveler: Traveler;
 }
