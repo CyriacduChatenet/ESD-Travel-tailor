@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -25,7 +26,8 @@ export class Advertiser extends Timestamp {
   @OneToOne(() => User, user => user.advertiser)
   user: User;
 
-  @OneToOne(() => Customer, customer => customer.advertiser)
+  @OneToOne(() => Customer, customer => customer.advertiser, { cascade: true })
+  @JoinColumn()
   customer: Customer;
 
   @OneToMany(() => Activity, (activity) => activity.advertiser)
