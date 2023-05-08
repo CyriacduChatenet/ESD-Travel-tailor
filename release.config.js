@@ -6,5 +6,5 @@ module.exports = {
     "@semantic-release/changelog",
     "@semantic-release/git",
   ],
-  repositoryUrl: "https://github.com/username/repo.git",
+  repositoryUrl: "https://github.com/CyriacduChatenet/Travel-tailor.git",
 };
