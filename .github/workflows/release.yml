@@ -2,21 +2,21 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  release:
+  Test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Use NodeJS 18
+        uses: actions/setup-node@v1
         with:
-          node-version: "18"
+          node-version: 18
       - name: Install dependencies
-        run: npm install
-      - name: Release
+        run: npm ci
+      - name: Create new release
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        run: npm run release
+          GH_TOKEN: ${{secrets.RELEASE_TOKEN}}
+        run: npx semantic-release
