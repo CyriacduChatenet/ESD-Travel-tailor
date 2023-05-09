@@ -42,6 +42,7 @@ export class UserService {
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('traveler.travels', 'travels')
         .leftJoinAndSelect('traveler.customer', 'customer')
+        .leftJoinAndSelect('customer.orders', 'orders')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
 
@@ -82,6 +83,8 @@ export class UserService {
         .leftJoinAndSelect('user.traveler', 'traveler')
         .leftJoinAndSelect('traveler.travels', 'travels')
         .leftJoinAndSelect('traveler.tastes', 'tastes')
+        .leftJoinAndSelect('traveler.customer', 'customer')
+        .leftJoinAndSelect('customer.orders', 'orders')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .getOne()
