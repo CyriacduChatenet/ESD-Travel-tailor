@@ -9,7 +9,7 @@ import { CustomerModule } from './customer/customer.module';
 import { StripeCustomerService } from './stripe-customer.service';
 import { OpencageModule } from '../opencage/opencage.module';
 import { InvoiceService } from './invoice.service';
-import { MailModule } from 'src/mail/mail.module';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
