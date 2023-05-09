@@ -9,7 +9,12 @@ import { InvoiceService } from './invoice.service';
 
 @Controller('payment')
 export class PaymentController {
-  constructor(@InjectStripe() private readonly stripeClient: Stripe, private readonly paymentService: PaymentService, private opencageService: OpencageService, private invoiceService: InvoiceService) {}
+  constructor(
+    @InjectStripe() private readonly stripeClient: Stripe, 
+    private readonly paymentService: PaymentService, 
+    private opencageService: OpencageService, 
+    private invoiceService: InvoiceService,
+    ) {}
 
 
   @Post('checkout')
@@ -23,5 +28,10 @@ export class PaymentController {
 
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
+  }
+
+  @Post('/webhook/success-payment')
+  async handleStripeWebhook(@Body() body) {
+    return await this.paymentService.successPayment(body);
   }
 }
