@@ -1,29 +1,27 @@
-name: Release
-
+name: Releases
 on:
   push:
     branches:
       - main
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
-  release:
-    name: Release
+  changelog:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
-          node-version: 18
+          github-token: ${{ secrets.GH_TOKEN }}
 
-      - name: Install Dependencies
-        run: yarn
-
-      - name: Create Release Pull Request
-        uses: changesets/action@v1
+      - name: create release
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          release_name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
