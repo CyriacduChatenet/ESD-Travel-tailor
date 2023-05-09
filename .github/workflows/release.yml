@@ -1,39 +1,29 @@
-name: Create Release
+name: Release
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  create-release:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: 18
 
-      - name: Install Changeset
-        run: npm install @changesets/cli
+      - name: Install Dependencies
+        run: yarn
 
-      - name: Generate Changelog
-        run: npx changeset generate
-
-      - name: Create Release
-        uses: actions/create-release@v1
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: v${{ github.ref }}
-          release_name: Release v${{ github.ref }}
-          body: |
-            $(cat CHANGELOG.md)
-          draft: false
-          prerelease: false
