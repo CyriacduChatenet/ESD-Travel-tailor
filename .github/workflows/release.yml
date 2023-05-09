@@ -1,26 +1,13 @@
-name: Releases
+name: release-please
 on:
   push:
     branches:
       - main
-
 jobs:
-  changelog:
+  release-please:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3.7.1
+      - uses: google-github-actions/release-please-action@v3
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
-
-      - name: create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          release-type: terraform-module # Multiple release types are supported
+          default-branch: main
