@@ -1,22 +1,39 @@
-name: Release
+name: Create Release
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  Test:
+  create-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v2
-      - name: Use NodeJS 18
-        uses: actions/setup-node@v1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm install
-      - name: Create new release
+          node-version: '18.x'
+
+      - name: Install Changeset
+        run: npm install @changesets/cli
+
+      - name: Generate Changelog
+        run: npx changeset generate
+
+      - name: Create Release
+        uses: actions/create-release@v1
         env:
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
-        run: npx semantic-release
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          tag_name: v${{ github.ref }}
+          release_name: Release v${{ github.ref }}
+          body: |
+            $(cat CHANGELOG.md)
+          draft: false
+          prerelease: false
