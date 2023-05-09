@@ -12,6 +12,8 @@ export type Traveler = {
 
 export type CreateTravelerDTO = {
   user?: string
+  email?: string
+  name?: string
   tastes?: string[]
 }
 

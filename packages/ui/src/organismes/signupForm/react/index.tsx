@@ -43,6 +43,8 @@ export const WebSignupForm: FC<IProps> = ({ api_url }) => {
     if (credentials.roles === ROLES.TRAVELER) {
       const traveler = await TravelerService.createTraveler(api_url, {
         user: user.id,
+        email: user.email,
+        name: user.username,
       }, setSubmitError)
       await UserService.updateUser(api_url, await user.id, { traveler: traveler.id }, setSubmitError)
       router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)

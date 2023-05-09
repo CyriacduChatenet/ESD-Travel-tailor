@@ -6,8 +6,8 @@ import Stripe from "stripe";
 export class StripeCustomerService {
     constructor(@InjectStripe() private readonly stripeClient: Stripe) {}
 
-    async create(email: string) {
-        return await this.stripeClient.customers.create({ email });
+    async create(stripeCredentials: { email: string; name: string }) {
+        return await this.stripeClient.customers.create({ email: stripeCredentials.email, name: stripeCredentials.name });
     };
 
     async findAll() {
