@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
 
@@ -25,4 +25,27 @@ export class StripeCustomerService {
     async delete(customerId: string) {
         return await this.stripeClient.customers.del(customerId);
     }
+
+    async addPaymentMethod(customerId: string, card): Promise<any> {
+        try {
+          const paymentMethod = await this.stripeClient.paymentMethods.create({
+            type: 'card',
+            card,
+          });
+    
+          await this.stripeClient.paymentMethods.attach(paymentMethod.id, {
+            customer: customerId,
+          });
+    
+          const customer = await this.stripeClient.customers.update(customerId, {
+            invoice_settings: {
+              default_payment_method: paymentMethod.id,
+            },
+          });
+    
+          return customer;
+        } catch (err) {
+          throw new HttpException(err.message, 402);
+        }
+      }
 }

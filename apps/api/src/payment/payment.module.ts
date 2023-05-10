@@ -7,8 +7,10 @@ import { PaymentController } from './payment.controller';
 import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
 import { StripeCustomerService } from './stripe-customer.service';
-import { SubscriptionService } from './subscription.service';
 import { OpencageModule } from '../opencage/opencage.module';
+import { InvoiceService } from './invoice.service';
+import { MailModule } from '../mail/mail.module';
+import { StripeWebhookService } from './stripe-webhook.service';
 
 @Module({
   imports: [
@@ -17,12 +19,13 @@ import { OpencageModule } from '../opencage/opencage.module';
       apiKey: process.env.STRIPE_API_KEY,
       apiVersion: '2022-11-15',
     }),
+    MailModule,
     OrderModule,
     forwardRef(() => CustomerModule),
     OpencageModule,
   ],
   controllers: [PaymentController],
-  providers: [PaymentService, StripeCustomerService, SubscriptionService],
-  exports: [PaymentService, StripeCustomerService, SubscriptionService],
+  providers: [PaymentService, StripeCustomerService, InvoiceService, StripeWebhookService],
+  exports: [PaymentService, StripeCustomerService, InvoiceService],
 })
 export class PaymentModule {}

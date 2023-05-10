@@ -10,7 +10,7 @@ export class PaymentService {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
     private configService: ConfigService,
-  ) {}
+  ) { }
 
   async createCheckoutSession(createCheckoutDto: CreateCheckoutDto): Promise<string> {
     try {
@@ -33,6 +33,7 @@ export class PaymentService {
         success_url: `${this.configService.get('CLIENT_APP_URL')}/payment/success`,
         cancel_url: `${this.configService.get('CLIENT_APP_URL')}/payment/cancel`,
       });
+
       return session.id;
     } catch (err) {
       throw new HttpException(err.message, 402);

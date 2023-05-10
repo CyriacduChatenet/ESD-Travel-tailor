@@ -42,4 +42,19 @@ export class MailService {
       </div>`,
     })
   }
+
+  public async sendInvoiceMail(reciever: string, attachement: { filename: string, content: Buffer }) {
+    await this.mailerService.sendMail({
+      to: reciever,
+      from: this.configService.get('MAILER_EMAIL'),
+      subject: 'Your invoice',
+      text: 'welcome',
+      attachments: [
+        attachement
+      ],
+      html: `<div>
+      <p>Your invoice for your trip</p>
+      </div>`,
+    })
+  }
 }
