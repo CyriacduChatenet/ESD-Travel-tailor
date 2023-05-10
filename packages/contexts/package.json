@@ -15,7 +15,6 @@
     "@travel-tailor/constants": "workspace:*",
     "@travel-tailor/functions": "workspace:*",
     "@travel-tailor/types": "workspace:*",
-    "@travel-tailor/ui": "workspace:*",
     "prettier": "^2.8.4"
   },
 
