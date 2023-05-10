@@ -43,37 +43,4 @@ export class PaymentService {
       throw new HttpException(err.message, 402);
     }
   }
-
-  async successPayment(body: any) {
-    try {
-      const event = body.data.object;
-
-      if (event.object === 'checkout.session' && event.payment_status === 'paid') {
-        const session = event.id;
-  
-        const checkoutSession = await this.stripeClient.checkout.sessions.retrieve(session);
-  
-        const invoice = await this.invoiceService.create({
-          amount: checkoutSession.amount_total,
-          payment_id: checkoutSession.payment_intent,
-          customer: checkoutSession.customer,
-        })
-  
-        const invoiceUrl = invoice.hosted_invoice_url;
-        await fetch(`${invoiceUrl}.pdf`, {
-          headers: {
-            Authorization: `Bearer ${this.configService.get('STRIPE_API_KEY')}`,
-          },
-        }).then((response) => console.log(response));
-    
-        const filename = `invoice_${invoice.id}.pdf`;
-    
-  
-        // const invoicePdf = await this.stripeClient.invoices.retrievePdf(invoice.id);
-        // await this.mailService.sendInvoiceMail(checkoutSession.customer_email, invoicePdf);
-      }
-    } catch (err) {
-      throw new HttpException(err.message, 400);
-    }
-  }
 }

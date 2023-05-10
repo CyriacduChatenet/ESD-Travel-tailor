@@ -29,9 +29,4 @@ export class PaymentController {
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
   }
-
-  @Post('/webhook/success-payment')
-  async handleStripeWebhook(@Body() body) {
-    return await this.paymentService.successPayment(body);
-  }
 }
