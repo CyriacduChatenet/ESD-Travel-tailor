@@ -187,3 +187,4 @@ cd apps/client && npm run dev
 
 ## Class diagram
 - [Class diagram](https://dbdiagram.io/d/637e1c76c9abfc611174bd92)
+
