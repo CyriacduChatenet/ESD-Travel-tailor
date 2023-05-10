@@ -6,7 +6,7 @@ import { TokenService } from '@travel-tailor/services'
 export const checkJwtValidity = (token: string) => {
     const decodedToken: AccessToken = jwtDecode(token);
 
-    if(decodedToken.exp < Date.now()) {
+    if(Date.now() > decodedToken.exp) {
         TokenService.removeAccessToken();
         window.location.pathname = ROUTES.AUTH.SIGNIN;
     }

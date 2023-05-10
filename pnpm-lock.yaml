@@ -203,9 +203,6 @@ importers:
       '@travel-tailor/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@travel-tailor/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@travel-tailor/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -279,9 +276,6 @@ importers:
       '@travel-tailor/types':
         specifier: workspace:*
         version: link:../types
-      '@travel-tailor/ui':
-        specifier: workspace:*
-        version: link:../ui
       prettier:
         specifier: ^2.8.4
         version: 2.8.4
