@@ -4,16 +4,12 @@ import Stripe from 'stripe'
 import { ConfigService } from '@nestjs/config'
 
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
-import { MailService } from '../mail/mail.service';
-import { InvoiceService } from './invoice.service';
 
 @Injectable()
 export class PaymentService {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
     private configService: ConfigService,
-    private mailService: MailService,
-    private invoiceService: InvoiceService,
   ) { }
 
   async createCheckoutSession(createCheckoutDto: CreateCheckoutDto): Promise<string> {
