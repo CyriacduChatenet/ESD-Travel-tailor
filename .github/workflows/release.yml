@@ -1,13 +1,25 @@
-name: release-please
+name: Release
 on:
   push:
     branches:
       - main
+
 jobs:
-  release-please:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          release-type: terraform-module # Multiple release types are supported
-          default-branch: main
+          node-version: '18.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Semantic Release
+        id: semantic_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx semantic-release
