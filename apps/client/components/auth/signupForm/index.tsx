@@ -14,7 +14,7 @@ interface ISignupForm {
 export const SignupForm: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: ISignupForm) => {
         console.log(data)
     };
 

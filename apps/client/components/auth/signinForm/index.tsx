@@ -12,7 +12,7 @@ interface ISigninForm {
 export const SigninForm: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: ISigninForm) => {
         console.log(data)
     };
 
