@@ -10,6 +10,9 @@ const get = async (api_url: string, setError?: Dispatch<SetStateAction<any>> | a
       },
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -30,6 +33,9 @@ const protectedGet = async (api_url: string, token: string, setError?: Dispatch<
       },
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -50,6 +56,9 @@ const post = async (api_url: string, body: any, setError?: Dispatch<SetStateActi
       body: JSON.stringify(body),
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -66,6 +75,9 @@ const postFormData = async (api_url: string, body: any, setError?: Dispatch<SetS
       body: body,
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -87,6 +99,9 @@ const protectedPost = async (api_url: string, body: any, token: string, setError
       body: JSON.stringify(body),
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -106,6 +121,9 @@ const protectedPostFormData = async (api_url: string, body: any, token: string, 
       body: body,
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -126,6 +144,9 @@ const patch = async (api_url: string, body: Object, setError?: Dispatch<SetState
       body: JSON.stringify(body),
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -142,6 +163,9 @@ const patchFormData = async (api_url: string, body: any, setError?: Dispatch<Set
       body: body,
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -163,6 +187,9 @@ const protectedPatch = async (api_url: string, body: Object, token: string, setE
       body: JSON.stringify(body),
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -182,6 +209,9 @@ const protectedPatchFormData = async (api_url: string, body: any, token: string,
       body: body,
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
@@ -202,6 +232,9 @@ const remove = async (api_url: string, token: string, setError?: Dispatch<SetSta
     },
   })
   const responseJSON = await response.json()
+  if(response.status >= 400) {
+    setError(responseJSON)
+  }
   return responseJSON
  } catch (err) {
   console.error(err)
@@ -222,6 +255,9 @@ const protectedRemove = async (api_url: string, token: string, setError?: Dispat
       },
     })
     const responseJSON = await response.json()
+    if(response.status >= 400) {
+      setError(response)
+    }
     return responseJSON
   } catch (err) {
     console.error(err)
