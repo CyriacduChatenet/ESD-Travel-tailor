@@ -1,5 +1,6 @@
-import { AuthChecker } from "@/components/auth/authChecker";
+import React from "react";
 import { NextPage } from "next";
+import { AuthChecker } from "@/components/auth/authChecker";
 
 const TravelerTravelPage: NextPage = () => {
     return (
