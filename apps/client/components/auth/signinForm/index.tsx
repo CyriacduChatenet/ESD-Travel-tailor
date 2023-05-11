@@ -1,8 +1,12 @@
 'use client'
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { AuthService } from "@travel-tailor/services";
+import { API_SIGNIN_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants"
+import { AccessToken } from "@travel-tailor/types";
 
 interface ISigninForm {
     email: string
@@ -10,10 +14,26 @@ interface ISigninForm {
 }
 
 export const SigninForm: FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
+    const [apiErrors, setApiErrors] = useState({});
 
-    const onSubmit = (data: ISigninForm) => {
-        console.log(data)
+    const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
+    const router = useRouter();
+
+    const handleRedirect = async (user: AccessToken) => {
+        if (user.roles === ROLES.ADMIN) {
+          router.push(ROUTES.ADMIN.DASHBOARD)
+        } else if (user.roles === ROLES.TRAVELER) {
+          router.push(ROUTES.TRAVELER.DASHBOARD)
+        } else if (user.roles === ROLES.ADVERTISER) {
+          router.push(ROUTES.ADVERTISER.DASHBOARD)
+        }
+      }
+
+    const onSubmit = async (data: ISigninForm) => {
+        const response = await AuthService.signin( `${process.env.NEXT_PUBLIC_API_URL}${API_SIGNIN_ROUTE}`,data, setApiErrors);
+        if (response) {
+            handleRedirect(response)
+        }
     };
 
     return (
