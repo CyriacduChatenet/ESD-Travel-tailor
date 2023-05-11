@@ -14,24 +14,30 @@ interface ISigninForm {
 }
 
 export const SigninForm: FC = () => {
-    const [apiErrors, setApiErrors] = useState({});
+    const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
     const router = useRouter();
 
     const handleRedirect = async (user: AccessToken) => {
-        if (user.roles === ROLES.ADMIN) {
-          router.push(ROUTES.ADMIN.DASHBOARD)
-        } else if (user.roles === ROLES.TRAVELER) {
-          router.push(ROUTES.TRAVELER.DASHBOARD)
-        } else if (user.roles === ROLES.ADVERTISER) {
-          router.push(ROUTES.ADVERTISER.DASHBOARD)
+        switch (user.roles) {
+            case ROLES.ADMIN:
+                router.push(ROUTES.ADMIN.DASHBOARD)
+                break;
+            case ROLES.TRAVELER:
+                router.push(ROUTES.TRAVELER.DASHBOARD)
+                break;
+            case ROLES.ADVERTISER:
+                router.push(ROUTES.ADVERTISER.DASHBOARD)
+                break;
+            default:
+                break;
         }
-      }
+    }
 
     const onSubmit = async (data: ISigninForm) => {
-        const response = await AuthService.signin( `${process.env.NEXT_PUBLIC_API_URL}${API_SIGNIN_ROUTE}`,data, setApiErrors);
-        if (response) {
+        const response = await AuthService.signin(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNIN_ROUTE}`, data, setApiErrors);
+        if (response && apiErrors.message === undefined) {
             handleRedirect(response)
         }
     };
@@ -39,6 +45,7 @@ export const SigninForm: FC = () => {
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
             <form onSubmit={handleSubmit(onSubmit)}>
+                {apiErrors.message && <p className="mb-2 text-red-500 text-xs italic">User is&apos;t exist</p>}
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
                         Email
@@ -53,6 +60,7 @@ export const SigninForm: FC = () => {
                         })}
                         id="email"
                         type="email"
+                        onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.email && <p className="mt-2 text-red-500 text-xs italic">{errors.email.message?.toString()}</p>}
@@ -65,6 +73,7 @@ export const SigninForm: FC = () => {
                         {...register("password", { required: "Password is required" })}
                         id="password"
                         type="password"
+                        onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.password && <p className="mt-2 text-red-500 text-xs italic">{errors.password.message?.toString()}</p>}
