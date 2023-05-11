@@ -50,6 +50,9 @@ export const SigninForm: FC = () => {
                     {errors.password && <p className="mt-2 text-red-500 text-xs italic">{errors.password.message?.toString()}</p>}
                 </div>
                 <div className="flex flex-col items-center justify-between">
+                    <Link href="/forgot-password" className="mb-8 text-sm text-gray-500 hover:text-gray-800">
+                        Forgot password ?
+                    </Link>
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
