@@ -67,7 +67,7 @@ export const SignupForm: FC = () => {
                         onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
-                    {errors.email && <p className="mt-2 text-red-500 text-xs italic">{errors.username?.message?.toString()}</p>}
+                    {errors.username && <p className="mt-2 text-red-500 text-xs italic">{errors.username?.message?.toString()}</p>}
                 </div>
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
