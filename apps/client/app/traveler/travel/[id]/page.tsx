@@ -1,10 +1,13 @@
+import { AuthChecker } from "@/components/auth/authChecker";
 import { NextPage } from "next";
 
 const TravelerTravelPage: NextPage = () => {
     return (
-        <main>
-            <h1>Traveler Travel</h1>
-        </main>
+        <AuthChecker>
+            <main>
+                <h1>Traveler Travel</h1>
+            </main>
+        </AuthChecker>
     );
 };
 

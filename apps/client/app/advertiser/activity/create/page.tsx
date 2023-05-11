@@ -1,10 +1,13 @@
+import { AuthChecker } from "@/components/auth/authChecker";
 import { NextPage } from "next";
 
 const AdvertiserCreateActivityPage: NextPage = () => {
     return (
-        <main>
-            <h1>Advertiser Create Activity</h1>
-        </main>
+        <AuthChecker>
+            <main>
+                <h1>Advertiser Create Activity</h1>
+            </main>
+        </AuthChecker>
     );
 };
 
