@@ -16,8 +16,6 @@ export const SigninForm: FC = () => {
         console.log(data)
     };
 
-    console.log(errors);
-
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
             <form onSubmit={handleSubmit(onSubmit)}>
