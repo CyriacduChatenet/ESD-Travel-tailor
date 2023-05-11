@@ -1,7 +1,5 @@
 import { jwtDecode } from '@travel-tailor/functions';
-import { AccessToken } from '@travel-tailor/types';
-import { ROUTES } from '@travel-tailor/constants';
-import { TokenService } from '@travel-tailor/services'
+import { TokenService } from '@travel-tailor/services';
 
 export const checkJwtValidity = () => {
     const token = TokenService.getAccessToken();
@@ -13,7 +11,7 @@ export const checkJwtValidity = () => {
 
       if (decodedToken.exp < currentTime) {
         // Token has expired
-        console.log('Token has expired');
+        console.error('Token has expired');
         // Vous pouvez ajouter ici le code pour gérer le cas où le token a expiré
       } else {
         // Token is still valid
@@ -22,7 +20,7 @@ export const checkJwtValidity = () => {
       }
     } catch (error) {
       // Token is invalid
-      console.log('Invalid token');
+      console.error('Invalid token');
       // Vous pouvez ajouter ici le code pour gérer le cas où le token est invalide
     }
   } else {
