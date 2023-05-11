@@ -9,6 +9,7 @@ interface ISignupForm {
     email: string
     password: string
     roles: string
+    acceptTerms: boolean
 }
 
 export const SignupForm: FC = () => {
@@ -79,6 +80,24 @@ export const SignupForm: FC = () => {
                         <option value="advertiser">Advertiser</option>
                     </select>
                     {errors.roles && <p className="text-red-500 text-xs italic">{errors.roles?.message?.toString()}</p>}
+                </div>
+                <div className="mb-4">
+                    <label className="inline-flex items-center">
+                        <input
+                            {...register("acceptTerms", { required: "You must be accept general conditions" })}
+                            type="checkbox"
+                            className="form-checkbox h-5 w-5 text-blue-600"
+                        />
+                        <span className="ml-2 text-gray-700 font-medium">
+                            I consent to the processing of my personal data in accordance with the{" "}
+                            <Link href="#" className="text-blue-500">
+                                general conditions
+                            </Link>
+                        </span>
+                    </label>
+                    {errors.acceptTerms && (
+                        <p className="text-red-500 text-xs italic">{errors.acceptTerms.message}</p>
+                    )}
                 </div>
                 <div className="flex flex-col items-center justify-between">
                     <button
