@@ -2,9 +2,11 @@
 
 import React, { FC, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { AuthService } from "@/../../packages/services/src";
-import { API_SIGNUP_ROUTE } from "@/../../packages/constants/src";
+import { AuthService, TravelerService, UserService } from "@travel-tailor/services";
+import { API_SIGNUP_ROUTE, API_TRAVELER_ROUTE, API_USER_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
+import { User } from "@travel-tailor/types";
 
 interface ISignupForm {
     username: string
@@ -16,11 +18,36 @@ interface ISignupForm {
 
 export const SignupForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
+
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
+    const router = useRouter()
+
+    const handleRedirect = async (user: User, data: ISignupForm) => {
+        if (data.roles === ROLES.TRAVELER) {
+          const traveler = await TravelerService.createTraveler(`${process.env.NEXT_PUBLIC_API_URL}${API_TRAVELER_ROUTE}`, {
+            user: user.id,
+            name: user.username,
+            email: user.email,
+          }, setApiErrors)
+          await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}${API_USER_ROUTE}`, await user.id, { traveler: traveler.id }, setApiErrors)
+          router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
+        }
+    
+        if (data.roles === ROLES.ADVERTISER) {
+          router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`)
+        }
+    
+        if (data.roles === ROLES.ADMIN) {
+          router.push(ROUTES.AUTH.SIGNIN)
+        }
+      }    
 
     const onSubmit = async (data: ISignupForm) => {
         console.log(data)
         const response = await AuthService.signup(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNUP_ROUTE}`, data, setApiErrors);
+        if(response) {
+            await handleRedirect(response, data)
+        }
     };
 
     return (
