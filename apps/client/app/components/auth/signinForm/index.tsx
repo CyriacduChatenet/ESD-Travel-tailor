@@ -4,8 +4,13 @@ import Link from "next/link";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 
+interface ISigninForm {
+    email: string
+    password: string
+}
+
 export const SigninForm: FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
 
     const onSubmit = (data: any) => {
         console.log(data)
