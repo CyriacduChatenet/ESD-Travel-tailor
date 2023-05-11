@@ -1,8 +1,10 @@
 'use client'
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { AuthService } from "@/../../packages/services/src";
+import { API_SIGNUP_ROUTE } from "@/../../packages/constants/src";
 
 interface ISignupForm {
     username: string
@@ -13,14 +15,17 @@ interface ISignupForm {
 }
 
 export const SignupForm: FC = () => {
+    const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
 
-    const onSubmit = (data: ISignupForm) => {
+    const onSubmit = async (data: ISignupForm) => {
         console.log(data)
+        const response = await AuthService.signup(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNUP_ROUTE}`, data, setApiErrors);
     };
 
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
+            {apiErrors.status === 406 && <p className="mb-2 text-red-500 text-xs italic">User is already exist</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
@@ -32,6 +37,7 @@ export const SignupForm: FC = () => {
                         })}
                         id="username"
                         type="text"
+                        onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.email && <p className="mt-2 text-red-500 text-xs italic">{errors.username?.message?.toString()}</p>}
@@ -50,6 +56,7 @@ export const SignupForm: FC = () => {
                         })}
                         id="email"
                         type="email"
+                        onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.email && <p className="mt-2 text-red-500 text-xs italic">{errors.email.message?.toString()}</p>}
@@ -62,6 +69,7 @@ export const SignupForm: FC = () => {
                         {...register("password", { required: "Password is required" })}
                         id="password"
                         type="password"
+                        onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.password && <p className="mt-2 text-red-500 text-xs italic">{errors.password.message?.toString()}</p>}
@@ -73,6 +81,7 @@ export const SignupForm: FC = () => {
                     <select
                         {...register("roles", { required: "Role is required" })}
                         id="role"
+                        onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="">Select role</option>
