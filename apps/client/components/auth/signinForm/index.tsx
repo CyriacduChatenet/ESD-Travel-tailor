@@ -1,7 +1,7 @@
 'use client'
 
+import React, { FC } from "react";
 import Link from "next/link";
-import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 interface ISigninForm {
