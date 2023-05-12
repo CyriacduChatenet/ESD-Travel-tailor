@@ -1,5 +1,6 @@
 import { jwtDecode } from '@travel-tailor/functions';
 import { TokenService } from '@travel-tailor/services';
+import { ROUTES } from '@travel-tailor/constants';
 
 export const checkJwtValidity = () => {
     const token = TokenService.getAccessToken();
@@ -12,20 +13,23 @@ export const checkJwtValidity = () => {
       if (decodedToken.exp < currentTime) {
         // Token has expired
         console.error('Token has expired');
+        window.location.pathname = ROUTES.AUTH.SIGNIN;
         // Vous pouvez ajouter ici le code pour gérer le cas où le token a expiré
       } else {
         // Token is still valid
-        console.log('Token is still valid');
+        return true;
         // Vous pouvez ajouter ici le code pour gérer le cas où le token est valide
       }
     } catch (error) {
       // Token is invalid
       console.error('Invalid token');
+      window.location.pathname = ROUTES.AUTH.SIGNIN;
       // Vous pouvez ajouter ici le code pour gérer le cas où le token est invalide
     }
   } else {
     // Token is not present in local storage
-    console.log('Token not present in local storage');
+    console.error('Token not present in local storage');
+    window.location.pathname = ROUTES.AUTH.SIGNIN;
     // Vous pouvez ajouter ici le code pour gérer le cas où le token n'est pas présent dans le local storage
   }
 };
