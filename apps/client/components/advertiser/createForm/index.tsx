@@ -1,4 +1,4 @@
-import { useParams, useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -26,7 +26,7 @@ export const CreateAdvertiserForm: FC = () => {
         const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors);
         if (advertiser && apiErrors.message === undefined) {
             await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.id, { advertiser: advertiser.id }, setApiErrors);
-            handleRedirect(advertiser.id)
+            handleRedirect(`${advertiser.id}`)
         }
     };
     return (
