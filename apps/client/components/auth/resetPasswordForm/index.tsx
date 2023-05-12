@@ -4,8 +4,7 @@ import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthService } from "@travel-tailor/services";
 import { useParams, useRouter } from "next/navigation";
-import { useRouter as useRouterUrl } from "next/router";
-import { API_FORGOT_PASSWORD_ROUTE, ROUTES } from "@travel-tailor/constants";
+import { ROUTES } from "@travel-tailor/constants";
 
 interface IResetPasswordForm {
     password: string
