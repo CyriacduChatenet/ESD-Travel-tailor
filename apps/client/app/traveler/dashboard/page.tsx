@@ -1,12 +1,24 @@
 import React from "react";
 import { NextPage } from "next";
+
 import { AuthChecker } from "@/components/auth/authChecker";
+import { TravelList } from "@/components/traveler/travels/travelList";
 
 const TravelerDashboardPage: NextPage = () => {
     return (
         <AuthChecker>
             <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
-                <h1>Traveler Dashboard</h1>
+                <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
+                    <h1 className="font-bold lg:text-2xl">Traveler Dashboard</h1>
+                    <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
+                        <div className="col-span-4 md:col-span-4 xl:col-span-8">
+                            <TravelList/>
+                        </div>
+                        <div className="col-span-4 md:col-span-4 xl:col-span-4">
+                            <p>map</p>
+                        </div>
+                    </section>
+                </section>
             </main>
         </AuthChecker>
     );
