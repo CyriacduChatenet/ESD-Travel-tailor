@@ -18,7 +18,8 @@ const getUserByToken = async (api_url: string, email: string, setError: Dispatch
 
 const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any) => {
   const token = TokenService.getAccessToken()
-  const decodedToken = jwtDecode(String(token)) as any
+  const signinToken = TokenService.getSigninToken()
+  const decodedToken = jwtDecode(String(signinToken ? signinToken : token)) as any
   const user = await getUserByToken(api_url, decodedToken.email, setError)
 
   if ((user.roles) === ROLES.TRAVELER) {

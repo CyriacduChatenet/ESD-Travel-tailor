@@ -18,14 +18,15 @@ export const CreateAdvertiserForm: FC = () => {
     const router = useRouter();
     const params = useParams();
 
-    const handleRedirect = async () => {
-        router.push(ROUTES.ADVERTISER.PAYMENT)
+    const handleRedirect = async (advertiserId: string) => {
+        router.push(`${ROUTES.ADVERTISER.PAYMENT}/${advertiserId}`)
     }
 
     const onSubmit = async (data: ICreateAdvertiserForm) => {
         const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors);
         if (advertiser && apiErrors.message === undefined) {
-            const user = await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.id, { advertiser: advertiser.id }, setApiErrors);
+            await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.id, { advertiser: advertiser.id }, setApiErrors);
+            handleRedirect(advertiser.id)
         }
     };
     return (

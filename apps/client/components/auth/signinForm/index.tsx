@@ -4,9 +4,10 @@ import React, { FC, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { AuthService } from "@travel-tailor/services";
+import { AuthService, UserService } from "@travel-tailor/services";
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants"
-import { AccessToken } from "@travel-tailor/types";
+import { AccessToken, User } from "@travel-tailor/types";
+import { useUser } from "@travel-tailor/contexts";
 
 interface ISigninForm {
     email: string
@@ -14,9 +15,10 @@ interface ISigninForm {
 }
 
 export const SigninForm: FC = () => {
-    const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
+    const [apiErrors, setApiErrors] = useState<any>();
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
+    const { setUser } = useUser();
     const router = useRouter();
 
     const handleRedirect = async (user: AccessToken) => {
@@ -38,6 +40,8 @@ export const SigninForm: FC = () => {
     const onSubmit = async (data: ISigninForm) => {
         const response = await AuthService.signin(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNIN_ROUTE}`, data, setApiErrors);
         if (response && apiErrors.message === undefined) {
+            const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors);
+            setUser(user as User);
             handleRedirect(response)
         }
     };
@@ -45,7 +49,7 @@ export const SigninForm: FC = () => {
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
             <form onSubmit={handleSubmit(onSubmit)}>
-                {apiErrors.message && <p className="mb-2 text-red-500 text-xs italic">User is&apos;t exist</p>}
+                {apiErrors?.message && <p className="mb-2 text-red-500 text-xs italic">User is&apos;t exist</p>}
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
                         Email

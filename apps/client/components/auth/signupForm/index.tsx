@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { AuthService, TravelerService, UserService } from "@travel-tailor/services";
 import { API_SIGNUP_ROUTE, API_TRAVELER_ROUTE, API_USER_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
 import { User } from "@travel-tailor/types";
+import { useUser } from "@travel-tailor/contexts";
 
 interface ISignupForm {
     username: string
@@ -21,6 +22,7 @@ export const SignupForm: FC = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
     const router = useRouter()
+    const { setUser } = useUser();
 
     const handleRedirect = async (user: User, data: ISignupForm) => {
         if (data.roles === ROLES.TRAVELER) {
@@ -46,6 +48,8 @@ export const SignupForm: FC = () => {
         console.log(data)
         const response = await AuthService.signup(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNUP_ROUTE}`, data, setApiErrors);
         if(response) {
+            const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors);
+            setUser(user as User);
             await handleRedirect(response, data)
         }
     };
