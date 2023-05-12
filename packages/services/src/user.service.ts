@@ -8,7 +8,7 @@ import { TravelerService } from './traveler.service'
 import { AdvertiserService } from './advertiser.service'
 import { Dispatch, SetStateAction } from 'react'
 
-const updateUser = (api_url: string, id: string, body: UpdateUserDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<User[]> => {
+const updateUser = (api_url: string, id: string, body: UpdateUserDTO, setError: any): Promise<User[]> => {
   return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`,setError);
 }
 

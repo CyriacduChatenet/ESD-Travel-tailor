@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.52.0",
     "@travel-tailor/constants": "workspace:*",
     "@travel-tailor/contexts": "workspace:*",
     "@travel-tailor/functions": "workspace:*",
