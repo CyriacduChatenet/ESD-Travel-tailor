@@ -20,7 +20,7 @@ export const ROUTES = {
   },
   ADVERTISER: {
     DASHBOARD: '/advertiser/dashboard',
-    CREATE_ADVERTISER: '/advertiser/create-advertiser',
+    CREATE_ADVERTISER: '/advertiser/create',
     ACTIVITY: {
       CREATE_ACTIVITY: '/advertiser/create-activity',
       UPDATE_ACTIVITY: '/advertiser/update-activity',
