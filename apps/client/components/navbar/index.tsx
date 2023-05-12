@@ -1,3 +1,7 @@
+'use client'
+
+import { ROUTES } from "@/../../packages/constants/src";
+import { TokenService } from "@/../../packages/services/src";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -25,18 +29,31 @@ export const Navbar: FC = () => {
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow"></div>
                 <div>
-                    <Link 
-                        href={'/signin'}
-                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                    >
-                        Signin
-                    </Link>
-                    <Link 
-                        href={'/signup'}
-                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                    >
-                        Signup
-                    </Link>
+                    {TokenService.getAccessToken() === null ? <>
+                        <Link
+                            href={ROUTES.AUTH.SIGNIN}
+                            className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                        >
+                            Signin
+                        </Link>
+                        <Link
+                            href={ROUTES.AUTH.SIGNUP}
+                            className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                        >
+                            Signup
+                        </Link>
+                    </> : null}
+                    {
+                        TokenService.getAccessToken() !== null ? <>
+                            <Link
+                                href={ROUTES.ROOT}
+                                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                                onClick={() => TokenService.removeAccessToken()}
+                            >
+                                Logout
+                            </Link>
+                        </> : null
+                    }
                 </div>
             </div>
         </nav>
