@@ -1,0 +1,20 @@
+name: 'Pull request title'
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 1
+
+    steps:
+    - uses: deepakputhraya/action-pr-title@master
+      with:
+        regex: '^[a-zA-Z0-9]\((\w|\s|\W)*\):\s[\w\s\W]*$'
+        prefix_case_sensitive: false
+        min_length: 5
