@@ -1,15 +1,10 @@
 'use client'
 
-import React, { ChangeEvent, FC, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { TasteService } from "@/../../packages/services/src";
-import { API_TASTE_ROUTE, ROUTES } from "@/../../packages/constants/src";
-
-interface ICreateTasteForm {
-    name: string;
-}
+import React, { FC, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { TasteService } from "@travel-tailor/services";
+import { Taste } from "@travel-tailor/types";
+import { ROUTES } from "@/../../packages/constants/src";
 
 export const CreateTasteForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
@@ -17,17 +12,24 @@ export const CreateTasteForm: FC = () => {
     const [submit, setSubmit] = useState<boolean>(false);
 
     const router = useRouter();
+    const routeParams = useParams();
 
     const handleChange = async (e: any) => {
         e.preventDefault();
         const { value } = e.target;
         setTags([...tags, { name: value }]);
-        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}${API_TASTE_ROUTE}`, tags, '1', setApiErrors);
+        console.log(routeParams);
+        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.id, setApiErrors);
+    };
+
+    const handleDelete = async (id: string, index: number) => {
+        await TasteService.deleteTaste(`${process.env.NEXT_PUBLIC_API_URL}`, id, setApiErrors);
+        setTags(tags.filter((_, i) => i !== index))
     };
 
     const handleSubmit = () => {
         setSubmit(true);
-        if(tags.length > 0 && Number(apiErrors.status) < 400) {
+        if(tags.length > 0) {
             router.push(ROUTES.TRAVELER.DASHBOARD);
         }
     };
@@ -40,12 +42,12 @@ export const CreateTasteForm: FC = () => {
             <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
                 <form action="">
                     <div>
-                        {tags.map((tag, index) => (
+                        {tags.map((taste: Taste, index: number) => (
                             <div key={index} className="flex justify-around items-center rounded-full bg-blue-500 text-white my-2">
-                                <p>{tag.name}</p>
+                                <p>{taste.name}</p>
                                 <button
                                     className="text-white font-bold py-2 px-4"
-                                    onClick={() => setTags(tags.filter((_, i) => i !== index))}
+                                    onClick={() => handleDelete(`${String(taste.id)}`, index)}
                                 >
                                     D
                                 </button>

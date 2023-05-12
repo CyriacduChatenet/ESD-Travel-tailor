@@ -15,10 +15,10 @@ export const ResetPasswordForm: FC = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<IResetPasswordForm>();
     const router = useRouter();
-    const routerUrl = useParams();
+    const routeParams = useParams();
 
     const onSubmit = async (data: IResetPasswordForm) => {
-        const response = await AuthService.resetPassword(`${process.env.NEXT_PUBLIC_API_URL}`, routerUrl.id, data, setApiErrors);
+        const response = await AuthService.resetPassword(`${process.env.NEXT_PUBLIC_API_URL}`, routeParams.id, data, setApiErrors);
         if (response) {
             router.push(ROUTES.AUTH.SIGNIN);
         }
