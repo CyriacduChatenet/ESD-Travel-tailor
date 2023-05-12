@@ -1,18 +1,28 @@
 'use client'
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { AuthService } from "@travel-tailor/services";
+import { useRouter } from "next/navigation";
+import { API_FORGOT_PASSWORD_ROUTE } from "@travel-tailor/constants";
 
 interface IForgotPasswordForm {
     email: string
 }
 
 export const ForgotPasswordForm: FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<IForgotPasswordForm>();
+    const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
 
-    const onSubmit = (data: IForgotPasswordForm) => {
-        console.log(data)
+    const { register, handleSubmit, formState: { errors } } = useForm<IForgotPasswordForm>();
+    const router = useRouter();
+
+    const onSubmit = async (data: IForgotPasswordForm) => {
+        const response = await AuthService.forgotPassword(`${process.env.NEXT_PUBLIC_API_URL}${API_FORGOT_PASSWORD_ROUTE}`,data, setApiErrors);
+        
+        if(response) {
+            router.push('/signin')
+        }
     };
 
     return (
