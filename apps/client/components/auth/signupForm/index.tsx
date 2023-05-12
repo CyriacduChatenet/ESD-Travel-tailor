@@ -24,12 +24,12 @@ export const SignupForm: FC = () => {
 
     const handleRedirect = async (user: User, data: ISignupForm) => {
         if (data.roles === ROLES.TRAVELER) {
-          const traveler = await TravelerService.createTraveler(`${process.env.NEXT_PUBLIC_API_URL}${API_TRAVELER_ROUTE}`, {
+          const traveler = await TravelerService.createTraveler(`${process.env.NEXT_PUBLIC_API_URL}`, {
             user: user.id,
             name: user.username,
             email: user.email,
           }, setApiErrors)
-          await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}${API_USER_ROUTE}`, await user.id, { traveler: traveler.id }, setApiErrors)
+          await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, await user.id, { traveler: traveler.id }, setApiErrors)
           router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
         }
     
@@ -112,7 +112,7 @@ export const SignupForm: FC = () => {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="">Select role</option>
-                        <option value="travler">Traveler</option>
+                        <option value="traveler">Traveler</option>
                         <option value="advertiser">Advertiser</option>
                     </select>
                     {errors.roles && <p className="text-red-500 text-xs italic">{errors.roles?.message?.toString()}</p>}
