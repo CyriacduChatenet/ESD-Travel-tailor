@@ -58,9 +58,6 @@ importers:
       '@travel-tailor/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@travel-tailor/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
       '@types/bcrypt':
         specifier: ^5.0.0
         version: 5.0.0
