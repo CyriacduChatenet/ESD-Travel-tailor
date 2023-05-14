@@ -6,6 +6,7 @@ import { TravelService } from '@travel-tailor/services';
 import { Travel } from '@travel-tailor/types';
 import { useUser } from '@travel-tailor/contexts';
 import { Paginator } from '@/components/paginator';
+import { ROUTES } from '@/../../packages/constants/src';
 
 export const TravelList = () => {
     const [apiError, setApiError] = useState({});
@@ -35,7 +36,7 @@ export const TravelList = () => {
             <p>Page {page}</p>
             <ul>
                 {response.data && response.data.map((travel: Travel, index: number) => (
-                    <Link key={index} href={''}>
+                    <Link key={index} href={`${ROUTES.TRAVELER.TRAVELER}${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`}>
                         <li className='px-4 py-2 rounded-lg blue'>
                             <p>{travel.departureCity} - {travel.destinationCity}</p>
                             <p>{`${new Date(travel.departureDate)}`} - {`${new Date(travel.returnDate)}`}</p>
