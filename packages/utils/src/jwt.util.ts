@@ -14,6 +14,7 @@ export const checkJwtValidity = () => {
         // Token has expired
         console.error('Token has expired');
         window.location.pathname = ROUTES.AUTH.SIGNIN;
+        TokenService.removeAccessToken();
         // Vous pouvez ajouter ici le code pour gérer le cas où le token a expiré
       } else {
         // Token is still valid
@@ -24,6 +25,7 @@ export const checkJwtValidity = () => {
       // Token is invalid
       console.error('Invalid token');
       window.location.pathname = ROUTES.AUTH.SIGNIN;
+      TokenService.removeAccessToken();
       // Vous pouvez ajouter ici le code pour gérer le cas où le token est invalide
     }
   } else {
