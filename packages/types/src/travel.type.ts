@@ -8,7 +8,7 @@ export type Travel = {
   destinationCity: string
   departureDate: Date
   returnDate: Date
-  days?: Day[]
+  days: Day[]
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null
