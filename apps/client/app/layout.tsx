@@ -2,6 +2,7 @@ import { Context } from '@travel-tailor/contexts'
 import { Inter } from 'next/font/google'
 
 import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 
 import './globals.css'
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Context>
           <Navbar />
           {children}
+          <Footer />
         </Context>
         </body>
     </html>
