@@ -1,11 +1,13 @@
 'use client'
 
-import { ROUTES } from "@/../../packages/constants/src";
-import { TokenService } from "@/../../packages/services/src";
+import { ROUTES } from "@travel-tailor/constants";
+import { useUser } from "@travel-tailor/contexts";
+import { TokenService } from "@travel-tailor/services";
 import Link from "next/link";
 import { FC } from "react";
 
 export const Navbar: FC = () => {
+    const { user } = useUser();
     return (
         <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -29,6 +31,30 @@ export const Navbar: FC = () => {
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow"></div>
                 <div>
+                    {user.advertiser && <Link
+                        href={ROUTES.ADVERTISER.DASHBOARD}
+                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                    >
+                        Dashboard
+                    </Link>}
+                    {user.traveler && <Link
+                        href={ROUTES.TRAVELER.DASHBOARD}
+                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                    >
+                        Dashboard
+                    </Link>}
+                    <Link
+                        href={''}
+                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                    >
+                        Profile
+                    </Link>
+                    <Link
+                        href={''}
+                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                    >
+                        Settings
+                    </Link>
                     {TokenService.getAccessToken() === null ? <>
                         <Link
                             href={ROUTES.AUTH.SIGNIN}
