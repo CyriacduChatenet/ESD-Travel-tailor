@@ -82,6 +82,7 @@ export class TravelService {
       .createQueryBuilder('travel')
       .leftJoinAndSelect('travel.traveler', 'traveler')
       .where('traveler.id = :id', { id: travelerId })
+      .orderBy('travel.createdAt', 'DESC')
 
       return {
         page: page,
