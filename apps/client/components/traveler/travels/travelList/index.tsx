@@ -36,9 +36,10 @@ export const TravelList = () => {
             <ul>
                 {response.data && response.data.map((travel: Travel, index: number) => (
                     <Link key={index} href={`${ROUTES.TRAVELER.TRAVELER}${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`}>
-                        <li className='px-4 py-2 rounded-lg blue'>
+                        <li className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:flex-row xl:justify-between lg:pr-20'>
                             <p>{travel.departureCity} - {travel.destinationCity}</p>
-                            <p>{`${new Date(travel.departureDate)}`} - {`${new Date(travel.returnDate)}`}</p>
+                            <p>{`${new Date(travel.departureDate).toLocaleDateString('fr')}`} - {`${new Date(travel.returnDate).toLocaleDateString('fr')}`}</p>
+                            <p>Go</p>
                         </li>
                     </Link>
                 ))}

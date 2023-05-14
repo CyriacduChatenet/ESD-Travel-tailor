@@ -33,7 +33,7 @@ const TravelerTravelPage: NextPage = () => {
     return (
         <AuthChecker>
             <main>
-                <h1>{data.departureCity} - {data.destinationCity} from {data.departureDate} to {data.returnDate}</h1>
+                <h1>{data.departureCity} - {data.destinationCity} from {new Date(data.departureDate).toLocaleDateString('fr')} to {new Date(data.returnDate).toLocaleDateString('fr')}</h1>
             </main>
         </AuthChecker>
     );
