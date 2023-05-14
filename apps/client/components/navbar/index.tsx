@@ -31,30 +31,42 @@ export const Navbar: FC = () => {
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow"></div>
                 <div>
-                    {user.advertiser && <Link
+                    {user.advertiser && TokenService.getAccessToken() !== null ? <Link
                         href={ROUTES.ADVERTISER.DASHBOARD}
                         className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
                     >
                         Dashboard
-                    </Link>}
-                    {user.traveler && <Link
+                    </Link> : null}
+                    {user.traveler && TokenService.getAccessToken() !== null ? <Link
                         href={ROUTES.TRAVELER.DASHBOARD}
                         className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
                     >
                         Dashboard
-                    </Link>}
-                    <Link
+                    </Link> : null}
+                    {user.traveler && TokenService.getAccessToken() !== null ? <Link
+                        href={ROUTES.TRAVELER.TASTE.INDEX}
+                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                    >
+                        Tastes
+                    </Link> : null}
+                    {user.advertiser && TokenService.getAccessToken() !== null ? <Link
+                        href={ROUTES.ADVERTISER.INVOICE.INDEX}
+                        className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                    >
+                        Invoices
+                    </Link> : null}
+                    {TokenService.getAccessToken() !== null ? <Link
                         href={''}
                         className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
                     >
                         Profile
-                    </Link>
-                    <Link
+                    </Link> : null}
+                    {TokenService.getAccessToken() !== null ? <Link
                         href={''}
                         className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
                     >
                         Settings
-                    </Link>
+                    </Link> : null}
                     {TokenService.getAccessToken() === null ? <>
                         <Link
                             href={ROUTES.AUTH.SIGNIN}

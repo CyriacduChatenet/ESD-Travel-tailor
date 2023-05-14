@@ -9,6 +9,7 @@ export const ROUTES = {
     DASHBOARD: '/traveler/dashboard',
     EDIT_TRAVELER: '/traveler/edit-travel',
     TASTE: {
+      INDEX: '/traveler/tastes',
       CREATE: '/traveler/taste/create',
     },
     TRAVELER: '/traveler',
@@ -21,12 +22,15 @@ export const ROUTES = {
   ADVERTISER: {
     DASHBOARD: '/advertiser/dashboard',
     CREATE_ADVERTISER: '/advertiser/create',
+    INVOICE: {
+      INDEX: '/advertiser/invoices',
+    },
     ACTIVITY: {
       CREATE_ACTIVITY: '/advertiser/create-activity',
       UPDATE_ACTIVITY: '/advertiser/update-activity',
-      LIST: '/activity',
+      INDEX: '/activity',
     },
-    ADVERTISER: '/advertiser',
+    INDEX: '/advertiser',
     PAYMENT: '/advertiser/payment'
   },
   ADMIN: {
