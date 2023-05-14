@@ -33,7 +33,6 @@ export const TravelList = () => {
 
     return (
         <>
-            <p>Page {page}</p>
             <ul>
                 {response.data && response.data.map((travel: Travel, index: number) => (
                     <Link key={index} href={`${ROUTES.TRAVELER.TRAVELER}${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`}>

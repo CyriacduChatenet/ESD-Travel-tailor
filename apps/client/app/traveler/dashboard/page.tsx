@@ -16,7 +16,7 @@ const TravelerDashboardPage: NextPage = () => {
                         <div className="col-span-4 md:col-span-4 xl:col-span-8">
                             <TravelList />
                         </div>
-                        <div className="col-span-4 md:col-span-4 xl:col-span-4">
+                        <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
                             <Mapbox
                                 mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
                                 addresse={`Bordeaux, Gironde, France`}
