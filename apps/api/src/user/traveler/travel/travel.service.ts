@@ -102,6 +102,7 @@ export class TravelService {
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
         .leftJoinAndSelect('travel.days', 'day')
+        .orderBy('day.date', 'ASC')
         .leftJoinAndSelect('day.timeSlots', 'timeSlot')
         .leftJoinAndSelect('timeSlot.activity', 'activity')
         .leftJoinAndSelect('activity.detail', 'detail')
