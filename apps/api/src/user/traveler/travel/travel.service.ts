@@ -73,6 +73,27 @@ export class TravelService {
     }
   }
 
+  async findAllByTravelerId(travelerId: string, page: number, limit: number) {
+    try {
+      const skip = (page - 1) * limit;
+      const take = limit;
+
+      const query = this.travelRepository
+      .createQueryBuilder('travel')
+      .leftJoinAndSelect('travel.traveler', 'traveler')
+      .where('traveler.id = :id', { id: travelerId })
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
+    } catch(err) {
+      throw new NotFoundException(err);
+    }
+  }
+
   async findOne(id: string) {
     try {
       return await this.travelRepository
