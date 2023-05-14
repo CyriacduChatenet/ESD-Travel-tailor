@@ -10,7 +10,13 @@ import { AuthChecker } from "@/components/auth/authChecker";
 
 const TravelerTravelPage: NextPage = () => {
     const [apiError, setApiError] = useState({});
-    const [data, setData] = useState<Travel>({});
+    const [data, setData] = useState<Travel>({
+        id: '',
+        departureCity: '',
+        destinationCity: '',
+        departureDate: new Date(),
+        returnDate: new Date(),
+    });
     const params = useParams();
 
     const handleFetch = async () => {
