@@ -1,7 +1,7 @@
 import React from "react";
 import { NextPage } from "next";
 
-import { SignupForm } from "../../components/auth/signupForm";
+import { SignupForm } from "../components/auth/signupForm";
 
 const SignupPage: NextPage = () => {
     return (

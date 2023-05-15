@@ -3,8 +3,8 @@
 import { FC, useRef } from '@travel-tailor/functions'
 import { useMapbox } from '@travel-tailor/hooks';
 
-import '../../node_modules/mapbox-gl/dist/mapbox-gl.css'
-import '../../node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css'
+import '../../../node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 
 interface IProps {

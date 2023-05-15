@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import { CreateTasteForm } from "@/components/traveler/tastes/createTasteForm";
+import { CreateTasteForm } from "@/app/components/traveler/tastes/createTasteForm";
 
 const CreateTastePage: NextPage = () => {
     return (

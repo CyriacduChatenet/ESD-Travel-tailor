@@ -5,7 +5,7 @@ import React, { useMemo, useState } from 'react';
 import { TravelService } from '@travel-tailor/services';
 import { Travel } from '@travel-tailor/types';
 import { useUser } from '@travel-tailor/contexts';
-import { Paginator } from '@/components/paginator';
+import { Paginator } from '@/app/components/paginator';
 import { ROUTES } from '@/../../packages/constants/src';
 
 export const TravelList = () => {

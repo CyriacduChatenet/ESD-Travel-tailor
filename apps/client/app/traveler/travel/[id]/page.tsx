@@ -6,9 +6,9 @@ import { TravelService } from "@travel-tailor/services";
 import { Travel } from "@travel-tailor/types";
 import { useParams } from "next/navigation";
 
-import { AuthChecker } from "@/components/auth/authChecker";
-import { Mapbox } from "@/components/map";
-import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
+import { AuthChecker } from "@/app/components/auth/authChecker";
+import { Mapbox } from "@/app/components/map";
+import { DayNavbar } from "@/app/components/traveler/travels/dayNavbar";
 
 const TravelerTravelPage: NextPage = () => {
     const [apiError, setApiError] = useState({});

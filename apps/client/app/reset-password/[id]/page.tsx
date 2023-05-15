@@ -1,7 +1,7 @@
 import React from "react";
 import { NextPage } from "next";
 
-import { ResetPasswordForm } from "@/components/auth/resetPasswordForm";
+import { ResetPasswordForm } from "@/app/components/auth/resetPasswordForm";
 
 const ResetPasswordPage: NextPage = () => {
     return (

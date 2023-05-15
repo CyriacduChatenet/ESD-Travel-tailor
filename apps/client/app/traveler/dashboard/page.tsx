@@ -2,10 +2,10 @@
 import React from "react";
 import { NextPage } from "next";
 
-import { AuthChecker } from "@/components/auth/authChecker";
-import { TravelList } from "@/components/traveler/travels/travelList";
-import { Mapbox } from "@/components/map";
-import { CreateTravelForm } from "@/components/traveler/travels/createForm";
+import { AuthChecker } from "@/app/components/auth/authChecker";
+import { TravelList } from "@/app/components/traveler/travels/travelList";
+import { Mapbox } from "@/app/components/map";
+import { CreateTravelForm } from "@/app/components/traveler/travels/createForm";
 
 const TravelerDashboardPage: NextPage = () => {
     return (

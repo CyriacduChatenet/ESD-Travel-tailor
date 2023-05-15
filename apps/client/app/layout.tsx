@@ -1,8 +1,8 @@
 import { Context } from '@travel-tailor/contexts'
 import { Inter } from 'next/font/google'
 
-import { Navbar } from '@/components/navbar'
-import { Footer } from '@/components/footer'
+import { Navbar } from '@/app/components/navbar'
+import { Footer } from '@/app/components/footer'
 
 import './globals.css'
 

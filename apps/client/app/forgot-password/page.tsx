@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import { ForgotPasswordForm } from "@/components/auth/forgotPasswordForm";
+import { ForgotPasswordForm } from "@/app/components/auth/forgotPasswordForm";
 
 const ForgotPasswordPage: NextPage = () => {
     return (

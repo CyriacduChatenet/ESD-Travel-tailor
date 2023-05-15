@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import { AuthChecker } from "@/components/auth/authChecker";
+import { AuthChecker } from "@/app/components/auth/authChecker";
 
 const TravelerEditTravelPage: NextPage = () => {
     return (
