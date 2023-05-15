@@ -9,6 +9,7 @@ import Link from "next/link";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { ActivityToolbar } from "@/components/traveler/travels/activity/toolBar";
+import { Toast } from "@/components/toast";
 const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: false })
 
 const TravelActivityPage: NextPage = () => {
@@ -40,7 +41,8 @@ const TravelActivityPage: NextPage = () => {
                         <ActivityToolbar location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} />
                         <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                             <div className="col-span-4 md:col-span-4 xl:col-span-8">
-                                <p>description</p>
+                                <Toast message={`Open: 09:00 - 12:00`} status={'info'} />
+                                <p className="mt-4 lg:mt-8">description</p>
                                 <div className="py-4 lg:py-8 w-full flex justify-around items-center">
                                     <Link href={''}>
                                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</button>
