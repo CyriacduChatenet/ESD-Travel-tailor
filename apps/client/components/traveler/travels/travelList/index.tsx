@@ -4,6 +4,7 @@ import { TravelService } from '@travel-tailor/services';
 import { Travel } from '@travel-tailor/types';
 import { useUser } from '@travel-tailor/contexts';
 import { ROUTES } from '@travel-tailor/constants';
+import { Icon } from '@iconify/react';
 
 import { Paginator } from '@/components/paginator';
 import { Player } from '@lottiefiles/react-lottie-player';
@@ -43,7 +44,7 @@ export const TravelList = () => {
                         <li className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:flex-row xl:justify-between lg:pr-20'>
                             <p>{travel.departureCity} - {travel.destinationCity}</p>
                             <p>{`${new Date(travel.departureDate).toLocaleDateString('fr')}`} - {`${new Date(travel.returnDate).toLocaleDateString('fr')}`}</p>
-                            <p>Go</p>
+                            <Icon icon="material-symbols:chevron-right" className='w-6 h-6' />
                         </li>
                     </Link>
                 )) : <Player
