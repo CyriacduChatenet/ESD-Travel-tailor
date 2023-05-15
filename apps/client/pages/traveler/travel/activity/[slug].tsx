@@ -4,10 +4,11 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Activity } from "@travel-tailor/types";
 import { ActivityService } from "@travel-tailor/services";
-
-import { AuthChecker } from "@/components/auth/authChecker";
 import Image from "next/image";
 import Link from "next/link";
+
+import { AuthChecker } from "@/components/auth/authChecker";
+import { ActivityToolbar } from "@/components/traveler/travels/activity/toolBar";
 const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: false })
 
 const TravelActivityPage: NextPage = () => {
@@ -36,7 +37,7 @@ const TravelActivityPage: NextPage = () => {
                     {data ? <>
                         <h1 className="font-bold lg:text-2xl">{data.name}</h1>
                         <Image src={""} alt={"Banner"} />
-                        <p>tool bar</p>
+                        <ActivityToolbar location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} />
                         <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                             <div className="col-span-4 md:col-span-4 xl:col-span-8">
                                 <p>description</p>
