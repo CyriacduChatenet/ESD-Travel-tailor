@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { Player } from '@lottiefiles/react-lottie-player';
 import { AuthService, UserService } from "@travel-tailor/services";
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants"
 import { AccessToken, User } from "@travel-tailor/types";
@@ -14,6 +15,7 @@ interface ISigninForm {
 
 export const SigninForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<any>();
+    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
     const { setUser } = useUser();
@@ -36,6 +38,7 @@ export const SigninForm: FC = () => {
     }
 
     const onSubmit = async (data: ISigninForm) => {
+        setSubmit(true);
         const response = await AuthService.signin(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNIN_ROUTE}`, data, setApiErrors);
         if (response && apiErrors.message === undefined) {
             const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors);
@@ -86,9 +89,14 @@ export const SigninForm: FC = () => {
                     </Link>
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${submit && 'cursor-not-allowed py-3 px-12'}`}
                     >
-                        Signin
+                        {submit ? <Player
+                            src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                            className="w-5 h-5"
+                            loop
+                            autoplay
+                        /> : <>Signin</>}
                     </button>
                     <Link href="/signup" className="mt-8 text-sm text-gray-500 hover:text-gray-800">
                         Signup

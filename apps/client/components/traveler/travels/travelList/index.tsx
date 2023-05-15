@@ -6,6 +6,7 @@ import { useUser } from '@travel-tailor/contexts';
 import { ROUTES } from '@travel-tailor/constants';
 
 import { Paginator } from '@/components/paginator';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 export const TravelList = () => {
     const [apiError, setApiError] = useState({});
@@ -37,7 +38,7 @@ export const TravelList = () => {
     return (
         <>
             <ul>
-                {response.data && response.data.map((travel: Travel, index: number) => (
+                {response.data ? response.data.map((travel: Travel, index: number) => (
                     <Link key={index} href={`${ROUTES.TRAVELER.TRAVELER}${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`}>
                         <li className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:flex-row xl:justify-between lg:pr-20'>
                             <p>{travel.departureCity} - {travel.destinationCity}</p>
@@ -45,7 +46,12 @@ export const TravelList = () => {
                             <p>Go</p>
                         </li>
                     </Link>
-                ))}
+                )) : <Player
+                src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                className="w-12 h-12"
+                loop
+                autoplay
+            />}
             </ul>
             <Paginator pageCurrent={page} setPage={setPage} limit={response.limit} total={response.total} />
         </>
