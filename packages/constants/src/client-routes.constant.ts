@@ -15,7 +15,7 @@ export const ROUTES = {
     TRAVELER: '/traveler',
     TRAVEL: {
       FIND: '/travel',
-      ACTIVITY: '/travel/activity',
+      ACTIVITY: '/traveler/travel/activity',
       PAYMENT: '/travel/payment',
     }
   },
