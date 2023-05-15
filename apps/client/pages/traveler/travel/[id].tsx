@@ -1,15 +1,13 @@
-'use client';
-
 import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { TravelService } from "@travel-tailor/services";
 import { Travel } from "@travel-tailor/types";
-import { useParams } from "next/navigation";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { Mapbox } from "@/components/map";
 import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
 import { ActivityList } from "@/components/traveler/travels/activity/activityList";
+import { usePathname } from "next/navigation";
 
 const TravelerTravelPage: NextPage = () => {
     const [apiError, setApiError] = useState({});
@@ -23,10 +21,10 @@ const TravelerTravelPage: NextPage = () => {
     });
     const [day, setDay] = useState<Date>(new Date());
 
-    const params = useParams();
+    const params = usePathname();
 
     const handleFetch = async () => {
-        const response = await TravelService.findTravelById(`${process.env.NEXT_PUBLIC_API_URL}`, params.id, setApiError);
+        const response = await TravelService.findTravelById(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(17,100), setApiError);
         if(response) {
             setData(response);
             return response;

@@ -3,9 +3,11 @@ import { Day } from "./day.type";
 
 export type TimeSlot = {
     id: string;
-    created_at?: Date;
-    updated_at?: Date;
-    deleted_at?: Date | null;
+    created_at: Date;
+    updated_at: Date;
+    startTime: Date;
+    endTime: Date;
+    deleted_at: Date | null;
     day:Day;
     activity: Activity;
 };
