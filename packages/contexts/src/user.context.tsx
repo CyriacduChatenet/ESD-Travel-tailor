@@ -6,6 +6,7 @@ import React, {
   PropsWithChildren,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from 'react'
 import { User } from '@travel-tailor/types'
@@ -52,11 +53,13 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
   const [submitError, setSubmitError] = useState({});
 
   const findUserInfo = async (api_url: string) => {
-    if (TokenService.getSigninToken() !== undefined || TokenService.getAccessToken() !== undefined) {
       const u = await UserService.getUserInfo(api_url, setSubmitError) as User
       setUser(u)
-    }
   }
+
+  useEffect(() => {
+    findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
+  }, []); 
 
   return (
     <userContext.Provider value={{ user, setUser, findUserInfo }}>

@@ -20,16 +20,20 @@ export const TravelList = () => {
     const { user } = useUser();
 
     const handleFetch = async () => {
-        const response = await TravelService.findTravelsByTravelerId(`${process.env.NEXT_PUBLIC_API_URL}`, String(user?.traveler?.id), setApiError, page);
+        if(user) {
+            const response = await TravelService.findTravelsByTravelerId(`${process.env.NEXT_PUBLIC_API_URL}`, String(user?.traveler?.id), setApiError, page);
         if (response) {
             setResponse(response);
             return response;
         }
+        }
     };
 
     useMemo(() => {
-        handleFetch();
-    }, [page]);
+        if(user) {
+            handleFetch();
+        }
+    }, [page, user]);
 
     return (
         <>
