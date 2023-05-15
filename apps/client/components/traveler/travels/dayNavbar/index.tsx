@@ -9,7 +9,7 @@ interface IProps {
 
 export const DayNavbar: FC<IProps> = ({ days, dayCurrent, setDay, }) => {
     return (
-        <section>
+        <section className="my-2 xl:my-8 ">
             {
                 days.map((day: Day, index) => <button
                 key={index}
