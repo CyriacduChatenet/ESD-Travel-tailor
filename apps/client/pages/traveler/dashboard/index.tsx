@@ -5,8 +5,8 @@ import dynamic from "next/dynamic";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { TravelList } from "@/components/traveler/travels/travelList";
-const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox) , { loading: () => <div className="h-96 w-full" />, ssr: false })
 import { CreateTravelForm } from "@/components/traveler/travels/createForm";
+import Image from "next/image";
 
 const TravelerDashboardPage: NextPage = () => {
     return (
@@ -20,10 +20,7 @@ const TravelerDashboardPage: NextPage = () => {
                             <TravelList />
                         </div>
                         <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
-                            <Mapbox
-                                mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
-                                addresse={`Bordeaux, Gironde, France`}
-                            />
+                            <Image src="https://images.unsplash.com/photo-1493564738392-d148cfbd6eda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80" alt="city" width={500} height={500} priority />
                         </div>
                     </section>
                 </section>

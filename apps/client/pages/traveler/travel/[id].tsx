@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { TravelService } from "@travel-tailor/services";
 import { Travel } from "@travel-tailor/types";
+import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import { AuthChecker } from "@/components/auth/authChecker";
-import { Mapbox } from "@/components/map";
+const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox) , { loading: () => <div className="h-96 w-full" />, ssr: false })
 import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
 import { ActivityList } from "@/components/traveler/travels/activity/activityList";
-import { usePathname } from "next/navigation";
 
 const TravelerTravelPage: NextPage = () => {
     const [apiError, setApiError] = useState({});
