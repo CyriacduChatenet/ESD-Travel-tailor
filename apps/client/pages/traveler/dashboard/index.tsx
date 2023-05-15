@@ -1,10 +1,11 @@
 'use client';
 import React from "react";
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { TravelList } from "@/components/traveler/travels/travelList";
-import { Mapbox } from "@/components/map";
+const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox) , { loading: () => <div className="h-96 w-full" />, ssr: false })
 import { CreateTravelForm } from "@/components/traveler/travels/createForm";
 
 const TravelerDashboardPage: NextPage = () => {

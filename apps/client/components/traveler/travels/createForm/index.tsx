@@ -1,7 +1,6 @@
 import { useUser } from "@/../../packages/contexts/src";
 import { TravelService } from "@/../../packages/services/src";
-import Link from "next/link";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface ICreateTravelForm {
@@ -18,10 +17,10 @@ export const CreateTravelForm: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateTravelForm>();
     const { user } = useUser();
 
-    const onSubmit = async (data: ICreateTravelForm) => {
+    const onSubmit = useCallback(async (data: ICreateTravelForm) => {
         console.log(data)
         await TravelService.createTravel(`${process.env.NEXT_PUBLIC_API_URL}`, {...data, traveler: user?.traveler?.id}, setApiErrors);
-    };
+    }, [user]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col xl:flex-row lg:justify-between lg:items-center py-8">

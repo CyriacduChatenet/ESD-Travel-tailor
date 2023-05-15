@@ -10,7 +10,7 @@ interface IProps {
   addresse: string
 }
 
-export const Mapbox: FC<IProps> = ({ mapboxApiAccessToken, addresse }) => {
+export const Mapbox = ({ mapboxApiAccessToken, addresse }: IProps) => {
 
   const mapContainer = useRef<HTMLDivElement>(null);
 
