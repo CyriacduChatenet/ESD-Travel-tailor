@@ -13,10 +13,10 @@ export const DayNavbar: FC<IProps> = ({ days, dayCurrent, setDay, }) => {
             {
                 days.map((day: Day, index) => <button
                 key={index}
-                onClick={() => setDay(day.date)}
+                onClick={() => setDay(day?.date)}
                 className={`py-2 px-4 rounded mr-2 mb-2 sm:mb-0 ${day.date === dayCurrent ? 'bg-blue-500 text-white' : 'text-black bg-gray-100'}`}
               >
-                {new Date(day.date).toLocaleDateString('fr')}
+                {new Date(day?.date).toLocaleDateString('fr')}
               </button>)
             }
         </section>
