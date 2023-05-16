@@ -1,5 +1,5 @@
-import { useRouter, useParams } from "next/navigation";
-import { FC, useCallback, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
@@ -15,7 +15,7 @@ export const CreateAdvertiserForm: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateAdvertiserForm>();
 
     const router = useRouter();
-    const params = useParams();
+    const params = usePathname();
 
     const handleRedirect = async (advertiserId: string) => {
         router.push(`${ROUTES.ADVERTISER.PAYMENT}/${advertiserId}`)
@@ -24,7 +24,7 @@ export const CreateAdvertiserForm: FC = () => {
     const onSubmit = async (data: ICreateAdvertiserForm) => {
         const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors);
         if (advertiser && apiErrors.message === undefined) {
-            await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.id, { advertiser: advertiser.id }, setApiErrors);
+            await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19,100), { advertiser: advertiser.id }, setApiErrors);
             handleRedirect(`${advertiser.id}`)
         }
     };
