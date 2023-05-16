@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { FC, useState } from "react";
 
@@ -22,7 +23,9 @@ export const Footer: FC = () => {
             </ul>
             <div className="col-span-4 md:col-span-2 lg:col-span-4 flex justify-center items-center">
                 <Link href={''}>
-                    <button>up</button>
+                    <button>
+                        <Icon icon="mdi:chevron-up" className="w-10 h-10" />
+                    </button>
                 </Link>
             </div>
         </footer>
