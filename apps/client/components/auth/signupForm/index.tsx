@@ -43,7 +43,6 @@ export const SignupForm: FC = () => {
       }    
 
     const onSubmit = async (data: ISignupForm) => {
-        console.log(data)
         const response = await AuthService.signup(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNUP_ROUTE}`, data, setApiErrors);
         if(response) {
             const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors);

@@ -28,7 +28,6 @@ export class ActivityService {
       const activityImage = await this.activityImageService.create({});
 
       const uploadFile = await this.uploadFileService.create(files[0], user, activityImage);
-      console.log(uploadFile);
       await this.activityImageService.update(activityImage.id, {...activityImage, uploadFile});
 
 

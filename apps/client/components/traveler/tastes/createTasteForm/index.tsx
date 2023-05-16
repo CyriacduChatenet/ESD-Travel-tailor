@@ -16,7 +16,6 @@ export const CreateTasteForm: FC = () => {
         e.preventDefault();
         const { value } = e.target;
         setTags([...tags, { name: value }]);
-        console.log(routeParams);
         await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.id, setApiErrors);
     };
 
