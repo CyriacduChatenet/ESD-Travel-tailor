@@ -1,10 +1,16 @@
 import { FC } from "react";
 import { Comment } from "@/components/traveler/travels/activity/comments/comment";
+import { Comment as CommentType } from '@travel-tailor/types'
 
-export const CommentList: FC = () => {
+interface IProps {
+    comments: Comment[];
+}
+
+export const CommentList: FC<IProps> = ({ comments }) => {
+    console.log(comments);
     return (
         <ul>
-            <Comment />
+            {comments && comments.map((comment: CommentType) => <Comment key={comment.id} author={'author'} content={comment.content} createdAt={comment.createdAt} />)}
         </ul>
     );
 };

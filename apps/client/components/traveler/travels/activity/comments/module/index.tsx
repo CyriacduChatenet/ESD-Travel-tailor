@@ -1,4 +1,5 @@
 import { FC, Dispatch, SetStateAction } from "react";
+import { Comment } from "@travel-tailor/types";
 
 import { CommentToolbar } from "@/components/traveler/travels/activity/comments/toolBar";
 import { CommentMark } from "@/components/traveler/travels/activity/comments/commentMark";
@@ -7,16 +8,17 @@ import { CommentForm } from "@/components/traveler/travels/activity/comments/com
 
 interface IProps {
     setDisplayCommentModule: Dispatch<SetStateAction<boolean>>;
+    comments: Comment[];
 }
 
-export const CommentModule: FC<IProps> = ({ setDisplayCommentModule }) => {
+export const CommentModule: FC<IProps> = ({ setDisplayCommentModule, comments }) => {
     return (
         <>
         <CommentToolbar setDisplayCommentModule={setDisplayCommentModule} />
         <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-5">
             <CommentMark />
             <section className="col-span-8 md:col-span-4 xl:col-span-8">
-                <CommentList />
+                <CommentList comments={comments} />
                 <CommentForm />
             </section>
         </section>

@@ -39,7 +39,7 @@ const TravelActivityPage: NextPage = () => {
                         {data ? <>
                             <h1 className="font-bold lg:text-2xl">{data.name}</h1>
                             <Image src={""} alt={"Banner"} />
-                            {displayCommentModule ? <CommentModule setDisplayCommentModule={setDisplayCommentModule} /> : <ActivityModule location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} setDisplayCommentModule={setDisplayCommentModule} date={new Date()} />}
+                            {displayCommentModule ? <CommentModule setDisplayCommentModule={setDisplayCommentModule} comments={data.comments} /> : <ActivityModule location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} setDisplayCommentModule={setDisplayCommentModule} date={new Date()} />}
                         </> : <p>Loading...</p>}
                     </section>
                 </main>
