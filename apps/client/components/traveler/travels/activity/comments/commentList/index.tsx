@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { Comment } from "@/components/traveler/travels/activity/comments/comment";
-import { Comment as CommentType } from '@travel-tailor/types'
 
 interface IProps {
     comments: Comment[];
