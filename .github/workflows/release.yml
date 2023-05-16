@@ -5,21 +5,39 @@ on:
       - main
 
 jobs:
-  release:
-    name: Release
+  install-deps:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v2
         with:
-          node-version: '18.x'
-      - name: Install dependencies
-        run: npm install
-      - name: Semantic Release
-        id: semantic_release
+          path: node_modules
+          key: cache-node-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          node-version: 18
+      - name: install dependencies
+        run: npm i
+
+  semantic-release:
+    runs-on: ubuntu-latest
+    needs: [install-deps]
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout main
+        with:
+          fetch-depth: 0
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: cache-node-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Launch Semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npx semantic-release
+        run: npx semantic-release

@@ -6,7 +6,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/docs/)
 [![next](https://img.shields.io/badge/Next.js-20232A?style=for-the-badge&logo=nextdotjs&logoColor=FFFFFF)](https://nextjs.org/)
-[![sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://amzn.github.io/style-dictionary/#/)
+[![Tailwind.CSS](https://img.shields.io/badge/TailwindCSS-16a1ba?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 [![docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![vercel](https://img.shields.io/badge/Vercel-323330?style=for-the-badge&logo=vercel&logoColor=FFF)](https://vercel.com/)
@@ -43,9 +43,7 @@ This project use multiple internal libs and apps. all are orgnaized in two folde
 | - functions
 | - hooks
 | - services
-| - styles
 | - types
-| - ui
 | - utils
 ```
 
@@ -164,18 +162,6 @@ cd apps/client && npm run dev
     cd apps/api && npm run build
     ```
 
--  build UI lib
-
-    pnpm
-    ```bash
-    pnpm --filter ui run build
-    ```
-
-    npm
-    ```bash
-    cd packages/ui && npm run build
-    ```
-
     <br/>
 
 ## Deployed environements
@@ -187,4 +173,3 @@ cd apps/client && npm run dev
 
 ## Class diagram
 - [Class diagram](https://dbdiagram.io/d/637e1c76c9abfc611174bd92)
-
