@@ -1,10 +1,9 @@
 import { NextPage } from "next";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Activity } from "@travel-tailor/types";
 import { ActivityService } from "@travel-tailor/services";
-import Image from "next/image";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
@@ -37,9 +36,9 @@ const TravelActivityPage: NextPage = () => {
                 <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         {data ? <>
-                            <h1 className="font-bold lg:text-2xl">{data.name}</h1>
-                            <Image src={""} alt={"Banner"} />
-                            {displayCommentModule ? <CommentModule setDisplayCommentModule={setDisplayCommentModule} comments={data.comments} /> : <ActivityModule location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} setDisplayCommentModule={setDisplayCommentModule} date={new Date()} />}
+                            <h1 className="font-bold lg:text-2xl xl:mb-8">{data.name}</h1>
+                            <div className={`w-full h-72 bg-[url('https://images.unsplash.com/photo-1493564738392-d148cfbd6eda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80')] bg-cover bg-center`}></div>
+                            {displayCommentModule ? <CommentModule setDisplayCommentModule={setDisplayCommentModule} comments={data.comments} data={data} setData={setData as Dispatch<SetStateAction<Activity>>} /> : <ActivityModule location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} setDisplayCommentModule={setDisplayCommentModule} date={new Date()} />}
                         </> : <p>Loading...</p>}
                     </section>
                 </main>

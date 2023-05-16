@@ -1,20 +1,37 @@
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { Icon } from "@iconify/react";
-import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Activity, Comment } from "@travel-tailor/types";
+import { useUser } from "@travel-tailor/contexts";
+import { CommentService, TravelerService } from "@/../../packages/services/src";
 
-interface ICommentForm {
-    comment: string;
+interface IProps {
+    data: Activity;
+    setData: Dispatch<SetStateAction<Activity>>;
+    comments: Comment[];
 }
 
-export const CommentForm: FC = () => {
+interface ICommentForm {
+    content: string;
+}
+
+export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
     const [apiErrors, setApiErrors] = useState<any>();
-    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICommentForm>();
+    const { user } = useUser();
 
-    const onSubmit = async (data: ICommentForm) => {
+    const onSubmit = async (dataForm: ICommentForm) => {
         console.log(data);
-    };
+        if (user) {
+            const response = await CommentService.createCommentWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, { content: dataForm.content, traveler: user?.traveler?.id }, data.id, setApiErrors);
+            const traveler = await TravelerService.findTravelerById(`${process.env.NEXT_PUBLIC_API_URL}`, `${user?.traveler?.id}`, setApiErrors);
+            console.log({...response, traveler: traveler});
+            if(response) {
+                setData({...data, comments: [...comments, {...response, traveler: traveler}]});
+            }
+        };
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-8 lg:mt-12 shadow appearance-none border rounded w-full py-4 px-6 text-gray-700 leading-tight">
@@ -47,7 +64,7 @@ export const CommentForm: FC = () => {
             </ul>
             <div className="">
                 <textarea
-                    {...register("comment", {
+                    {...register("content", {
                         required: "Content is required",
                     })}
                     id="search"
@@ -55,7 +72,7 @@ export const CommentForm: FC = () => {
                     placeholder="Add a comment..."
                     className="w-full h-20 resize-none focus:outline-none focus:shadow-outline"
                 />
-                {errors.comment && <p className="mt-2 text-red-500 text-xs italic">{errors.comment.message?.toString()}</p>}
+                {errors.content && <p className="mt-2 text-red-500 text-xs italic">{errors.content.message?.toString()}</p>}
             </div>
             <div className="flex justify-end items-center">
                 <button
