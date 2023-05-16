@@ -8,7 +8,7 @@ export class ActivityTag extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true, nullable: false})
+  @Column({ nullable: false })
   name: string;
 
   @ManyToMany(() => Activity, activity => activity.tags)

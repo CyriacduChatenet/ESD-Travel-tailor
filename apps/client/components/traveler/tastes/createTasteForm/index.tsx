@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { TasteService } from "@travel-tailor/services";
 import { Taste } from "@travel-tailor/types";
 import { ROUTES } from "@travel-tailor/constants";
+import { Icon } from "@iconify/react";
 
 export const CreateTasteForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
@@ -15,7 +16,7 @@ export const CreateTasteForm: FC = () => {
     const handleChange = async (e: any) => {
         e.preventDefault();
         const { value } = e.target;
-        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.substring(23,100), setApiErrors);
+        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.substring(23, 100), setApiErrors);
         setTags([...tags, { name: value }]);
     };
 
@@ -26,7 +27,7 @@ export const CreateTasteForm: FC = () => {
 
     const handleSubmit = () => {
         setSubmit(true);
-        if(tags.length > 0) {
+        if (tags.length > 0) {
             router.push(ROUTES.TRAVELER.DASHBOARD);
         }
     };
@@ -46,7 +47,7 @@ export const CreateTasteForm: FC = () => {
                                     className="text-white font-bold py-2 px-4"
                                     onClick={() => handleDelete(`${String(taste.id)}`, index)}
                                 >
-                                    D
+                                    <Icon icon="material-symbols:close-rounded" />
                                 </button>
                             </div>
                         ))}
@@ -58,16 +59,16 @@ export const CreateTasteForm: FC = () => {
                             onClick={() => setApiErrors({})}
                             onKeyPress={(e) => {
                                 if (e.key === "Enter") {
-                                  handleChange(e);
+                                    handleChange(e);
                                 }
-                              }}
+                            }}
                         />
                     </div>
                 </form>
             </div>
             {submit === true && tags.length === 0 ? (
-                        <p className="text-red-500 text-xs italic">Tags musn&apos;t be empty</p>
-                    ) : null}
+                <p className="text-red-500 text-xs italic">Tags musn&apos;t be empty</p>
+            ) : null}
             <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={handleSubmit}
