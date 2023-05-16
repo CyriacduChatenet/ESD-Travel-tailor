@@ -22,11 +22,9 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
     const { user } = useUser();
 
     const onSubmit = async (dataForm: ICommentForm) => {
-        console.log(data);
         if (user) {
             const response = await CommentService.createCommentWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, { content: dataForm.content, traveler: user?.traveler?.id }, data.id, setApiErrors);
             const traveler = await TravelerService.findTravelerById(`${process.env.NEXT_PUBLIC_API_URL}`, `${user?.traveler?.id}`, setApiErrors);
-            console.log({...response, traveler: traveler});
             if(response) {
                 setData({...data, comments: [...comments, {...response, traveler: traveler}]});
             }

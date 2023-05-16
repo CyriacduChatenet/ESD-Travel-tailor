@@ -20,8 +20,10 @@ const createComment = async (api_url: string, createCommentCredential: CreateCom
 
 const createCommentWithRelations = async (api_url: string, createCommentCredential: CreateCommentDTO, activity_id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Comment> => {
     const activity = await ActivityService.findActivityById(api_url, activity_id, setError);
-    const comment = await useFetch.protectedPost(`${api_url}${API_COMMENT_ROUTE}`, {...createCommentCredential, activity: activity_id, likes: 0}, `${TokenService.getAccessToken()}`, setError);
-    await ActivityService.updateActivity(api_url, activity_id, {mark:  activityMarkAverage(activity.comments), comments: [...activity.comments, comment._id]}, setError);
+    const comment = await useFetch.protectedPost(`${api_url}${API_COMMENT_ROUTE}`, {activity: activity_id, ...createCommentCredential}, `${TokenService.getAccessToken()}`, setError);
+    console.log(comment)
+    const ac = await ActivityService.updateActivity(api_url, activity_id, {mark:  activityMarkAverage(activity.comments), comments: [...activity.comments, comment]}, setError);
+    console.log('ac',ac)
     return comment;
 };
 
