@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { FC } from "react";
+import { FC, Dispatch, SetStateAction } from "react";
 
 interface IProps {
     location: string;
@@ -7,9 +7,10 @@ interface IProps {
     mark: number;
     commentsIndex: number;
     programmingAt: Date;
+    setDisplayCommentModule: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ActivityToolbar: FC<IProps> = ({ location, duration, mark, commentsIndex, programmingAt }) => {
+export const ActivityToolbar: FC<IProps> = ({ location, duration, mark, commentsIndex, programmingAt, setDisplayCommentModule }) => {
     return (
         <div className="py-4 lg:py-8 w-full flex flex-col xl:grid xl:grid-cols-12">
             <div className="lg:col-span-4 flex lg:items-center">
@@ -27,7 +28,7 @@ export const ActivityToolbar: FC<IProps> = ({ location, duration, mark, comments
                 </div>
                 <div className="flex">
                     <Icon icon="material-symbols:mode-comment-rounded" className='w-6 h-6 mr-4' />
-                    <p className="text-blue-500 hover:text-blue-700">Comments( {commentsIndex} )</p>
+                    <p className="text-blue-500 hover:text-blue-700" onClick={() => setDisplayCommentModule(true)}>Comments( {commentsIndex} )</p>
                 </div>
             </div>
             <div className="flex lg:col-span-4 lg:flex lg:justify-center lg:items-center">

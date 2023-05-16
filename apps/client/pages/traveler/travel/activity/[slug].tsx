@@ -5,18 +5,17 @@ import { useEffect, useState } from "react";
 import { Activity } from "@travel-tailor/types";
 import { ActivityService } from "@travel-tailor/services";
 import Image from "next/image";
-import Link from "next/link";
 
 import { AuthChecker } from "@/components/auth/authChecker";
-import { ActivityToolbar } from "@/components/traveler/travels/activity/toolBar";
-import { Toast } from "@/components/toast";
 import { Layout } from "@/components/layout";
+import { ActivityModule } from "@/components/traveler/travels/activity/module";
+import { CommentModule } from "@/components/traveler/travels/activity/comments/module";
 const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: false })
 
 const TravelActivityPage: NextPage = () => {
     const [apiError, setApiError] = useState({});
     const [data, setData] = useState<Activity>();
-    const [day, setDay] = useState<Date>(new Date());
+    const [displayCommentModule, setDisplayCommentModule] = useState(false);
 
     const params = usePathname();
 
@@ -40,24 +39,7 @@ const TravelActivityPage: NextPage = () => {
                         {data ? <>
                             <h1 className="font-bold lg:text-2xl">{data.name}</h1>
                             <Image src={""} alt={"Banner"} />
-                            <ActivityToolbar location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} />
-                            <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
-                                <div className="col-span-4 md:col-span-4 xl:col-span-8">
-                                    <Toast message={`Open: 09:00 - 12:00`} status={'info'} />
-                                    <p className="mt-4 lg:mt-8">description</p>
-                                    <div className="py-4 lg:py-8 w-full flex justify-around items-center">
-                                        <Link href={''}>
-                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</button>
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
-                                    <Mapbox
-                                        mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
-                                        addresse={`Bordeaux, Gironde, France`}
-                                    />
-                                </div>
-                            </section>
+                            {displayCommentModule ? <CommentModule setDisplayCommentModule={setDisplayCommentModule} /> : <ActivityModule location={data.detail.location} duration={data.detail.duration} mark={data.mark} commentsIndex={data.comments.length} programmingAt={new Date()} setDisplayCommentModule={setDisplayCommentModule} date={new Date()} />}
                         </> : <p>Loading...</p>}
                     </section>
                 </main>
