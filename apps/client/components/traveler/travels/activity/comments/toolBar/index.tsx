@@ -25,7 +25,7 @@ export const CommentToolbar: FC<IProps> = ({ setDisplayCommentModule }) => {
             <div className="lg:col-span-2 flex lg:items-center">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => setDisplayCommentModule(false)}>Return</button>
             </div>
-            <div className="lg:col-span-10 flex lg:items-center lg:grid lg:grid-cols-10">
+            <div className="lg:col-span-10 flex flex-col lg:flex-row lg:items-center lg:grid lg:grid-cols-10">
                 <p className="lg:col-span-1">Filters:</p>
                 <div className="lg:col-span-6 flex justify-around items-center">
                     <span className="flex items-center">
