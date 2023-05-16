@@ -33,7 +33,7 @@ export const CreateTasteForm: FC = () => {
 
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
-            <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
+            <label htmlFor="tastes" className="block text-gray-700 font-bold mb-2">
                 Tastes
             </label>
             <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">

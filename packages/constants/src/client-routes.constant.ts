@@ -26,7 +26,7 @@ export const ROUTES = {
       INDEX: '/advertiser/invoices',
     },
     ACTIVITY: {
-      CREATE_ACTIVITY: '/advertiser/create-activity',
+      CREATE_ACTIVITY: '/advertiser/activity/create',
       UPDATE_ACTIVITY: '/advertiser/update-activity',
       INDEX: '/activity',
     },

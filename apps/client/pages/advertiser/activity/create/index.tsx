@@ -1,15 +1,27 @@
 import React from "react";
 import { NextPage } from "next";
+import Link from "next/link";
+import { ROUTES } from "@travel-tailor/constants";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
+import { CreateActivityForm } from "@/components/advertiser/activity/createForm";
 
 const AdvertiserCreateActivityPage: NextPage = () => {
     return (
         <AuthChecker>
             <Layout>
-                <main>
+                <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                     <h1>Advertiser Create Activity</h1>
+                    <Link href={ROUTES.ADVERTISER.DASHBOARD}>
+                        <button
+                            type="submit"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        >
+                            Return
+                        </button>
+                    </Link>
+                    <CreateActivityForm />
                 </main>
             </Layout>
         </AuthChecker>
