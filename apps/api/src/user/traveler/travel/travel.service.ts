@@ -73,6 +73,28 @@ export class TravelService {
     }
   }
 
+  async findAllByTravelerId(travelerId: string, page: number, limit: number) {
+    try {
+      const skip = (page - 1) * limit;
+      const take = limit;
+
+      const query = this.travelRepository
+      .createQueryBuilder('travel')
+      .leftJoinAndSelect('travel.traveler', 'traveler')
+      .where('traveler.id = :id', { id: travelerId })
+      .orderBy('travel.createdAt', 'DESC')
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
+    } catch(err) {
+      throw new NotFoundException(err);
+    }
+  }
+
   async findOne(id: string) {
     try {
       return await this.travelRepository
@@ -80,6 +102,7 @@ export class TravelService {
         .where('travel.id = :id', { id })
         .leftJoinAndSelect('travel.traveler', 'traveler')
         .leftJoinAndSelect('travel.days', 'day')
+        .orderBy('day.date', 'ASC')
         .leftJoinAndSelect('day.timeSlots', 'timeSlot')
         .leftJoinAndSelect('timeSlot.activity', 'activity')
         .leftJoinAndSelect('activity.detail', 'detail')

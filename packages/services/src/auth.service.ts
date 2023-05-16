@@ -12,11 +12,15 @@ import { API_GOOGLE_AUTH, API_RESET_PASSWORD_ROUTE, ROUTES } from '@travel-tailo
 
 import { TokenService } from './token.service'
 
-const signin = async (api_url: string, signinCredentials: SigninDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<AccessToken> => {
-  const token = await useFetch.post(api_url, signinCredentials, setError)
-  TokenService.setAccessToken(token.accessToken)
-  const tokenDecode = jwtDecode(token.accessToken) as AccessToken
-  return tokenDecode
+const signin = async (api_url: string, signinCredentials: SigninDTO, setError: Dispatch<SetStateAction<any>> | any) => {
+  try {
+    const token = await useFetch.post(api_url, signinCredentials, setError)
+    TokenService.setAccessToken(token.accessToken)
+    const tokenDecode = jwtDecode(token.accessToken) as AccessToken
+    return tokenDecode
+  } catch (error) {
+    setError(error)
+  }
 }
 
 const signinWithGoogle = async (api_url: string, value: { accessToken: string }, setError: Dispatch<SetStateAction<any>> | any) => {

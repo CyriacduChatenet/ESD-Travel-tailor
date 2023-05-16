@@ -27,7 +27,6 @@
     "@nestjs/typeorm": "^9.0.1",
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
-    "@travel-tailor/utils": "workspace:*",
     "@types/bcrypt": "^5.0.0",
     "@types/nodemailer": "^6.4.7",
     "aws-sdk": "^2.1351.0",

@@ -8,7 +8,7 @@ import { TravelerService } from './traveler.service'
 import { AdvertiserService } from './advertiser.service'
 import { Dispatch, SetStateAction } from 'react'
 
-const updateUser = (api_url: string, id: string, body: UpdateUserDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<User[]> => {
+const updateUser = (api_url: string, id: string, body: UpdateUserDTO, setError: any): Promise<User[]> => {
   return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`,setError);
 }
 
@@ -18,7 +18,8 @@ const getUserByToken = async (api_url: string, email: string, setError: Dispatch
 
 const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any) => {
   const token = TokenService.getAccessToken()
-  const decodedToken = jwtDecode(String(token)) as any
+  const signinToken = TokenService.getSigninToken()
+  const decodedToken = jwtDecode(String(signinToken ? signinToken : token)) as any
   const user = await getUserByToken(api_url, decodedToken.email, setError)
 
   if ((user.roles) === ROLES.TRAVELER) {

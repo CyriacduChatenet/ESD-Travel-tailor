@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { SigninDTO, SignupDTO, ForgotPasswordDTO } from '@travel-tailor/types'
 import * as bcrypt from 'bcrypt'
@@ -66,7 +66,8 @@ export class AuthService {
   }
 
   public async signin(user: SigninDTO) {
-    const findUser = await this.userService.findOneByEmail(user.email)
+    try {
+      const findUser = await this.userService.findOneByEmail(user.email)
 
     if (!findUser) {
       throw new HttpException(`User isn't exist`, HttpStatus.NOT_ACCEPTABLE)
@@ -79,66 +80,87 @@ export class AuthService {
     return {
       accessToken: this.jwtService.sign(payload),
     }
+    } catch (err) {
+      throw new UnauthorizedException(err)
+    }
   }
 
   public async signup(signupUserInputDTO: SignupDTO) {
-    const userInDB = await this.userService.findOneByEmail(
-      signupUserInputDTO.email
-    )
-
-    if (userInDB) {
-      throw new HttpException(
-        'User is already exist',
-        HttpStatus.NOT_ACCEPTABLE
+    try {
+      const userInDB = await this.userService.findOneByEmail(
+        signupUserInputDTO.email
       )
-    }
-
-    const password = await bcrypt.hash(signupUserInputDTO.password, 10)
-
-    const user = await this.userService.create({
-      ...signupUserInputDTO,
-      password,
-    })
-
-    await this.mailService.sendSignupMail(signupUserInputDTO.email)
-
-    const payload = {
-      email: signupUserInputDTO.email,
-      password: signupUserInputDTO.password,
-      roles: signupUserInputDTO.roles,
-    }
-    return {
-      signinToken: this.jwtService.sign(payload),
-      user,
+  
+      if (userInDB) {
+        throw new HttpException(
+          'User is already exist',
+          HttpStatus.NOT_ACCEPTABLE
+        )
+      }
+  
+      const password = await bcrypt.hash(signupUserInputDTO.password, 10)
+  
+      const user = await this.userService.create({
+        ...signupUserInputDTO,
+        password,
+      })
+  
+      await this.mailService.sendSignupMail(signupUserInputDTO.email)
+  
+      const payload = {
+        email: signupUserInputDTO.email,
+        password: signupUserInputDTO.password,
+        roles: signupUserInputDTO.roles,
+      }
+      return {
+        signinToken: this.jwtService.sign(payload),
+        user,
+      }
+    } catch (err) {
+      throw new UnauthorizedException(err)
     }
   }
 
   public async forgotPassword(forgotPasswordDto: ForgotPasswordDTO) {
-    const user = await this.userService.findOneByEmail(forgotPasswordDto.email)
-    const resetToken = await this.resetPasswordTokenService.create(user.id)
-    const userUpdated = await this.userService.update(user.id, {
-      resetPasswordToken: resetToken.id,
-    })
-    await this.mailService.sendForgotPasswordMail(
-      forgotPasswordDto.email,
-      `${process.env.CLIENT_APP_URL}/reset-password/${resetToken.token}`
-    )
-    return userUpdated
+    try {
+      const user = await this.userService.findOneByEmail(forgotPasswordDto.email)
+      const resetToken = await this.resetPasswordTokenService.create(user.id)
+      const userUpdated = await this.userService.update(user.id, {
+        resetPasswordToken: resetToken.id,
+      })
+      await this.mailService.sendForgotPasswordMail(
+        forgotPasswordDto.email,
+        `${process.env.CLIENT_APP_URL}/reset-password/${resetToken.token}`
+      )
+      return userUpdated
+    } catch (err) {
+      throw new HttpException(
+        'User with this email does not exist',
+        HttpStatus.BAD_REQUEST
+      )
+    }
   }
 
   public async resetPassword(
     resetToken: string,
     resetPasswordDto: ResetPasswordDTO
   ) {
-    const token = await this.resetPasswordTokenService.findOneByToken(
-      resetToken.slice(0, -1)
-    )
-    const user = await this.userService.findOneByEmail(token.user.email)
-    const userUpdated = await this.userService.update(user.id, {
-      ...user,
-      password: await bcrypt.hash(resetPasswordDto.password, 10),
-    })
-    await this.mailService.sendConfirmResetPasswordMail(user.email)
-    return userUpdated
+    try {
+      const token = await this.resetPasswordTokenService.findOneByToken(
+        resetToken.slice(0, -1)
+      )
+      const user = await this.userService.findOneByEmail(token.user.email)
+      const userUpdated = await this.userService.update(user.id, {
+        ...user,
+        password: await bcrypt.hash(resetPasswordDto.password, 10),
+      })
+      await this.mailService.sendConfirmResetPasswordMail(user.email)
+      return userUpdated
+    } catch (error) {
+      throw new HttpException(
+        'Invalid token',
+        HttpStatus.BAD_REQUEST
+      )
+    }
   }
 }

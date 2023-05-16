@@ -8,14 +8,11 @@ const nextConfig = {
     '@travel-tailor/contexts',
     '@travel-tailor/services',
     '@travel-tailor/constants',
-    '@travel-tailor/ui',
+    '@travel-tailor/utils',
   ],
-  experimental: {
-    externalDir: true,
-  },
   images: {
     domains: ['images.unsplash.com'],
-	  },
-};
+},
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

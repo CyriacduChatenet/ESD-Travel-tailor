@@ -8,10 +8,10 @@ export type Travel = {
   destinationCity: string
   departureDate: Date
   returnDate: Date
-  days?: Day[]
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
+  days: Day[]
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateTravelDTO = {

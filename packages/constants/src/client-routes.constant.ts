@@ -9,24 +9,28 @@ export const ROUTES = {
     DASHBOARD: '/traveler/dashboard',
     EDIT_TRAVELER: '/traveler/edit-travel',
     TASTE: {
-      CREATE: '/traveler/create-taste',
+      INDEX: '/traveler/tastes',
+      CREATE: '/traveler/taste/create',
     },
     TRAVELER: '/traveler',
     TRAVEL: {
       FIND: '/travel',
-      ACTIVITY: '/travel/activity',
+      ACTIVITY: '/traveler/travel/activity',
       PAYMENT: '/travel/payment',
     }
   },
   ADVERTISER: {
     DASHBOARD: '/advertiser/dashboard',
-    CREATE_ADVERTISER: '/advertiser/create-advertiser',
-    ACTIVITY: {
-      CREATE_ACTIVITY: '/advertiser/create-activity',
-      UPDATE_ACTIVITY: '/advertiser/update-activity',
-      LIST: '/activity',
+    CREATE_ADVERTISER: '/advertiser/create',
+    INVOICE: {
+      INDEX: '/advertiser/invoices',
     },
-    ADVERTISER: '/advertiser',
+    ACTIVITY: {
+      CREATE_ACTIVITY: '/advertiser/activity/create',
+      UPDATE_ACTIVITY: '/advertiser/update-activity',
+      INDEX: '/activity',
+    },
+    INDEX: '/advertiser',
     PAYMENT: '/advertiser/payment'
   },
   ADMIN: {

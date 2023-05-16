@@ -28,7 +28,6 @@ export class ActivityService {
       const activityImage = await this.activityImageService.create({});
 
       const uploadFile = await this.uploadFileService.create(files[0], user, activityImage);
-      console.log(uploadFile);
       await this.activityImageService.update(activityImage.id, {...activityImage, uploadFile});
 
 
@@ -155,6 +154,8 @@ export class ActivityService {
         .leftJoinAndSelect('activity.image', 'image')
         .leftJoinAndSelect('image.uploadFile', 'uploadFile')
         .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect('comments.traveler', 'traveler')
+        .leftJoinAndSelect('traveler.user', 'user')
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
         .leftJoinAndSelect('activity.timeSlots', 'timeSlot')

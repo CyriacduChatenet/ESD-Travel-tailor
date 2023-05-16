@@ -14,7 +14,7 @@ export type Comment = {
 export type CreateCommentDTO = {
   content: string
   likes?: number,
-  mark: number,
+  mark?: number,
   traveler?: string
   activity?: string
 }

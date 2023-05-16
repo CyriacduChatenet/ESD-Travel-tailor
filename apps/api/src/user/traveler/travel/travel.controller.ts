@@ -9,7 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { ApiLimitResourceQuery, User as UserType } from '@travel-tailor/types'
+import { ApiLimitResourceQuery, Travel, User as UserType } from '@travel-tailor/types'
 
 import { TravelService } from './travel.service'
 import { CreateTravelDto } from './dto/create-travel.dto'
@@ -50,6 +50,11 @@ export class TravelController {
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.travelService.findAll(queries)
   }
+
+  @Get('/traveler/:id')
+  async findAllByTraveler(@Param('id') travelerId: string, @Query('page') page = 1, @Query('limit') limit = 10) {
+    return await this.travelService.findAllByTravelerId(travelerId, page, limit);
+  };
 
   @Get(':id')
   async findOne(@Param('id') id: string) {

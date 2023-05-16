@@ -1,7 +1,7 @@
 import { ActivityDetail } from './activity-detail.type'
 
 export type ActivitySchedule = {
-  id: string
+  id?: string
   opening_at: string
   closing_at: string
   activityDetail?: ActivityDetail
