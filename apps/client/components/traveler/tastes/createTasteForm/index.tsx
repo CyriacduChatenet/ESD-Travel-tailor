@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { TasteService } from "@travel-tailor/services";
 import { Taste } from "@travel-tailor/types";
-import { ROUTES } from "@/../../packages/constants/src";
+import { ROUTES } from "@travel-tailor/constants";
 
 export const CreateTasteForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
@@ -10,13 +10,13 @@ export const CreateTasteForm: FC = () => {
     const [submit, setSubmit] = useState<boolean>(false);
 
     const router = useRouter();
-    const routeParams = useParams();
+    const routeParams = usePathname();
 
     const handleChange = async (e: any) => {
         e.preventDefault();
         const { value } = e.target;
+        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.substring(23,100), setApiErrors);
         setTags([...tags, { name: value }]);
-        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.id, setApiErrors);
     };
 
     const handleDelete = async (id: string, index: number) => {
