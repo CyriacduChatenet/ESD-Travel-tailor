@@ -3,7 +3,7 @@ import { FC } from "react";
 
 export const CommentMark: FC = () => {
     return (
-        <div className="lg:col-span-4 flex flex-col items-center justify-center w-full h-1/2 bg-blue-100 py-8">
+        <div className="lg:col-span-4 col-span-8 flex flex-col items-center justify-center w-full lg:h-1/2 h-9/12 bg-blue-100 py-8">
             <p className="font-bold flex items-center justify-around">
                 <Icon icon="material-symbols:star-rate" />
                 &nbsp; 

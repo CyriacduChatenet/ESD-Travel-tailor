@@ -26,7 +26,7 @@ export const CommentToolbar: FC<IProps> = ({ setDisplayCommentModule }) => {
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => setDisplayCommentModule(false)}>Return</button>
             </div>
             <div className="lg:col-span-10 flex flex-col lg:flex-row lg:items-center lg:grid lg:grid-cols-10">
-                <p className="lg:col-span-1">Filters:</p>
+                <p className="lg:col-span-1 my-4 lg:my-0">Filters:</p>
                 <div className="lg:col-span-6 flex justify-around items-center">
                     <span className="flex items-center">
                         <Icon icon="material-symbols:calendar-today-rounded" className="w-6 h-6" />
@@ -44,7 +44,7 @@ export const CommentToolbar: FC<IProps> = ({ setDisplayCommentModule }) => {
                         <Icon icon="mdi:chevron-down" className="w-8 h-8" />
                     </span>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="lg:col-span-3 flex justify-between items-center">
+                <form onSubmit={handleSubmit(onSubmit)} className="lg:col-span-3 flex justify-between items-center my-8 lg:my-0">
                     <div className="">
                         <input
                             {...register("search", {
