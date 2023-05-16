@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { Comment } from "@/components/traveler/travels/activity/comments/comment";
+import { Comment } from "../comment";
 
 interface IProps {
-    comments: Comment[];
+    comments: any[];
 }
 
 export const CommentList: FC<IProps> = ({ comments }) => {
