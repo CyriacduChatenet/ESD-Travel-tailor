@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { KeyboardEvent, FC, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { TasteService } from "@travel-tailor/services";
 import { Taste } from "@travel-tailor/types";
@@ -13,9 +13,9 @@ export const CreateTasteForm: FC = () => {
     const router = useRouter();
     const routeParams = usePathname();
 
-    const handleChange = async (e: any) => {
+    const handleChange = async (e: KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault();
-        const { value } = e.target;
+        const { value } = e.target as HTMLInputElement;
         await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.substring(23, 100), setApiErrors);
         setTags([...tags, { name: value }]);
     };
@@ -57,7 +57,7 @@ export const CreateTasteForm: FC = () => {
                             id="name"
                             type="text"
                             onClick={() => setApiErrors({})}
-                            onKeyPress={(e) => {
+                            onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
                                 if (e.key === "Enter") {
                                     handleChange(e);
                                 }
