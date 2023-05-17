@@ -8,7 +8,9 @@ export const Layout = ({ children }: any) => {
     return (
         <Context>
             <Navbar />
-            { children }
+            <div>
+                {children}
+            </div>
             <Footer />
         </Context>
     );
