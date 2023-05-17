@@ -19,10 +19,12 @@ const ActivityPage: NextPage = () => {
     const params = usePathname();
 
     const handleFetch = async () => {
-        const response = await ActivityService.findActivityBySlug(`${process.env.NEXT_PUBLIC_API_URL}`, params.substr(10, 100), setApiError);
-        if (response) {
-            setData(response);
-            return response;
+        if(params) {
+            const response = await ActivityService.findActivityBySlug(`${process.env.NEXT_PUBLIC_API_URL}`, params.substr(10, 100), setApiError);
+            if (response) {
+                setData(response);
+                return response;
+            }
         }
     };
 
