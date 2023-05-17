@@ -18,7 +18,7 @@ export const ActivityList: FC<IProps> = ({ days, dayCurrent }) => {
     return (
         <>
             <ul>
-                {days && day[0]?.timeSlots?.map((timeSlot: TimeSlot) => <Link href={`${ROUTES.TRAVELER.TRAVEL.ACTIVITY}/${timeSlot.activity.slug}`} key={timeSlot.id}>
+                {days && day[0]?.timeSlots?.map((timeSlot: TimeSlot) => <Link href={`${ROUTES.ACTIVITY.INDEX}/${timeSlot.activity.slug}`} key={timeSlot.id}>
                     <li className='px-4 py-4 my-4 xl:mr-8 rounded-lg flex flex-col xl:grid lg:grid-cols-12 bg-gray-100 blue lg:pr-20'>
                         <div className='flex justify-between items-center lg:col-span-2'>
                             <Icon icon="mdi:clock" className='w-6 h-6' />

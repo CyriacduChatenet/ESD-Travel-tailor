@@ -37,5 +37,8 @@ export const ROUTES = {
     DASHBOARD: '/admin/dashboard',
     ADMIN: '/admin',
   },
-  ROOT: '/'
+  ROOT: '/',
+  ACTIVITY: {
+    INDEX: '/activity',
+  },
 }

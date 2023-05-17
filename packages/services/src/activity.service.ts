@@ -22,6 +22,10 @@ const findActivityBySlug = async (api_url: string, slug: string, setError: Dispa
   return await useFetch.get(`${api_url}${API_ACTIVITY_BY_NAME_ROUTE}/${slug}`, setError)
 }
 
+const findActivitiesByAdvertiserId = async (api_url: string, advertiserId: string, setError: Dispatch<SetStateAction<any>> | any, page: number, limit?: number,) => {
+  return await useFetch.get(`${api_url}/activity/advertiser/${advertiserId}?page=${page}&limit=${limit ? limit : 10}`, setError);
+};
+
 const createActivity = async (
   api_url: string,
   credentials: CreateActivityDTO,
@@ -135,6 +139,7 @@ export const ActivityService = {
   findActivityById,
   findActivityBySlug,
   findActivityBySlugWithRelations,
+  findActivitiesByAdvertiserId,
   createActivity,
   createActivityWithRelations,
   updateActivity,
