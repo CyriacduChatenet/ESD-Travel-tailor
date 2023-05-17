@@ -150,6 +150,16 @@ export const EditActivityForm: FC = () => {
                     <input
                         {...register("image", {
                             required: "Image is required",
+                            validate: {
+                                validFileType: (value) => {
+                                    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+                                    const fileType = value[0]?.type;
+                                    if (fileType && !allowedTypes.includes(fileType)) {
+                                        return 'File type not supported';
+                                    }
+                                    return true;
+                                }
+                            }
                         })}
                         id="Image"
                         type="file"

@@ -87,12 +87,12 @@ export const CreateActivityForm: FC = () => {
             schedules.forEach((schedule: ActivitySchedule, index: number) => {
                 formData.append(`detail[schedules][${index}][opening_at]`, schedule.opening_at);
                 formData.append(`detail[schedules][${index}][closing_at]`, schedule.closing_at);
-              });
+            });
 
-              closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
+            closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
                 formData.append(`detail[closingDays][${index}][date]`, closingDay.date);
                 formData.append(`detail[closingDays][${index}][recurrence]`, String(closingDay.recurrence));
-              });
+            });
             formData.append('image', file);
             formData.append('advertiser', String(user?.advertiser?.id));
             tags.forEach((tag: ActivityTag, index: number) => {
@@ -129,6 +129,16 @@ export const CreateActivityForm: FC = () => {
                     <input
                         {...register("image", {
                             required: "Image is required",
+                            validate: {
+                                validFileType: (value) => {
+                                    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+                                    const fileType = value[0]?.type;
+                                    if (fileType && !allowedTypes.includes(fileType)) {
+                                        return 'File type not supported';
+                                    }
+                                    return true;
+                                }
+                            }
                         })}
                         id="Image"
                         type="file"
@@ -193,7 +203,7 @@ export const CreateActivityForm: FC = () => {
                                 id="tag_content"
                                 type="text"
                                 onClick={() => setApiErrors({})}
-                                onKeyUp={(e) => {setTimeout(() => { handleTagInputChange(e)}, 2000)}}
+                                onKeyUp={(e) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
                             />
                         </div>
                     </div>
@@ -235,7 +245,7 @@ export const CreateActivityForm: FC = () => {
                                 type="time"
                                 onClick={() => setApiErrors({})}
                                 onChange={(e) => setCloseSchedule(e.target.value)}
-                                onKeyUp={(e) => {setTimeout(() => { handleScheduleInputChange()}, DEFAULT_INPUT_TIMER)}}
+                                onKeyUp={(e) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
                             />
                         </div>
                     </div>
@@ -282,7 +292,7 @@ export const CreateActivityForm: FC = () => {
                                     type="date"
                                     onClick={() => setApiErrors({})}
                                     onChange={(e) => setClosingDayInput(e.target.value)}
-                                    onKeyUp={() => {setTimeout(() => { handleClosingDayInputChange()}, DEFAULT_INPUT_TIMER)}}
+                                    onKeyUp={() => { setTimeout(() => { handleClosingDayInputChange() }, DEFAULT_INPUT_TIMER) }}
                                 />
                             </div>
                         </div>
