@@ -91,12 +91,12 @@ export const EditActivityForm: FC = () => {
             schedules.forEach((schedule: ActivitySchedule, index: number) => {
                 formData.append(`detail[schedules][${index}][opening_at]`, schedule.opening_at);
                 formData.append(`detail[schedules][${index}][closing_at]`, schedule.closing_at);
-              });
+            });
 
-              closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
+            closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
                 formData.append(`detail[closingDays][${index}][date]`, closingDay.date);
                 formData.append(`detail[closingDays][${index}][recurrence]`, String(closingDay.recurrence));
-              });
+            });
             formData.append('image', file);
             formData.append('advertiser', String(user?.advertiser?.id));
             tags.forEach((tag: ActivityTag, index: number) => {
@@ -110,15 +110,15 @@ export const EditActivityForm: FC = () => {
     };
 
     const handleFetch = async () => {
-        params.substring(26,100);
-        console.log(params.substr(26,100));
-        await ActivityService.findActivityBySlugWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, `${params.substring(26,100)}`, setResponse as Dispatch<SetStateAction<Activity>>, setComments, setApiErrors);
-        setValue('name', String(response?.name));
-        setValue('location', String(response?.detail?.location));
-        setValue('duration', Number(response?.detail?.duration));
-        setTags(response?.tags || []);
-        setSchedules(response?.detail?.schedules || []);
-        setClosingDays(response?.detail?.closingDays || []);
+        if (params) {
+            await ActivityService.findActivityBySlugWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, `${params.substring(26, 100)}`, setResponse as Dispatch<SetStateAction<Activity>>, setComments, setApiErrors);
+            setValue('name', String(response?.name));
+            setValue('location', String(response?.detail?.location));
+            setValue('duration', Number(response?.detail?.duration));
+            setTags(response?.tags || []);
+            setSchedules(response?.detail?.schedules || []);
+            setClosingDays(response?.detail?.closingDays || []);
+        }
     };
 
     useEffect(() => {
@@ -224,7 +224,7 @@ export const EditActivityForm: FC = () => {
                                 id="tag_content"
                                 type="text"
                                 onClick={() => setApiErrors({})}
-                                onKeyUp={(e) => {setTimeout(() => { handleTagInputChange(e)}, 2000)}}
+                                onKeyUp={(e) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
                             />
                         </div>
                     </div>
@@ -266,7 +266,7 @@ export const EditActivityForm: FC = () => {
                                 type="time"
                                 onClick={() => setApiErrors({})}
                                 onChange={(e) => setCloseSchedule(e.target.value)}
-                                onKeyUp={(e) => {setTimeout(() => { handleScheduleInputChange()}, DEFAULT_INPUT_TIMER)}}
+                                onKeyUp={(e) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
                             />
                         </div>
                     </div>
@@ -313,7 +313,7 @@ export const EditActivityForm: FC = () => {
                                     type="date"
                                     onClick={() => setApiErrors({})}
                                     onChange={(e) => setClosingDayInput(e.target.value)}
-                                    onKeyUp={() => {setTimeout(() => { handleClosingDayInputChange()}, DEFAULT_INPUT_TIMER)}}
+                                    onKeyUp={() => { setTimeout(() => { handleClosingDayInputChange() }, DEFAULT_INPUT_TIMER) }}
                                 />
                             </div>
                         </div>

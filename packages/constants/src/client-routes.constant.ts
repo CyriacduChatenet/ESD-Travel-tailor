@@ -41,4 +41,5 @@ export const ROUTES = {
   ACTIVITY: {
     INDEX: '/activity',
   },
+  SETTINGS: '/settings',
 }
