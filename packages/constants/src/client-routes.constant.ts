@@ -27,7 +27,7 @@ export const ROUTES = {
     },
     ACTIVITY: {
       CREATE_ACTIVITY: '/advertiser/activity/create',
-      UPDATE_ACTIVITY: '/advertiser/update-activity',
+      UPDATE_ACTIVITY: '/advertiser/activity/edit',
       INDEX: '/activity',
     },
     INDEX: '/advertiser',
@@ -37,5 +37,8 @@ export const ROUTES = {
     DASHBOARD: '/admin/dashboard',
     ADMIN: '/admin',
   },
-  ROOT: '/'
+  ROOT: '/',
+  ACTIVITY: {
+    INDEX: '/activity',
+  },
 }

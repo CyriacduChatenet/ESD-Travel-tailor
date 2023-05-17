@@ -11,7 +11,7 @@ import { ActivityModule } from "@/components/traveler/travels/activity/module";
 import { CommentModule } from "@/components/traveler/travels/activity/comments/module";
 const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: false })
 
-const TravelActivityPage: NextPage = () => {
+const ActivityPage: NextPage = () => {
     const [apiError, setApiError] = useState({});
     const [data, setData] = useState<Activity>();
     const [displayCommentModule, setDisplayCommentModule] = useState(false);
@@ -19,7 +19,7 @@ const TravelActivityPage: NextPage = () => {
     const params = usePathname();
 
     const handleFetch = async () => {
-        const response = await ActivityService.findActivityBySlug(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(26, 100), setApiError);
+        const response = await ActivityService.findActivityBySlug(`${process.env.NEXT_PUBLIC_API_URL}`, params.substr(10, 100), setApiError);
         if (response) {
             setData(response);
             return response;
@@ -47,4 +47,4 @@ const TravelActivityPage: NextPage = () => {
     );
 }
 
-export default TravelActivityPage;
+export default ActivityPage;

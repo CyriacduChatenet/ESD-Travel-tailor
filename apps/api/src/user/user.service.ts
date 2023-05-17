@@ -83,6 +83,7 @@ export class UserService {
         .leftJoinAndSelect('traveler.travels', 'travels')
         .leftJoinAndSelect('traveler.tastes', 'tastes')
         .leftJoinAndSelect('user.advertiser', 'advertiser')
+        .leftJoinAndSelect('advertiser.activities', 'activities')
         .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
         .getOne()
     } catch (error) {

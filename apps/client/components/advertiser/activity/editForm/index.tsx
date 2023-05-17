@@ -1,9 +1,10 @@
-import { ActivityClosingDay, ActivitySchedule, ActivityTag } from "@travel-tailor/types";
+import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag, Comment } from "@travel-tailor/types";
 import { useUser } from "@travel-tailor/contexts";
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from "@travel-tailor/services";
-import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { set, useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
+import { usePathname } from "next/navigation";
 
 interface ICreateActivityForm {
     name: string;
@@ -17,12 +18,14 @@ interface ICreateActivityForm {
     recurrence: boolean;
 }
 
-export const CreateActivityForm: FC = () => {
+export const EditActivityForm: FC = () => {
     const DEFAULT_INPUT_TIMER = 5000;
 
     const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
     const [submit, setSubmit] = useState<boolean>(false);
     const [tags, setTags] = useState<ActivityTag[]>([]);
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [response, setResponse] = useState<Activity>();
     const [openSchedule, setOpenSchedule] = useState('');
     const [closeSchedule, setCloseSchedule] = useState('');
     const [schedules, setSchedules] = useState<ActivitySchedule[]>([]);
@@ -30,8 +33,9 @@ export const CreateActivityForm: FC = () => {
     const [closingDayCheck, setClosingDayCheck] = useState(false);
     const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ICreateActivityForm>();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ICreateActivityForm>();
     const { user } = useUser();
+    const params = usePathname();
 
     const handleScheduleInputChange = async () => {
         const s = await ActivityScheduleService.createActivitySchedule(`${process.env.NEXT_PUBLIC_API_URL}`, { opening_at: openSchedule, closing_at: closeSchedule }, setApiErrors);
@@ -87,12 +91,12 @@ export const CreateActivityForm: FC = () => {
             schedules.forEach((schedule: ActivitySchedule, index: number) => {
                 formData.append(`detail[schedules][${index}][opening_at]`, schedule.opening_at);
                 formData.append(`detail[schedules][${index}][closing_at]`, schedule.closing_at);
-            });
+              });
 
-            closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
+              closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
                 formData.append(`detail[closingDays][${index}][date]`, closingDay.date);
                 formData.append(`detail[closingDays][${index}][recurrence]`, String(closingDay.recurrence));
-            });
+              });
             formData.append('image', file);
             formData.append('advertiser', String(user?.advertiser?.id));
             tags.forEach((tag: ActivityTag, index: number) => {
@@ -101,9 +105,26 @@ export const CreateActivityForm: FC = () => {
             });
 
 
-            await ActivityService.createActivityWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, formData, tags, setApiErrors);
+            await ActivityService.updateActivityWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, 'id', formData, tags, setApiErrors);
         }
     };
+
+    const handleFetch = async () => {
+        params.substring(26,100);
+        console.log(params.substr(26,100));
+        await ActivityService.findActivityBySlugWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, `${params.substring(26,100)}`, setResponse as Dispatch<SetStateAction<Activity>>, setComments, setApiErrors);
+        setValue('name', String(response?.name));
+        setValue('location', String(response?.detail?.location));
+        setValue('duration', Number(response?.detail?.duration));
+        setTags(response?.tags || []);
+        setSchedules(response?.detail?.schedules || []);
+        setClosingDays(response?.detail?.closingDays || []);
+    };
+
+    useEffect(() => {
+        handleFetch();
+    }, []);
+
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -203,7 +224,7 @@ export const CreateActivityForm: FC = () => {
                                 id="tag_content"
                                 type="text"
                                 onClick={() => setApiErrors({})}
-                                onKeyUp={(e) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
+                                onKeyUp={(e) => {setTimeout(() => { handleTagInputChange(e)}, 2000)}}
                             />
                         </div>
                     </div>
@@ -245,7 +266,7 @@ export const CreateActivityForm: FC = () => {
                                 type="time"
                                 onClick={() => setApiErrors({})}
                                 onChange={(e) => setCloseSchedule(e.target.value)}
-                                onKeyUp={(e) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
+                                onKeyUp={(e) => {setTimeout(() => { handleScheduleInputChange()}, DEFAULT_INPUT_TIMER)}}
                             />
                         </div>
                     </div>
@@ -292,7 +313,7 @@ export const CreateActivityForm: FC = () => {
                                     type="date"
                                     onClick={() => setApiErrors({})}
                                     onChange={(e) => setClosingDayInput(e.target.value)}
-                                    onKeyUp={() => { setTimeout(() => { handleClosingDayInputChange() }, DEFAULT_INPUT_TIMER) }}
+                                    onKeyUp={() => {setTimeout(() => { handleClosingDayInputChange()}, DEFAULT_INPUT_TIMER)}}
                                 />
                             </div>
                         </div>
@@ -303,7 +324,7 @@ export const CreateActivityForm: FC = () => {
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                    Create Activity
+                    Update Activity
                 </button>
             </form>
         </div>

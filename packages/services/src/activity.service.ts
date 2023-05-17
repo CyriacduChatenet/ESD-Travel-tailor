@@ -22,6 +22,10 @@ const findActivityBySlug = async (api_url: string, slug: string, setError: Dispa
   return await useFetch.get(`${api_url}${API_ACTIVITY_BY_NAME_ROUTE}/${slug}`, setError)
 }
 
+const findActivitiesByAdvertiserId = async (api_url: string, advertiserId: string, setError: Dispatch<SetStateAction<any>> | any, page: number, limit?: number,) => {
+  return await useFetch.get(`${api_url}/activity/advertiser/${advertiserId}?page=${page}&limit=${limit ? limit : 10}`, setError);
+};
+
 const createActivity = async (
   api_url: string,
   credentials: CreateActivityDTO,
@@ -87,17 +91,17 @@ const deleteActivity = async (api_url: string, id: string, setError: Dispatch<Se
 }
 
 const createActivityWithRelations = async (api_url: string, credentials: CreateActivityDTO | any | FormData, tags: ActivityTag[], setError: Dispatch<SetStateAction<any>> | any) => {
-      const activity = await createActivityFormData(api_url, credentials)
-      const ac = await findActivityById(api_url, activity.id, setError)
-      if (Array.isArray(ac.tags)) {
-        ac.tags = [...ac.tags, ...tags];
-      } else {
-        ac.tags = tags;
-      }
+  const activity = await createActivityFormData(api_url, credentials)
+  const ac = await findActivityById(api_url, activity.id, setError)
+  if (Array.isArray(ac.tags)) {
+    ac.tags = [...ac.tags, ...tags];
+  } else {
+    ac.tags = tags;
+  }
 
-      await updateActivity(api_url, activity.id, activity, setError);
-      
-      return ac;
+  await updateActivity(api_url, activity.id, activity, setError);
+
+  return ac;
 }
 
 const findActivityBySlugWithRelations = async (api_url: string, slug: string, setData: Dispatch<SetStateAction<Activity>>, setComments: Dispatch<SetStateAction<Comment[]>>, setError: Dispatch<SetStateAction<any>> | any) => {
@@ -108,12 +112,14 @@ const findActivityBySlugWithRelations = async (api_url: string, slug: string, se
 
   a.comments.map(async (c: Comment) => {
     const comment = await CommentService.findCommentById(api_url, c.id, setError);
-    if(comment.traveler) {
+    if (comment.traveler) {
       const traveler = await TravelerService.findTravelerById(api_url, await comment?.traveler?.id, setError);
-      setComments(prevComments => [...prevComments, {...comment, traveler}]);
-      setComments(prevComments => prevComments.filter((comment, index, self) =>
-      index === self.findIndex((c) => c.id === comment.id)
-      ).sort((a, b) => (a.createdAt > b.createdAt) ? 1 : -1));
+      if (setComments) {
+        setComments(prevComments => [...prevComments, { ...comment, traveler }]);
+        setComments(prevComments => prevComments.filter((comment, index, self) =>
+          index === self.findIndex((c) => c.id === comment.id)
+        ).sort((a, b) => (a.createdAt > b.createdAt) ? 1 : -1));
+      }
     }
   });
 };
@@ -125,8 +131,8 @@ const updateActivityWithRelations = async (api_url: string, activityId: string, 
   } else {
     ac.tags = tags;
   }
-  const activity = await updateActivityFormData(api_url,activityId, credentials, setError)
-  
+  const activity = await updateActivityFormData(api_url, activityId, credentials, setError)
+
   return activity;
 }
 
@@ -135,6 +141,7 @@ export const ActivityService = {
   findActivityById,
   findActivityBySlug,
   findActivityBySlugWithRelations,
+  findActivitiesByAdvertiserId,
   createActivity,
   createActivityWithRelations,
   updateActivity,

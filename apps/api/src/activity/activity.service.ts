@@ -169,6 +169,34 @@ export class ActivityService {
     }
   }
 
+  async findAllByAdvertiserId(advertiserId: string, page: number, limit: number) {
+    try {
+      const skip = (page - 1) * limit;
+      const take = limit;
+
+      const query = this.activityRepository
+      .createQueryBuilder('activity')
+      .leftJoinAndSelect('activity.advertiser', 'advertiser')
+      .leftJoinAndSelect('activity.image', 'image')
+      .leftJoinAndSelect('image.uploadFile', 'uploadFile')
+      .leftJoinAndSelect('activity.tags', 'tag')
+      .leftJoinAndSelect('activity.detail', 'detail')
+      .leftJoinAndSelect("detail.closingDays", "closingDay")
+      .leftJoinAndSelect("detail.schedules", "schedule")
+      .where('advertiser.id = :id', { id: advertiserId })
+      .orderBy('activity.createdAt', 'DESC')
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany(),
+      }
+    } catch(err) {
+      throw new NotFoundException(err);
+    }
+  }
+
   async update(id: string, updateActivityDto: UpdateActivityDto) {
     try {
       const activity = await this.activityRepository
