@@ -8,7 +8,7 @@ const TravelerCreateTravelPage: NextPage = () => {
     return (
         <AuthChecker>
             <Layout>
-                <main>
+                <main className="pt-20">
                     <h1>Traveler Create Travel</h1>
                 </main>
             </Layout>

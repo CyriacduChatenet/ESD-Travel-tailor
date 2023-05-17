@@ -7,7 +7,7 @@ import { CreateAdvertiserForm } from "@/components/advertiser/createForm";
 const CreateAdvertiserPage: NextPage = () => {
     return (
         <Layout>
-            <main>
+            <main className="pt-20">
                 <h1>Create Advertiser</h1>
                 <CreateAdvertiserForm />
             </main>

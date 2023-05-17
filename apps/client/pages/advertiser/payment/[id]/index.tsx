@@ -19,7 +19,7 @@ const AdvertiserPaymentPage: NextPage = () => {
 
     return (
         <Layout>
-            <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
+            <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
                 <h1>Advertiser Payment</h1>
                 <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
                     <p>amount : 1000€</p>
