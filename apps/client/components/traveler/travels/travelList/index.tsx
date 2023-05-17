@@ -12,7 +12,7 @@ import { Player } from '@lottiefiles/react-lottie-player';
 export const TravelList = () => {
     const [apiError, setApiError] = useState({});
     const [page, setPage] = useState(1);
-    const [response, setResponse] = useState<{ page: number, limit: number, total: number, data: any[] }>({
+    const [response, setResponse] = useState<{ page: number, limit: number, total: number, data: Travel[] }>({
         page: 0,
         limit: 0,
         total: 0,

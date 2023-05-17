@@ -31,7 +31,7 @@ export class PaymentController {
   }
 
   @Post('webhook')
-  async webhook(@Body() body: any): Promise<any> {
+  async webhook(@Body() body) {
     return await this.stripeWebhookService.paymentWebhook(body);
   }
 }

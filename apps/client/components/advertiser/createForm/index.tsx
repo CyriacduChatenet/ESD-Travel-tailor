@@ -1,5 +1,5 @@
 import { useRouter, usePathname } from "next/navigation";
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
@@ -10,7 +10,11 @@ interface ICreateAdvertiserForm {
 }
 
 export const CreateAdvertiserForm: FC = () => {
-    const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
+    const [apiErrors, setApiErrors] = useState<Error>({
+        cause: "",
+        name: "",
+        message: "",
+    });
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateAdvertiserForm>();
 
@@ -24,7 +28,7 @@ export const CreateAdvertiserForm: FC = () => {
     const onSubmit = async (data: ICreateAdvertiserForm) => {
         const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors);
         if (advertiser && apiErrors.message === undefined) {
-            await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19,100), { advertiser: advertiser.id }, setApiErrors);
+            await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19, 100), { advertiser: advertiser.id }, setApiErrors);
             handleRedirect(`${advertiser.id}`)
         }
     };
@@ -41,7 +45,7 @@ export const CreateAdvertiserForm: FC = () => {
                         })}
                         id="name"
                         type="text"
-                        onClick={() => setApiErrors({})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.name && <p className="mt-2 text-red-500 text-xs italic">{errors.name.message?.toString()}</p>}
@@ -56,7 +60,7 @@ export const CreateAdvertiserForm: FC = () => {
                         })}
                         id="name"
                         type="text"
-                        onClick={() => setApiErrors({})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.location && <p className="mt-2 text-red-500 text-xs italic">{errors.location.message?.toString()}</p>}

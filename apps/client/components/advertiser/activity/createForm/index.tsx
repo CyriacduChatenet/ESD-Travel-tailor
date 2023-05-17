@@ -1,13 +1,13 @@
 import { ActivityClosingDay, ActivitySchedule, ActivityTag } from "@travel-tailor/types";
 import { useUser } from "@travel-tailor/contexts";
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from "@travel-tailor/services";
-import { FC, useState } from "react";
+import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 
 interface ICreateActivityForm {
     name: string;
-    image: any;
+    image: FileList;
     location: string;
     duration: number;
     content: string;
@@ -62,9 +62,9 @@ export const CreateActivityForm: FC = () => {
         setTags(tags.filter((_, i) => i !== index))
     };
 
-    const handleTagInputChange = async (e: any) => {
+    const handleTagInputChange = async (e: KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault();
-        const { value } = e.target;
+        const { value } = e.target as HTMLInputElement;
         const tag = await ActivityTagService.createActivityTag(`${process.env.NEXT_PUBLIC_API_URL}`, { name: value }, setApiErrors);
         if (tag) {
             setTags([...tags, tag]);
@@ -203,7 +203,7 @@ export const CreateActivityForm: FC = () => {
                                 id="tag_content"
                                 type="text"
                                 onClick={() => setApiErrors({})}
-                                onKeyUp={(e) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
                             />
                         </div>
                     </div>
@@ -245,7 +245,7 @@ export const CreateActivityForm: FC = () => {
                                 type="time"
                                 onClick={() => setApiErrors({})}
                                 onChange={(e) => setCloseSchedule(e.target.value)}
-                                onKeyUp={(e) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
                             />
                         </div>
                     </div>
@@ -279,7 +279,7 @@ export const CreateActivityForm: FC = () => {
                                     id="closing_day_recurrence"
                                     type="checkbox"
                                     onClick={() => setApiErrors({})}
-                                    onChange={(e) => setClosingDayCheck(e.target.checked)}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setClosingDayCheck(e.target.checked)}
                                 />
                             </div>
                             <div className="flex justify-between items-center w-6/12">
@@ -291,7 +291,7 @@ export const CreateActivityForm: FC = () => {
                                     id="closing_day_date"
                                     type="date"
                                     onClick={() => setApiErrors({})}
-                                    onChange={(e) => setClosingDayInput(e.target.value)}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setClosingDayInput(e.target.value)}
                                     onKeyUp={() => { setTimeout(() => { handleClosingDayInputChange() }, DEFAULT_INPUT_TIMER) }}
                                 />
                             </div>

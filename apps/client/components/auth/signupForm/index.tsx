@@ -16,7 +16,11 @@ interface ISignupForm {
 }
 
 export const SignupForm: FC = () => {
-    const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
+    const [apiErrors, setApiErrors] = useState<Error>({
+        cause: "",
+        name: "",
+        message: "",
+    });
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
     const router = useRouter()
@@ -53,7 +57,7 @@ export const SignupForm: FC = () => {
 
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
-            {apiErrors.status === 406 && <p className="mb-2 text-red-500 text-xs italic">User is already exist</p>}
+            {apiErrors.message.length > 0 && <p className="mb-2 text-red-500 text-xs italic">User is already exist</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
@@ -65,7 +69,7 @@ export const SignupForm: FC = () => {
                         })}
                         id="username"
                         type="text"
-                        onClick={() => setApiErrors({})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.username && <p className="mt-2 text-red-500 text-xs italic">{errors.username?.message?.toString()}</p>}
@@ -84,7 +88,7 @@ export const SignupForm: FC = () => {
                         })}
                         id="email"
                         type="email"
-                        onClick={() => setApiErrors({})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.email && <p className="mt-2 text-red-500 text-xs italic">{errors.email.message?.toString()}</p>}
@@ -97,7 +101,7 @@ export const SignupForm: FC = () => {
                         {...register("password", { required: "Password is required" })}
                         id="password"
                         type="password"
-                        onClick={() => setApiErrors({})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.password && <p className="mt-2 text-red-500 text-xs italic">{errors.password.message?.toString()}</p>}
@@ -109,7 +113,7 @@ export const SignupForm: FC = () => {
                     <select
                         {...register("roles", { required: "Role is required" })}
                         id="role"
-                        onClick={() => setApiErrors({})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="">Select role</option>

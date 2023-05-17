@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag, Comment } from "@travel-tailor/types";
 import { useUser } from "@travel-tailor/contexts";
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from "@travel-tailor/services";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, FC, KeyboardEvent, SetStateAction, useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 
 interface ICreateActivityForm {
     name: string;
-    image: any;
+    image: FileList;
     location: string;
     duration: number;
     content: string;
@@ -66,9 +67,9 @@ export const EditActivityForm: FC = () => {
         setTags(tags.filter((_, i) => i !== index))
     };
 
-    const handleTagInputChange = async (e: any) => {
+    const handleTagInputChange = async (e: KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault();
-        const { value } = e.target;
+        const { value } = e.target as HTMLInputElement;
         const tag = await ActivityTagService.createActivityTag(`${process.env.NEXT_PUBLIC_API_URL}`, { name: value }, setApiErrors);
         if (tag) {
             setTags([...tags, tag]);
@@ -123,7 +124,7 @@ export const EditActivityForm: FC = () => {
 
     useEffect(() => {
         handleFetch();
-    }, []);
+    }, [handleFetch]);
 
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
@@ -224,7 +225,7 @@ export const EditActivityForm: FC = () => {
                                 id="tag_content"
                                 type="text"
                                 onClick={() => setApiErrors({})}
-                                onKeyUp={(e) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => { setTimeout(() => { handleTagInputChange(e) }, 2000) }}
                             />
                         </div>
                     </div>
@@ -256,7 +257,7 @@ export const EditActivityForm: FC = () => {
                                 id="schedule_opening_at"
                                 type="time"
                                 onClick={() => setApiErrors({})}
-                                onChange={(e) => setOpenSchedule(e.target.value)}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setOpenSchedule(e.target.value)}
                             />
                             <input
                                 {...register("closing_at", {
@@ -265,8 +266,8 @@ export const EditActivityForm: FC = () => {
                                 id="schedule_closing_at"
                                 type="time"
                                 onClick={() => setApiErrors({})}
-                                onChange={(e) => setCloseSchedule(e.target.value)}
-                                onKeyUp={(e) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setCloseSchedule(e.target.value)}
+                                onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => { setTimeout(() => { handleScheduleInputChange() }, DEFAULT_INPUT_TIMER) }}
                             />
                         </div>
                     </div>
@@ -300,7 +301,7 @@ export const EditActivityForm: FC = () => {
                                     id="closing_day_recurrence"
                                     type="checkbox"
                                     onClick={() => setApiErrors({})}
-                                    onChange={(e) => setClosingDayCheck(e.target.checked)}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setClosingDayCheck(e.target.checked)}
                                 />
                             </div>
                             <div className="flex justify-between items-center w-6/12">
@@ -312,7 +313,7 @@ export const EditActivityForm: FC = () => {
                                     id="closing_day_date"
                                     type="date"
                                     onClick={() => setApiErrors({})}
-                                    onChange={(e) => setClosingDayInput(e.target.value)}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setClosingDayInput(e.target.value)}
                                     onKeyUp={() => { setTimeout(() => { handleClosingDayInputChange() }, DEFAULT_INPUT_TIMER) }}
                                 />
                             </div>

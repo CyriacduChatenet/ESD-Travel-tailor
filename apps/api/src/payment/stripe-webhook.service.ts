@@ -16,7 +16,7 @@ export class StripeWebhookService {
     private stripeCustomerService: StripeCustomerService,
     ) {}
 
-  constructEvent(body: any, headers: any, secret: string): Stripe.Event {
+  constructEvent(body, headers, secret: string): Stripe.Event {
     const signature = headers['stripe-signature'];
 
     try {
