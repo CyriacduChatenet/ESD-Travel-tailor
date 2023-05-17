@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
-import { ActivityListPaginator } from "@/components/traveler/travels/activity/activityListPaginator";
+import { ActivityListPaginator } from "@/components/advertiser/activity/activityListPaginator";
 import { AdvertiserToolBar } from "@/components/advertiser/toolBar";
 
 const AdvertiserDashboardPage: NextPage = () => {

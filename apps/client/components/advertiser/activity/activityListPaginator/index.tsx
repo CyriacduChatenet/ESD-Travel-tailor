@@ -38,7 +38,7 @@ export const ActivityListPaginator: FC<IProps> = ({ editorMode }) => {
         if (user) {
             const res = await ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`, id, setApiError);
             if (res) {
-                setResponse({...response, data: response.data.filter((activity: Activity) => activity.id !== id)});
+                setResponse({ ...response, data: response.data.filter((activity: Activity) => activity.id !== id) });
             }
         }
     };
@@ -59,9 +59,11 @@ export const ActivityListPaginator: FC<IProps> = ({ editorMode }) => {
                             <p className='lg:col-span-5' >{activity.detail.location}</p>
                             <div className='lg:col-span-2'>
                                 {editorMode ? <div className={'flex'}>
-                                    <button>
-                                        <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
-                                    </button>
+                                    <Link href={`${ROUTES.ADVERTISER.ACTIVITY.UPDATE_ACTIVITY}/${activity.slug}`}>
+                                        <button>
+                                            <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
+                                        </button>
+                                    </Link>
                                     <button onClick={() => handleDelete(activity.id)}>
                                         <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                     </button>
