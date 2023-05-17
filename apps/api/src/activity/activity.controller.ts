@@ -50,6 +50,11 @@ export class ActivityController {
     return this.activityService.findOneByName(slug)
   }
 
+  @Get('/advertiser/:id')
+  async findAllByTraveler(@Param('id') advertiserId: string, @Query('page') page = 1, @Query('limit') limit = 10) {
+    return await this.activityService.findAllByAdvertiserId(advertiserId, page, limit);
+  };
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser)
