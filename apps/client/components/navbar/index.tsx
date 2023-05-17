@@ -1,13 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ROUTES } from "@travel-tailor/constants";
 import { useUser } from "@travel-tailor/contexts";
 import { TokenService } from "@travel-tailor/services";
+import { access } from "fs";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
+import { NavModule } from "./module";
 
 export const Navbar: FC = () => {
   const { user } = useUser();
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const accessToken = TokenService.getAccessToken();
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,7 +26,7 @@ export const Navbar: FC = () => {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6 fixed w-full z-10">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <Link href={"/"}>
+        <Link href="/">
           <span className="font-semibold text-xl tracking-tight">
             Travel Tailor
           </span>
@@ -48,167 +52,11 @@ export const Navbar: FC = () => {
         </button>
       </div>
 
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <ul className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow"></div>
-        {isMobile && open && (
-          <div>
-            {user.advertiser && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.ADVERTISER.DASHBOARD}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Dashboard
-              </a>
-            )}
-            {user.traveler && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.TRAVELER.DASHBOARD}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Dashboard
-              </a>
-            )}
-            {user.traveler && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.TRAVELER.TASTE.INDEX}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Tastes
-              </a>
-            )}
-            {user.advertiser && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.ADVERTISER.INVOICE.INDEX}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Invoices
-              </a>
-            )}
-            {TokenService.getAccessToken() !== null && (
-              <a
-                href={""}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Profile
-              </a>
-            )}
-            {TokenService.getAccessToken() !== null && (
-              <a
-                href={""}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Settings
-              </a>
-            )}
-            {TokenService.getAccessToken() === null && (
-              <>
-                <a
-                  href={ROUTES.AUTH.SIGNIN}
-                  className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                >
-                  Signin
-                </a>
-                <a
-                  href={ROUTES.AUTH.SIGNUP}
-                  className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                >
-                  Signup
-                </a>
-              </>
-            )}
-            {TokenService.getAccessToken() !== null && (
-              <>
-                <a
-                  href={ROUTES.ROOT}
-                  className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                  onClick={() => TokenService.removeAccessToken()}
-                >
-                  Logout
-                </a>
-              </>
-            )}
-          </div>
-        )}
-        {!isMobile && (
-          <div>
-            {user.advertiser && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.ADVERTISER.DASHBOARD}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Dashboard
-              </a>
-            )}
-            {user.traveler && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.TRAVELER.DASHBOARD}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Dashboard
-              </a>
-            )}
-            {user.traveler && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.TRAVELER.TASTE.INDEX}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Tastes
-              </a>
-            )}
-            {user.advertiser && TokenService.getAccessToken() !== null && (
-              <a
-                href={ROUTES.ADVERTISER.INVOICE.INDEX}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Invoices
-              </a>
-            )}
-            {TokenService.getAccessToken() !== null && (
-              <a
-                href={""}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Profile
-              </a>
-            )}
-            {TokenService.getAccessToken() !== null && (
-              <a
-                href={""}
-                className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-              >
-                Settings
-              </a>
-            )}
-            {TokenService.getAccessToken() === null && (
-              <>
-                <a
-                  href={ROUTES.AUTH.SIGNIN}
-                  className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                >
-                  Signin
-                </a>
-                <a
-                  href={ROUTES.AUTH.SIGNUP}
-                  className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                >
-                  Signup
-                </a>
-              </>
-            )}
-            {TokenService.getAccessToken() !== null && (
-              <>
-                <a
-                  href={ROUTES.ROOT}
-                  className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                  onClick={() => TokenService.removeAccessToken()}
-                >
-                  Logout
-                </a>
-              </>
-            )}
-          </div>
-        )}
-      </div>
+        {isMobile && open === true && <div className="block lg:hidden"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
+        {!isMobile && <div className="hidden lg:block"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
+      </ul>
     </nav>
   );
 };

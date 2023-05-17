@@ -10,8 +10,7 @@ import React, {
   useState,
 } from 'react'
 import { User } from '@travel-tailor/types'
-import { TokenService, UserService } from '@travel-tailor/services'
-import { ROUTES } from '@travel-tailor/constants'
+import { UserService } from '@travel-tailor/services'
 
 type Context = {
   user: User
@@ -58,7 +57,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   useEffect(() => {
-    findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
+      findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
   }, []); 
 
   return (

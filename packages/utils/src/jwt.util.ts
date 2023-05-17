@@ -3,9 +3,9 @@ import { TokenService } from '@travel-tailor/services';
 import { ROUTES } from '@travel-tailor/constants';
 
 export const checkJwtValidity = () => {
-    const token = TokenService.getAccessToken();
+  const token = TokenService.getAccessToken();
 
-  if (token) {
+  if (token !== null && token !== undefined && typeof token === 'string') {
     try {
       const decodedToken = jwtDecode(token) as { exp: number };
       const currentTime = Date.now() / 1000;
