@@ -2,14 +2,14 @@ import { NextPage } from "next";
 
 import { Layout } from "@/components/layout";
 
-const GeneralConditionsPage: NextPage = () => {
+const TermsAndConditionsPage: NextPage = () => {
     return (
         <Layout>
             <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
-                <h1>General conditions</h1>
+                <h1>Terms And Conditions</h1>
             </main>
         </Layout>
     );
 };
 
-export default GeneralConditionsPage;
+export default TermsAndConditionsPage;
