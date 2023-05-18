@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import moment from "moment";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -20,7 +21,7 @@ export const Comment: FC<IProps> = ({ author, role, content, createdAt }) => {
                     <span className="flex justify-around items-center w-1/3">
                         <span className="font-bold">{author}</span><div className="hidden lg:block font-normal italic"><span>{role}</span></div>
                     </span>
-                    <span>{new Date(createdAt).toLocaleString('fr')}</span>
+                    <span className="italic text-gray-400">{moment(createdAt).startOf('seconds').fromNow()}</span>
                 </p>
             </div>
             <p className="w-full pt-4 text-justify">{content}</p>
