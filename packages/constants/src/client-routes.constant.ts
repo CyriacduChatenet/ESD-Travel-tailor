@@ -42,4 +42,7 @@ export const ROUTES = {
     INDEX: '/activity',
   },
   SETTINGS: '/settings',
+  SITE_MAP: '/site-map',
+  TERMS_AND_CONDITIONS: '/terms-and-conditions',
+  ABOUT_US: '/about-us',
 }
