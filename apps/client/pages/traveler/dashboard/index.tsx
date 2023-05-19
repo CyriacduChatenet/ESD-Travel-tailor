@@ -11,7 +11,7 @@ import { Layout } from "@/components/layout";
 const TravelerDashboardPage: NextPage = () => {
     return (
         <AuthChecker>
-            <Layout>
+            <Layout title={"Personalized Travel Dashboard | Create Your Perfect Itinerary"} description={"Manage your travel experience like never before with our intuitive travel dashboard. Build your dream trip, customize activities to match your preferences, and explore new destinations based on your unique tastes. Start crafting your personalized journey today!"}>
                 <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Traveler Dashboard</h1>

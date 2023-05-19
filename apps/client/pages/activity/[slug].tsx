@@ -34,7 +34,7 @@ const ActivityPage: NextPage = () => {
 
     return (
         <AuthChecker>
-            <Layout>
+            <Layout title={"Create Your Dream Vacation with Personalized Activities"} description={"Discover the ultimate travel planner that lets you curate your ideal journey filled with activities tailored to your preferences. Explore a variety of destinations and create a unique vacation experience like never before. Start planning now!"}>
                 <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         {data ? <>

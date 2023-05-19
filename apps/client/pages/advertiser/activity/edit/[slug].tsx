@@ -10,7 +10,7 @@ import { EditActivityForm } from "@/components/advertiser/activity/editForm";
 const AdvertiserEditActivityPage: NextPage = () => {
     return (
         <AuthChecker>
-            <Layout>
+            <Layout title={""} description={""}>
             <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
                     <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around">
                         <Link href={ROUTES.ADVERTISER.DASHBOARD}>
