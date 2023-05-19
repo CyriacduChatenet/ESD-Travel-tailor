@@ -7,7 +7,7 @@ import { Layout } from "@/components/layout";
 const TravelerCreateTravelPage: NextPage = () => {
     return (
         <AuthChecker>
-            <Layout>
+            <Layout title={""} description={""}>
                 <main className="pt-20">
                     <h1>Traveler Create Travel</h1>
                 </main>
