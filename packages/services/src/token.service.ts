@@ -36,6 +36,14 @@ const removeSigninToken = () => {
   }
 }
 
+const clearAll = () => {
+    localStorage.removeItem('iconify-count');
+    localStorage.removeItem('iconify-version');
+    localStorage.removeItem('iconify0');
+    localStorage.removeItem('iconify1');
+    return localStorage.clear();
+}
+
 export const TokenService = {
   getAccessToken,
   setAccessToken,
@@ -43,4 +51,5 @@ export const TokenService = {
   getSigninToken,
   setSigninToken,
   removeSigninToken,
+  clearAll,
 }
