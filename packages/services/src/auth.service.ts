@@ -38,8 +38,8 @@ const signup = async (api_url: string, signupCredentials: SignupDTO, setError: D
 }
 
 const logout = () => {
-  TokenService.removeAccessToken()
-  location.pathname = ROUTES.AUTH.SIGNIN
+  TokenService.clearAll()
+  location.pathname = ROUTES.AUTH.SIGNIN;
 }
 
 const forgotPassword = async (

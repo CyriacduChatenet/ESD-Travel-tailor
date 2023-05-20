@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react'
 import { User } from '@travel-tailor/types'
-import { UserService } from '@travel-tailor/services'
+import { TokenService, UserService } from '@travel-tailor/services'
 
 type Context = {
   user: User
@@ -57,7 +57,9 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   useEffect(() => {
+    if(localStorage.length > 4 && TokenService.getAccessToken()) {
       findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
+    }
   }, []); 
 
   return (

@@ -1,6 +1,4 @@
-'use client'
-
-import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useContext, useState } from 'react'
+import React, { createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useContext, useState } from 'react'
 
 type Context = {
     travelId: string;

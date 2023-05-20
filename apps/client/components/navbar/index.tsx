@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ROUTES } from "@travel-tailor/constants";
 import { useUser } from "@travel-tailor/contexts";
 import { TokenService } from "@travel-tailor/services";
-import { access } from "fs";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { NavModule } from "./module";
@@ -54,7 +52,7 @@ export const Navbar: FC = () => {
 
       <ul className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow"></div>
-        {isMobile && open === true && <div className="block lg:hidden"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
+        {isMobile && open && <div className="block lg:hidden"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
         {!isMobile && <div className="hidden lg:block"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
       </ul>
     </nav>
