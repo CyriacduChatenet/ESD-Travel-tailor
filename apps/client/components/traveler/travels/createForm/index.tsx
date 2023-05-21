@@ -2,7 +2,7 @@ import { useUser } from "@/../../packages/contexts/src";
 import { TravelService } from "@/../../packages/services/src";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { FC, useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 
 interface ICreateTravelForm {
     departureCity: string
@@ -16,12 +16,17 @@ export const CreateTravelForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
     const [submit, setSubmit] = useState<boolean>(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ICreateTravelForm>();
-    const { user } = useUser();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ICreateTravelForm>();
+    const { user, setUser } = useUser();
 
     const onSubmit = useCallback(async (data: ICreateTravelForm) => {
         setSubmit(true);
         await TravelService.createTravel(`${process.env.NEXT_PUBLIC_API_URL}`, {...data, traveler: user?.traveler?.id}, setApiErrors);
+        const travels = await TravelService.findTravelsByTravelerId(`${process.env.NEXT_PUBLIC_API_URL}`, String(user?.traveler?.id), setApiErrors, 1, 10);
+        setUser({...user, travels: travels?.data?.travels});
+        setValue("departureCity", "");
+        setValue("destinationCity", "");
+        setSubmit(false);
     }, [user]);
 
     return (
