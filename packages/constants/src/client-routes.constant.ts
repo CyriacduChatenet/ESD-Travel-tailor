@@ -9,7 +9,7 @@ export const ROUTES = {
     DASHBOARD: '/traveler/dashboard',
     EDIT_TRAVELER: '/traveler/edit-travel',
     TASTE: {
-      INDEX: '/traveler/tastes',
+      INDEX: '/traveler/taste',
       CREATE: '/traveler/taste/create',
     },
     TRAVELER: '/traveler',
