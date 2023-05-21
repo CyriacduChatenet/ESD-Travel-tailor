@@ -57,7 +57,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   useEffect(() => {
-    if(localStorage.length > 4 && TokenService.getAccessToken()) {
+    if(localStorage.length > 0 && TokenService.getAccessToken()) {
       findUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`)
     }
   }, []); 
