@@ -3,9 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AuthService, TravelerService, UserService } from "@travel-tailor/services";
-import { API_SIGNUP_ROUTE, API_TRAVELER_ROUTE, API_USER_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
+import { API_SIGNUP_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
 import { User } from "@travel-tailor/types";
 import { useUser } from "@travel-tailor/contexts";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface ISignupForm {
     username: string
@@ -21,6 +22,7 @@ export const SignupForm: FC = () => {
         name: "",
         message: "",
     });
+    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
     const router = useRouter()
@@ -145,7 +147,12 @@ export const SignupForm: FC = () => {
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Signup
+                                        {submit ? <Player
+                        src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                        className="w-5 h-5"
+                        loop
+                        autoplay
+                    /> : <>Signup</>}
                     </button>
                     <Link href="/signin" className="mt-8 text-sm text-gray-500 hover:text-gray-800">
                         Signin

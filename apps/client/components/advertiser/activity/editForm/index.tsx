@@ -6,6 +6,7 @@ import { ChangeEvent, Dispatch, FC, KeyboardEvent, SetStateAction, useEffect, us
 import { set, useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface ICreateActivityForm {
     name: string;
@@ -325,7 +326,12 @@ export const EditActivityForm: FC = () => {
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                    Update Activity
+                    {submit ? <Player
+                        src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                        className="w-5 h-5"
+                        loop
+                        autoplay
+                    /> : <>Update Activity</>}
                 </button>
             </form>
         </div>

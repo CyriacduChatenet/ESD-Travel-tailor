@@ -1,8 +1,9 @@
 import { useRouter, usePathname } from "next/navigation";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface ICreateAdvertiserForm {
     name: string
@@ -15,6 +16,8 @@ export const CreateAdvertiserForm: FC = () => {
         name: "",
         message: "",
     });
+
+    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateAdvertiserForm>();
 
@@ -45,7 +48,7 @@ export const CreateAdvertiserForm: FC = () => {
                         })}
                         id="name"
                         type="text"
-                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: "" })}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.name && <p className="mt-2 text-red-500 text-xs italic">{errors.name.message?.toString()}</p>}
@@ -60,7 +63,7 @@ export const CreateAdvertiserForm: FC = () => {
                         })}
                         id="name"
                         type="text"
-                        onClick={() => setApiErrors({ message: "", name: "", cause: ""})}
+                        onClick={() => setApiErrors({ message: "", name: "", cause: "" })}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.location && <p className="mt-2 text-red-500 text-xs italic">{errors.location.message?.toString()}</p>}
@@ -70,7 +73,12 @@ export const CreateAdvertiserForm: FC = () => {
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Create Advertiser
+                        {submit ? <Player
+                            src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                            className="w-5 h-5"
+                            loop
+                            autoplay
+                        /> : <>Create Advertiser</>}
                     </button>
                 </div>
             </form>

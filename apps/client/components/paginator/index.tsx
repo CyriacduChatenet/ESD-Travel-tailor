@@ -16,7 +16,7 @@ export const Paginator: FC<IProps> = ({ pageCurrent, setPage, limit, total }) =>
           <button
             key={page}
             onClick={() => setPage(page)}
-            className={`py-2 px-4 rounded mr-2 mb-2 sm:mb-0 ${page === pageCurrent ? 'bg-blue-500 text-white' : 'text-black bg-gray-100'}`}
+            className={`py-2 px-4 rounded mr-2 mb-2 sm:mb-0 my-2 ${page === pageCurrent ? 'bg-blue-500 text-white' : 'text-black bg-gray-100'}`}
           >
             {page}
           </button>
