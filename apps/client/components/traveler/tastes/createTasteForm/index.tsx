@@ -4,31 +4,42 @@ import { TasteService } from "@travel-tailor/services";
 import { Taste } from "@travel-tailor/types";
 import { ROUTES } from "@travel-tailor/constants";
 import { Icon } from "@iconify/react";
+import { useForm } from "react-hook-form";
+import { Player } from "@lottiefiles/react-lottie-player";
+
+interface ICreateTasteForm {
+    name: string;
+}
 
 export const CreateTasteForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
-    const [tags, setTags] = useState<{ name: string }[]>([]);
+    const [tastes, setTastes] = useState<{ name: string }[]>([]);
     const [submit, setSubmit] = useState<boolean>(false);
 
     const router = useRouter();
     const routeParams = usePathname();
+    const { register, handleSubmit, formState: { errors } } = useForm<ICreateTasteForm>();
 
-    const handleChange = async (e: KeyboardEvent<HTMLInputElement>) => {
+    const handleTasteInputChange = async (e: KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { value } = e.target as HTMLInputElement;
-        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tags, routeParams.substring(23, 100), setApiErrors);
-        setTags([...tags, { name: value }]);
+        await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, routeParams.substring(23, 100), setApiErrors);
+        setTastes([...tastes, { name: value }]);
     };
 
     const handleDelete = async (id: string, index: number) => {
         await TasteService.deleteTaste(`${process.env.NEXT_PUBLIC_API_URL}`, id, setApiErrors);
-        setTags(tags.filter((_, i) => i !== index))
+        setTastes(tastes.filter((_, i) => i !== index))
     };
 
-    const handleSubmit = () => {
+    const onSubmit = async () => {
         setSubmit(true);
-        if (tags.length > 0) {
-            router.push(ROUTES.TRAVELER.DASHBOARD);
+        if (tastes.length > 0) {
+            await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, routeParams.substring(23, 100), setApiErrors);
+            const timeout = setTimeout(() => {
+                router.push(ROUTES.TRAVELER.DASHBOARD);
+            }, 2000);
+            return () => clearTimeout(timeout);
         }
     };
 
@@ -40,7 +51,7 @@ export const CreateTasteForm: FC = () => {
             <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
                 <form action="">
                     <div>
-                        {tags.map((taste: Taste, index: number) => (
+                        {tastes.map((taste: Taste, index: number) => (
                             <div key={index} className="flex justify-around items-center rounded-full bg-blue-500 text-white my-2">
                                 <p>{taste.name}</p>
                                 <button
@@ -54,26 +65,30 @@ export const CreateTasteForm: FC = () => {
                     </div>
                     <div>
                         <input
+                            {...register("name", {
+                                required: "Taste is required",
+                            })}
                             id="name"
                             type="text"
                             onClick={() => setApiErrors({})}
-                            onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
-                                if (e.key === "Enter") {
-                                    handleChange(e);
-                                }
-                            }}
+                            onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => { setTimeout(() => { handleTasteInputChange(e) }, 2000) }}
                         />
                     </div>
                 </form>
             </div>
-            {submit === true && tags.length === 0 ? (
+            {submit === true && tastes.length === 0 ? (
                 <p className="text-red-500 text-xs italic">Tags musn&apos;t be empty</p>
             ) : null}
             <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={handleSubmit}
+                onClick={handleSubmit(onSubmit)}
             >
-                Add taste
+                {submit ? <Player
+                    src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                    className="w-12 h-12"
+                    loop
+                    autoplay
+                /> : <>Add Taste</>}
             </button>
         </div>
     );

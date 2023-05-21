@@ -3,6 +3,7 @@ import { Advertiser } from './advertiser.type'
 import { ResetPasswordToken } from './reset-password.type'
 import { Traveler } from './traveler.type'
 import { Travel } from './travel.type'
+import { Taste } from './taste.type'
 
 export type User = {
   id: string
@@ -13,6 +14,7 @@ export type User = {
   advertiser?: Advertiser
   traveler?: Traveler
   travels?: Travel[]
+  tastes?: Taste[]
   resetPasswordToken: ResetPasswordToken
   activities?: Activity[]
   user?: string | User
