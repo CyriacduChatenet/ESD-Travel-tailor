@@ -11,6 +11,7 @@ export const ROUTES = {
     TASTE: {
       INDEX: '/traveler/taste',
       CREATE: '/traveler/taste/create',
+      EDIT: '/traveler/taste/edit',
     },
     TRAVELER: '/traveler',
     TRAVEL: {
