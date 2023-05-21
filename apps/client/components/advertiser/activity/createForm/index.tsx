@@ -1,9 +1,12 @@
 import { ActivityClosingDay, ActivitySchedule, ActivityTag } from "@travel-tailor/types";
 import { useUser } from "@travel-tailor/contexts";
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from "@travel-tailor/services";
+import { ROUTES } from "@travel-tailor/constants";
 import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface ICreateActivityForm {
     name: string;
@@ -32,6 +35,7 @@ export const CreateActivityForm: FC = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateActivityForm>();
     const { user } = useUser();
+    const router = useRouter();
 
     const handleScheduleInputChange = async () => {
         const s = await ActivityScheduleService.createActivitySchedule(`${process.env.NEXT_PUBLIC_API_URL}`, { opening_at: openSchedule, closing_at: closeSchedule }, setApiErrors);
@@ -101,7 +105,11 @@ export const CreateActivityForm: FC = () => {
             });
 
 
-            await ActivityService.createActivityWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, formData, tags, setApiErrors);
+            const activity = await ActivityService.createActivityWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, formData, tags, setApiErrors);
+
+            if (activity) {
+                router.push(ROUTES.ADVERTISER.DASHBOARD);
+            }
         }
     };
     return (
@@ -303,7 +311,12 @@ export const CreateActivityForm: FC = () => {
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                    Create Activity
+                    {submit ? <Player
+                        src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                        className="w-5 h-5"
+                        loop
+                        autoplay
+                    /> : <>Create Activity</>}
                 </button>
             </form>
         </div>
