@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Taste } from '@travel-tailor/types';
+import { Taste, User } from '@travel-tailor/types';
 import { useUser } from '@travel-tailor/contexts';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { Icon } from '@iconify/react';
@@ -20,7 +20,7 @@ export const TasteList: FC<IProps> = ({ editorMode }) => {
         if (user) {
             const res = await TasteService.deleteTaste(`${process.env.NEXT_PUBLIC_API_URL}`, id, setApiError);
             if (res) {
-                setUser((prev) => ({...prev, tastes: prev.tastes.filter((taste: Taste) => taste.id !== id)}));
+                setUser((prev: User) => ({...prev, tastes: prev?.tastes?.filter((taste: Taste) => taste.id !== id)}));
             }
         }
     };
