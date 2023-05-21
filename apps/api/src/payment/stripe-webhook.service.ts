@@ -3,7 +3,6 @@ import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
 import { ConfigService } from "@nestjs/config";
 import { MailService } from "src/mail/mail.service";
-import { InvoiceService } from "./invoice.service";
 import { StripeCustomerService } from "./stripe-customer.service";
 
 @Injectable()
@@ -12,7 +11,6 @@ export class StripeWebhookService {
     @InjectStripe() private readonly stripeClient: Stripe,
     private configService: ConfigService,
     private mailService: MailService,
-    private invoiceService: InvoiceService,
     private stripeCustomerService: StripeCustomerService,
     ) {}
 
