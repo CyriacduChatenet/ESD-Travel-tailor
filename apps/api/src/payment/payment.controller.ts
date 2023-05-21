@@ -3,9 +3,7 @@ import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
 
 import { PaymentService } from './payment.service'
-import { CreateCheckoutDto } from './dto/create-checkout.dto';
 import { OpencageService } from '../opencage/opencage.service';
-import { InvoiceService } from './invoice.service';
 import { StripeWebhookService } from './stripe-webhook.service';
 
 @Controller('payment')
@@ -14,7 +12,6 @@ export class PaymentController {
     @InjectStripe() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
     private opencageService: OpencageService,
-    private invoiceService: InvoiceService,
     private stripeWebhookService: StripeWebhookService,
   ) { }
 

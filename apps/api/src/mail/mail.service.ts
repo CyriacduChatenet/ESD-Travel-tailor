@@ -11,10 +11,7 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Welcome to Travel Tailor',
-      text: 'welcome',
-      html: `<div>
-      <p>Welcome to Travel tailor your account has been successfully created</p>
-      </div>`,
+      template: 'signup',
     })
   }
 
@@ -23,11 +20,10 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Reset password demand',
-      text: 'welcome',
-      html: `<div>
-      <p>You have send demand to reset your password</p>
-      <a href="${resetLink}}">Reset your password here</a>
-      </div>`,
+      template: 'forgot-password',
+      context: {
+        resetLink
+      }
     })
   }
 
@@ -36,10 +32,7 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Your password has been reset',
-      text: 'welcome',
-      html: `<div>
-      <p>Your password has been successfully reset</p>
-      </div>`,
+      template: 'reset-password',
     })
   }
 
@@ -52,9 +45,7 @@ export class MailService {
       attachments: [
         attachement
       ],
-      html: `<div>
-      <p>Your invoice for your trip</p>
-      </div>`,
+      template: 'invoice',
     })
   }
 }

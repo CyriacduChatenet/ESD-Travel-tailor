@@ -67,6 +67,9 @@ importers:
       bcrypt:
         specifier: ^5.1.0
         version: 5.1.0
+      handlebars:
+        specifier: ^4.7.7
+        version: 4.7.7
       i:
         specifier: ^0.3.7
         version: 0.3.7

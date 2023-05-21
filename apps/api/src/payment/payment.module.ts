@@ -8,7 +8,6 @@ import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
 import { StripeCustomerService } from './stripe-customer.service';
 import { OpencageModule } from '../opencage/opencage.module';
-import { InvoiceService } from './invoice.service';
 import { MailModule } from '../mail/mail.module';
 import { StripeWebhookService } from './stripe-webhook.service';
 
@@ -25,7 +24,7 @@ import { StripeWebhookService } from './stripe-webhook.service';
     OpencageModule,
   ],
   controllers: [PaymentController],
-  providers: [PaymentService, StripeCustomerService, InvoiceService, StripeWebhookService],
-  exports: [PaymentService, StripeCustomerService, InvoiceService],
+  providers: [PaymentService, StripeCustomerService, StripeWebhookService],
+  exports: [PaymentService, StripeCustomerService],
 })
 export class PaymentModule {}
