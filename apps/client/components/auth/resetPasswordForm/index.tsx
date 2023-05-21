@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthService } from "@travel-tailor/services";
 import { useParams, useRouter } from "next/navigation";
 import { ROUTES } from "@travel-tailor/constants";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface IResetPasswordForm {
     password: string
@@ -10,6 +11,7 @@ interface IResetPasswordForm {
 
 export const ResetPasswordForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
+    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<IResetPasswordForm>();
     const router = useRouter();
@@ -43,7 +45,12 @@ export const ResetPasswordForm: FC = () => {
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Reset Password
+                        {submit ? <Player
+                            src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                            className="w-5 h-5"
+                            loop
+                            autoplay
+                        /> : <>Reset Password</>}
                     </button>
                 </div>
             </form>

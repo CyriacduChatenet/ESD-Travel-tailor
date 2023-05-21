@@ -1,5 +1,6 @@
 import { useUser } from "@/../../packages/contexts/src";
 import { TravelService } from "@/../../packages/services/src";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { FC, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -13,12 +14,13 @@ interface ICreateTravelForm {
 
 export const CreateTravelForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
+    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateTravelForm>();
     const { user } = useUser();
 
     const onSubmit = useCallback(async (data: ICreateTravelForm) => {
-        console.log(data)
+        setSubmit(true);
         await TravelService.createTravel(`${process.env.NEXT_PUBLIC_API_URL}`, {...data, traveler: user?.traveler?.id}, setApiErrors);
     }, [user]);
 
@@ -89,7 +91,12 @@ export const CreateTravelForm: FC = () => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-                Create Travel
+                {submit ? <Player
+                        src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                        className="w-5 h-5"
+                        loop
+                        autoplay
+                    /> : <>Create Travel</>}
             </button>
         </div>
     </form>

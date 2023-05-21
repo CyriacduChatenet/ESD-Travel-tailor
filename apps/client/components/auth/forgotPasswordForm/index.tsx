@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { AuthService } from "@travel-tailor/services";
 import { useRouter } from "next/navigation";
 import { API_FORGOT_PASSWORD_ROUTE } from "@travel-tailor/constants";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface IForgotPasswordForm {
     email: string
@@ -11,6 +12,7 @@ interface IForgotPasswordForm {
 
 export const ForgotPasswordForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
+    const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<IForgotPasswordForm>();
     const router = useRouter();
@@ -49,7 +51,12 @@ export const ForgotPasswordForm: FC = () => {
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Send Email
+                                       {submit ? <Player
+                        src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
+                        className="w-5 h-5"
+                        loop
+                        autoplay
+                    /> : <>Send Email</>}
                     </button>
                     <Link href="/signin" className="mt-8 text-sm text-gray-500 hover:text-gray-800">
                         Signin
