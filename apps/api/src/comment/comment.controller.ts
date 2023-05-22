@@ -39,6 +39,11 @@ export class CommentController {
     return this.commentService.findOne(id)
   }
 
+  @Get('/activity/:slug')
+  findAllByActivity(@Param('slug') activitySlug: string, @Query() queries: ApiLimitResourceQuery) {
+    return this.commentService.findAllByActivity(activitySlug, queries)
+  }
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)

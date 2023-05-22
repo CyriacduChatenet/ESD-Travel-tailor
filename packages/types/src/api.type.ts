@@ -18,10 +18,12 @@ export type ApiLimitResourceQuery = {
   returnDate: string;
   username: string;
   email: string;
-  roles: string;
   date: string;
   startTime: string;
   endTime: string;
+  roles: 'admin' | 'traveler' | 'advertiser';
+  mark: number;
+  search: string;
 };
 
 export type ErrorResponse = {

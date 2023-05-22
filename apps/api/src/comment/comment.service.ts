@@ -57,6 +57,48 @@ export class CommentService {
     }
   }
 
+  async findAllByActivity(activitySlug: string, queries: ApiLimitResourceQuery) {
+    try {
+      let { page, limit, sortedBy, roles, mark, search } = queries;
+      page = page ? +page : 1;
+      limit = limit ? +limit : 10;
+
+      const query = this.commentRepository
+      .createQueryBuilder('comment')
+      .leftJoinAndSelect('comment.traveler', 'traveler')
+      .leftJoinAndSelect('traveler.user', 'user')
+      .leftJoinAndSelect('comment.activity', 'activity')
+      .where('activity.slug = :slug', { slug: activitySlug })
+
+      if(sortedBy) {
+        query.orderBy('comment.createdAt', sortedBy);
+      } else {
+        query.orderBy('comment.createdAt', 'DESC');
+      }
+
+      if(search) {
+        query.where('comment.content LIKE :search', { search: `%${search}%` });
+      }
+
+      if(roles) {
+        query.andWhere('user.roles IN (:...roles)', { roles });
+      }
+
+      if(mark) {
+        query.andWhere('comment.mark = :mark', { mark });
+      }
+
+      return {
+        page: page,
+        limit: limit,
+        total: await query.getCount(),
+        data: await query.skip((page - 1) * limit).take(limit).getMany()
+      }
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
+  }
+
   async findOne(id: string) {
     try {
       return await this.commentRepository
