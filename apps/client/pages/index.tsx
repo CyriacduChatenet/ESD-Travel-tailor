@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Layout } from '@/components/layout'
 import { CreateTravelForm } from '@/components/traveler/travels/createForm'
 import Image from 'next/image'
