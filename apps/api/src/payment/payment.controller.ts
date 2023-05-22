@@ -4,7 +4,6 @@ import Stripe from 'stripe';
 
 import { PaymentService } from './payment.service'
 import { OpencageService } from '../opencage/opencage.service';
-import { StripeWebhookService } from './stripe-webhook.service';
 
 @Controller('payment')
 export class PaymentController {
@@ -12,7 +11,6 @@ export class PaymentController {
     @InjectStripe() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
     private opencageService: OpencageService,
-    private stripeWebhookService: StripeWebhookService,
   ) { }
 
 
@@ -25,10 +23,5 @@ export class PaymentController {
     };
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
-  }
-
-  @Post('webhook')
-  async webhook(@Body() body) {
-    return await this.stripeWebhookService.paymentWebhook(body);
   }
 }

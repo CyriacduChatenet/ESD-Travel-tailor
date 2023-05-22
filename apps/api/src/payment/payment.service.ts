@@ -4,12 +4,14 @@ import Stripe from 'stripe'
 import { ConfigService } from '@nestjs/config'
 
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
+import { StripeSubscriptionService } from './stripe-subscription.service';
 
 @Injectable()
 export class PaymentService {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
-    private configService: ConfigService,
+    private readonly configService: ConfigService,
+    private readonly stripeSubscriptionService: StripeSubscriptionService,
   ) { }
 
   async createCheckoutSession(createCheckoutDto: CreateCheckoutDto): Promise<string> {
@@ -34,7 +36,12 @@ export class PaymentService {
         cancel_url: `${this.configService.get('CLIENT_APP_URL')}/payment/cancel`,
       });
 
-      return session.id;
+      const subscriptionId = await this.stripeSubscriptionService.create({
+        sessionId: session.id,
+        priceId: session.line_items[0].price.id,
+      });
+  
+      return subscriptionId;
     } catch (err) {
       throw new HttpException(err.message, 402);
     }

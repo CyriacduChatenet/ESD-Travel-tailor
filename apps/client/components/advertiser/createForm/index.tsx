@@ -30,7 +30,7 @@ export const CreateAdvertiserForm: FC = () => {
 
     const onSubmit = async (data: ICreateAdvertiserForm) => {
         const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors);
-        if (advertiser && apiErrors.message === undefined) {
+        if (advertiser) {
             await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19, 100), { advertiser: advertiser.id }, setApiErrors);
             handleRedirect(`${advertiser.id}`)
         }
