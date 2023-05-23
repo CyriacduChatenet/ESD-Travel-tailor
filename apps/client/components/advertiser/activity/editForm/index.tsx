@@ -80,7 +80,7 @@ export const EditActivityForm: FC = () => {
     const onSubmit = async (data: ICreateActivityForm) => {
         if (user) {
             setSubmit(true);
-            console.log(data);
+
             const file = data.image[0];
 
             const reader = new FileReader();

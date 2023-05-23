@@ -1,7 +1,5 @@
-import { NextPage } from "next";
-import { usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { GetServerSideProps, NextPage } from "next";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Activity } from "@travel-tailor/types";
 import { ActivityService } from "@travel-tailor/services";
 
@@ -9,28 +7,14 @@ import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
 import { ActivityModule } from "@/components/traveler/travels/activity/module";
 import { CommentModule } from "@/components/traveler/travels/activity/comments/module";
-const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: false })
 
-const ActivityPage: NextPage = () => {
-    const [apiError, setApiError] = useState({});
-    const [data, setData] = useState<Activity>();
+interface IProps {
+    activity: Activity;
+}
+
+const ActivityPage: NextPage<IProps> = ({ activity }) => {
+    const [data, setData] = useState<Activity>(activity);
     const [displayCommentModule, setDisplayCommentModule] = useState(false);
-
-    const params = usePathname();
-
-    const handleFetch = async () => {
-        if(params) {
-            const response = await ActivityService.findActivityBySlug(`${process.env.NEXT_PUBLIC_API_URL}`, params.substr(10, 100), setApiError);
-            if (response) {
-                setData(response);
-                return response;
-            }
-        }
-    };
-
-    useEffect(() => {
-        handleFetch();
-    }, []);
 
     return (
         <AuthChecker>
@@ -50,3 +34,14 @@ const ActivityPage: NextPage = () => {
 }
 
 export default ActivityPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const error = {};
+
+    const activity = await ActivityService.findActivityBySlug(`${process.env.API_URL}`, String(context?.params?.slug), error);
+    return {
+        props: {
+            activity,
+        }
+    };
+};

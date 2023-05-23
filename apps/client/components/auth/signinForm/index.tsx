@@ -6,7 +6,6 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import { AuthService, UserService } from "@travel-tailor/services";
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants"
 import { AccessToken, User } from "@travel-tailor/types";
-import { useUser } from "@travel-tailor/contexts";
 
 interface ISigninForm {
     email: string
@@ -18,7 +17,6 @@ export const SigninForm: FC = () => {
     const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISigninForm>();
-    const { setUser } = useUser();
     const router = useRouter();
 
     const handleRedirect = async (user: AccessToken) => {
@@ -41,8 +39,6 @@ export const SigninForm: FC = () => {
         setSubmit(true);
         const response = await AuthService.signin(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNIN_ROUTE}`, data, setApiErrors);
         if (response && apiErrors.message === undefined) {
-            const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors);
-            setUser(user as User);
             handleRedirect(response)
         }
     };

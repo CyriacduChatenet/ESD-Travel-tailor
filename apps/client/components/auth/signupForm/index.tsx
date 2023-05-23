@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { AuthService, TravelerService, UserService } from "@travel-tailor/services";
 import { API_SIGNUP_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
 import { User } from "@travel-tailor/types";
-import { useUser } from "@travel-tailor/contexts";
 import { Player } from "@lottiefiles/react-lottie-player";
 
 interface ISignupForm {
@@ -26,7 +25,6 @@ export const SignupForm: FC = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<ISignupForm>();
     const router = useRouter()
-    const { setUser } = useUser();
 
     const handleRedirect = async (user: User, data: ISignupForm) => {
         if (data.roles === ROLES.TRAVELER) {
@@ -51,9 +49,8 @@ export const SignupForm: FC = () => {
     const onSubmit = async (data: ISignupForm) => {
         const response = await AuthService.signup(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNUP_ROUTE}`, data, setApiErrors);
         if(response) {
-            const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors);
-            setUser(user as User);
-            await handleRedirect(response, data)
+            const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors) as User;
+            await handleRedirect(user, data)
         }
     };
 

@@ -1,48 +1,34 @@
 import { ACCESS_TOKEN, SIGNIN_TOKEN } from '@travel-tailor/constants'
+import Cookies from 'js-cookie';
 
 const getAccessToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem(ACCESS_TOKEN)
-  }
-}
+  return Cookies.get(ACCESS_TOKEN);
+};
 
 const setAccessToken = (accessToken: string) => {
-  if (typeof window !== "undefined") {
-    return localStorage.setItem(ACCESS_TOKEN, accessToken)
-  }
-}
+  Cookies.set(ACCESS_TOKEN, accessToken, { expires: 7 });
+};
 
 const removeAccessToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.removeItem(ACCESS_TOKEN)
-  }
-}
+  Cookies.remove(ACCESS_TOKEN);
+};
 
 const getSigninToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem(SIGNIN_TOKEN)
-  }
-}
+  return Cookies.get(SIGNIN_TOKEN);
+};
 
 const setSigninToken = (signinToken: string) => {
-  if (typeof window !== "undefined") {
-    return localStorage.setItem(SIGNIN_TOKEN, signinToken)
-  }
-}
+  Cookies.set(SIGNIN_TOKEN, signinToken, { expires: 7 });
+};
 
 const removeSigninToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.removeItem(SIGNIN_TOKEN)
-  }
-}
+  Cookies.remove(SIGNIN_TOKEN);
+};
 
 const clearAll = () => {
-    localStorage.removeItem('iconify-count');
-    localStorage.removeItem('iconify-version');
-    localStorage.removeItem('iconify0');
-    localStorage.removeItem('iconify1');
-    return localStorage.clear();
-}
+  Cookies.remove(ACCESS_TOKEN);
+  Cookies.remove(SIGNIN_TOKEN);
+};
 
 export const TokenService = {
   getAccessToken,
@@ -52,4 +38,4 @@ export const TokenService = {
   setSigninToken,
   removeSigninToken,
   clearAll,
-}
+};

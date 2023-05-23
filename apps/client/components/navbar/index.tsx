@@ -1,17 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useUser } from "@travel-tailor/contexts";
-import { TokenService } from "@travel-tailor/services";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import { NavModule } from "./module";
+import { NavModule } from "./module"
+import { AccessToken } from "@/../../packages/types/src";
+import { jwtDecode } from "@/../../packages/functions/src";
+import { ROLES } from "@/../../packages/constants/src";
+import { TokenService } from "@/../../packages/services/src";
 
 export const Navbar: FC = () => {
-  const { user } = useUser();
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const accessToken = TokenService.getAccessToken();
+  const [role, setRole] = useState("");
+  const [accessToken, setAccessToken] = useState<string>(`${TokenService.getAccessToken() ? TokenService.getAccessToken() : ""}`)
+
+  const handleFetch = async () => {
+    if (accessToken.length > 0) {
+      const decodedToken = jwtDecode(accessToken) as AccessToken;
+      switch (decodedToken.roles) {
+        case ROLES.ADVERTISER:
+          setRole(ROLES.ADVERTISER);
+          break;
+        case ROLES.TRAVELER:
+          setRole(ROLES.TRAVELER);
+          break;
+      }
+    }
+  };
 
   useEffect(() => {
+    handleFetch();
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
     };
@@ -52,8 +69,16 @@ export const Navbar: FC = () => {
 
       <ul className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow"></div>
-        {isMobile && open && <div className="block lg:hidden"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
-        {!isMobile && <div className="hidden lg:block"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
+        {isMobile && open && (
+          <div className="block lg:hidden">
+            <NavModule role={role} accessToken={accessToken} />
+          </div>
+        )}
+        {!isMobile && (
+          <div className="hidden lg:block">
+            <NavModule role={role} accessToken={accessToken} />
+          </div>
+        )}
       </ul>
     </nav>
   );

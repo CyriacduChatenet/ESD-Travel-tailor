@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import React, { useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { TravelService } from '@travel-tailor/services';
-import { Travel } from '@travel-tailor/types';
+import { Travel, User } from '@travel-tailor/types';
 import { useUser } from '@travel-tailor/contexts';
 import { ROUTES } from '@travel-tailor/constants';
 import { Icon } from '@iconify/react';
@@ -9,31 +9,33 @@ import { Icon } from '@iconify/react';
 import { Paginator } from '@/components/paginator';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-export const TravelList = () => {
-    const [apiError, setApiError] = useState({});
+interface IProps {
+    data: {
+        page: number;
+        limit: number;
+        total: number;
+        data: Travel[];
+    },
+    user: User;
+}
+
+export const TravelList: FC<IProps> = ({ data, user }) => {
     const [page, setPage] = useState(1);
-    const [response, setResponse] = useState<{ page: number, limit: number, total: number, data: Travel[] }>({
-        page: 0,
-        limit: 0,
-        total: 0,
-        data: []
-    });
-    const { user } = useUser();
+    const [response, setResponse] = useState<{
+        page: number;
+        limit: number;
+        total: number;
+        data: Travel[];
+    }>(data);
+    const error = {};
 
     const handleFetch = async () => {
-        if (user) {
-            const response = await TravelService.findTravelsByTravelerId(`${process.env.NEXT_PUBLIC_API_URL}`, String(user?.traveler?.id), setApiError, page);
-            if (response) {
-                setResponse(response);
-                return response;
-            }
-        }
-    };
+        const res = await TravelService.findTravelsByTravelerId(`${process.env.NEXT_PUBLIC_API_URL}`, String(user?.traveler?.id), error, page);
+        if (res) setResponse(res);
+    }
 
     useMemo(() => {
-        if (user) {
             handleFetch();
-        }
     }, [page, user]);
 
     return (
@@ -56,7 +58,7 @@ export const TravelList = () => {
                     autoplay
                 />}
             </ul>
-            <Paginator pageCurrent={page} setPage={setPage} limit={response.limit} total={response.total} />
+            <Paginator pageCurrent={page} setPage={setPage} limit={data?.limit} total={data?.total} />
         </>
     );
 };

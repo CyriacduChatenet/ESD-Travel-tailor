@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { NextPage } from "next";
+import React, { useState } from "react";
+import { GetServerSideProps, NextPage } from "next";
 import { TravelService } from "@travel-tailor/services";
 import { Travel } from "@travel-tailor/types";
-import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import { AuthChecker } from "@/components/auth/authChecker";
@@ -11,31 +10,12 @@ import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
 import { ActivityList } from "@/components/traveler/travels/activity/activityList";
 import { Layout } from "@/components/layout";
 
-const TravelerTravelPage: NextPage = () => {
-    const [apiError, setApiError] = useState({});
-    const [data, setData] = useState<Travel>({
-        id: '',
-        departureCity: '',
-        destinationCity: '',
-        departureDate: new Date(),
-        returnDate: new Date(),
-        days: [],
-    });
+interface IProps {
+    data: Travel;
+}
+
+const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
     const [day, setDay] = useState<Date>(new Date());
-
-    const params = usePathname();
-
-    const handleFetch = async () => {
-        const response = await TravelService.findTravelById(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(17, 100), setApiError);
-        if (response) {
-            setData(response);
-            return response;
-        }
-    };
-
-    useEffect(() => {
-        handleFetch();
-    }, []);
     return (
         <AuthChecker>
             <Layout title={"Create Your Dream Journey with Personalized Activities | Travel Tailor"} description={"Plan your perfect trip with our personalized travel planner. Explore a wide range of activities and create a customized itinerary tailored to your preferences. Discover new destinations, indulge in exciting adventures, and make lasting memories on your unique journey. Start planning today!"}>
@@ -62,3 +42,14 @@ const TravelerTravelPage: NextPage = () => {
 };
 
 export default TravelerTravelPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const error = {};
+
+    const response = await TravelService.findTravelById(`${process.env.API_URL}`, String(context?.params?.id), error);
+    return {
+        props: {
+            data: response,
+        }
+    };
+};
