@@ -1,10 +1,12 @@
 import { CommentMark } from './comment-mark.type'
+import { Traveler } from './traveler.type'
 
 export type Comment = {
   id: string
   content: string
   likes: number,
   marks?: CommentMark
+  traveler?: Traveler
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
