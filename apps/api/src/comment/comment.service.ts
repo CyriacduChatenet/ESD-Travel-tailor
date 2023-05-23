@@ -8,7 +8,7 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'
 import { CommentRepository } from './comment.repository'
-import { CommentMarkService } from '../comment-mark/comment-mark.service'
+import { CommentMarkService } from './comment-mark/comment-mark.service'
 
 @Injectable()
 export class CommentService {

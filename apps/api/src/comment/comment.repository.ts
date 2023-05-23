@@ -5,7 +5,7 @@ import { Comment } from "./entities/comment.entity";
 import { CreateCommentDto } from "./dto/create-comment.dto";
 import { ApiLimitResourceQuery } from "@travel-tailor/types";
 import { UpdateCommentDto } from "./dto/update-comment.dto";
-import { CommentMark } from "src/comment-mark/entities/comment-mark.entity";
+import { CommentMark } from "src/comment/comment-mark/entities/comment-mark.entity";
 
 export class CommentRepository extends Repository<Comment> {
     constructor(@InjectDataSource() datasource: DataSource) {

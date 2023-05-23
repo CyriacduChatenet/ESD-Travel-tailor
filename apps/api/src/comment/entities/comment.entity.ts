@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn
 import { Traveler } from '../../user/traveler/entities/traveler.entity';
 import { Activity } from '../../activity/entities/activity.entity';
 import { Timestamp } from '../../config/utils/timestamp.util';
-import { CommentMark } from '../../comment-mark/entities/comment-mark.entity';
+import { CommentMark } from '../comment-mark/entities/comment-mark.entity';
 
 @Entity()
 export class Comment extends Timestamp {
