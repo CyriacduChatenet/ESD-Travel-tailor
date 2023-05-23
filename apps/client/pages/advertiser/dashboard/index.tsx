@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const error = {};
 
     let response = {}
-    let user: User = {}
+    let user: Partial<User> = {}
 
     const cookies = req.headers.cookie;
     const parsedCookies = cookies ? parse(cookies) : {};
