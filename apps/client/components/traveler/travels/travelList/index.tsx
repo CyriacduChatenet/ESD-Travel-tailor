@@ -35,9 +35,7 @@ export const TravelList: FC<IProps> = ({ data, user }) => {
     }
 
     useMemo(() => {
-        if (page > 1) {
             handleFetch();
-        }
     }, [page, user]);
 
     return (

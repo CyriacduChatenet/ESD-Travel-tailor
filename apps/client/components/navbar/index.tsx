@@ -16,7 +16,6 @@ export const Navbar: FC = () => {
   const handleFetch = async () => {
     if (accessToken.length > 0) {
       const decodedToken = jwtDecode(accessToken) as AccessToken;
-      console.log(decodedToken);
       switch (decodedToken.roles) {
         case ROLES.ADVERTISER:
           setRole(ROLES.ADVERTISER);

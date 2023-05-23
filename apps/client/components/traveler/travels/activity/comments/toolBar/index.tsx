@@ -17,7 +17,6 @@ export const CommentToolbar: FC<IProps> = ({ setDisplayCommentModule }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<ISearchForm>();
 
     const onSubmit = async (data: ISearchForm) => {
-        console.log(data);
     };
     
     return (
