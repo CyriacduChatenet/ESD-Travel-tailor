@@ -7,21 +7,22 @@
     "format": "prettier --write ./src"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "@travel-tailor/constants": "workspace:*",
     "@travel-tailor/contexts": "workspace:*",
     "@travel-tailor/functions": "workspace:*",
     "@travel-tailor/hooks": "workspace:*",
     "@travel-tailor/tools": "workspace:*",
     "@travel-tailor/types": "workspace:*",
-    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
+    "@types/js-cookie": "^3.0.3",
+    "js-cookie": "^3.0.5",
     "mapbox-gl": "^2.13.0",
     "prettier": "^2.8.4",
     "react": "^18.2.0"
   },
-
   "devDependencies": {
-    "@types/mapbox__mapbox-gl-geocoder": "^4.7.3",
     "@types/mapbox-gl": "^2.7.10",
+    "@types/mapbox__mapbox-gl-geocoder": "^4.7.3",
     "@types/react": "^18.0.28"
   },
   "keywords": [],

@@ -413,6 +413,12 @@ importers:
       '@travel-tailor/types':
         specifier: workspace:*
         version: link:../types
+      '@types/js-cookie':
+        specifier: ^3.0.3
+        version: 3.0.3
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       mapbox-gl:
         specifier: ^2.13.0
         version: 2.13.0
@@ -1710,6 +1716,10 @@ packages:
 
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
+    dev: false
+
+  /@types/js-cookie@3.0.3:
+    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
     dev: false
 
   /@types/json-schema@7.0.11:
@@ -5327,6 +5337,11 @@ packages:
       editorconfig: 0.15.3
       glob: 8.0.3
       nopt: 6.0.0
+    dev: false
+
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
     dev: false
 
   /js-sdsl@4.3.0:
