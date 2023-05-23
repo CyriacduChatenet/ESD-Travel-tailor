@@ -25,6 +25,7 @@ import { OrderModule } from './payment/order/order.module';
 import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.module';
 import { OpencageModule } from './opencage/opencage.module';
 import { UploadFileModule } from './upload-file/upload-file.module';
+import { CommentMarkModule } from './comment/comment-mark/comment-mark.module';
 
 @Module({
   imports: [
@@ -59,7 +60,8 @@ import { UploadFileModule } from './upload-file/upload-file.module';
     OrderModule,
     TimeSlotModule,
     OpencageModule,
-    UploadFileModule
+    UploadFileModule,
+    CommentMarkModule
   ],
   controllers: [AppController],
   providers: [AppService],

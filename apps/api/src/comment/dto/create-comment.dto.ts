@@ -1,7 +1,7 @@
-import { CreateCommentDTO } from '@travel-tailor/types';
+import { CommentMark, CreateCommentDTO } from '@travel-tailor/types';
 
 export class CreateCommentDto implements CreateCommentDTO {
   content: string;
   likes: number;
-  mark: number;
+  marks: CommentMark;
 }
