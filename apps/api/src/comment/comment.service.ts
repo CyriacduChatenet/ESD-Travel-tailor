@@ -8,14 +8,16 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'
 import { CommentRepository } from './comment.repository'
+import { CommentMarkService } from '../comment-mark/comment-mark.service'
 
 @Injectable()
 export class CommentService {
-  constructor(private commentRepository: CommentRepository) {}
+  constructor(private readonly commentRepository: CommentRepository, private readonly commentMarkService: CommentMarkService) {}
 
   async create(createCommentDto: CreateCommentDto) {
     try {
-      return await this.commentRepository.createComment(createCommentDto)
+      const commentMarks = await this.commentMarkService.create(createCommentDto.marks)
+      return await this.commentRepository.createComment(createCommentDto, commentMarks)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
