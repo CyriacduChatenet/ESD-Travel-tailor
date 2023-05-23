@@ -14,8 +14,8 @@ const findTravelById = async (api_url: string | undefined, travelId: string, set
   return await useFetch.get(`${api_url}${API_TRAVEL_ROUTE}/${travelId}`, setError);
 };
 
-const findTravelsByTravelerId = async (api_url: string, travelerId: string, setError: Dispatch<SetStateAction<any>> | any, page: number, limit?: number,) => {
-  return await useFetch.get(`${api_url}/travel/traveler/${travelerId}?page=${page}&limit=${limit ? limit : 10}`, setError);
+const findTravelsByTravelerId = async (api_url: string, travelerId: string, error: any | any, page: number, limit?: number,) => {
+  return await useFetch.get(`${api_url}/travel/traveler/${travelerId}?page=${page}&limit=${limit ? limit : 10}`, error);
 };
 
 const createTravel = async (api_url: string, credentials: CreateTravelDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<Travel> => {

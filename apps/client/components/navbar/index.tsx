@@ -1,15 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useUser } from "@travel-tailor/contexts";
-import { TokenService } from "@travel-tailor/services";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import { NavModule } from "./module";
+import { NavModule } from "./module"
+import { GetServerSideProps } from "next";
+import { AccessToken } from "@/../../packages/types/src";
+import { jwtDecode } from "@/../../packages/functions/src";
+import { ROLES } from "@/../../packages/constants/src";
 
-export const Navbar: FC = () => {
-  const { user } = useUser();
+interface IProps {
+  accessToken: string | undefined | null
+};
+
+export const Navbar: FC<IProps> = ({ accessToken }) => {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const accessToken = TokenService.getAccessToken();
+  const [role, setRole] = useState("");
+  const error = {}
+
+  const handleFetch = async () => {
+    const decodedToken = jwtDecode(String(accessToken)) as AccessToken;
+    switch (decodedToken.roles) {
+      case ROLES.ADVERTISER:
+        setRole(ROLES.ADVERTISER);
+        break;
+      case ROLES.TRAVELER:
+        setRole(ROLES.TRAVELER);
+        break;
+      default:
+        setRole("");
+        break;
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,6 +40,8 @@ export const Navbar: FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+
+    handleFetch();
   }, []);
 
   return (
@@ -52,9 +75,19 @@ export const Navbar: FC = () => {
 
       <ul className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow"></div>
-        {isMobile && open && <div className="block lg:hidden"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
-        {!isMobile && <div className="hidden lg:block"><NavModule accessToken={accessToken} user={user} open={open} setOpen={setOpen} /></div>}
+        {isMobile && open && <div className="block lg:hidden"><NavModule role={role!} accessToken={accessToken!} /></div>}
+        {!isMobile && <div className="hidden lg:block"><NavModule role={role!} accessToken={accessToken!} /></div>}
       </ul>
     </nav>
   );
 };
+
+export const getServersideProps: GetServerSideProps = async ({ req }) => {
+  const accessToken = req.cookies;
+
+  return {
+    props: {
+      accessToken
+    }
+  };
+}

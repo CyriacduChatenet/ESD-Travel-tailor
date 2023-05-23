@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react";
 import moment from "moment";
-import Image from "next/image";
 import { FC } from "react";
 
 interface IProps {

@@ -1,48 +1,60 @@
 import { ACCESS_TOKEN, SIGNIN_TOKEN } from '@travel-tailor/constants'
 
-const getAccessToken = () => {
+const getCookie = (name: string) => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem(ACCESS_TOKEN)
+    const cookies = document.cookie.split('; ');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].split('=');
+      if (cookie[0] === name) {
+        return cookie[1];
+      }
+    }
   }
-}
+};
+
+const setCookie = (name: string, value: string) => {
+  if (typeof window !== "undefined") {
+    document.cookie = `${name}=${value}; path=/`;
+  }
+};
+
+const removeCookie = (name: string) => {
+  if (typeof window !== "undefined") {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
+};
+
+const getAccessToken = () => {
+  return getCookie(ACCESS_TOKEN);
+};
 
 const setAccessToken = (accessToken: string) => {
-  if (typeof window !== "undefined") {
-    return localStorage.setItem(ACCESS_TOKEN, accessToken)
-  }
-}
+  setCookie(ACCESS_TOKEN, accessToken);
+};
 
 const removeAccessToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.removeItem(ACCESS_TOKEN)
-  }
-}
+  removeCookie(ACCESS_TOKEN);
+};
 
 const getSigninToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem(SIGNIN_TOKEN)
-  }
-}
+  return getCookie(SIGNIN_TOKEN);
+};
 
 const setSigninToken = (signinToken: string) => {
-  if (typeof window !== "undefined") {
-    return localStorage.setItem(SIGNIN_TOKEN, signinToken)
-  }
-}
+  setCookie(SIGNIN_TOKEN, signinToken);
+};
 
 const removeSigninToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.removeItem(SIGNIN_TOKEN)
-  }
-}
+  removeCookie(SIGNIN_TOKEN);
+};
 
 const clearAll = () => {
-    localStorage.removeItem('iconify-count');
-    localStorage.removeItem('iconify-version');
-    localStorage.removeItem('iconify0');
-    localStorage.removeItem('iconify1');
-    return localStorage.clear();
-}
+  const cookies = document.cookie.split('; ');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split('=');
+    removeCookie(cookie[0]);
+  }
+};
 
 export const TokenService = {
   getAccessToken,
@@ -52,4 +64,4 @@ export const TokenService = {
   setSigninToken,
   removeSigninToken,
   clearAll,
-}
+};

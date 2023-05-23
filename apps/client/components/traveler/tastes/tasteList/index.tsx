@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { Taste, User } from '@travel-tailor/types';
-import { useUser } from '@travel-tailor/contexts';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
@@ -9,19 +8,17 @@ import { TasteService } from '@/../../packages/services/src';
 
 interface IProps {
     editorMode: boolean;
+    data: Taste[];
 }
 
-export const TasteList: FC<IProps> = ({ editorMode }) => {
+export const TasteList: FC<IProps> = ({ editorMode, data }) => {
     const [apiError, setApiError] = useState({});
-
-    const { user, setUser } = useUser();
+    const [response, setResponse] = useState<Taste[]>([]);
 
     const handleDelete = async (id: string) => {
-        if (user) {
-            const res = await TasteService.deleteTaste(`${process.env.NEXT_PUBLIC_API_URL}`, id, setApiError);
-            if (res) {
-                setUser((prev: User) => ({...prev, tastes: prev?.tastes?.filter((taste: Taste) => taste.id !== id)}));
-            }
+        const res = await TasteService.deleteTaste(`${process.env.NEXT_PUBLIC_API_URL}`, id, setApiError);
+        if (res) {
+            setResponse((prev: Taste[]) => (prev?.filter((taste: Taste) => taste.id !== id)));
         }
     };
 
@@ -29,7 +26,7 @@ export const TasteList: FC<IProps> = ({ editorMode }) => {
     return (
         <>
             <ul>
-                {user && user.tastes ? user.tastes.map((taste: Taste, index: number) => (
+                {data ? data.map((taste: Taste, index: number) => (
                     <li key={index} className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:grid xl:grid-cols-12 xl:gap-5 lg:pr-20'>
                         <p className='lg:col-span-6'>{taste.name}</p>
                         <div className='lg:col-span-2'>

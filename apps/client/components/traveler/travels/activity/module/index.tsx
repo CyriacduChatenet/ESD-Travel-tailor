@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { FC, Dispatch, SetStateAction } from "react";
 
 import { Toast } from "@/components/toast";
-import { Mapbox } from '@/components/map';
+import dynamic from "next/dynamic";
+const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: true })
 import { ActivityToolbar } from '@/components/traveler/travels/activity/toolBar';
 
 interface IProps {
