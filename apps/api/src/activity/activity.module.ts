@@ -8,6 +8,7 @@ import { ActivityDetailModule } from './activity-detail/activity-detail.module'
 import { ActivityTagModule } from './activity-tag/activity-tag.module'
 import { UploadFileModule } from '../upload-file/upload-file.module'
 import { ActivityImageModule } from './activity-image/activity-image.module'
+import { ActivityRepository } from './activity.repository'
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { ActivityImageModule } from './activity-image/activity-image.module'
     ActivityImageModule,
   ],
   controllers: [ActivityController],
-  providers: [ActivityService],
+  providers: [ActivityRepository, ActivityService],
   exports: [ActivityService]
 })
 export class ActivityModule {}

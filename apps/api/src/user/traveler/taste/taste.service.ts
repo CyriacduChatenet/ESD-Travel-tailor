@@ -3,24 +3,21 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
-import { Repository } from 'typeorm';
 
 import { CreateTasteDto } from './dto/create-taste.dto';
 import { UpdateTasteDto } from './dto/update-taste.dto';
-import { Taste } from './entities/taste.entity';
+import { TasteRepository } from './taste.repository';
 
 @Injectable()
 export class TasteService {
   constructor(
-    @InjectRepository(Taste) private tasteRepository: Repository<Taste>,
+    private tasteRepository: TasteRepository,
   ) {}
 
   async create(createTasteDto: CreateTasteDto) {
     try {
-      const taste = await this.tasteRepository.create(createTasteDto);
-      return this.tasteRepository.save(taste);
+      return await this.tasteRepository.createTaste(createTasteDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -28,30 +25,7 @@ export class TasteService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit, sortedBy, name } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      const query = this.tasteRepository
-      .createQueryBuilder('taste')
-      .leftJoinAndSelect('taste.traveler', 'traveler')
-
-      if(sortedBy) {
-        query.orderBy('taste.createdAt', sortedBy)
-      } else {
-        query.orderBy('taste.createdAt', 'DESC')
-      }
-
-      if(name) {
-        query.andWhere('taste.name = :name', { name })
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany(),
-      }
+      return await this.tasteRepository.findAllTaste(queries);
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -59,11 +33,7 @@ export class TasteService {
 
   async findOne(id: string) {
     try {
-      return this.tasteRepository
-        .createQueryBuilder('taste')
-        .where('taste.id = :id', { id })
-        .leftJoinAndSelect('taste.traveler', 'traveler')
-        .getOne();
+     return await this.tasteRepository.findOneTaste(id);
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -71,7 +41,7 @@ export class TasteService {
 
   async update(id: string, updateTasteDto: UpdateTasteDto) {
     try {
-      return this.tasteRepository.update(id, updateTasteDto);
+      return await this.tasteRepository.update(id, updateTasteDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -79,7 +49,7 @@ export class TasteService {
 
   async remove(id: string) {
     try {
-      return this.tasteRepository.softDelete(id);
+      return await this.tasteRepository.removeTaste(id);
     } catch (error) {
       throw new UnauthorizedException(error);
     }

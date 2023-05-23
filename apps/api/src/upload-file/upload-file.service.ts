@@ -1,20 +1,15 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { S3 } from 'aws-sdk'
 require('aws-sdk/lib/maintenance_mode_message').suppress = true
 
-import { UploadFile } from './entity/upload-file.entity'
+import { UploadFileRepository } from './upload-file.repository'
 
 @Injectable()
 export class UploadFileService {
   private s3
   private bucketName
 
-  constructor(
-    @InjectRepository(UploadFile)
-    private uploadFileRepository: Repository<UploadFile>
-  ) {
+  constructor( private readonly uploadFileRepository: UploadFileRepository) {
     this.s3 = new S3({
       region: process.env.API_AWS_BUCKET_REGION,
       accessKeyId: process.env.API_AWS_ACCESS_KEY,
@@ -24,23 +19,34 @@ export class UploadFileService {
   }
 
   async create(filesData, user, activityImage) {
-    const file = await this.uploadFileAws(user, filesData)
-    const uploadFile = await this.uploadFileRepository.create({...file, image: activityImage})
-    return await this.uploadFileRepository.save(uploadFile)
+    try {
+      const file = await this.uploadFileAws(user, filesData)
+      return await this.uploadFileRepository.createUploadFile(file, activityImage)
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 
   async uploadFileAws(user, fileData) {
-    const fileName = `${Date.now()}.${fileData.originalname.split('.').pop()}`
-    const uploadParams = {
-      Bucket: this.bucketName,
-      Body: fileData.buffer,
-      Key: `${user.id}/${fileName}`,
+    try {
+      const fileName = `${Date.now()}.${fileData.originalname.split('.').pop()}`
+      const uploadParams = {
+        Bucket: this.bucketName,
+        Body: fileData.buffer,
+        Key: `${user.id}/${fileName}`,
+      }
+  
+      return this.s3.upload(uploadParams).promise()
+    } catch (error) {
+      throw new UnauthorizedException(error)
     }
-
-    return this.s3.upload(uploadParams).promise()
   }
 
   async update(id: string, updateUploadFileDto) {
-    return await this.uploadFileRepository.update(id, updateUploadFileDto)
+    try {
+      return await this.uploadFileRepository.updateUploadFile(id, updateUploadFileDto)
+    } catch (error) {
+      throw new UnauthorizedException(error)
+    }
   }
 }

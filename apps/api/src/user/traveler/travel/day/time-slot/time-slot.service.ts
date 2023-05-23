@@ -1,20 +1,17 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
 import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 import { CreateTimeSlotDto } from './dto/create-time-slot.dto'
 import { UpdateTimeSlotDto } from './dto/update-time-slot.dto'
-import { TimeSlot } from './entities/time-slot.entity'
+import { TimeSlotRepository } from './time-slot.repository'
 
 @Injectable()
 export class TimeSlotService {
-  constructor(@InjectRepository(TimeSlot) private timeSlotRepository: Repository<TimeSlot>) {}
+  constructor(private readonly timeSlotRepository: TimeSlotRepository) {}
 
   async create(createTimeSlotDto: CreateTimeSlotDto) {
     try {
-      const timeSlot = this.timeSlotRepository.create(createTimeSlotDto);
-      return await this.timeSlotRepository.save(timeSlot)
+      return await this.timeSlotRepository.createTimeSlot(createTimeSlotDto);
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -22,26 +19,7 @@ export class TimeSlotService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit, sortedBy } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      const query = this.timeSlotRepository.createQueryBuilder('timeSlot')
-      .leftJoinAndSelect('timeSlot.day', 'day')
-      .leftJoinAndSelect('timeSlot.activity', 'activity')
-
-      if(sortedBy) {
-        query.orderBy('timeSlot.createdAt', sortedBy)
-      } else {
-        query.orderBy('timeSlot.createdAt', 'DESC')
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany(),
-      }
+     return await this.timeSlotRepository.findAllTimeSlot(queries)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -49,11 +27,7 @@ export class TimeSlotService {
 
   async findOne(id: string) {
     try {
-      return await this.timeSlotRepository.createQueryBuilder('timeSlot')
-      .leftJoinAndSelect('timeSlot.day', 'day')
-      .leftJoinAndSelect('timeSlot.activity', 'activity')
-      .where('timeSlot.id = :id', { id })
-      .getOne()
+      return await this.timeSlotRepository.findOneTimeSlot(id)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -61,18 +35,7 @@ export class TimeSlotService {
 
   async update(id: string, updateTimeSlotDto: UpdateTimeSlotDto) {
     try {
-      const timeSlot = await this.timeSlotRepository.createQueryBuilder('timeSlot')
-      .leftJoinAndSelect('timeSlot.day', 'day')
-      .leftJoinAndSelect('timeSlot.activity', 'activity')
-      .where('timeSlot.id = :id', { id })
-      .getOne()
-
-      timeSlot.startTime = updateTimeSlotDto.startTime ? updateTimeSlotDto.startTime : timeSlot.startTime;
-      timeSlot.endTime = updateTimeSlotDto.endTime ? updateTimeSlotDto.endTime : timeSlot.endTime;
-      timeSlot.day = updateTimeSlotDto.day ? updateTimeSlotDto.day : timeSlot.day;
-      timeSlot.activity = updateTimeSlotDto.activity ? updateTimeSlotDto.activity : timeSlot.activity;
-
-      return await this.timeSlotRepository.save(timeSlot)
+     return await this.timeSlotRepository.updateTimeSlot(id, updateTimeSlotDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -80,7 +43,7 @@ export class TimeSlotService {
 
   async remove(id: string) {
     try {
-      return await this.timeSlotRepository.softDelete(id)
+      return await this.timeSlotRepository.removeTimeSlot(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

@@ -3,18 +3,16 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { ApiLimitResourceQuery } from '@travel-tailor/types'
-import { Repository } from 'typeorm'
 
 import { CreateOrderDto } from './dto/create-order.dto'
 import { UpdateOrderDto } from './dto/update-order.dto'
-import { Order } from './entities/order.entity'
+import { OrderRepository } from './order.repository'
 
 @Injectable()
 export class OrderService {
   constructor(
-    @InjectRepository(Order) private orderRepository: Repository<Order>
+    private readonly orderRepository: OrderRepository,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -22,7 +20,8 @@ export class OrderService {
       const order = this.orderRepository.create(
         Object.assign({}, createOrderDto)
       );
-      return await this.orderRepository.save(order);
+
+      return await this.orderRepository.createOrder(order);
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -30,17 +29,7 @@ export class OrderService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      return await this.orderRepository.createQueryBuilder('order')
-      .leftJoinAndSelect('order.customer', 'customer')
-      .orderBy('order.createdAt', 'DESC')
-      .skip((page - 1) * limit)
-      .take(limit)
-      .getMany()
-
+      return this.orderRepository.findAllOrder(queries)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -48,10 +37,7 @@ export class OrderService {
 
   async findOne(id: string) {
     try {
-      return await this.orderRepository.createQueryBuilder('order')
-      .leftJoinAndSelect('order.customer', 'customer')
-      .where('order.id = :id', { id })
-      .getOne();
+      return await this.orderRepository.findOneOrder(id)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -59,7 +45,7 @@ export class OrderService {
 
   async update(id: string, updateOrderDto: UpdateOrderDto) {
     try {
-      return await this.orderRepository.update(id, updateOrderDto)
+      return await this.orderRepository.updateOrder(id, updateOrderDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -67,7 +53,7 @@ export class OrderService {
 
   async remove(id: string) {
     try {
-      return await this.orderRepository.softDelete(id)
+      return await this.orderRepository.removeOrder(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
