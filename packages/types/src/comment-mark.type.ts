@@ -2,7 +2,8 @@ import { Comment } from './comment.type'
 
 export type CommentMark = {
   id?: string
-  rentability: number
+  global: number,
+  rentability: number,
   place: number,
   waiting: number,
   explanation: number,
@@ -14,6 +15,7 @@ export type CommentMark = {
 }
 
 export type CreateCommentMarkDTO = {
+  global: number,
   rentability: number
   place: number,
   waiting: number,
@@ -23,6 +25,7 @@ export type CreateCommentMarkDTO = {
 }
 
 export type UpdateCommentMarkDTO = {
+  global: number,
   rentability: number
   place: number,
   waiting: number,

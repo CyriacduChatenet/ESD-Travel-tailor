@@ -7,11 +7,15 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 @Injectable()
 export class CommentMarkService {
-  constructor(private readonly commentMarkRepository: CommentMarkRepository) {}
+  constructor(private readonly commentMarkRepository: CommentMarkRepository) { }
 
   async create(createCommentMarkDto: CreateCommentMarkDto) {
     try {
-      return await this.commentMarkRepository.createCommentMark(createCommentMarkDto);
+      const total = createCommentMarkDto.explanation + createCommentMarkDto.place + createCommentMarkDto.arrival + createCommentMarkDto.rentability + createCommentMarkDto.waiting;
+      const global = total / 5;
+      const globalFixed = global.toFixed(1);
+
+      return await this.commentMarkRepository.createCommentMark({...createCommentMarkDto, global: parseFloat(globalFixed)});
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -35,7 +39,11 @@ export class CommentMarkService {
 
   async update(id: string, updateCommentMarkDto: UpdateCommentMarkDto) {
     try {
-      return await this.commentMarkRepository.updateCommentMark(id, updateCommentMarkDto);
+      const total = updateCommentMarkDto.explanation + updateCommentMarkDto.place + updateCommentMarkDto.arrival + updateCommentMarkDto.rentability + updateCommentMarkDto.waiting;
+      const global = total / 5;
+      const globalFixed = global.toFixed(1);
+
+      return await this.commentMarkRepository.updateCommentMark(id, {...updateCommentMarkDto, global: parseFloat(globalFixed)});
     } catch (error) {
       throw new UnauthorizedException(error);
     }

@@ -8,7 +8,7 @@ export class CommentMark extends Timestamp {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ default: 0, nullable: false })
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     global: number;
 
     @Column({ nullable: false })
