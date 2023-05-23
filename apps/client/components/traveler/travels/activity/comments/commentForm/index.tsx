@@ -28,7 +28,7 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
 
     const onSubmit = async (dataForm: ICommentForm) => {
         if (user) {
-            const response = await CommentService.createCommentWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, { content: dataForm.content, traveler: user?.traveler?.id, marks: { rentability: dataForm.rentability, place: dataForm.place, waiting: dataForm.waiting, explanation: dataForm.explanation, arrival: dataForm.arrival } }, data.id, setApiErrors);
+            const response = await CommentService.createCommentWithRelations(`${process.env.NEXT_PUBLIC_API_URL}`, { content: dataForm.content, traveler: user?.traveler?.id, marks: { rentability: Number(dataForm.rentability), place: Number(dataForm.place), waiting: Number(dataForm.waiting), explanation: Number(dataForm.explanation), arrival: Number(dataForm.arrival) } }, data.id, setApiErrors);
             const traveler = await TravelerService.findTravelerById(`${process.env.NEXT_PUBLIC_API_URL}`, `${user?.traveler?.id}`, setApiErrors);
             if (response) {
                 setData({ ...data, comments: [...comments, { ...response, traveler: traveler }] });
