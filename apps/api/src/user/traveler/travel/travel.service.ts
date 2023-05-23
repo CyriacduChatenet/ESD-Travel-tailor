@@ -3,24 +3,20 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
-import { Repository } from 'typeorm';
 
 import { CreateTravelDto } from './dto/create-travel.dto';
-import { UpdateTravelDto } from './dto/update-travel.dto';
-import { Travel } from './entities/travel.entity';
+import { TravelRepository } from './travel.repository';
 
 @Injectable()
 export class TravelService {
   constructor(
-    @InjectRepository(Travel) private travelRepository: Repository<Travel>,
+    private readonly travelRepository: TravelRepository,
   ) {}
 
   async create(createTravelDto: CreateTravelDto) {
     try {
-      const travel = this.travelRepository.create(createTravelDto);
-      return await this.travelRepository.save(travel);
+      return await this.travelRepository.createTravel(createTravelDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -28,46 +24,7 @@ export class TravelService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit, sortedBy, departureCity, destinationCity, departureDate, returnDate } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-      
-      const query = this.travelRepository
-      .createQueryBuilder('travel')
-      .leftJoinAndSelect('travel.traveler', 'traveler')
-      .leftJoinAndSelect('travel.days', 'day')
-      .leftJoinAndSelect('day.timeSlots', 'timeSlot')
-      .leftJoinAndSelect('timeSlot.activity', 'activity')
-      .leftJoinAndSelect('activity.detail', 'detail')
-
-      if(sortedBy) {
-        query.orderBy('travel.createdAt', sortedBy)
-      } else {
-        query.orderBy('travel.createdAt', 'DESC')
-      }
-
-      if(departureCity) {
-        query.andWhere('travel.departureCity = :departureCity', { departureCity })
-      }
-
-      if(destinationCity) {
-        query.andWhere('travel.destinationCity = :destinationCity', { destinationCity })
-      }
-
-      if(departureDate) {
-        query.andWhere('travel.departureDate = :departureDate', { departureDate })
-      }
-
-      if(returnDate) {
-        query.andWhere('travel.returnDate = :returnDate', { returnDate })
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany(),
-      };
+      return await this.travelRepository.findAllTravel(queries);
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -75,21 +32,7 @@ export class TravelService {
 
   async findAllByTravelerId(travelerId: string, page: number, limit: number) {
     try {
-      const skip = (page - 1) * limit;
-      const take = limit;
-
-      const query = this.travelRepository
-      .createQueryBuilder('travel')
-      .leftJoinAndSelect('travel.traveler', 'traveler')
-      .where('traveler.id = :id', { id: travelerId })
-      .orderBy('travel.createdAt', 'DESC')
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany(),
-      }
+     return await this.travelRepository.findAllTravelByTravelerId(travelerId, page, limit);
     } catch(err) {
       throw new NotFoundException(err);
     }
@@ -97,16 +40,7 @@ export class TravelService {
 
   async findOne(id: string) {
     try {
-      return await this.travelRepository
-        .createQueryBuilder('travel')
-        .where('travel.id = :id', { id })
-        .leftJoinAndSelect('travel.traveler', 'traveler')
-        .leftJoinAndSelect('travel.days', 'day')
-        .orderBy('day.date', 'ASC')
-        .leftJoinAndSelect('day.timeSlots', 'timeSlot')
-        .leftJoinAndSelect('timeSlot.activity', 'activity')
-        .leftJoinAndSelect('activity.detail', 'detail')
-        .getOne();
+      return await this.travelRepository.findOneTravel(id);
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -114,7 +48,7 @@ export class TravelService {
 
   async update(id: string, updateTravelDto) {
     try {
-      return this.travelRepository.update(id, updateTravelDto);
+      return await this.travelRepository.updateTravel(id, updateTravelDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -122,7 +56,7 @@ export class TravelService {
 
   async remove(id: string) {
     try {
-      return await this.travelRepository.softDelete(id);
+      return await this.travelRepository.removeTravel(id);
     } catch (error) {
       throw new UnauthorizedException(error);
     }

@@ -3,22 +3,19 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { ActivityImage as ImageType, ActivityQuery, ActivityTag } from '@travel-tailor/types'
+import { ActivityQuery, ActivityTag } from '@travel-tailor/types'
 
 import { CreateActivityDto } from './dto/create-activity.dto'
 import { UpdateActivityDto } from './dto/update-activity.dto'
-import { Activity } from './entities/activity.entity'
 import { regexNormalizeSlug } from '../config/utils/regex-normalize.util'
 import { UploadFileService } from '../upload-file/upload-file.service'
 import { ActivityImageService } from './activity-image/activity-image.service'
+import { ActivityRepository } from './activity.repository'
 
 @Injectable()
 export class ActivityService {
   constructor(
-    @InjectRepository(Activity)
-    private activityRepository: Repository<Activity>,
+    private activityRepository: ActivityRepository,
     private readonly uploadFileService: UploadFileService,
     private readonly activityImageService: ActivityImageService,
   ) {}
@@ -30,13 +27,9 @@ export class ActivityService {
       const uploadFile = await this.uploadFileService.create(files[0], user, activityImage);
       await this.activityImageService.update(activityImage.id, {...activityImage, uploadFile});
 
+      const slug = regexNormalizeSlug(createActivityDto.name)
 
-      const activity = this.activityRepository.create({
-        ...createActivityDto,
-        image: activityImage,
-        slug: regexNormalizeSlug(createActivityDto.name.toLowerCase()),
-      })
-      return this.activityRepository.save(activity)
+      return await this.activityRepository.createActivity(createActivityDto, activityImage, slug)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -44,64 +37,7 @@ export class ActivityService {
 
   async findAll(queries: ActivityQuery) {
     try {
-      let { limit, page, sortedBy, name, tags, location, duration, closed_day, opening_at, closing_at, mark } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      let query = this.activityRepository
-        .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.image', 'image')
-        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
-        .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.advertiser', 'advertiser')
-        .leftJoinAndSelect('activity.tags', 'tag')
-        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
-        .leftJoinAndSelect('activity.detail', 'detail')
-        .leftJoinAndSelect("detail.closingDays", "closingDay")
-        .leftJoinAndSelect("detail.schedules", "schedule")  
-  
-      if (tags) {
-        const tagList = tags.split(',').map(tag => tag.trim());
-        query = query.andWhere('tag.name IN (:...tags)', { tags: tagList });
-      }
-
-      if(sortedBy) {
-        query.orderBy('activity.createdAt', sortedBy)
-      }
-      if(name) {
-        query.andWhere('activity.name = :name', { name })
-      }
-
-      if(location) {
-        query.andWhere('detail.location = :location', { location })
-      }
-      if(duration) {
-        query.andWhere('detail.duration = :duration', { duration })
-      }
-
-      if(mark) {
-        query.andWhere('activity.mark = :mark', { mark })
-      }
-        
-      if (closed_day) {
-        const closedDaysList = tags.split(',').map(closingDay => closingDay.trim());
-        query = query.andWhere('closingDay.date IN (:...closingDays)', { closingDays: closedDaysList });
-      }
-
-      if(opening_at) {
-        query.andWhere('schedule.opening_at = :opening_at', { opening_at })
-      }
-
-      if(closing_at) {
-        query.andWhere('schedule.closing_at = :closing_at', { closing_at })
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany()
-      }
+      return await this.activityRepository.findAllActivity(queries)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -109,39 +45,23 @@ export class ActivityService {
 
   async findAllByTags(tags: ActivityTag[]) {
     try {
-    return await this.activityRepository
-    .createQueryBuilder('activity')
-    .leftJoinAndSelect('activity.image', 'image')
-    .leftJoinAndSelect('image.uploadFile', 'uploadFile')
-    .leftJoinAndSelect('activity.comments', 'comments')
-    .leftJoinAndSelect('activity.advertiser', 'advertiser')
-    .leftJoinAndSelect('activity.tags', 'tag')
-    .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
-    .leftJoinAndSelect('activity.detail', 'detail')
-    .leftJoinAndSelect("detail.closingDays", "closingDay")
-    .leftJoinAndSelect("detail.schedules", "schedule")
-    .andWhere('tag.name IN (:...tags)', { tags })
-    .getMany()
+    return await this.activityRepository.findAllActivityByTags(tags)
     } catch (error) {
     throw new NotFoundException(error)
     }
     }
 
+  async findAllByAdvertiserId(advertiserId: string, page: number, limit: number) {
+    try {
+      return await this.activityRepository.findAllActivityByAdvertiserId(advertiserId, page, limit)
+    } catch(err) {
+      throw new NotFoundException(err);
+    }
+  }
+
   async findOne(id: string) {
     try {
-      return await this.activityRepository
-        .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.image', 'image')
-        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
-        .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.advertiser', 'advertiser')
-        .leftJoinAndSelect('activity.tags', 'tag')
-        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
-        .leftJoinAndSelect('activity.detail', 'detail')
-        .leftJoinAndSelect("detail.closingDays", "closingDay")
-        .leftJoinAndSelect("detail.schedules", "schedule")
-        .where('activity.id = :id', { id })
-        .getOne()
+      return await this.activityRepository.findOneActivity(id)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -149,115 +69,15 @@ export class ActivityService {
 
   async findOneByName(slug: string) {
     try {
-      return await this.activityRepository
-        .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.image', 'image')
-        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
-        .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('comments.traveler', 'traveler')
-        .leftJoinAndSelect('traveler.user', 'user')
-        .leftJoinAndSelect('activity.advertiser', 'advertiser')
-        .leftJoinAndSelect('activity.tags', 'tag')
-        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
-        .leftJoinAndSelect('activity.detail', 'detail')
-        .leftJoinAndSelect("detail.closingDays", "closingDay")
-        .leftJoinAndSelect("detail.schedules", "schedule")
-        .where('activity.slug = :slug', { slug })
-        .getOne()
+      return await this.activityRepository.findOneActivityByName(slug)
     } catch (error) {
       throw new NotFoundException(error)
     }
   }
 
-  async findAllByAdvertiserId(advertiserId: string, page: number, limit: number) {
-    try {
-      const skip = (page - 1) * limit;
-      const take = limit;
-
-      const query = this.activityRepository
-      .createQueryBuilder('activity')
-      .leftJoinAndSelect('activity.advertiser', 'advertiser')
-      .leftJoinAndSelect('activity.image', 'image')
-      .leftJoinAndSelect('image.uploadFile', 'uploadFile')
-      .leftJoinAndSelect('activity.tags', 'tag')
-      .leftJoinAndSelect('activity.detail', 'detail')
-      .leftJoinAndSelect("detail.closingDays", "closingDay")
-      .leftJoinAndSelect("detail.schedules", "schedule")
-      .where('advertiser.id = :id', { id: advertiserId })
-      .orderBy('activity.createdAt', 'DESC')
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany(),
-      }
-    } catch(err) {
-      throw new NotFoundException(err);
-    }
-  }
-
   async update(id: string, updateActivityDto: UpdateActivityDto) {
     try {
-      const activity = await this.activityRepository
-        .createQueryBuilder('activity')
-        .leftJoinAndSelect('activity.detail', 'detail')
-        .leftJoinAndSelect('activity.image', 'image')
-        .leftJoinAndSelect('image.uploadFile', 'uploadFile')
-        .leftJoinAndSelect('activity.comments', 'comments')
-        .leftJoinAndSelect('activity.advertiser', 'advertiser')
-        .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
-        .leftJoinAndSelect('activity.tags', 'tags')
-        .where('activity.id = :id', { id })
-        .getOne()
-      
-      if(!activity) throw new NotFoundException('Activity not found')
-
-      if(updateActivityDto?.detail && updateActivityDto?.detail?.closingDays) {
-        activity.detail.closingDays = updateActivityDto?.detail.closingDays
-      }
-
-      if(updateActivityDto?.detail && updateActivityDto?.detail?.schedules) {
-        activity.detail.schedules = updateActivityDto?.detail.schedules
-      }
-
-      if(updateActivityDto?.timeSlots) {
-        activity.timeSlots = updateActivityDto?.timeSlots
-      }
-
-      if(updateActivityDto?.name) {
-        activity.name = updateActivityDto?.name
-      }
-
-      if(updateActivityDto?.mark) {
-        activity.mark = updateActivityDto?.mark
-      }
-
-      if(updateActivityDto?.image && updateActivityDto.image.uploadFile){
-        activity.image.uploadFile = updateActivityDto.image.uploadFile
-      }
-
-      if(updateActivityDto?.detail && updateActivityDto?.detail.duration){
-        activity.detail.duration = updateActivityDto?.detail.duration
-      }
-
-      if(updateActivityDto?.detail && updateActivityDto?.detail.location){
-        activity.detail.location = updateActivityDto?.detail.location
-      }
-
-      if(updateActivityDto?.comments){
-        activity.comments = updateActivityDto?.comments
-      }
-
-      if(updateActivityDto?.advertiser){
-        activity.advertiser = updateActivityDto?.advertiser
-      }
-
-      if(updateActivityDto?.tags){
-        activity.tags = updateActivityDto?.tags
-      }
-
-      return this.activityRepository.save(activity)
+      return await this.activityRepository.updateActivity(id, updateActivityDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -265,7 +85,7 @@ export class ActivityService {
 
   async remove(id: string) {
     try {
-      return await this.activityRepository.softDelete(id)
+      return await this.activityRepository.removeActivity(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

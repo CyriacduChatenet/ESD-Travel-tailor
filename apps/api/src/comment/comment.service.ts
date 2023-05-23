@@ -3,22 +3,19 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { ApiLimitResourceQuery } from '@travel-tailor/types'
-import { Repository } from 'typeorm'
 
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'
-import { Comment } from './entities/comment.entity'
+import { CommentRepository } from './comment.repository'
 
 @Injectable()
 export class CommentService {
-  constructor(
-    @InjectRepository(Comment) private commentRepository: Repository<Comment>
-  ) {}
+  constructor(private commentRepository: CommentRepository) {}
+
   async create(createCommentDto: CreateCommentDto) {
     try {
-      return await this.commentRepository.save(createCommentDto)
+      return await this.commentRepository.createComment(createCommentDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -26,32 +23,7 @@ export class CommentService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit, sortedBy, author } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      const query = this.commentRepository
-      .createQueryBuilder('comment')
-      .leftJoinAndSelect('comment.traveler', 'traveler')
-      .leftJoinAndSelect('traveler.user', 'user')
-      .leftJoinAndSelect('comment.activity', 'activity')
-
-      if(sortedBy) {
-        query.orderBy('comment.createdAt', sortedBy);
-      } else {
-        query.orderBy('comment.createdAt', 'DESC');
-      }
-
-      if(author) {
-        query.where('user.username = :author', { author });
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany()
-      }
+     return await this.commentRepository.findAllComment(queries)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -59,12 +31,7 @@ export class CommentService {
 
   async findOne(id: string) {
     try {
-      return await this.commentRepository
-        .createQueryBuilder('comment')
-        .where('comment.id = :id', { id })
-        .leftJoinAndSelect('comment.traveler', 'traveler')
-        .leftJoinAndSelect('comment.activity', 'activity')
-        .getOne()
+      return await this.commentRepository.findOneComment(id)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -72,7 +39,7 @@ export class CommentService {
 
   async update(id: string, updateCommentDto: UpdateCommentDto) {
     try {
-      return this.commentRepository.update(id, updateCommentDto)
+      return this.commentRepository.updateComment(id, updateCommentDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -80,7 +47,7 @@ export class CommentService {
 
   async remove(id: string) {
     try {
-      return await this.commentRepository.softDelete(id)
+      return await this.commentRepository.removeComment(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

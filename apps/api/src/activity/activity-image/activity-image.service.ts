@@ -2,27 +2,20 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+} from '@nestjs/common'
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
-import { Repository } from 'typeorm';
 
 import { CreateActivityImageDto } from './dto/create-activity-image.dto';
 import { UpdateActivityImageDto } from './dto/update-activity-image.dto';
-import { ActivityImage } from './entities/activity-image.entity';
+import { ActivityImageRepository } from './activity-image.repository';
 
 @Injectable()
 export class ActivityImageService {
-  constructor(
-    @InjectRepository(ActivityImage)
-    private activityImageRepository: Repository<ActivityImage>,
-  ) {}
+  constructor(private readonly activityImageRepository: ActivityImageRepository) {}
+
   async create(createActivityImageDto: CreateActivityImageDto) {
     try {
-      const activityImage = await this.activityImageRepository.create(
-        createActivityImageDto,
-      );
-      return await this.activityImageRepository.save(activityImage);
+      return await this.activityImageRepository.createActivityImage(createActivityImageDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -30,27 +23,7 @@ export class ActivityImageService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit, sortedBy } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      const query = this.activityImageRepository
-        .createQueryBuilder('activityImage')
-        .leftJoinAndSelect('activityImage.activity', 'activity')
-        .leftJoinAndSelect('activityImage.uploadFile', 'uploadFile')
-
-      if (sortedBy) {
-        query.orderBy('activityImage.createdAt', sortedBy);
-      } else {
-        query.orderBy('activityImage.createdAt', 'DESC');
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany()
-      };
+      return await this.activityImageRepository.findAllActivityImage(queries);
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -58,12 +31,7 @@ export class ActivityImageService {
 
   findOne(id: string) {
     try {
-      return this.activityImageRepository
-        .createQueryBuilder('activityImage')
-        .leftJoinAndSelect('activityImage.activity', 'activity')
-        .leftJoinAndSelect('activityImage.uploadFile', 'uploadFile')
-        .where('activityImage.id = :id', { id })
-        .getOne();
+      return this.activityImageRepository.findOneActivityImage(id);
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -71,7 +39,7 @@ export class ActivityImageService {
 
   update(id: string, updateActivityImageDto: UpdateActivityImageDto) {
     try {
-      return this.activityImageRepository.update(id, updateActivityImageDto);
+      return this.activityImageRepository.updateActivityImage(id, updateActivityImageDto);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
@@ -79,7 +47,7 @@ export class ActivityImageService {
 
   remove(id: string) {
     try {
-      return this.activityImageRepository.softDelete(id);
+      return this.activityImageRepository.removeActivityImage(id);
     } catch (error) {
       throw new UnauthorizedException(error);
     }

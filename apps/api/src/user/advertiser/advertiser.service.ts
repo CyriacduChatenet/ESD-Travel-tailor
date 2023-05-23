@@ -3,20 +3,17 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { ApiLimitResourceQuery } from '@travel-tailor/types'
-import { Repository } from 'typeorm'
 
 import { CreateAdvertiserDto } from './dto/create-advertiser.dto'
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto'
-import { Advertiser } from './entities/advertiser.entity'
 import { CustomerService } from '../../payment/customer/customer.service'
+import { AdvertiserRepository } from './advertiser.repository'
 
 @Injectable()
 export class AdvertiserService {
   constructor(
-    @InjectRepository(Advertiser)
-    private advertiserRepository: Repository<Advertiser>,
+    private advertiserRepository: AdvertiserRepository,
     private customerService: CustomerService
   ) {}
 
@@ -26,12 +23,8 @@ export class AdvertiserService {
         address: createAdvertiserDto.location,
         name: createAdvertiserDto.name,
       })
-      const advertiser = this.advertiserRepository.create({
-        ...createAdvertiserDto,
-        customer,
-      })
 
-      return await this.advertiserRepository.save(advertiser)
+      return await this.advertiserRepository.createAdvertiser(createAdvertiserDto, customer)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -39,36 +32,7 @@ export class AdvertiserService {
 
   async findAll(queries: ApiLimitResourceQuery) {
     try {
-      let { page, limit, sortedBy, name, location } = queries
-      page = page ? +page : 1
-      limit = limit ? +limit : 10
-
-      const query = this.advertiserRepository
-      .createQueryBuilder('advertiser')
-      .leftJoinAndSelect('advertiser.activities', 'activities')
-      .leftJoinAndSelect('advertiser.user', 'user')
-      .leftJoinAndSelect('advertiser.customer', 'customer')
-
-      if(sortedBy) {
-        query.orderBy('advertiser.createdAt', sortedBy)
-      } else {
-        query.orderBy('advertiser.createdAt', 'DESC')
-      }
-
-      if(name) {
-        query.where('advertiser.name = :name', { name })
-      }
-
-      if(location) {
-        query.where('advertiser.location = :location', { location })
-      }
-
-      return {
-        page: page,
-        limit: limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany(),
-      }
+      return  await this.advertiserRepository.findAllAdvertiser(queries)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -76,13 +40,7 @@ export class AdvertiserService {
 
   async findOne(id: string) {
     try {
-      return await this.advertiserRepository
-        .createQueryBuilder('advertiser')
-        .where('advertiser.id = :id', { id })
-        .leftJoinAndSelect('advertiser.activities', 'activities')
-        .leftJoinAndSelect('advertiser.user', 'user')
-        .leftJoinAndSelect('advertiser.customer', 'customer')
-        .getOne()
+     return await this.advertiserRepository.findOneAdvertiser(id)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -90,7 +48,7 @@ export class AdvertiserService {
 
   async update(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {
     try {
-      return await this.advertiserRepository.update(id, updateAdvertiserDto)
+     return await this.advertiserRepository.updateAdvertiser(id, updateAdvertiserDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -98,7 +56,7 @@ export class AdvertiserService {
 
   async remove(id: string) {
     try {
-      return await this.advertiserRepository.softDelete(id)
+      return await this.advertiserRepository.removeAdvertiser(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

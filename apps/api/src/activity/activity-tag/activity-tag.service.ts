@@ -3,27 +3,19 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { ActivityTagQuery } from '@travel-tailor/types'
-import { Repository } from 'typeorm'
 
 import { CreateActivityTagDto } from './dto/create-activity-tag.dto'
 import { UpdateActivityTagDto } from './dto/update-activity-tag.dto'
-import { ActivityTag } from './entities/activity-tag.entity'
+import { ActivityTagRepository } from './activity-tag.repository'
 
 @Injectable()
 export class ActivityTagService {
-  constructor(
-    @InjectRepository(ActivityTag)
-    private activityTagRepository: Repository<ActivityTag>
-  ) {}
+  constructor(private activityTagRepository: ActivityTagRepository) {}
 
   async create(createActivityTagDto: CreateActivityTagDto) {
     try {
-      const activityTag = await this.activityTagRepository.create(
-        createActivityTagDto
-      )
-      return await this.activityTagRepository.save(activityTag)
+      return await this.activityTagRepository.createActivityTag(createActivityTagDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
@@ -31,24 +23,7 @@ export class ActivityTagService {
 
   async findAll(queries: ActivityTagQuery) {
     try {
-      let { page, limit, name } = queries;
-      page = page ? +page : 1;
-      limit = limit ? +limit : 10;
-
-      const query = this.activityTagRepository
-      .createQueryBuilder('activityTag')
-      .leftJoinAndSelect('activityTag.activities', 'activity')
-
-      if(name) {
-        query.where('activityTag.name LIKE :name', { name: `%${name}%` })
-      }
-      
-      return {
-        page,
-        limit,
-        total: await query.getCount(),
-        data: await query.skip((page - 1) * limit).take(limit).getMany()
-      }
+      return await this.activityTagRepository.findAllActivityTag(queries)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -56,11 +31,7 @@ export class ActivityTagService {
 
   findOne(name: string) {
     try {
-      return this.activityTagRepository
-        .createQueryBuilder('activityTag')
-        .leftJoinAndSelect('tag.activities', 'activity')
-        .where('activityTag.name = :name', { name })
-        .getOne()
+      return this.activityTagRepository.findOneActivityTag(name)
     } catch (error) {
       throw new NotFoundException(error)
     }
@@ -68,20 +39,15 @@ export class ActivityTagService {
 
   async update(id: string, updateActivityTagDto: UpdateActivityTagDto) {
     try {
-      const tag = await this.activityTagRepository.findOneBy({ id })
-
-      tag.name = updateActivityTagDto.name
-      tag.activities = updateActivityTagDto.activities
-
-      return await this.activityTagRepository.save(tag)
+      return await this.activityTagRepository.updateActivityTag(id, updateActivityTagDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     try {
-      return this.activityTagRepository.softDelete(id)
+      return this.activityTagRepository.removeActivityTag(id)
     } catch (error) {
       throw new UnauthorizedException(error)
     }
