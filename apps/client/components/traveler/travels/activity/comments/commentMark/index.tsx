@@ -24,37 +24,37 @@ export const CommentMark: FC<IProps> = ({ commentsLength, marks }) => {
                 <li className="grid grid-cols-12 gap-5 w-full py-4">
                     <p className="col-span-4">Rentability</p>
                     <div className="col-span-6 flex items-center">
-                        <Gauge percentage={marks.rentability * 20} />
+                        <Gauge percentage={marks ? marks.rentability * 20 : 0} />
                     </div>
-                    <p className="col-span-2">{marks.rentability}&nbsp;/&nbsp;5</p>
+                    <p className="col-span-2">{marks ? marks.rentability : 0 }&nbsp;/&nbsp;5</p>
                 </li>
                 <li className="grid grid-cols-12 gap-5 w-full py-4">
                     <p className="col-span-4">Place</p>
                     <div className="col-span-6 flex items-center">
-                        <Gauge percentage={marks.place * 20} />
+                        <Gauge percentage={marks ? marks.place * 20 : 0} />
                     </div>
-                    <p className="col-span-2">{marks.place}&nbsp;/&nbsp;5</p>
+                    <p className="col-span-2">{marks ? marks.place : 0}&nbsp;/&nbsp;5</p>
                 </li>
                 <li className="grid grid-cols-12 gap-5 w-full py-4">
                     <p className="col-span-4">Waiting</p>
                     <div className="col-span-6 flex items-center">
-                        <Gauge percentage={marks.waiting * 20} />
+                        <Gauge percentage={marks ? marks.waiting * 20 : 0} />
                     </div>
-                    <p className="col-span-2">{marks.waiting}&nbsp;/&nbsp;5</p>
+                    <p className="col-span-2">{marks ? marks.waiting : 0}&nbsp;/&nbsp;5</p>
                 </li>
                 <li className="grid grid-cols-12 gap-5 w-full py-4">
                     <p className="col-span-4">Explanation</p>
                     <div className="col-span-6 flex items-center">
-                        <Gauge percentage={marks.explanation * 20} />
+                        <Gauge percentage={marks ? marks.explanation * 20 : 0} />
                     </div>
-                    <p className="col-span-2">{marks.explanation}&nbsp;/&nbsp;5</p>
+                    <p className="col-span-2">{marks ? marks.explanation : 0}&nbsp;/&nbsp;5</p>
                 </li>
                 <li className="grid grid-cols-12 gap-5 w-full py-4">
                     <p className="col-span-4">Arrival</p>
                     <div className="col-span-6 flex items-center">
-                        <Gauge percentage={marks.arrival * 20} />
+                        <Gauge percentage={marks ? marks.arrival * 20 : 0} />
                     </div>
-                    <p className="col-span-2">{marks.arrival}&nbsp;/&nbsp;5</p>
+                    <p className="col-span-2">{marks ? marks.arrival : 0}&nbsp;/&nbsp;5</p>
                 </li>
             </ul>
         </div>
