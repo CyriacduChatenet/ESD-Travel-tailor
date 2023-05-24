@@ -4,5 +4,5 @@ export class CreateActivityClosingDayDto
   implements CreateActivityClosingDayDTO
 {
   recurrence: boolean;
-  date: string;
+  date: Date;
 }
