@@ -25,13 +25,18 @@ export class CommentController {
   @Post()
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentService.create(createCommentDto)
+  create(@Body() createCommentDto: CreateCommentDto, @Body('activity') activity: string) {
+    return this.commentService.create(createCommentDto, activity)
   }
 
   @Get()
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.commentService.findAll(queries)
+  }
+
+  @Get('/activity/:id')
+  findAllByActivityId(@Query() queries: ApiLimitResourceQuery, @Param('id') activityId: string) {
+    return this.commentService.findAllByActivityId(queries, activityId)
   }
 
   @Get(':id')

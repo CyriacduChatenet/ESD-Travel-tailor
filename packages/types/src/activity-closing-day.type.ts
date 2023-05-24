@@ -1,8 +1,8 @@
 import { ActivityDetail } from './activity-detail.type'
 
 export type ActivityClosingDay = {
-  id: string | Date
-  date: string
+  id: string
+  date: string | Date
   recurrence: boolean
   activityDetail?: ActivityDetail
 }

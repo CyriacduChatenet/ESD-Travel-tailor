@@ -30,7 +30,7 @@ const ActivityPage: NextPage<IProps> = ({ activity }) => {
                     <h1 className="font-bold lg:text-2xl xl:mb-8">{data.name}</h1>
                     <div className="w-full h-72 relative">
                       <Image
-                        src={String(activity.image.uploadFile?.Location)}
+                        src={String(activity.image.uploadFile?.Location ? activity.image.uploadFile?.Location : '')}
                         alt=""
                         layout="fill"
                         objectFit="cover"
@@ -48,7 +48,7 @@ const ActivityPage: NextPage<IProps> = ({ activity }) => {
                       <ActivityModule
                         location={data.detail.location}
                         duration={data.detail.duration}
-                        mark={data.mark}
+                        mark={2}
                         commentsIndex={data.comments.length}
                         programmingAt={new Date()}
                         setDisplayCommentModule={setDisplayCommentModule}

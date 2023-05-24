@@ -1,7 +1,7 @@
 import { UpdateActivityMarkDTO } from "@travel-tailor/types";
 
 export class UpdateActivityMarkDto implements UpdateActivityMarkDTO {
-    global?: number;
+    global: number;
     rentability: number;
     place: number;
     waiting: number;

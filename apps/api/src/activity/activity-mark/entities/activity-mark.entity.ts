@@ -11,19 +11,19 @@ export class ActivityMark extends Timestamp {
     @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     global: number;
 
-    @Column({ nullable: false, default: 0 })
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     rentability: number;
 
-    @Column({ nullable: false, default: 0 })
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     place: number;
 
-    @Column({ nullable: false, default: 0 })
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     waiting: number;
 
-    @Column({ nullable: false, default: 0 })
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     explanation: number;
 
-    @Column({ nullable: false, default: 0 })
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
     arrival: number;
 
     @OneToOne(() => Activity, (activity) => activity.marks)
