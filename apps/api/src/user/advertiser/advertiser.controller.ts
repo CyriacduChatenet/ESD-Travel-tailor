@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { Role } from '../../config/enum/role.enum';
@@ -19,27 +20,33 @@ import { CreateAdvertiserDto } from './dto/create-advertiser.dto';
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto';
 
 @Controller('advertiser')
+@UseGuards(ThrottlerGuard)
 export class AdvertiserController {
-  constructor(private readonly advertiserService: AdvertiserService) {}
+  constructor(private readonly advertiserService: AdvertiserService) { }
+  
   @Post()
+  @Throttle(10, 60)
+  @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createAdvertiserDto: CreateAdvertiserDto) {
     return this.advertiserService.create(createAdvertiserDto);
   }
 
   @Get()
+  @Throttle(10, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.advertiserService.findAll(queries);
   }
 
   @Get(':id')
+  @Throttle(10, 60)
   async findOne(@Param('id') id: string) {
     return await this.advertiserService.findOne(id);
   }
 
   @Patch(':id')
-   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser, Role.Admin)
   async update(
     @Param('id') id: string,
     @Body() updateAdvertiserDto: UpdateAdvertiserDto,
@@ -48,9 +55,9 @@ export class AdvertiserController {
   }
 
   @Delete(':id')
-   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string) {
     return await this.advertiserService.remove(id);
   }

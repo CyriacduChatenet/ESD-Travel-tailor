@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 import { TasteService } from './taste.service';
 import { CreateTasteDto } from './dto/create-taste.dto';
@@ -19,28 +20,33 @@ import { Role } from '../../../config/enum/role.enum';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 
 @Controller('taste')
+@UseGuards(ThrottlerGuard)
 export class TasteController {
-  constructor(private readonly tasteService: TasteService) {}
+  constructor(private readonly tasteService: TasteService) { }
 
   @Post()
+  @Throttle(10, 60)
+  @Roles(Role.Traveler, Role.Admin)
   async create(@Body() createTasteDto: CreateTasteDto) {
     return this.tasteService.create(createTasteDto);
   }
 
   @Get()
+  @Throttle(10, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.tasteService.findAll(queries);
   }
 
   @Get(':id')
+  @Throttle(10, 60)
   async findOne(@Param('id') id: string) {
     return this.tasteService.findOne(id);
   }
 
   @Patch(':id')
-   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Traveler)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Traveler, Role.Admin)
   async update(
     @Param('id') id: string,
     @Body() updateTasteDto: UpdateTasteDto,
@@ -49,9 +55,9 @@ export class TasteController {
   }
 
   @Delete(':id')
-   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Traveler)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {
     return this.tasteService.remove(id);
   }
