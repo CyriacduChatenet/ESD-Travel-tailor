@@ -34,6 +34,7 @@
     "class-validator": "^0.14.0",
     "csurf": "^1.11.0",
     "handlebars": "^4.7.7",
+    "helmet": "^7.0.0",
     "i": "^0.3.7",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",

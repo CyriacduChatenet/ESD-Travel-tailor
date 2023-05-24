@@ -1,7 +1,9 @@
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as csurf from 'csurf';
+import csurf from 'csurf';
+import helmet from 'helmet';
+
 
 import { AppModule } from './app.module';
 
@@ -37,6 +39,7 @@ async function bootstrap() {
 
   app.enableCors(corsOptions);
   app.use(csurf());
+  app.use(helmet());
   app.setGlobalPrefix('api/v1');
   await app.listen(process.env.API_PORT);
 }
