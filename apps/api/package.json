@@ -32,6 +32,7 @@
     "aws-sdk": "^2.1351.0",
     "bcrypt": "^5.1.0",
     "class-validator": "^0.14.0",
+    "csurf": "^1.11.0",
     "handlebars": "^4.7.7",
     "i": "^0.3.7",
     "jwt-decode": "^3.1.2",
