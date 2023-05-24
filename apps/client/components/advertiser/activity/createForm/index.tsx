@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { convertDate } from "@/../../packages/utils/src";
 
 interface ICreateActivityForm {
     name: string;
@@ -50,7 +51,7 @@ export const CreateActivityForm: FC = () => {
     };
 
     const handleClosingDayInputChange = async () => {
-        const closing_d = await ActivityClosingDayService.createActivityClosingDay(`${process.env.NEXT_PUBLIC_API_URL}`, { date: closingDayInput, recurrence: closingDayCheck }, setApiErrors);
+        const closing_d = await ActivityClosingDayService.createActivityClosingDay(`${process.env.NEXT_PUBLIC_API_URL}`, { date: convertDate(closingDayInput), recurrence: closingDayCheck }, setApiErrors);
         if (closing_d) {
             setClosingDays([...closingDays, closing_d]);
         }
@@ -93,7 +94,7 @@ export const CreateActivityForm: FC = () => {
             });
 
             closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
-                formData.append(`detail[closingDays][${index}][date]`, closingDay.date);
+                formData.append(`detail[closingDays][${index}][date]`,new Date(closingDay.date).toISOString());
                 formData.append(`detail[closingDays][${index}][recurrence]`, String(closingDay.recurrence));
             });
             formData.append('image', file);

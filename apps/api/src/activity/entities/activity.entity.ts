@@ -17,6 +17,7 @@ import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
 import { Comment } from '../../comment/entities/comment.entity';
 import { Advertiser } from '../../user/advertiser/entities/advertiser.entity';
 import { TimeSlot } from '../../user/traveler/travel/day/time-slot/entities/time-slot.entity';
+import { ActivityMark } from '../activity-mark/entities/activity-mark.entity';
 
 @Entity()
 export class Activity extends Timestamp {
@@ -31,8 +32,11 @@ export class Activity extends Timestamp {
   })
   slug: string;
 
-  @Column({ nullable: false, default: 0})
-  mark: number;
+  @OneToOne(() => ActivityMark, (marks) => marks.activity, {
+    cascade: true,
+  })
+  @JoinColumn()
+  marks: ActivityMark;
 
   @OneToOne(() => ActivityImage, (image) => image.activity, {
     cascade: true,

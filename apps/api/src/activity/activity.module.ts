@@ -9,6 +9,7 @@ import { ActivityTagModule } from './activity-tag/activity-tag.module'
 import { UploadFileModule } from '../upload-file/upload-file.module'
 import { ActivityImageModule } from './activity-image/activity-image.module'
 import { ActivityRepository } from './activity.repository'
+import { ActivityMarkModule } from './activity-mark/activity-mark.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ActivityRepository } from './activity.repository'
     ActivityTagModule,
     UploadFileModule,
     ActivityImageModule,
+    ActivityMarkModule,
   ],
   controllers: [ActivityController],
   providers: [ActivityRepository, ActivityService],

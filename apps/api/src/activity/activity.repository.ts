@@ -23,14 +23,16 @@ export class ActivityRepository extends Repository<Activity> {
       }
     
       async findAllActivity(queries: ActivityQuery) {
-          let { limit, page, sortedBy, name, tags, location, duration, closed_day, opening_at, closing_at, mark } = queries;
+          let { limit, page, sortedBy, name, tags, location, duration, closed_day, opening_at, closing_at, marks } = queries;
           page = page ? +page : 1;
           limit = limit ? +limit : 10;
     
           let query = this.createQueryBuilder('activity')
             .leftJoinAndSelect('activity.image', 'image')
+            .leftJoinAndSelect('activity.marks', 'marks')
             .leftJoinAndSelect('image.uploadFile', 'uploadFile')
             .leftJoinAndSelect('activity.comments', 'comments')
+            .leftJoinAndSelect("comments.marks", "commentMark")
             .leftJoinAndSelect('activity.advertiser', 'advertiser')
             .leftJoinAndSelect('activity.tags', 'tag')
             .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
@@ -57,8 +59,8 @@ export class ActivityRepository extends Repository<Activity> {
             query.andWhere('detail.duration = :duration', { duration })
           }
     
-          if(mark) {
-            query.andWhere('activity.mark = :mark', { mark })
+          if(marks) {
+            query.andWhere('activity.mark = :mark', { marks: marks.global })
           }
             
           if (closed_day) {
@@ -85,8 +87,10 @@ export class ActivityRepository extends Repository<Activity> {
       async findAllActivityByTags(tags: ActivityTag[]) {
         return await this.createQueryBuilder('activity')
         .leftJoinAndSelect('activity.image', 'image')
+        .leftJoinAndSelect('activity.marks', 'marks')
         .leftJoinAndSelect('image.uploadFile', 'uploadFile')
         .leftJoinAndSelect('activity.comments', 'comments')
+        .leftJoinAndSelect("comments.marks", "commentMark")
         .leftJoinAndSelect('activity.advertiser', 'advertiser')
         .leftJoinAndSelect('activity.tags', 'tag')
         .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
@@ -104,6 +108,7 @@ export class ActivityRepository extends Repository<Activity> {
           const query = this.createQueryBuilder('activity')
           .leftJoinAndSelect('activity.advertiser', 'advertiser')
           .leftJoinAndSelect('activity.image', 'image')
+          .leftJoinAndSelect('activity.marks', 'marks')
           .leftJoinAndSelect('image.uploadFile', 'uploadFile')
           .leftJoinAndSelect('activity.tags', 'tag')
           .leftJoinAndSelect('activity.detail', 'detail')
@@ -123,8 +128,10 @@ export class ActivityRepository extends Repository<Activity> {
       async findOneActivity(id: string) {
           return await this.createQueryBuilder('activity')
             .leftJoinAndSelect('activity.image', 'image')
+            .leftJoinAndSelect('activity.marks', 'marks')
             .leftJoinAndSelect('image.uploadFile', 'uploadFile')
             .leftJoinAndSelect('activity.comments', 'comments')
+            .leftJoinAndSelect("comments.marks", "commentMark")
             .leftJoinAndSelect('activity.advertiser', 'advertiser')
             .leftJoinAndSelect('activity.tags', 'tag')
             .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
@@ -138,8 +145,10 @@ export class ActivityRepository extends Repository<Activity> {
       async findOneActivityByName(slug: string) {
           return await this.createQueryBuilder('activity')
             .leftJoinAndSelect('activity.image', 'image')
+            .leftJoinAndSelect('activity.marks', 'marks')
             .leftJoinAndSelect('image.uploadFile', 'uploadFile')
             .leftJoinAndSelect('activity.comments', 'comments')
+            .leftJoinAndSelect("comments.marks", "commentMark")
             .leftJoinAndSelect('comments.traveler', 'traveler')
             .leftJoinAndSelect('traveler.user', 'user')
             .leftJoinAndSelect('activity.advertiser', 'advertiser')
@@ -155,9 +164,11 @@ export class ActivityRepository extends Repository<Activity> {
       async updateActivity(id: string, updateActivityDto: UpdateActivityDto) {
           const activity = await this.createQueryBuilder('activity')
             .leftJoinAndSelect('activity.detail', 'detail')
+            .leftJoinAndSelect('activity.marks', 'marks')
             .leftJoinAndSelect('activity.image', 'image')
             .leftJoinAndSelect('image.uploadFile', 'uploadFile')
             .leftJoinAndSelect('activity.comments', 'comments')
+            .leftJoinAndSelect("comments.marks", "commentMark")
             .leftJoinAndSelect('activity.advertiser', 'advertiser')
             .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
             .leftJoinAndSelect('activity.tags', 'tags')
@@ -182,8 +193,8 @@ export class ActivityRepository extends Repository<Activity> {
             activity.name = updateActivityDto?.name
           }
     
-          if(updateActivityDto?.mark) {
-            activity.mark = updateActivityDto?.mark
+          if(updateActivityDto?.marks) {
+            activity.marks = updateActivityDto?.marks as any
           }
     
           if(updateActivityDto?.image && updateActivityDto.image.uploadFile){

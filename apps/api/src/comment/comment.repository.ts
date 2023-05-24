@@ -13,7 +13,7 @@ export class CommentRepository extends Repository<Comment> {
     }
 
     async createComment(createCommentDto: CreateCommentDto, commentMarks: CommentMark) {
-        const comment = this.create({...createCommentDto, marks: commentMarks});
+        const comment = this.create({ ...createCommentDto, marks: commentMarks });
         return await this.save(comment)
     }
 
@@ -46,6 +46,31 @@ export class CommentRepository extends Repository<Comment> {
         }
     }
 
+    async findAllCommentByActivityId(queries: ApiLimitResourceQuery, activityId: string) {
+        let { page, limit, sortedBy } = queries;
+        page = page ? +page : 1;
+        limit = limit ? +limit : 10;
+
+        const query = this.createQueryBuilder('comment')
+            .leftJoinAndSelect('comment.activity', 'activity')
+            .where('activity.id = :id', { id: activityId })
+            .leftJoinAndSelect('comment.traveler', 'traveler')
+            .leftJoinAndSelect('comment.marks', 'commentMark')
+
+        if (sortedBy) {
+            query.orderBy('comment.createdAt', sortedBy);
+        } else {
+            query.orderBy('comment.createdAt', 'DESC');
+        }
+
+        return {
+            page: page,
+            limit: limit,
+            total: await query.getCount(),
+            data: await query.skip((page - 1) * limit).take(limit).getMany()
+        }
+    }
+
     async findOneComment(id: string) {
         return await this.createQueryBuilder('comment')
             .where('comment.id = :id', { id })
@@ -56,10 +81,10 @@ export class CommentRepository extends Repository<Comment> {
     }
 
     async updateComment(id: string, updateCommentDto: UpdateCommentDto) {
-            return this.update(id, updateCommentDto)
+        return this.update(id, updateCommentDto)
     }
 
     async removeComment(id: string) {
-            return await this.softDelete(id)
+        return await this.softDelete(id)
     }
 }
