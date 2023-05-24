@@ -18,7 +18,7 @@ export const CommentModule: FC<IProps> = ({ setDisplayCommentModule, comments, d
         <>
         <CommentToolbar setDisplayCommentModule={setDisplayCommentModule} />
         <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-5 mb-8 xl:mb-20">
-            <CommentMark commentsLength={comments.length} mark={data.mark} />
+            <CommentMark commentsLength={comments.length} marks={data.marks} />
             <section className="col-span-8 md:col-span-4 xl:col-span-8">
                 <CommentList comments={comments} />
                 <CommentForm data={data} setData={setData} comments={comments} />

@@ -24,7 +24,7 @@ export const ActivityToolbar: FC<IProps> = ({ location, duration, mark, comments
                 </div>
                 <div className="flex">
                 <Icon icon="material-symbols:note-alt" className='w-6 h-6 mr-4' />
-                    <p>{mark}/10</p>
+                    <p>{mark}&nbsp;/&nbsp;10</p>
                 </div>
                 <div className="flex">
                     <Icon icon="material-symbols:mode-comment-rounded" className='w-6 h-6 mr-4' />

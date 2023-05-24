@@ -48,7 +48,7 @@ const ActivityPage: NextPage<IProps> = ({ activity }) => {
                       <ActivityModule
                         location={data.detail.location}
                         duration={data.detail.duration}
-                        mark={2}
+                        mark={Number(data?.marks?.global && data?.marks?.global)}
                         commentsIndex={data.comments.length}
                         programmingAt={new Date()}
                         setDisplayCommentModule={setDisplayCommentModule}
