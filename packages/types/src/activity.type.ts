@@ -3,11 +3,12 @@ import { ActivityImage, CreateActivityImageDTO, UpdateActivityImageDTO } from '.
 import { ActivityTag, CreateActivityTagDTO } from './activity-tag.type'
 import { Comment } from './comment.type'
 import { TimeSlot } from './time-slot.type'
+import { ActivityMark } from './activity-mark.type'
 
 export type Activity = {
   id: string
   name: string
-  mark: number
+  marks: ActivityMark
   slug: string
   detail: ActivityDetail
   image: ActivityImage
@@ -15,11 +16,14 @@ export type Activity = {
   tags: ActivityTag[]
   timeSlots: TimeSlot[]
   advertiser: string;
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateActivityDTO = {
   name: string
-  mark?: number
+  marks?: ActivityMark
   detail: CreateActivityDetailDTO
   image: CreateActivityImageDTO
   advertiser? : string
@@ -30,7 +34,7 @@ export type CreateActivityDTO = {
 
 export type UpdateActivityDTO = {
   name?: string
-  mark?: number
+  marks?: ActivityMark
   detail?: UpdateActivityDetailDTO
   image?: UpdateActivityImageDTO
   tags?: {id: string}[]
@@ -48,5 +52,5 @@ export type ActivityQuery = {
   opening_at?: string
   closing_at?: string,
   closed_day?: string
-  mark?: number
+  marks?: ActivityMark
 }

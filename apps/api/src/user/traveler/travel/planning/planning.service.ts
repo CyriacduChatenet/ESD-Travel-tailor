@@ -107,7 +107,7 @@ export class PlanningService {
       for (let i = 0; i < MAX_TIME_SLOTS_PER_DAY; i++) {
         if (activityIndex < activities.length) {
           const activity = activities[activityIndex];
-          const activityInDB = await this.activityService.findOne(activity.id);
+          const activityInDB = await this.activityService.findOne(activity.id) as any;
   
           const createTimeSlotDto = {
             startTime: moment(activity.detail.schedules[0].opening_at, 'HH:mm:ss').toDate(),

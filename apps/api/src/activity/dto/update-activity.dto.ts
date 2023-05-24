@@ -4,10 +4,11 @@ import { Advertiser } from '../../user/advertiser/entities/advertiser.entity';
 import { ActivityDetail } from '../activity-detail/entities/activity-detail.entity';
 import { ActivityImage } from '../activity-image/entities/activity-image.entity';
 import { ActivityTag } from '../activity-tag/entities/activity-tag.entity';
+import { ActivityMark } from '@travel-tailor/types';
 
 export class UpdateActivityDto {
   name?: string
-  mark?: number
+  marks?: ActivityMark
   detail?: ActivityDetail
   image?: ActivityImage
   location?: string;
