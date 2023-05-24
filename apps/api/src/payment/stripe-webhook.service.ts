@@ -2,7 +2,8 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
 import { ConfigService } from "@nestjs/config";
-import { MailService } from "src/mail/mail.service";
+
+import { MailService } from "../mail/mail.service";
 import { StripeCustomerService } from "./stripe-customer.service";
 
 @Injectable()
