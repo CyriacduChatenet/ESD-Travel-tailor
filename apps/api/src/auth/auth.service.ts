@@ -31,40 +31,6 @@ export class AuthService {
     }
   }
 
-  public async validateGoogleOAuth(user: { emails: [{value: string}], username: string}): Promise<any> {
-    if (!user) {
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED)
-    }
-
-    const email = user.emails[0].value
-    const findUser = await this.userService.findOneByEmail(email)
-
-    if (!findUser) {
-      const newUser = await this.userService.create({
-        email: email,
-        username: user.username,
-      })
-
-      const payload = {
-        email: newUser.email,
-        roles: newUser.roles,
-      }
-      return {
-        accessToken: this.jwtService.sign(payload),
-        user: newUser,
-      }
-    } else {
-      const payload = {
-        email: findUser.email,
-        roles: findUser.roles,
-      }
-      return {
-        accessToken: this.jwtService.sign(payload),
-        user: findUser,
-      }
-    }
-  }
-
   public async signin(user: SigninDTO) {
     try {
       const findUser = await this.userService.findOneByEmail(user.email)

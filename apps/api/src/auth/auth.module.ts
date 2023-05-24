@@ -9,7 +9,6 @@ import { UserModule } from '../user/user.module'
 import { JwtStrategy } from './strategies/jwt.strategy'
 import { MailModule } from '../mail/mail.module'
 import { ResetPasswordTokenModule } from './reset-password-token/reset-password-token.module';
-import { GoogleStrategy } from './strategies/google.strategy'
 
 @Module({
   imports: [
@@ -24,7 +23,7 @@ import { GoogleStrategy } from './strategies/google.strategy'
     ResetPasswordTokenModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, GoogleStrategy],
+  providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
