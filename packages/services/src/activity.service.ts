@@ -8,9 +8,9 @@ import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/c
 import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 
-const findAllActivities = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Activity[]> => {
-  const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}`, setError)
-  return data.data
+const findAllActivities = async (api_url: string, setError: any, params: string) => {
+  const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}?${params}`, setError)
+  return data;
 }
 
 const findActivityById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Activity> => {
@@ -28,7 +28,7 @@ const findActivitiesByAdvertiserId = async (api_url: string, advertiserId: strin
 const createActivity = async (
   api_url: string,
   credentials: CreateActivityDTO,
-  setError: Dispatch<SetStateAction<any>> | any
+  setError: any
 ): Promise<Activity> => {
   return await useFetch.protectedPost(
     `${api_url}${API_ACTIVITY_ROUTE}`,
