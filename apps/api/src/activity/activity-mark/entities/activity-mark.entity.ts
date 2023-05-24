@@ -8,6 +8,9 @@ export class ActivityMark extends Timestamp {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @Column('decimal', { default: 0, precision: 3, scale: 1, nullable: false })
+    global: number;
+
     @Column({ nullable: false, default: 0 })
     rentability: number;
 
