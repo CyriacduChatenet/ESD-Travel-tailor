@@ -94,7 +94,7 @@ export const CreateActivityForm: FC = () => {
             });
 
             closingDays.forEach((closingDay: ActivityClosingDay, index: number) => {
-                formData.append(`detail[closingDays][${index}][date]`,closingDay.date);
+                formData.append(`detail[closingDays][${index}][date]`,new Date(closingDay.date).toISOString());
                 formData.append(`detail[closingDays][${index}][recurrence]`, String(closingDay.recurrence));
             });
             formData.append('image', file);
