@@ -32,6 +32,31 @@ export const NavModule: FC<IProps> = ({ accessToken, role }) => {
                     <Link href={ROUTES.ADVERTISER.INVOICE.INDEX}>Invoices</Link>
                 </li>
             )}
+            {accessToken && role === ROLES.ADMIN && (
+                <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    <Link href={ROUTES.ADMIN.DASHBOARD}>Dashboard</Link>
+                </li>
+            )}
+            {accessToken && role === ROLES.ADMIN && (
+                <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    <Link href={ROUTES.ADMIN.ADVERTISER}>Advertiser</Link>
+                </li>
+            )}
+            {accessToken && role === ROLES.ADMIN && (
+                <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    <Link href={ROUTES.ADMIN.TRAVELER}>Traveler</Link>
+                </li>
+            )}
+            {accessToken && role === ROLES.ADMIN && (
+                <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    <Link href={ROUTES.ADMIN.ACTIVITIES}>Activities</Link>
+                </li>
+            )}
+            {accessToken && role === ROLES.ADMIN && (
+                <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    <Link href={ROUTES.ADMIN.TAGS}>Tags</Link>
+                </li>
+            )}
             {accessToken && (
                 <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                     <Link href={ROUTES.SETTINGS}>Settings</Link>

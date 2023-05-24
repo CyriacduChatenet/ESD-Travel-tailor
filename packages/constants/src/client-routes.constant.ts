@@ -5,6 +5,13 @@ export const ROUTES = {
     FORGOT_PASSWORD: '/forgot-password',
     RESET_PASSWORD: '/reset-password',
   },
+  ADMIN: {
+    DASHBOARD: '/admin/dashboard',
+    ACTIVITIES: '/admin/activities',
+    TRAVELER: '/admin/traveler',
+    ADVERTISER: '/admin/advertiser',
+    TAGS: '/admin/tags',
+  },
   TRAVELER: {
     DASHBOARD: '/traveler/dashboard',
     EDIT_TRAVELER: '/traveler/edit-travel',
@@ -33,10 +40,6 @@ export const ROUTES = {
     },
     INDEX: '/advertiser',
     PAYMENT: '/advertiser/payment'
-  },
-  ADMIN: {
-    DASHBOARD: '/admin/dashboard',
-    ADMIN: '/admin',
   },
   ROOT: '/',
   ACTIVITY: {
