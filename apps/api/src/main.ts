@@ -1,7 +1,7 @@
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import csurf from 'csurf';
+import * as csurf from 'csurf';
 import helmet from 'helmet';
 
 
