@@ -9,6 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler'
 import { DeleteResult } from 'typeorm'
 import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
@@ -20,25 +21,30 @@ import { Roles } from '../config/decorators/roles.decorator'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 
 @Controller('user')
+@UseGuards(ThrottlerGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @Throttle(10, 60)
   async create(@Body() signupUserDto: SignupUserInputDTO): Promise<User> {
     return await this.userService.create(signupUserDto)
   }
 
   @Get()
+  @Throttle(10, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.userService.findAll(queries)
   }
 
   @Get(':email')
+  @Throttle(10, 60)
   async findOneByEmail(@Param('email') email: string): Promise<User> {
     return await this.userService.findOneByEmail(email)
   }
 
   @Patch(':id')
+  @Throttle(10, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler)
   @Roles(Role.Advertiser)
@@ -48,10 +54,9 @@ export class UserController {
   }
 
   @Delete(':id')
+  @Throttle(10, 60)
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Traveler)
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
+  @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     return await this.userService.remove(id)
   }

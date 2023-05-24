@@ -7,7 +7,9 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { Role } from '../../../config/enum/role.enum';
@@ -17,31 +19,32 @@ import { CreateActivityScheduleDto } from './dto/create-activity-schedule.dto';
 import { UpdateActivityScheduleDto } from './dto/update-activity-schedule.dto';
 
 @Controller('activity-schedule')
+@UseGuards(ThrottlerGuard)
 export class ActivityScheduleController {
-  constructor(
-    private readonly activityScheduleService: ActivityScheduleService,
-  ) {}
+  constructor(private readonly activityScheduleService: ActivityScheduleService) {}
 
   @Post()
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createActivityScheduleDto: CreateActivityScheduleDto) {
     return this.activityScheduleService.create(createActivityScheduleDto);
   }
 
   @Get()
+  @Throttle(10, 60)
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.activityScheduleService.findAll(queries);
   }
 
   @Get(':id')
+  @Throttle(10, 60)
   findOne(@Param('id') id: string) {
     return this.activityScheduleService.findOne(id);
   }
 
   @Patch(':id')
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @Roles(Role.Advertiser, Role.Admin)
   update(
     @Param('id') id: string,
     @Body() updateActivityScheduleDto: UpdateActivityScheduleDto,
@@ -50,8 +53,8 @@ export class ActivityScheduleController {
   }
 
   @Delete(':id')
-  @Roles(Role.Advertiser)
-  @Roles(Role.Admin)
+  @Throttle(10, 60)
+  @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {
     return this.activityScheduleService.remove(id);
   }

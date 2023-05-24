@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -26,6 +27,7 @@ import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.m
 import { OpencageModule } from './opencage/opencage.module';
 import { UploadFileModule } from './upload-file/upload-file.module';
 import { CommentMarkModule } from './comment/comment-mark/comment-mark.module';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -39,6 +41,10 @@ import { CommentMarkModule } from './comment/comment-mark/comment-mark.module';
       database: process.env.POSTGRESQL_DATABASE_NAME,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+    }),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
     }),
     AuthModule,
     UserModule,
@@ -64,6 +70,10 @@ import { CommentMarkModule } from './comment/comment-mark/comment-mark.module';
     CommentMarkModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, {
+    provide: APP_GUARD,
+    useClass: ThrottlerGuard
+  }
+  ],
 })
-export class AppModule {}
+export class AppModule { }
