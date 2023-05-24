@@ -1,12 +1,18 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { IsArray, IsObject, IsString } from 'class-validator';
 
 import { Activity } from '../../../activity/entities/activity.entity';
 import { User } from '../../../user/entities/user.entity';
-import { CreateAdvertiserDto } from './create-advertiser.dto';
 
-export class UpdateAdvertiserDto extends PartialType(CreateAdvertiserDto) {
+export class UpdateAdvertiserDto {
+  @IsString()
   name: string;
+
+  @IsString()
   location: string;
+
+  @IsArray()
   activities: Activity[];
+
+  @IsObject()
   user: User;
 }
