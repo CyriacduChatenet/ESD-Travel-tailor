@@ -28,7 +28,7 @@ export const ActivityList: FC<IProps> = ({ days, dayCurrent }) => {
                             <div className='flex justify-between lg:justify-around w-full lg:mx-12'>
                                 <p className='w-10/12 md:w-full'>{timeSlot.activity.name}</p>
                                     <p className='hidden md:block lg:mr-8'>{timeSlot.activity.detail.duration}h</p>
-                                    <p className='w-2/12 md:w-full'>{timeSlot.activity.mark}/10</p>
+                                    <p className='w-2/12 md:w-full'>{timeSlot.activity.marks.global}/5</p>
                             </div>
                             <div className='lg:col-span-2'>
                                 <Icon icon="material-symbols:chevron-right" className='w-6 h-6' />

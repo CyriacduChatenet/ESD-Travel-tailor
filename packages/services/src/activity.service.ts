@@ -1,7 +1,6 @@
 import { useFetch } from '@travel-tailor/hooks'
 import { Activity, ActivityTag, Comment, CreateActivityDTO, UpdateActivityDTO } from '@travel-tailor/types'
 import { ActivityDetailService } from './activity-detail.service'
-import { ActivityTagService } from './activity-tag.service'
 import { CommentService } from './comment.service'
 import { Dispatch, SetStateAction } from 'react'
 import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/constants'
@@ -99,7 +98,7 @@ const createActivityWithRelations = async (api_url: string, credentials: CreateA
     ac.tags = tags;
   }
 
-  await updateActivity(api_url, activity.id, activity, setError);
+  await updateActivity(api_url, activity.id, {...activity} as UpdateActivityDTO, setError);
 
   return ac;
 }
