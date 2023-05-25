@@ -10,6 +10,7 @@ import { StripeCustomerService } from './stripe-customer.service';
 import { OpencageModule } from '../opencage/opencage.module';
 import { MailModule } from '../mail/mail.module';
 import { StripeWebhookService } from './stripe-webhook.service';
+import { StripeWebhookController } from './stripe-webhook.controller';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { StripeWebhookService } from './stripe-webhook.service';
     forwardRef(() => CustomerModule),
     OpencageModule,
   ],
-  controllers: [PaymentController],
+  controllers: [PaymentController, StripeWebhookController],
   providers: [PaymentService, StripeCustomerService, StripeWebhookService],
   exports: [PaymentService, StripeCustomerService],
 })

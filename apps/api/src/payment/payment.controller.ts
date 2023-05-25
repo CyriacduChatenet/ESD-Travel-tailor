@@ -5,7 +5,6 @@ import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 import { PaymentService } from './payment.service'
 import { OpencageService } from '../opencage/opencage.service';
-import { StripeWebhookService } from './stripe-webhook.service';
 import { Roles } from '../config/decorators/roles.decorator';
 import { Role } from '../config/enum/role.enum';
 
@@ -16,7 +15,6 @@ export class PaymentController {
     @InjectStripe() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
     private opencageService: OpencageService,
-    private stripeWebhookService: StripeWebhookService,
   ) { }
 
 
@@ -31,12 +29,5 @@ export class PaymentController {
     };
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
-  }
-
-  @Post('webhook')
-  @Throttle(10, 60)
-  @Roles(Role.Advertiser, Role.Admin)
-  async webhook(@Body() body) {
-    return await this.stripeWebhookService.paymentWebhook(body);
   }
 }
