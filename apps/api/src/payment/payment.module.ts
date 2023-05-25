@@ -21,7 +21,7 @@ import { StripeWebhookService } from './stripe-webhook.service';
       apiVersion: '2022-11-15',
       webhookConfig: {
         stripeSecrets: {
-          account: process.env.STRIPE_WEBHOOK_SECRET,
+          account: process.env.STRIPE_WEBHOOK_SIGNIN_SECRET,
           connect: process.env.STRIPE_WEBHOOK_SECRET,
         },
         decorators: [SkipThrottle()],
