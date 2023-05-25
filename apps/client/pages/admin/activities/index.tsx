@@ -31,12 +31,16 @@ const AdminDashboardActivitiesPage: NextPage<IProps> = ({ data, user }) => {
     const error = {};
 
     const handleFetch = async () => {
-        const res = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`, error,`?page=${page}&limit=10&sortedBy=DESC`);
-        if (res) setResponse(res);
+        const res = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`, error, `?page=${page}&limit=10&sortedBy=DESC`);
+        if (res) {
+            setResponse(await res);
+        }
     }
 
     useMemo(() => {
+        if (page > 1) {
             handleFetch();
+        }
     }, [page, user]);
 
     return (
@@ -46,7 +50,7 @@ const AdminDashboardActivitiesPage: NextPage<IProps> = ({ data, user }) => {
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Activities</h1>
                         <section className="my-8">
-                            <ActivityTable data={data.data} />
+                            <ActivityTable data={response.data} />
                         </section>
                         <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />
                     </section>
@@ -68,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const accessToken = parsedCookies.accessToken;
     const decodedToken = jwtDecode(accessToken) as AccessToken;
 
-    if(accessToken) {
+    if (accessToken) {
         user = await UserService.getUserByToken(`${process.env.API_URL}`, decodedToken.email, error);
         response = await ActivityService.findAllActivities(`${process.env.API_URL}`, error, `?page=1&limit=10&sortedBy=DESC`);
     }

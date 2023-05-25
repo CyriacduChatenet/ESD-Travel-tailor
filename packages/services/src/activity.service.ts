@@ -9,7 +9,7 @@ import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 
 const findAllActivities = async (api_url: string, setError: any, params: string) => {
-  const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}?${params}`, setError)
+  const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}${params}`, setError)
   return data;
 }
 
