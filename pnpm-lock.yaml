@@ -19,6 +19,12 @@ importers:
 
   apps/api:
     dependencies:
+      '@golevelup/nestjs-stripe':
+        specifier: ^0.6.1
+        version: 0.6.1(@nestjs/common@9.2.1)(rxjs@7.8.0)(stripe@11.16.0)
+      '@golevelup/nestjs-webhooks':
+        specifier: ^0.2.14
+        version: 0.2.14(@nestjs/common@9.2.1)(rxjs@7.8.0)
       '@nestjs-modules/mailer':
         specifier: ^1.8.1
         version: 1.8.1(@nestjs/common@9.2.1)(@nestjs/core@9.2.1)(nodemailer@6.9.1)
@@ -91,9 +97,6 @@ importers:
       moment:
         specifier: ^2.29.4
         version: 2.29.4
-      nestjs-stripe:
-        specifier: ^1.0.0
-        version: 1.0.0(@nestjs/common@9.2.1)(@nestjs/core@9.2.1)(reflect-metadata@0.1.13)(rxjs@7.8.0)(stripe@11.16.0)
       nodemailer:
         specifier: ^6.9.1
         version: 6.9.1
@@ -677,6 +680,55 @@ packages:
   /@eslint/js@8.40.0:
     resolution: {integrity: sha512-ElyB54bJIhXQYVKjDSvCkPO1iU1tSAeVQJbllWJq1XQSmmA4dgFk8CbiBGpiOPxleE48vDogxCtmMYku4HSVLA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: false
+
+  /@golevelup/nestjs-common@1.4.4:
+    resolution: {integrity: sha512-NTjtOhHTMuGwiR3lmBQKKaRr++mHQEsh8AxtaH+/EWOYKMK2Cv/8duaH9MQ0hI3TwnouyaA5IRxYR1ZCUyNXOQ==}
+    dependencies:
+      nanoid: 3.3.6
+    dev: false
+
+  /@golevelup/nestjs-discovery@3.0.0:
+    resolution: {integrity: sha512-ZvkXtobTKxXB1LJanP/l6Z/Fing88IMBr3uabQpU2IWjfsstjh02qYDSU2cfD6CSmNldX5ewW5Pd+SdK2lU8Sw==}
+    dependencies:
+      lodash: 4.17.21
+    dev: false
+
+  /@golevelup/nestjs-modules@0.6.1(@nestjs/common@9.2.1)(rxjs@7.8.0):
+    resolution: {integrity: sha512-E0STg8In8fhIivnGDJAA70+XLPHzK5bMTkCnif9FbZ8waTYDQ3T/QQL0h73k+CUFeznn1hmuEW14sNaE+8cd7w==}
+    peerDependencies:
+      '@nestjs/common': ^9.x
+      rxjs: ^7.x
+    dependencies:
+      '@nestjs/common': 9.2.1(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      lodash: 4.17.21
+      rxjs: 7.8.0
+    dev: false
+
+  /@golevelup/nestjs-stripe@0.6.1(@nestjs/common@9.2.1)(rxjs@7.8.0)(stripe@11.16.0):
+    resolution: {integrity: sha512-5RVaD+AVA7gy6GZRH6cF1Oka3NmIXkiZ/R+tODpP67IaOjaEP8kUF0ZaAJipS54m4o4nsXyTMlKkyJA+ekiflA==}
+    peerDependencies:
+      stripe: ^11.12.0
+    dependencies:
+      '@golevelup/nestjs-common': 1.4.4
+      '@golevelup/nestjs-discovery': 3.0.0
+      '@golevelup/nestjs-modules': 0.6.1(@nestjs/common@9.2.1)(rxjs@7.8.0)
+      stripe: 11.16.0
+    transitivePeerDependencies:
+      - '@nestjs/common'
+      - rxjs
+    dev: false
+
+  /@golevelup/nestjs-webhooks@0.2.14(@nestjs/common@9.2.1)(rxjs@7.8.0):
+    resolution: {integrity: sha512-DXGzPCbyZIjscU+YkzoaKniqTMTNVI41nyJuRNFdAJdtayxW83GOii7KKLMGI0LpfuPDMLb7Q628TG6SuQxQXQ==}
+    peerDependencies:
+      body-parser: ^1.19.0
+    dependencies:
+      '@golevelup/nestjs-common': 1.4.4
+      '@golevelup/nestjs-modules': 0.6.1(@nestjs/common@9.2.1)(rxjs@7.8.0)
+    transitivePeerDependencies:
+      - '@nestjs/common'
+      - rxjs
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
@@ -6487,22 +6539,6 @@ packages:
 
   /neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
-
-  /nestjs-stripe@1.0.0(@nestjs/common@9.2.1)(@nestjs/core@9.2.1)(reflect-metadata@0.1.13)(rxjs@7.8.0)(stripe@11.16.0):
-    resolution: {integrity: sha512-esBcx9CTix8hfk+wkwVg7IvJcCXXa8e7NAtJLWgW/fb4vOFCp1Ai5EpEgV3hZKoPCERL/DtvKM0tvME+iWWf0Q==}
-    peerDependencies:
-      '@nestjs/common': ^6.0.0 || ^7.0.0 || ^8.0.0
-      '@nestjs/core': ^6.0.0 || ^7.0.0 || ^8.0.0
-      reflect-metadata: ^0.1.12
-      rxjs: ^6.0.0 || ^7.1.0
-      stripe: ^8.0.0
-    dependencies:
-      '@nestjs/common': 9.2.1(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
-      '@nestjs/core': 9.2.1(@nestjs/common@9.2.1)(@nestjs/platform-express@9.2.1)(reflect-metadata@0.1.13)(rxjs@7.8.0)
-      reflect-metadata: 0.1.13
-      rxjs: 7.8.0
-      stripe: 11.16.0
-    dev: false
 
   /netmask@2.0.2:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==}
