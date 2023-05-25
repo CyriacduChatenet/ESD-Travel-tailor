@@ -25,7 +25,7 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   create(@Body() createCommentDto: CreateCommentDto, @Body('activity') activity: string) {
@@ -33,25 +33,25 @@ export class CommentController {
   }
 
   @Get()
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.commentService.findAll(queries)
   }
 
   @Get('/activity/:id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   findAllByActivityId(@Query() queries: ApiLimitResourceQuery, @Param('id') activityId: string) {
     return this.commentService.findAllByActivityId(queries, activityId)
   }
 
   @Get(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   findOne(@Param('id') id: string) {
     return this.commentService.findOne(id)
   }
 
   @Patch(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
@@ -59,7 +59,7 @@ export class CommentController {
   }
 
   @Delete(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {
