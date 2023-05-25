@@ -5,9 +5,9 @@ import { ActivityTag, CreateActivityTagDTO, UpdateActivityTagDTO } from "@travel
 import { TokenService } from "./token.service";
 import { Dispatch, SetStateAction } from "@travel-tailor/functions";
 
-const findAllActivityTags = async (api_url: string, query: string, setError: Dispatch<SetStateAction<any>> | any): Promise<ActivityTag[]> => {
+const findAllActivityTags = async (api_url: string, query: string, setError: Dispatch<SetStateAction<any>> | any) => {
     const data = await useFetch.get(`${api_url}${API_ACTIVITY_TAG_ROUTE}${query}`, setError)
-    return data.data
+    return data;
 };
 
 const findActivityTagById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<ActivityTag> => {

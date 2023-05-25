@@ -1,4 +1,5 @@
 import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag } from "@/../../packages/types/src";
+import { Icon } from "@iconify/react";
 import moment from "moment";
 import { FC } from "react";
 
@@ -31,15 +32,24 @@ export const ActivityTable: FC<IProps> = ({ data }) => {
                         <td className="py-2 px-4 border-b">{activity.detail.duration}h</td>
                         <td className="py-2 px-4 border-b">{activity.detail.location}</td>
                         <td className="py-2 px-4 border-b"></td>
-                        <td className="py-2 px-4 border-b">{activity.detail.schedules?.map((schedule: ActivitySchedule) => 
+                        <td className="py-2 px-4 border-b">{activity.detail.schedules?.map((schedule: ActivitySchedule) =>
                             <span key={schedule.id}>{schedule.opening_at} - {schedule.closing_at}</span>)}
                         </td>
-                        <td className="py-2 px-4 border-b">{activity.detail.closingDays?.map((closingDay: ActivityClosingDay) => 
+                        <td className="py-2 px-4 border-b">{activity.detail.closingDays?.map((closingDay: ActivityClosingDay) =>
                             <span key={closingDay.id}>{moment(closingDay.date).format('DD/MM/YYYY')}</span>)}
                         </td>
                         <td className="py-2 px-4 border-b">{activity.tags.map((tag: ActivityTag) => <span key={tag.id} className="bg-blue-100 rounded-lg text-blue-500 py-1 px-2">{tag.name}</span>)}</td>
                         <td className="py-2 px-4 border-b">{moment(activity.createdAt).format('DD/MM/YYYY')}</td>
-                        <td className="py-2 px-4 border-b"></td>
+                        <td className="py-8 px-4 border-b">
+                            <div className="w-full h-full flex">
+                                <button>
+                                    <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
+                                </button>
+                                <button>
+                                    <Icon icon="material-symbols:delete" className="w-6 h-6" />
+                                </button>
+                            </div>
+                        </td>
                     </tr>)}
             </tbody>
         </table>

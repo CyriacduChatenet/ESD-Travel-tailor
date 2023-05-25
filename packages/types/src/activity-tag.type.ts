@@ -4,6 +4,9 @@ export type ActivityTag = {
   id: string
   name: string
   activities?: Activity[]
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export type CreateActivityTagDTO = {
