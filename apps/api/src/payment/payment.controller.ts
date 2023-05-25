@@ -21,7 +21,7 @@ export class PaymentController {
   @Post('checkout')
   @Throttle(10, 60)
   @Roles(Role.Advertiser, Role.Admin)
-  async createCheckoutSession(@Body() { location, amount }: { location: string, amount: number }): Promise<{ sessionId: string }> {
+  async createCheckoutSession(@Body() { amount }: { amount: number }): Promise<{ sessionId: string }> {
     // const currency = await this.opencageService.getCurrency({ location });
     const createCheckoutDto: { currency: string, amount: number } = {
       currency: 'eur',
