@@ -1,5 +1,5 @@
 import { useRouter, usePathname } from "next/navigation";
-import { Dispatch, FC, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
@@ -33,7 +33,7 @@ export const CreateAdvertiserForm: FC<IProps> = ({ token }) => {
     }
 
     const onSubmit = async (data: ICreateAdvertiserForm) => {
-        const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors, token);
+        const advertiser = await AdvertiserService.createAdvertiser(String(process.env.NEXT_PUBLIC_API_URL), data, setApiErrors, token);
         if (advertiser && apiErrors.message === undefined) {
             await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19, 100), { advertiser: advertiser.id }, setApiErrors);
             handleRedirect(`${advertiser.id}`)
