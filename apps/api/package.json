@@ -15,6 +15,8 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
+    "@golevelup/nestjs-stripe": "^0.6.1",
+    "@golevelup/nestjs-webhooks": "^0.2.14",
     "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
@@ -39,7 +41,6 @@
     "i": "^0.3.7",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
-    "nestjs-stripe": "^1.0.0",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",

@@ -1,6 +1,8 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { StripeModule } from 'nestjs-stripe';
+import { forwardRef, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { StripeModule } from '@golevelup/nestjs-stripe';
+import { applyRawBodyOnlyTo } from '@golevelup/nestjs-webhooks';
 import { ConfigModule } from '@nestjs/config';
+import { SkipThrottle } from '@nestjs/throttler';
 
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
@@ -14,9 +16,16 @@ import { StripeWebhookService } from './stripe-webhook.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    StripeModule.forRoot({
-      apiKey: process.env.STRIPE_API_KEY,
+    StripeModule.forRoot(StripeModule, {
+      apiKey: process.env.STRIPE_SECRET_KEY,
       apiVersion: '2022-11-15',
+      webhookConfig: {
+        stripeSecrets: {
+          account: process.env.STRIPE_WEBHOOK_SIGNIN_SECRET,
+          connect: process.env.STRIPE_WEBHOOK_SECRET,
+        },
+        decorators: [SkipThrottle()],
+      },
     }),
     MailModule,
     OrderModule,
@@ -27,4 +36,11 @@ import { StripeWebhookService } from './stripe-webhook.service';
   providers: [PaymentService, StripeCustomerService, StripeWebhookService],
   exports: [PaymentService, StripeCustomerService],
 })
-export class PaymentModule {}
+export class PaymentModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    applyRawBodyOnlyTo(consumer, {
+      method: RequestMethod.ALL,
+      path: 'stripe/webhook',
+    });
+  }
+}
