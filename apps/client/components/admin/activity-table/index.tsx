@@ -1,13 +1,34 @@
+import { ActivityService } from "@/../../packages/services/src";
 import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag } from "@/../../packages/types/src";
 import { Icon } from "@iconify/react";
 import moment from "moment";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
-    data: Activity[];
+    data: {
+        page: number;
+        limit: number;
+        total: number;
+        data: Activity[];
+    };
+    setData: Dispatch<SetStateAction<{
+        page: number;
+        limit: number;
+        total: number;
+        data: Activity[];
+    }>>
 }
 
-export const ActivityTable: FC<IProps> = ({ data }) => {
+export const ActivityTable: FC<IProps> = ({ data, setData }) => {
+    const [errors, setErrors] = useState({});
+
+    const handleDelete = async (id: string) => {
+        const response = await ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`, id, errors);
+        if(response) {
+            setData({...data, data: data.data.filter((activity: Activity) => activity.id !== id)});
+        }
+    }
+
     return (
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
@@ -25,7 +46,7 @@ export const ActivityTable: FC<IProps> = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((activity: Activity) =>
+                {data.data.map((activity: Activity) =>
                     <tr key={activity.id}>
                         <td className="py-2 px-4 border-b">{activity.id}</td>
                         <td className="py-2 px-4 border-b">{activity.name}</td>
@@ -45,7 +66,7 @@ export const ActivityTable: FC<IProps> = ({ data }) => {
                                 <button>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button>
+                                <button onClick={() => handleDelete(activity.id)}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

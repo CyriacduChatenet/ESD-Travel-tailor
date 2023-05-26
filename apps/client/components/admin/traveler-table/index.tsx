@@ -1,13 +1,34 @@
+import { TravelerService } from "@/../../packages/services/src";
 import { Comment, Taste, Travel, Traveler } from "@/../../packages/types/src";
 import { Icon } from "@iconify/react";
 import moment from "moment";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
-    data: Traveler[];
+    data: {
+        page: number;
+        limit: number;
+        total: number;
+        data: Traveler[];
+    },
+    setData: Dispatch<SetStateAction<{
+        page: number;
+        limit: number;
+        total: number;
+        data: Traveler[];
+    }>>
 }
 
-export const TravelerTable: FC<IProps> = ({ data }) => {
+export const TravelerTable: FC<IProps> = ({ data, setData }) => {
+    const [errors, setErrors] = useState({});
+
+    const handleDelete = async (id: string) => {
+        const response = await TravelerService.deleteTraveler(`${process.env.NEXT_PUBLIC_API_URL}`, id, setErrors);
+        if(response) {
+            setData({...data, data: data.data.filter((traveler: Traveler) => traveler.id !== id)});
+        }
+    };
+
     return (
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
@@ -21,7 +42,7 @@ export const TravelerTable: FC<IProps> = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((traveler: Traveler) =>
+                {data.data.map((traveler: Traveler) =>
                     <tr key={traveler.id}>
                         <td className="py-2 px-4 border-b">{traveler.id}</td>
                         <td className="py-2 px-4 border-b">{traveler.tastes.map((taste: Taste) => <span key={taste.id} className="bg-blue-100 rounded-lg text-blue-500 py-1 px-2">{taste.id}</span>)}</td>
@@ -33,7 +54,7 @@ export const TravelerTable: FC<IProps> = ({ data }) => {
                                 <button>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button>
+                                <button onClick={() => handleDelete(traveler.id)}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

@@ -1,13 +1,35 @@
+import { ActivityTagService } from "@/../../packages/services/src";
 import { Activity, ActivityTag } from "@/../../packages/types/src";
 import { Icon } from "@iconify/react";
 import moment from "moment";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
-    data: ActivityTag[];
+    data: {
+        page: number;
+        limit: number;
+        total: number;
+        data: ActivityTag[];
+    };
+
+    setData: Dispatch<SetStateAction<{
+        page: number;
+        limit: number;
+        total: number;
+        data: ActivityTag[];
+    }>>
 }
 
-export const TagTable: FC<IProps> = ({ data }) => {
+export const TagTable: FC<IProps> = ({ data, setData }) => {
+    const [errors, setErrors] = useState({});
+
+    const handleDelete = async (id: string) => {
+        const response = await ActivityTagService.deleteActivityTag(`${process.env.NEXT_PUBLIC_API_URL}`, id, errors);
+        if(response) {
+            setData({...data, data: data.data.filter((tag: ActivityTag) => tag.id !== id)});
+        }
+    }
+
     return (
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
@@ -20,7 +42,7 @@ export const TagTable: FC<IProps> = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((tag: ActivityTag) =>
+                {data.data.map((tag: ActivityTag) =>
                     <tr key={tag.id}>
                         <td className="py-2 px-4 border-b">{tag.id}</td>
                         <td className="py-2 px-4 border-b">{tag.name}</td>
@@ -31,7 +53,7 @@ export const TagTable: FC<IProps> = ({ data }) => {
                                 <button>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button>
+                                <button onClick={() => handleDelete(tag.id)}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

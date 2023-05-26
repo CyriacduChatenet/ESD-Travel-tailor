@@ -50,7 +50,7 @@ const AdminDashboardAdvertiserPage: NextPage<IProps> = ({ data, user }) => {
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Advertiser</h1>
                         <section className="my-8">
-                            <AdvertiserTable data={response.data} />
+                            <AdvertiserTable data={response} setData={setResponse} />
                         </section>
                         <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />
                     </section>
