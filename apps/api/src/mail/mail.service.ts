@@ -26,7 +26,9 @@ export class MailService {
       subject: 'Reset password demand',
       template: 'forgot-password',
       context: {
-        resetLink
+        resetLink,
+        reciever,
+        url: this.configService.get('CLIENT_APP_URL')
       }
     })
   }
@@ -37,6 +39,10 @@ export class MailService {
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Your password has been reset',
       template: 'reset-password',
+      context: {
+        reciever,
+        url: this.configService.get('CLIENT_APP_URL')
+      }
     })
   }
 
@@ -45,11 +51,18 @@ export class MailService {
       to: reciever,
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Your invoice',
-      text: 'welcome',
       attachments: [
         attachement
       ],
       template: 'invoice',
+      context: {
+        reciever,
+        url: this.configService.get('CLIENT_APP_URL'),
+        invoiceNumber: 2,
+        invoiceDate: new Date().toLocaleDateString(),
+        invoiceAmount: 1000,
+        PaymentMethod: 'Credit card',
+      }
     })
   }
 }
