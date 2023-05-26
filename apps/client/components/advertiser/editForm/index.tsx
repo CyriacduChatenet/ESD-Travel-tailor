@@ -45,7 +45,9 @@ export const EditAdvertiserForm: FC = () => {
     }
 
     const onSubmit = async (data: IEditAdvertiserForm) => {
-        const advertiser = await AdvertiserService.createAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, data, setApiErrors);
+        const cookies = document.cookie;
+        const cookie = parse(cookies);
+        const advertiser = await AdvertiserService.updateAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19, 100), data, cookie.accessToken, setApiErrors);
         if (advertiser && apiErrors.message === undefined) {
             await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19, 100), { advertiser: advertiser.id }, setApiErrors);
             handleRedirect(`${advertiser.id}`)

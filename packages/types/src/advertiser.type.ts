@@ -24,6 +24,6 @@ export type CreateAdvertiserDTO = {
 export type UpdateAdvertiserDTO = {
   name: string
   location: string
-  user: string[]
-  activities: string[]
+  user?: string
+  activities?: string[]
 }
