@@ -19,7 +19,7 @@ export class PaymentController {
 
 
   @Post('checkout')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @Roles(Role.Advertiser, Role.Admin)
   async createCheckoutSession(@Body() { amount }: { amount: number }): Promise<{ sessionId: string }> {
     // const currency = await this.opencageService.getCurrency({ location });
@@ -29,5 +29,12 @@ export class PaymentController {
     };
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
+  }
+  
+  @Post('webhook')
+  @Throttle(20, 60)
+  @Roles(Role.Advertiser, Role.Admin)
+  async webhook(@Body() body) {
+    return await this.stripeWebhookService.paymentWebhook(body);
   }
 }

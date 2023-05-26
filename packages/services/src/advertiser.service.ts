@@ -3,9 +3,9 @@ import { Dispatch, SetStateAction } from '@travel-tailor/functions';
 import { useFetch } from '@travel-tailor/hooks';
 import { Advertiser, CreateAdvertiserDTO, UpdateAdvertiserDTO } from '@travel-tailor/types';
 
-const findAllAdvertiser = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Advertiser[]> => {
- const data = await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}`, setError);
-  return data.data
+const findAllAdvertiser = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any, param: string) => {
+ const data = await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}${param}`, setError);
+  return data;
 };
 
 const findAdvertiserById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Advertiser> => {

@@ -29,7 +29,7 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @Post()
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   @UseInterceptors(FilesInterceptor('image'))
@@ -38,31 +38,27 @@ export class ActivityController {
   }
 
   @Get()
-  @Throttle(10, 60)
   findAll(@Query() queries: ActivityQuery) {
     return this.activityService.findAll(queries)
   }
 
   @Get(':id')
-  @Throttle(10, 60)
   findOneByName(@Param('id') id: string) {
     return this.activityService.findOne(id)
   }
 
   @Get('name/:slug')
-  @Throttle(10, 60)
   findOne(@Param('slug') slug: string) {
     return this.activityService.findOneByName(slug)
   }
 
   @Get('/advertiser/:id')
-  @Throttle(10, 60)
   async findAllByTraveler(@Param('id') advertiserId: string, @Query('page') page = 1, @Query('limit') limit = 10) {
     return await this.activityService.findAllByAdvertiserId(advertiserId, page, limit);
   };
 
   @Patch(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   update(
@@ -73,7 +69,7 @@ export class ActivityController {
   }
 
   @Delete(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {

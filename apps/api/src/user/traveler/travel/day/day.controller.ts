@@ -15,7 +15,7 @@ export class DayController {
   constructor(private readonly dayService: DayService) {}
 
   @Post()
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async create(@Body() createDayDto: CreateDayDto) {
@@ -23,19 +23,19 @@ export class DayController {
   }
 
   @Get()
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.dayService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   async findOne(@Param('id') id: string) {
     return await this.dayService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async update(@Param('id') id: string, @Body() updateDayDto: UpdateDayDto) {
@@ -43,7 +43,7 @@ export class DayController {
   }
 
   @Delete(':id')
-  @Throttle(10, 60)
+  @Throttle(20, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {

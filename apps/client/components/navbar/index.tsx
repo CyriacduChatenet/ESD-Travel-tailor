@@ -23,6 +23,9 @@ export const Navbar: FC = () => {
         case ROLES.TRAVELER:
           setRole(ROLES.TRAVELER);
           break;
+        case ROLES.ADMIN:
+          setRole(ROLES.ADMIN);
+          break;
       }
     }
   };

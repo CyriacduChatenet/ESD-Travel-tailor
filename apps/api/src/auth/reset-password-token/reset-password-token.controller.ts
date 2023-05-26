@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 
 import { ResetPasswordTokenService } from './reset-password-token.service';
 import { UpdateResetPasswordTokenDto } from './dto/update-reset-password-token.dto';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { Roles } from '../../config/decorators/roles.decorator';
+import { Role } from '../../config/enum/role.enum';
 
 @Controller('reset-password-token')
+@UseGuards(ThrottlerGuard)
 export class ResetPasswordTokenController {
   constructor(private readonly resetPasswordTokenService: ResetPasswordTokenService) {}
 
@@ -23,11 +28,17 @@ export class ResetPasswordTokenController {
   }
 
   @Patch(':id')
+  @Throttle(20, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser, Role.Traveler, Role.Admin)
   async update(@Param('id') id: string, @Body() updateResetPasswordTokenDto: UpdateResetPasswordTokenDto) {
     return await this.resetPasswordTokenService.update(id, updateResetPasswordTokenDto);
   }
 
   @Delete(':id')
+  @Throttle(20, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser, Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {
     return await this.resetPasswordTokenService.remove(id);
   }
