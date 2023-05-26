@@ -12,6 +12,10 @@ export class MailService {
       from: this.configService.get('MAILER_EMAIL'),
       subject: 'Welcome to Travel Tailor',
       template: 'signup',
+      context: {
+        reciever,
+        url: this.configService.get('CLIENT_APP_URL')
+      }
     })
   }
 
