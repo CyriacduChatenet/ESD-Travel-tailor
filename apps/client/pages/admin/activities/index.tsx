@@ -9,6 +9,8 @@ import { Layout } from "@/components/layout";
 import { AuthChecker } from "@/components/auth/authChecker";
 import { ActivityTable } from "@/components/admin/activity-table";
 import { Paginator } from "@/components/paginator";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/../../packages/constants/src";
 
 interface IProps {
     data: {
@@ -28,7 +30,12 @@ const AdminDashboardActivitiesPage: NextPage<IProps> = ({ data, user }) => {
         total: number;
         data: Activity[];
     }>(data);
+    const router = useRouter();
     const error = {};
+
+    const handleCreate = async () => {
+        return router.push(ROUTES.ACTIVITY.CREATE)
+    }
 
     const handleFetch = async () => {
         const res = await ActivityService.findAllActivities(`${process.env.NEXT_PUBLIC_API_URL}`, error, `?page=${page}&limit=10&sortedBy=DESC`);
@@ -50,6 +57,9 @@ const AdminDashboardActivitiesPage: NextPage<IProps> = ({ data, user }) => {
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Activities</h1>
                         <section className="my-8">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleCreate()}>Create</button>
+                            <br />
+                            <br />
                             <ActivityTable data={response} setData={setResponse} />
                         </section>
                         <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />

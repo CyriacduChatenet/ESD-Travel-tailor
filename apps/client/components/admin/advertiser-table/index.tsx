@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { parse } from "cookie";
 import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
@@ -24,6 +25,7 @@ interface IProps {
 
 export const AdvertiserTable: FC<IProps> = ({ data, setData }) => {
     const [errors, setErrors] = useState({});
+    const router = useRouter();
 
     const handleDelete = async (id: string) => {
         const cookies = parse(document.cookie);
@@ -31,6 +33,10 @@ export const AdvertiserTable: FC<IProps> = ({ data, setData }) => {
         if(response) {
             setData({...data, data: data.data.filter((advertiser: Advertiser) => advertiser.id !== id)});
         }
+    };
+
+    const handleUpdate = (id: string) => {
+        return router.push(`${ROUTES.ADVERTISER.EDIT}/${id}`);
     };
 
     return (
@@ -55,7 +61,7 @@ export const AdvertiserTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(advertiser.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-2 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button>
+                                <button onClick={() => handleUpdate(String(advertiser.id))}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
                                 <button onClick={() => handleDelete(String(advertiser.id))}>

@@ -1,7 +1,9 @@
+import { ROUTES } from "@/../../packages/constants/src";
 import { ActivityService } from "@/../../packages/services/src";
 import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag } from "@/../../packages/types/src";
 import { Icon } from "@iconify/react";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
@@ -21,6 +23,7 @@ interface IProps {
 
 export const ActivityTable: FC<IProps> = ({ data, setData }) => {
     const [errors, setErrors] = useState({});
+    const router = useRouter();
 
     const handleDelete = async (id: string) => {
         const response = await ActivityService.deleteActivity(`${process.env.NEXT_PUBLIC_API_URL}`, id, errors);
@@ -28,6 +31,10 @@ export const ActivityTable: FC<IProps> = ({ data, setData }) => {
             setData({...data, data: data.data.filter((activity: Activity) => activity.id !== id)});
         }
     }
+
+    const handleUpdate = async (slug: string) => {
+        return router.push(`${ROUTES.ACTIVITY.EDIT}/${slug}`)
+    };
 
     return (
         <table className="min-w-full bg-white border border-gray-200">
@@ -63,7 +70,7 @@ export const ActivityTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(activity.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button>
+                                <button onClick={() => handleUpdate(activity.slug)}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
                                 <button onClick={() => handleDelete(activity.id)}>

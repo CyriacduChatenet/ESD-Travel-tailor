@@ -1,7 +1,9 @@
+import { ROUTES } from "@/../../packages/constants/src";
 import { ActivityTagService } from "@/../../packages/services/src";
 import { Activity, ActivityTag } from "@/../../packages/types/src";
 import { Icon } from "@iconify/react";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
@@ -22,12 +24,17 @@ interface IProps {
 
 export const TagTable: FC<IProps> = ({ data, setData }) => {
     const [errors, setErrors] = useState({});
+    const router = useRouter();
 
     const handleDelete = async (id: string) => {
         const response = await ActivityTagService.deleteActivityTag(`${process.env.NEXT_PUBLIC_API_URL}`, id, errors);
         if(response) {
             setData({...data, data: data.data.filter((tag: ActivityTag) => tag.id !== id)});
         }
+    }
+
+    const handleUpdate = async (id: string) => {
+        return router.push(`${ROUTES.TAGS.EDIT}/${id}`)
     }
 
     return (
@@ -50,7 +57,7 @@ export const TagTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(tag.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button>
+                                <button onClick={() => handleUpdate(tag.id)}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
                                 <button onClick={() => handleDelete(tag.id)}>

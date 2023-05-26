@@ -2,6 +2,7 @@ import { TravelerService } from "@/../../packages/services/src";
 import { Comment, Taste, Travel, Traveler } from "@/../../packages/types/src";
 import { Icon } from "@iconify/react";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
@@ -21,6 +22,7 @@ interface IProps {
 
 export const TravelerTable: FC<IProps> = ({ data, setData }) => {
     const [errors, setErrors] = useState({});
+    const router = useRouter();
 
     const handleDelete = async (id: string) => {
         const response = await TravelerService.deleteTraveler(`${process.env.NEXT_PUBLIC_API_URL}`, id, setErrors);
@@ -51,9 +53,6 @@ export const TravelerTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(traveler.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button>
-                                    <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
-                                </button>
                                 <button onClick={() => handleDelete(traveler.id)}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>

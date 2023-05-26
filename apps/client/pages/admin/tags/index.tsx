@@ -9,6 +9,8 @@ import { Layout } from "@/components/layout";
 import { AuthChecker } from "@/components/auth/authChecker";
 import { TagTable } from "@/components/admin/tag-table";
 import { Paginator } from "@/components/paginator";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/../../packages/constants/src";
 
 interface IProps {
     data: {
@@ -28,7 +30,12 @@ const AdminDashboardTagsPage: NextPage<IProps> = ({ data, user }) => {
         total: number;
         data: ActivityTag[];
     }>(data);
+    const router = useRouter();
     const error = {};
+
+    const handleCreate = async () => {
+        return router.push(ROUTES.TAGS.CREATE)
+    }
 
     const handleFetch = async () => {
         const res = await ActivityTagService.findAllActivityTags(`${process.env.NEXT_PUBLIC_API_URL}`, `?page=${page}&limit=10&sortedBy=DESC`, error,);
@@ -50,6 +57,9 @@ const AdminDashboardTagsPage: NextPage<IProps> = ({ data, user }) => {
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Tags</h1>
                         <section className="my-8">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleCreate()}>Create</button>
+                            <br />
+                            <br />
                             <TagTable data={response} setData={setResponse} />
                         </section>
                         <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />
@@ -74,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     if (accessToken) {
         user = await UserService.getUserByToken(`${process.env.API_URL}`, decodedToken.email, error);
-        response = await ActivityTagService.findAllActivityTags(`${process.env.API_URL}`,`?page=1&limit=10&sortedBy=DESC`, error);
+        response = await ActivityTagService.findAllActivityTags(`${process.env.API_URL}`, `?page=1&limit=10&sortedBy=DESC`, error);
     }
     return {
         props: {

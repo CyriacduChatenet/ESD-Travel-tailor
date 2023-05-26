@@ -15,6 +15,7 @@ export const ROUTES = {
   TRAVELER: {
     DASHBOARD: '/traveler/dashboard',
     EDIT_TRAVELER: '/traveler/edit-travel',
+    EDIT: '/traveler/edit',
     TASTE: {
       INDEX: '/traveler/taste',
       CREATE: '/traveler/taste/create',
@@ -37,13 +38,21 @@ export const ROUTES = {
       CREATE_ACTIVITY: '/advertiser/activity/create',
       UPDATE_ACTIVITY: '/advertiser/activity/edit',
       INDEX: '/activity',
+      EDIT: '/activity/edit',
     },
     INDEX: '/advertiser',
+    EDIT: '/advertiser/edit',
     PAYMENT: '/advertiser/payment'
   },
   ROOT: '/',
   ACTIVITY: {
     INDEX: '/activity',
+    EDIT: '/activity/edit',
+    CREATE: '/activity/create',
+  },
+  TAGS: {
+    CREATE: '/tag/create',
+    EDIT: '/tag/edit',
   },
   SETTINGS: '/settings',
   SITE_MAP: '/site-map',

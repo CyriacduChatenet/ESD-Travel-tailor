@@ -9,6 +9,8 @@ import { parse } from "cookie";
 import { jwtDecode } from "@/../../packages/functions/src";
 import { AdvertiserService, UserService } from "@/../../packages/services/src";
 import { Paginator } from "@/components/paginator";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/../../packages/constants/src";
 
 interface IProps {
     data: {
@@ -28,7 +30,12 @@ const AdminDashboardAdvertiserPage: NextPage<IProps> = ({ data, user }) => {
         total: number;
         data: Advertiser[];
     }>(data);
+    const router = useRouter();
     const error = {};
+
+    const handleCreate = async () => {
+        return router.push(ROUTES.ADVERTISER.CREATE_ADVERTISER)
+    }
 
     const handleFetch = async () => {
         const res = await AdvertiserService.findAllAdvertiser(`${process.env.NEXT_PUBLIC_API_URL}`, error, `?page=${page}&limit=10&sortedBy=DESC`);
@@ -50,6 +57,9 @@ const AdminDashboardAdvertiserPage: NextPage<IProps> = ({ data, user }) => {
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Advertiser</h1>
                         <section className="my-8">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleCreate()}>Create</button>
+                            <br />
+                            <br />
                             <AdvertiserTable data={response} setData={setResponse} />
                         </section>
                         <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />
