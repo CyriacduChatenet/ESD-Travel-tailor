@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 
@@ -11,6 +11,8 @@ import { AccessToken, Activity, User } from "@/../../packages/types/src";
 import { ActivityService, UserService } from "@/../../packages/services/src";
 import { parse } from "cookie";
 import { jwtDecode } from "@/../../packages/functions/src";
+import { useHistory } from "@/../../packages/contexts/src";
+import { useRouter } from "next/router";
 
 interface IProps {
     res: {
@@ -27,6 +29,8 @@ const AdvertiserDashboardPage: NextPage<IProps> = ({ res, user }) => {
     const [page, setPage] = useState(1);
     const [response, setResponse] = useState(res);
     const [apiError, setApiError] = useState({});
+    const { setPathname } = useHistory();
+    const router = useRouter();
 
     const handleFetch = async () => {
         if (user) {
@@ -43,6 +47,10 @@ const AdvertiserDashboardPage: NextPage<IProps> = ({ res, user }) => {
             handleFetch();
         }
     }, [page, user]);
+
+    useEffect(() => {
+        setPathname(router.pathname);
+    }, []);
 
     return (
         <AuthChecker>
