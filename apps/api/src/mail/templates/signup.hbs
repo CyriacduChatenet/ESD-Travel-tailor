@@ -1,3 +1,67 @@
-<div>
-    <p>Welcome to Travel tailor your account has been successfully created</p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to Travel Manager!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header img {
+            max-width: 150px;
+        }
+        
+        .content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{url}}/next.svg" alt="Travel Manager Logo">
+            <h1>Welcome to Travel Manager!</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{reciever}},</p>
+            <p>Thank you for joining Travel Manager, the ultimate travel management platform. We're excited to have you on board!</p>
+            <p>With Travel Manager, you can easily plan your trips, track your itineraries, and stay organized throughout your journey.</p>
+            <p>Get started now and explore the world with Travel Manager!</p>
+            <p>
+                <a href="{{url}}/signin" class="cta-button">Sign In</a>
+            </p>
+            <p>If you have any questions or need assistance, feel free to contact our support team at support@travelmanager.com.</p>
+            <p>Happy travels!</p>
+            <p>The Travel Manager Team</p>
+        </div>
+    </div>
+</body>
+</html>

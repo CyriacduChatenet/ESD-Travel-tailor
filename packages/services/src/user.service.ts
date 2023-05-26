@@ -9,7 +9,7 @@ import { AdvertiserService } from './advertiser.service'
 import { Dispatch, SetStateAction } from 'react'
 
 const updateUser = (api_url: string, id: string, body: UpdateUserDTO, setError: Dispatch<SetStateAction<Error>>): Promise<User[]> => {
-  return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`,setError);
+  return useFetch.protectedPatch(`${api_url}${API_USER_ROUTE}/${id}`, body, `${TokenService.getSigninToken()}`, setError);
 }
 
 const getUserByToken = async (api_url: string, email: string, setError: Dispatch<SetStateAction<Error>> | any): Promise<User> => {
@@ -32,12 +32,14 @@ const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<Er
   }
 
   if ((user.roles) === ROLES.ADVERTISER) {
-    const advertiser = await AdvertiserService.findAdvertiserById(
-      api_url,
-      `${user?.advertiser?.id}`,
-      setError
-    )
-    return { ...user, ...advertiser }
+    if (user.advertiser) {
+      const advertiser = await AdvertiserService.findAdvertiserById(
+        api_url,
+        `${user?.advertiser?.id}`,
+        setError
+      )
+      return { ...user, ...advertiser }
+    }
   }
 }
 

@@ -38,7 +38,7 @@ export const SignupForm: FC = () => {
         }
     
         if (data.roles === ROLES.ADVERTISER) {
-          router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`)
+          router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${await user?.id}`)
         }
     
         if (data.roles === ROLES.ADMIN) {
@@ -56,7 +56,6 @@ export const SignupForm: FC = () => {
 
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
-            {/* {apiErrors.message.length > 0 && <p className="mb-2 text-red-500 text-xs italic">User is already exist</p>} */}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-gray-700 font-bold mb-2">

@@ -12,8 +12,8 @@ const findAdvertiserById = async (api_url: string, id: string, setError: Dispatc
   return await useFetch.get(`${api_url}${API_ADVERTISER_ROUTE}/${id}`, setError);
 };
 
-const createAdvertiser = (api_url: string, credentials: CreateAdvertiserDTO, setError: Dispatch<SetStateAction<any>> | any): Promise<Advertiser> => {
-  return useFetch.post(`${api_url}${API_ADVERTISER_ROUTE}`, credentials, setError)
+const createAdvertiser = (api_url: string, credentials: CreateAdvertiserDTO, setError: Dispatch<SetStateAction<any>> | any, token : string): Promise<Advertiser> => {
+  return useFetch.protectedPost(`${api_url}${API_ADVERTISER_ROUTE}`, credentials,token, setError)
 };
 
 const updateAdvertiser = async (api_url: string, id: string, credentials: UpdateAdvertiserDTO, token: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Advertiser> => {
