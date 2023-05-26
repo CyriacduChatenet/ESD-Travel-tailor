@@ -1,3 +1,94 @@
-<div>
-    <p>Your invoice for your trip</p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Payment Success - Travel Manager</title>
+    <style>
+        /* Votre CSS associé ici */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header img {
+            max-width: 150px;
+        }
+        
+        .content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .invoice {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .invoice-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .invoice-details {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{url}}/next.svg" alt="Travel Manager Logo">
+            <h1>Payment Successful - Travel Manager</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{reciever}},</p>
+            <p>We are happy to inform you that your payment for the following services has been successfully processed:</p>
+            <div class="invoice">
+                <h2 class="invoice-title">Invoice #{{invoiceNumber}}</h2>
+                <p class="invoice-details">
+                    <strong>Date:</strong> {{invoiceDate}}<br>
+                    <strong>Amount:</strong> {{invoiceAmount}}<br>
+                    <strong>Payment Method:</strong> {{paymentMethod}}
+                </p>
+            </div>
+            <p>Thank you for using Travel Manager for your travel needs. If you have any questions or need further assistance, feel free to contact our support team.</p>
+            <p>Happy travels!</p>
+            <p>
+                <a href="{{url}}/signin" class="cta-button">SignIn</a>
+            </p>
+            <p>If you need a copy of your invoice, you can download it from your account settings.</p>
+            <p>Best regards,</p>
+            <p>The Travel Manager Team</p>
+        </div>
+    </div>
+</body>
+</html>
