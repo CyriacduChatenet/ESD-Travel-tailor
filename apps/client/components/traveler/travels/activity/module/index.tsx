@@ -5,6 +5,7 @@ import { Toast } from "@/components/toast";
 import dynamic from "next/dynamic";
 const Mapbox: any = dynamic(() => import('@/components/map').then((mode) => mode.Mapbox), { loading: () => <div className="h-96 w-full" />, ssr: true })
 import { ActivityToolbar } from '@/components/traveler/travels/activity/toolBar';
+import { useHistory } from '@/../../packages/contexts/src';
 
 interface IProps {
     location: string;
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsIndex, date, setDisplayCommentModule }) => {
+    const { pathname } = useHistory();
     return (
         <>
             <ActivityToolbar location={location} duration={duration} mark={mark} commentsIndex={commentsIndex} programmingAt={date} setDisplayCommentModule={setDisplayCommentModule} />
@@ -25,7 +27,7 @@ export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsI
                     <Toast message={`Open: 09:00 - 12:00`} status={'info'} />
                     <p className="mt-4 lg:mt-8">description</p>
                     <div className="py-4 lg:py-8 w-full flex justify-around items-center">
-                        <Link href={''}>
+                        <Link href={pathname}>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</button>
                         </Link>
                     </div>
