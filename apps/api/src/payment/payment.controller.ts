@@ -7,6 +7,7 @@ import { PaymentService } from './payment.service'
 import { OpencageService } from '../opencage/opencage.service';
 import { Roles } from '../config/decorators/roles.decorator';
 import { Role } from '../config/enum/role.enum';
+import { StripeWebhookService } from './stripe-webhook.service';
 
 @Controller('payment')
 @UseGuards(ThrottlerGuard)
@@ -14,6 +15,7 @@ export class PaymentController {
   constructor(
     @InjectStripeModuleConfig() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
+    private readonly stripeWebhookService: StripeWebhookService,
     private opencageService: OpencageService,
   ) { }
 
@@ -35,6 +37,6 @@ export class PaymentController {
   @Throttle(20, 60)
   @Roles(Role.Advertiser, Role.Admin)
   async webhook(@Body() body) {
-    return await this.stripeWebhookService.paymentWebhook(body);
+    return await this.stripeWebhookService.handleStripeWebhook(body);
   }
 }

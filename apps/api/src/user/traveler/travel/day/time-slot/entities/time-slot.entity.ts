@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Check, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Timestamp } from "../../../../../../config/utils/timestamp.util";
 import { Activity } from "../../../../../../activity/entities/activity.entity";
 import { Day } from "../../entities/day.entity";
 
 @Entity()
+@Check(`"startTime" < "endTime"`)
 export class TimeSlot extends Timestamp {
     @PrimaryGeneratedColumn('uuid')
     id: string;
