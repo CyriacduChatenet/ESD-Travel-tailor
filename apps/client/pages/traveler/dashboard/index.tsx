@@ -53,9 +53,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const parsedCookies = cookies ? parse(cookies) : {};
     const accessToken = parsedCookies.accessToken;
     const decodedToken = jwtDecode(accessToken) as AccessToken;
+    let response: Object | null = {};
 
     const user = await UserService.getUserByToken(`${process.env.API_URL}`, decodedToken.email, error);
-    const response = await TravelService.findTravelsByTravelerId(`${process.env.API_URL}`, String(user?.traveler?.id), error, 1, 10);
+    if(Number(user.traveler?.travels.length) > 0) {
+        response = await TravelService.findTravelsByTravelerId(`${process.env.API_URL}`, String(user?.traveler?.id), error, 1, 10);
+    } else {
+        response = null;
+    }
     return {
         props: {
             data: response,

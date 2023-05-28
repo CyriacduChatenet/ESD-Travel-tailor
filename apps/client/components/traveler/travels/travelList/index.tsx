@@ -41,7 +41,7 @@ export const TravelList: FC<IProps> = ({ data, user }) => {
     return (
         <>
             <ul>
-                {response.data ? response.data.map((travel: Travel, index: number) => (
+                {response !== null && response.data && response.data.map((travel: Travel, index: number) => (
                     <Link key={index} href={`${ROUTES.TRAVELER.TRAVELER}${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`}>
                         <li className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:grid xl:grid-cols-12 xl:gap-5 lg:pr-20'>
                             <p className='lg:col-span-6'>{travel.destinationCity}</p>
@@ -51,12 +51,14 @@ export const TravelList: FC<IProps> = ({ data, user }) => {
                             </div>
                         </li>
                     </Link>
-                )) : <Player
+                ))}
+                {response !== null && response.data.length === 0 && <Player
                     src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
                     className="w-12 h-12"
                     loop
                     autoplay
                 />}
+                {data === null && <p>No travels</p>}
             </ul>
             <Paginator pageCurrent={page} setPage={setPage} limit={data?.limit} total={data?.total} />
         </>
