@@ -19,7 +19,7 @@ export class PaymentService {
         line_items: [
           {
             price_data: {
-              currency: createCheckoutDto.currency ? createCheckoutDto.currency : 'eur',
+              currency: 'eur',
               product_data: {
                 name: 'Product Name',
                 description: 'Product Description',

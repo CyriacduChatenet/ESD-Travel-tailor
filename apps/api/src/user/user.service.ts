@@ -15,21 +15,23 @@ import { UserRepository } from './user.repository'
 import { Role } from '../config/enum/role.enum'
 import { Traveler } from './traveler/entities/traveler.entity'
 import { TravelerService } from './traveler/traveler.service'
-import { AdvertiserService } from './advertiser/advertiser.service'
-import { Advertiser } from './advertiser/entities/advertiser.entity'
+import { CustomerService } from '../payment/customer/customer.service'
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository, private travelerService: TravelerService, private advertiserService: AdvertiserService) { }
+  constructor(private userRepository: UserRepository, private travelerService: TravelerService, private customerService: CustomerService) { }
 
   async create(signupUserDto: SignupUserInputDTO, roles: Role): Promise<User> {
-    try {
-      if (testEmailUtil(signupUserDto.email)) {
+    // try {
+    //   if (testEmailUtil(signupUserDto.email)) {
+        const customer = await this.customerService.createCustomer({ email: signupUserDto.email, name: signupUserDto.username })
+
         const user = new User()
         user.username = signupUserDto.username
         user.email = signupUserDto.email
         user.password = signupUserDto.password
         user.roles = roles
+        user.customer = customer
 
         switch (roles) {
           case Role.Traveler: {
@@ -41,13 +43,13 @@ export class UserService {
             break;
       }
 
-        return await this.userRepository.createUser(signupUserDto)
-      } else {
-        throw new BadRequestException('email must contain ***@***.***')
-      }
-    } catch (error) {
-      throw new BadRequestException(error)
-    }
+        return await this.userRepository.createUser({...signupUserDto})
+    //   } else {
+    //     throw new BadRequestException('email must contain ***@***.***')
+    //   }
+    // } catch (error) {
+    //   throw new BadRequestException(error)
+    // }
   }
 
   async findAll(queries: ApiLimitResourceQuery) {

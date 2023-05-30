@@ -14,7 +14,7 @@ const AdvertiserPaymentPage: NextPage = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
 
     const handlePayed = async () => {
-        usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripePromise, { location: `${user?.advertiser?.location}`, amount: 10000 }, setApiErrors)
+        usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripePromise, { location: `Bordeaux, Gironde, France`, amount: 10000 }, setApiErrors)
     };
 
     return (

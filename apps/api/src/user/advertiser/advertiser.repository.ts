@@ -3,7 +3,6 @@ import { InjectDataSource } from "@nestjs/typeorm";
 
 import { Advertiser } from "./entities/advertiser.entity";
 import { CreateAdvertiserDto } from "./dto/create-advertiser.dto";
-import { Customer } from "../../payment/customer/entities/customer.entity";
 import { ApiLimitResourceQuery } from "@travel-tailor/types";
 import { UpdateAdvertiserDto } from "./dto/update-advertiser.dto";
 
@@ -12,8 +11,8 @@ export class AdvertiserRepository extends Repository<Advertiser> {
         super(Advertiser, datasource.createEntityManager());
     }
 
-    async createAdvertiser(createAdvertiserDto: CreateAdvertiserDto, customer: Customer) {
-            const advertiser = this.create({...createAdvertiserDto, customer})
+    async createAdvertiser(createAdvertiserDto: CreateAdvertiserDto) {
+            const advertiser = this.create(createAdvertiserDto)
             return await this.save(advertiser)
     }
 

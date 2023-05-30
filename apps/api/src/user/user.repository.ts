@@ -28,7 +28,7 @@ export class UserRepository extends Repository<User> {
             .leftJoinAndSelect('user.traveler', 'traveler')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travels')
-            .leftJoinAndSelect('traveler.customer', 'customer')
+            .leftJoinAndSelect('user.customer', 'customer')
             .leftJoinAndSelect('user.advertiser', 'advertiser')
             .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
     

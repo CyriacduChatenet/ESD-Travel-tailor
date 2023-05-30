@@ -34,10 +34,8 @@ export const CreateAdvertiserForm: FC<IProps> = ({ token }) => {
 
     const onSubmit = async (data: ICreateAdvertiserForm) => {
         const advertiser = await AdvertiserService.createAdvertiser(String(process.env.NEXT_PUBLIC_API_URL), data, setApiErrors, token);
-        if (advertiser && apiErrors.message === undefined) {
             await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, params.substring(19, 100), { advertiser: advertiser.id }, setApiErrors);
             handleRedirect(`${advertiser.id}`)
-        }
     };
     return (
         <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">

@@ -7,9 +7,10 @@ import { User } from './entities/user.entity'
 import { UserRepository } from './user.repository'
 import { TravelerModule } from './traveler/traveler.module'
 import { AdvertiserModule } from './advertiser/advertiser.module'
+import { CustomerModule } from '../payment/customer/customer.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), TravelerModule, AdvertiserModule],
+  imports: [TypeOrmModule.forFeature([User]), TravelerModule, AdvertiserModule, CustomerModule],
   controllers: [UserController],
   providers: [UserRepository, UserService],
   exports: [UserService],

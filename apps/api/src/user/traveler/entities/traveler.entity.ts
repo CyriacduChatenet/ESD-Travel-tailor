@@ -12,7 +12,6 @@ import { Taste } from '../../../user/traveler/taste/entities/taste.entity';
 import { Travel } from '../../../user/traveler/travel/entities/travel.entity';
 import { User } from '../../entities/user.entity';
 import { Timestamp } from '../../../config/utils/timestamp.util';
-import { Customer } from '../../../payment/customer/entities/customer.entity';
 
 @Entity()
 export class Traveler extends Timestamp {
@@ -24,10 +23,6 @@ export class Traveler extends Timestamp {
   @JoinColumn()
   @Transform(({ value }) => value && value.id) 
   user: User;
-
-  @OneToOne(() => Customer, (customer) => customer.traveler, { cascade: true })
-  @JoinColumn()
-  customer: Customer;
 
   @OneToMany(() => Taste, (taste) => taste.traveler)
   tastes: Taste[];

@@ -1,5 +1,6 @@
 import { IsObject, IsString } from "class-validator";
-import { Activity } from "../../../activity/entities/activity.entity";
+
+import { User } from "src/user/entities/user.entity";
 
 
 export class CreateAdvertiserDto {
@@ -8,7 +9,4 @@ export class CreateAdvertiserDto {
 
   @IsString()
   location: string;
-
-  @IsObject()
-  activities: Activity[];
 }

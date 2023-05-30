@@ -12,6 +12,7 @@ import { Advertiser } from '../advertiser/entities/advertiser.entity';
 import { Traveler } from '../traveler/entities/traveler.entity';
 import { Timestamp } from '../../config/utils/timestamp.util';
 import { ResetPasswordToken } from '../../auth/reset-password-token/entities/reset-password-token.entity';
+import { Customer } from 'src/payment/customer/entities/customer.entity';
 
 @Entity()
 export class User extends Timestamp {
@@ -42,6 +43,10 @@ export class User extends Timestamp {
   @OneToOne(() => Traveler)
   @JoinColumn()
   traveler: Traveler;
+
+  @OneToOne(() => Customer, customer => customer.user, { cascade: true })
+  @JoinColumn()
+  customer: Customer;
 
   @OneToOne(() => ResetPasswordToken)
   @JoinColumn()

@@ -4,7 +4,6 @@ import { ApiLimitResourceQuery } from "@travel-tailor/types";
 
 import { Traveler } from "./entities/traveler.entity";
 import { CreateTravelerDto } from "./dto/create-traveler.dto";
-import { Customer } from "../../payment/customer/entities/customer.entity";
 import { UpdateTravelerDTO } from "./dto/update-traveler.dto";
 
 export class TravelerRepository extends Repository<Traveler> {
@@ -12,8 +11,8 @@ export class TravelerRepository extends Repository<Traveler> {
         super(Traveler, dataSource.createEntityManager());
     }
 
-    async createTraveler(createTravelerDto: CreateTravelerDto, customer: Customer) {
-        const traveler = this.create({ ...createTravelerDto, customer })
+    async createTraveler(createTravelerDto: CreateTravelerDto) {
+        const traveler = this.create(createTravelerDto)
         return await this.save(traveler)
     }
 
@@ -28,7 +27,7 @@ export class TravelerRepository extends Repository<Traveler> {
 
         const query = this.createQueryBuilder('traveler')
             .leftJoinAndSelect('traveler.user', 'user')
-            .leftJoinAndSelect('traveler.customer', 'customer')
+            .leftJoinAndSelect('user.customer', 'customer')
             .leftJoinAndSelect('customer.orders', 'orders')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travel')
