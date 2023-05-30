@@ -22,9 +22,9 @@ export class UserService {
   constructor(private userRepository: UserRepository, private travelerService: TravelerService, private customerService: CustomerService) { }
 
   async create(signupUserDto: SignupUserInputDTO, roles: Role): Promise<User> {
-    // try {
-    //   if (testEmailUtil(signupUserDto.email)) {
-        const customer = await this.customerService.createCustomer({ email: signupUserDto.email, name: signupUserDto.username })
+    try {
+      if (testEmailUtil(signupUserDto.email)) {
+        const customer = await this.customerService.create({ email: signupUserDto.email, name: signupUserDto.username })
 
         const user = new User()
         user.username = signupUserDto.username
@@ -44,12 +44,12 @@ export class UserService {
       }
 
         return await this.userRepository.createUser({...signupUserDto})
-    //   } else {
-    //     throw new BadRequestException('email must contain ***@***.***')
-    //   }
-    // } catch (error) {
-    //   throw new BadRequestException(error)
-    // }
+      } else {
+        throw new BadRequestException('email must contain ***@***.***')
+      }
+    } catch (error) {
+      throw new BadRequestException(error)
+    }
   }
 
   async findAll(queries: ApiLimitResourceQuery) {
