@@ -17,6 +17,10 @@ export class TravelerRepository extends Repository<Traveler> {
         return await this.save(traveler)
     }
 
+    async saveTraveler(traveler: Traveler) {
+        return await this.save(traveler)
+    }
+
     async findAllTraveler(queries: ApiLimitResourceQuery) {
         let { page, limit, sortedBy } = queries
         page = page ? +page : 1

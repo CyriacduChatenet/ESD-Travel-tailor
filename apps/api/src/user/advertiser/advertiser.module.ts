@@ -11,5 +11,6 @@ import { AdvertiserRepository } from './advertiser.repository';
   imports: [TypeOrmModule.forFeature([Advertiser]), CustomerModule],
   controllers: [AdvertiserController],
   providers: [AdvertiserRepository, AdvertiserService],
+  exports: [AdvertiserService],
 })
 export class AdvertiserModule {}

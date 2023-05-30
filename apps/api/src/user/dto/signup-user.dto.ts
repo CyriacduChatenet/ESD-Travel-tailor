@@ -9,4 +9,7 @@ export class SignupUserInputDTO {
 
   @IsString()
   password?: string;
+
+  @IsString()
+  roles?: string;
 }

@@ -6,6 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude, Transform } from 'class-transformer';
 
 import { User } from '../../entities/user.entity';
 import { Timestamp } from '../../../config/utils/timestamp.util';
@@ -23,7 +24,9 @@ export class Advertiser extends Timestamp {
   @Column({ nullable: false})
   location: string;
   
+  @Exclude()
   @OneToOne(() => User, user => user.advertiser)
+  @Transform(({ value }) => value && value.id) 
   user: User;
 
   @OneToOne(() => Customer, customer => customer.advertiser, { cascade: true })

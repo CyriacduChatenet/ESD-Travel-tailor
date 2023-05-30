@@ -28,7 +28,7 @@ export class UserController {
   @Post()
   @Throttle(20, 60)
   async create(@Body() signupUserDto: SignupUserInputDTO): Promise<User> {
-    return await this.userService.create(signupUserDto)
+    return await this.userService.create(signupUserDto, signupUserDto.roles as Role)
   }
 
   @Get()

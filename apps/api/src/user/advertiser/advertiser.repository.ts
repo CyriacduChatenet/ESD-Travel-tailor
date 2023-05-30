@@ -17,6 +17,10 @@ export class AdvertiserRepository extends Repository<Advertiser> {
             return await this.save(advertiser)
     }
 
+    async saveAdvertiser(advertiser: CreateAdvertiserDto) {
+            return await this.save(advertiser)
+    }
+
     async findAllAdvertiser(queries: ApiLimitResourceQuery) {
             let { page, limit, sortedBy, name, location } = queries
             page = page ? +page : 1

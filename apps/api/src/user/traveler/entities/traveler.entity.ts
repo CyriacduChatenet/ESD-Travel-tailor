@@ -5,6 +5,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { Exclude, Transform } from 'class-transformer';
 
 import { Comment } from '../../../comment/entities/comment.entity';
 import { Taste } from '../../../user/traveler/taste/entities/taste.entity';
@@ -18,8 +19,10 @@ export class Traveler extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, (user) => user.traveler)
+  @Exclude()
+  @OneToOne(() => User)
   @JoinColumn()
+  @Transform(({ value }) => value && value.id) 
   user: User;
 
   @OneToOne(() => Customer, (customer) => customer.traveler, { cascade: true })

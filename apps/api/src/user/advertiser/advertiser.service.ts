@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -9,6 +10,7 @@ import { CreateAdvertiserDto } from './dto/create-advertiser.dto'
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto'
 import { CustomerService } from '../../payment/customer/customer.service'
 import { AdvertiserRepository } from './advertiser.repository'
+import { Advertiser } from './entities/advertiser.entity'
 
 @Injectable()
 export class AdvertiserService {
@@ -27,6 +29,15 @@ export class AdvertiserService {
       return await this.advertiserRepository.createAdvertiser(createAdvertiserDto, customer)
     } catch (error) {
       throw new UnauthorizedException(error)
+    }
+  }
+
+
+  async save(advertiser: CreateAdvertiserDto) {
+    try {
+      return await this.advertiserRepository.save(advertiser)
+    } catch (error) {
+      throw new BadRequestException(error)
     }
   }
 
