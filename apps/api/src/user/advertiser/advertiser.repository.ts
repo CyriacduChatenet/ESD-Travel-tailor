@@ -28,7 +28,6 @@ export class AdvertiserRepository extends Repository<Advertiser> {
             const query = this.createQueryBuilder('advertiser')
                 .leftJoinAndSelect('advertiser.activities', 'activities')
                 .leftJoinAndSelect('advertiser.user', 'user')
-                .leftJoinAndSelect('advertiser.customer', 'customer')
 
             if (sortedBy) {
                 query.orderBy('advertiser.createdAt', sortedBy)
@@ -57,7 +56,6 @@ export class AdvertiserRepository extends Repository<Advertiser> {
                 .where('advertiser.id = :id', { id })
                 .leftJoinAndSelect('advertiser.activities', 'activities')
                 .leftJoinAndSelect('advertiser.user', 'user')
-                .leftJoinAndSelect('advertiser.customer', 'customer')
                 .getOne()
     }
 

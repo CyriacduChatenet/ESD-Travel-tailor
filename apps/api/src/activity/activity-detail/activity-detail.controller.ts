@@ -25,7 +25,7 @@ export class ActivityDetailController {
   constructor(private readonly activityDetailService: ActivityDetailService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createActivityDetailDto: CreateActivityDetailDto) {
@@ -33,19 +33,19 @@ export class ActivityDetailController {
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.activityDetailService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   findOne(@Param('id') id: string) {
     return this.activityDetailService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   update(
@@ -56,7 +56,7 @@ export class ActivityDetailController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {

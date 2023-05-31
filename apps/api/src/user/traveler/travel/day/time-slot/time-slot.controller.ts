@@ -15,7 +15,7 @@ export class TimeSlotController {
   constructor(private readonly timeSlotService: TimeSlotService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async create(@Body() createTimeSlotDto: CreateTimeSlotDto) {
@@ -23,19 +23,19 @@ export class TimeSlotController {
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.timeSlotService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findOne(@Param('id') id: string) {
     return await this.timeSlotService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async update(@Param('id') id: string, @Body() updateTimeSlotDto: UpdateTimeSlotDto) {
@@ -43,7 +43,7 @@ export class TimeSlotController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {

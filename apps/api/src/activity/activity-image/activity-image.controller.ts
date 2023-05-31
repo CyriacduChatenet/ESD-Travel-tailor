@@ -25,7 +25,7 @@ export class ActivityImageController {
   constructor(private readonly activityImageService: ActivityImageService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createActivityImageDto: CreateActivityImageDto) {
@@ -43,7 +43,7 @@ export class ActivityImageController {
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   update(
@@ -54,7 +54,7 @@ export class ActivityImageController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {

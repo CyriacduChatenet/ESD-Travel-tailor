@@ -11,7 +11,7 @@ export class OpencageController {
     constructor(private opencageService: OpencageService) {}
 
     @Get()
-    @Throttle(20, 60)
+    @Throttle(100, 60)
     @Roles(Role.Advertiser, Role.Admin)
     async getCurrency(@Query() query: { location: string}) {
         return await this.opencageService.getCurrency(query);

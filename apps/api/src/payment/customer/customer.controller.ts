@@ -15,26 +15,26 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   async createCustomer(@Body() createCustomerDto: CreateCustomerDto) {
     return await this.customerService.createCustomer(createCustomerDto);
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.customerService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findOne(@Param('id') id: string) {
     return await this.customerService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   async update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
@@ -42,7 +42,7 @@ export class CustomerController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string) {

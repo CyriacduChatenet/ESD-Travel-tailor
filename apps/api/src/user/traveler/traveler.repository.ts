@@ -52,7 +52,7 @@ export class TravelerRepository extends Repository<Traveler> {
         return await this.createQueryBuilder('traveler')
             .where('traveler.id = :id', { id })
             .leftJoinAndSelect('traveler.user', 'user')
-            .leftJoinAndSelect('traveler.customer', 'customer')
+            .leftJoinAndSelect('user.customer', 'customer')
             .leftJoinAndSelect('customer.orders', 'orders')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travel')

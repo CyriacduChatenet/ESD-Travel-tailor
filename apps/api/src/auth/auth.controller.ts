@@ -15,25 +15,25 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signin')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   public async signin(@Body() signinUserInputDTO: SigninDTO) {
     return this.authService.signin(signinUserInputDTO)
   }
 
   @Post('signup')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   public signup(@Body() signupUserInputDTO: SignupDTO) {
     return this.authService.signup(signupUserInputDTO)
   }
 
   @Post('forgot-password')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   public forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDTO) {
     return this.authService.forgotPassword(forgotPasswordDto)
   }
 
   @Post('reset-password/:token')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   public resetPassword(@Param('token') token: string, @Body() resetPasswordDto: ResetPasswordDTO) {
     return this.authService.resetPassword(token, resetPasswordDto)
   }

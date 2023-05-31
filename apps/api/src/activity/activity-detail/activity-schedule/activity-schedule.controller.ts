@@ -24,7 +24,7 @@ export class ActivityScheduleController {
   constructor(private readonly activityScheduleService: ActivityScheduleService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createActivityScheduleDto: CreateActivityScheduleDto) {
     return this.activityScheduleService.create(createActivityScheduleDto);
@@ -41,7 +41,7 @@ export class ActivityScheduleController {
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
   update(
     @Param('id') id: string,
@@ -51,7 +51,7 @@ export class ActivityScheduleController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {
     return this.activityScheduleService.remove(id);
