@@ -16,9 +16,9 @@ const get = async (api_url: string, setError?: Dispatch<SetStateAction<any>> | a
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -39,9 +39,9 @@ const protectedGet = async (api_url: string, token: string, setError?: Dispatch<
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -62,9 +62,9 @@ const post = async (api_url: string, body: any, setError?: Dispatch<SetStateActi
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -81,9 +81,9 @@ const postFormData = async (api_url: string, body: any, setError?: Dispatch<SetS
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -105,9 +105,9 @@ const protectedPost = async (api_url: string, body: any, token: string, setError
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -127,9 +127,9 @@ const protectedPostFormData = async (api_url: string, body: any, token: string, 
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -150,9 +150,9 @@ const patch = async (api_url: string, body: Object, setError?: Dispatch<SetState
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -169,9 +169,9 @@ const patchFormData = async (api_url: string, body: any, setError?: Dispatch<Set
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -193,9 +193,9 @@ const protectedPatch = async (api_url: string, body: Object, token: string, setE
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -215,9 +215,9 @@ const protectedPatchFormData = async (api_url: string, body: any, token: string,
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
@@ -238,9 +238,9 @@ const remove = async (api_url: string, token: string, setError?: Dispatch<SetSta
   return responseJSON
  } catch (err) {
   console.error(err)
-  if(setError) {
-    setError(err)
-  }
+  // if(setError) {
+  //   setError(err)
+  // }
  }
 }
 
@@ -261,9 +261,9 @@ const protectedRemove = async (api_url: string, token: string, setError?: Dispat
     return responseJSON
   } catch (err) {
     console.error(err)
-    if(setError) {
-      setError(err)
-    }
+    // if(setError) {
+    //   setError(err)
+    // }
   }
 }
 
