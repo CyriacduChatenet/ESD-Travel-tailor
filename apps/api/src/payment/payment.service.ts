@@ -1,5 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common'
-import { InjectStripe} from 'nestjs-stripe'
+import { InjectStripe } from 'nestjs-stripe'
 import Stripe from 'stripe'
 import { ConfigService } from '@nestjs/config'
 

@@ -7,6 +7,8 @@ import { PaymentService } from './payment.service'
 import { OpencageService } from '../opencage/opencage.service';
 import { Roles } from '../config/decorators/roles.decorator';
 import { Role } from '../config/enum/role.enum';
+import { StripeInvoiceService } from './stripe-invoice.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('payment')
 @UseGuards(ThrottlerGuard)
@@ -14,6 +16,7 @@ export class PaymentController {
   constructor(
     @InjectStripe() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
+    private readonly stripeInvoiceService: StripeInvoiceService,
     private opencageService: OpencageService,
   ) { }
 
@@ -32,10 +35,17 @@ export class PaymentController {
   }
 
   @Get('invoices/customer/:customerId')
-  async getInvoices(@Param() { customerId }: { customerId: string }): Promise<Stripe.Invoice[]> {
-    const invoices = await this.stripeClient.invoices.list({
-      customer: customerId,
-    });
-    return invoices.data;
+  @Throttle(100, 60)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Advertiser, Role.Admin)
+  async findAllInvoices(@Param() { customerId }: { customerId: string }): Promise<Stripe.Invoice[]> {
+    return await this.stripeInvoiceService.findAllInvoices(customerId);
+  }
+
+  @Get('invoices/customer/:invoiceId')
+  @Throttle(100, 60)
+  @Roles(Role.Advertiser, Role.Admin)
+  async findOneInvoices(@Param() { invoiceId }: { invoiceId: string }): Promise<Stripe.Invoice> {
+    return await this.stripeInvoiceService.findOneInvoice(invoiceId);
   }
 }

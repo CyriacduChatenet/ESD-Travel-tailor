@@ -9,6 +9,7 @@ import { CustomerModule } from './customer/customer.module';
 import { StripeCustomerService } from './stripe-customer.service';
 import { OpencageModule } from '../opencage/opencage.module';
 import { MailModule } from '../mail/mail.module';
+import { StripeInvoiceService } from './stripe-invoice.service';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { MailModule } from '../mail/mail.module';
     OpencageModule,
   ],
   controllers: [PaymentController],
-  providers: [PaymentService, StripeCustomerService],
-  exports: [PaymentService, StripeCustomerService],
+  providers: [PaymentService, StripeCustomerService, StripeInvoiceService],
+  exports: [PaymentService, StripeCustomerService, StripeInvoiceService],
 })
 export class PaymentModule {}
