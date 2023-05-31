@@ -24,7 +24,7 @@ export class UserService {
   async create(signupUserDto: SignupUserInputDTO, roles: Role): Promise<User> {
     try {
       if (testEmailUtil(signupUserDto.email)) {
-        const customer = await this.customerService.create({ email: signupUserDto.email, name: signupUserDto.username })
+        const customer = await this.customerService.createCustomer({ email: signupUserDto.email, name: signupUserDto.username })
 
         const user = new User()
         user.username = signupUserDto.username

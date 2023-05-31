@@ -17,8 +17,8 @@ export class CustomerController {
   @Post()
   @Throttle(20, 60)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
-  async create(@Body() createCustomerDto: CreateCustomerDto) {
-    return await this.customerService.create(createCustomerDto);
+  async createCustomer(@Body() createCustomerDto: CreateCustomerDto) {
+    return await this.customerService.createCustomer(createCustomerDto);
   }
 
   @Get()

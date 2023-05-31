@@ -1,12 +1,12 @@
 import { HttpException, Injectable } from "@nestjs/common";
-import { InjectStripeModuleConfig } from "@golevelup/nestjs-stripe";
+import { InjectStripe } from "nestjs-stripe";
 import Stripe from "stripe";
 
 @Injectable()
 export class StripeCustomerService {
-    constructor(@InjectStripeModuleConfig() private readonly stripeClient: Stripe) {}
+    constructor(@InjectStripe() private readonly stripeClient: Stripe) {}
 
-    async create(stripeCredentials: { email: string, name: string }) {
+    async createStripeCustomer(stripeCredentials: { email: string, name: string }) {
         return await this.stripeClient.customers.create({ email: stripeCredentials.email, name: stripeCredentials.name });
     };
 

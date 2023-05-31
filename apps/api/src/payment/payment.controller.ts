@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common'
-import { InjectStripeModuleConfig } from '@golevelup/nestjs-stripe';
+import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
@@ -13,7 +13,7 @@ import { StripeWebhookService } from './stripe-webhook.service';
 @UseGuards(ThrottlerGuard)
 export class PaymentController {
   constructor(
-    @InjectStripeModuleConfig() private readonly stripeClient: Stripe,
+    @InjectStripe() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
     private opencageService: OpencageService,
     private stripeWebhookService: StripeWebhookService,
