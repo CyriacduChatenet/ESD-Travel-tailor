@@ -5,9 +5,10 @@ import { TasteService } from './taste.service';
 import { TasteController } from './taste.controller';
 import { Taste } from './entities/taste.entity';
 import { TasteRepository } from './taste.repository';
+import { TravelerModule } from '../traveler.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Taste])],
+  imports: [TypeOrmModule.forFeature([Taste]), TravelerModule],
   controllers: [TasteController],
   providers: [TasteRepository, TasteService],
 })
