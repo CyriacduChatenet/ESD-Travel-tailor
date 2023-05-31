@@ -17,7 +17,6 @@ export class StripeWebhookService {
 
   async handleStripeWebhook(event: Stripe.Event) {
     try {
-      console.log('payment_intent.created', event)
       return { success_payment: event }
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.PAYMENT_REQUIRED)
