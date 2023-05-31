@@ -3,7 +3,7 @@ import { CreateCustomerDTO } from "@travel-tailor/types";
 
 import { Timestamp } from "../../../config/utils/timestamp.util";
 import { Order } from "../../../payment/order/entities/order.entity";
-import { User } from "src/user/entities/user.entity";
+import { User } from "../../../user/entities/user.entity";
 
 @Entity()
 export class Customer extends Timestamp implements CreateCustomerDTO {

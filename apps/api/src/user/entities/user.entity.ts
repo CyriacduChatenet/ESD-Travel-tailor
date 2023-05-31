@@ -1,5 +1,4 @@
 import {
-  Check,
   Column,
   Entity,
   JoinColumn,
@@ -12,7 +11,7 @@ import { Advertiser } from '../advertiser/entities/advertiser.entity';
 import { Traveler } from '../traveler/entities/traveler.entity';
 import { Timestamp } from '../../config/utils/timestamp.util';
 import { ResetPasswordToken } from '../../auth/reset-password-token/entities/reset-password-token.entity';
-import { Customer } from 'src/payment/customer/entities/customer.entity';
+import { Customer } from '../../payment/customer/entities/customer.entity';
 
 @Entity()
 export class User extends Timestamp {
