@@ -89,7 +89,6 @@ export class PlanningService {
     return activitiesFilteredByOpenedDays
   }
 
-
   private async createPlanning(travel, activities: Activity[]) {
     const days = this.getTravelDays(travel.departureDate, travel.returnDate);
   
@@ -100,8 +99,8 @@ export class PlanningService {
         date: day.date,
         travel,
         dayTimeSlots: [],
-      }
-      const createdDay = await this.dayService.create(createDayDto)
+      };
+      const createdDay = await this.dayService.create(createDayDto);
       const timeSlots = [];
   
       for (let i = 0; i < MAX_TIME_SLOTS_PER_DAY; i++) {
@@ -114,9 +113,22 @@ export class PlanningService {
             endTime: moment(activity.detail.schedules[0].closing_at, 'HH:mm:ss').toDate(),
             day: createdDay,
             activity: activityInDB,
+          };
+  
+          const isOverlapping = timeSlots.some((slot) => {
+            const startTimeOverlap = moment(createTimeSlotDto.startTime).isBetween(slot.startTime, slot.endTime, null, '[)');
+            const endTimeOverlap = moment(createTimeSlotDto.endTime).isBetween(slot.startTime, slot.endTime, null, '(]');
+            const slotInside = moment(createTimeSlotDto.startTime).isSameOrBefore(slot.startTime) && moment(createTimeSlotDto.endTime).isSameOrAfter(slot.endTime);
+            return startTimeOverlap || endTimeOverlap || slotInside;
+          });
+  
+          if (isOverlapping) {
+            // Handle overlapping time slots here
+            // For example, you can skip the current time slot and continue to the next one
+            continue;
           }
   
-          const timeSlot = await this.timeSlotService.create(createTimeSlotDto)
+          const timeSlot = await this.timeSlotService.create(createTimeSlotDto);
           timeSlots.push(timeSlot);
   
           if (activityInDB.timeSlots) {
@@ -135,9 +147,7 @@ export class PlanningService {
         await this.dayService.update(createdDay.id, createdDay);
       }
     }
-  }
-  
-  
+  }  
 
   async create(userConnected: User, travel) {
     const user = await this.userService.findOneByEmail(userConnected.email)
