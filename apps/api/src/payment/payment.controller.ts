@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
@@ -7,7 +7,6 @@ import { PaymentService } from './payment.service'
 import { OpencageService } from '../opencage/opencage.service';
 import { Roles } from '../config/decorators/roles.decorator';
 import { Role } from '../config/enum/role.enum';
-import { StripeWebhookService } from './stripe-webhook.service';
 
 @Controller('payment')
 @UseGuards(ThrottlerGuard)
@@ -16,7 +15,6 @@ export class PaymentController {
     @InjectStripe() private readonly stripeClient: Stripe,
     private readonly paymentService: PaymentService,
     private opencageService: OpencageService,
-    private stripeWebhookService: StripeWebhookService,
   ) { }
 
 
@@ -32,11 +30,12 @@ export class PaymentController {
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
   }
-  
-  @Post('webhook')
-  @Throttle(100, 60)
-  @Roles(Role.Advertiser, Role.Admin)
-  async webhook(@Body() body) {
-    return await this.stripeWebhookService.handleStripeWebhook(body);
+
+  @Get('invoices/customer/:customerId')
+  async getInvoices(@Param() { customerId }: { customerId: string }): Promise<Stripe.Invoice[]> {
+    const invoices = await this.stripeClient.invoices.list({
+      customer: customerId,
+    });
+    return invoices.data;
   }
 }

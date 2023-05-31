@@ -16,6 +16,15 @@ export class PaymentService {
     try {
       const session = await this.stripeClient.checkout.sessions.create({
         payment_method_types: ['card'],
+        invoice_creation: {
+          enabled: true,
+          invoice_data: {
+            description: 'Invoice Description',
+            metadata: {
+              orderId: '123',
+            },
+          }
+        },
         line_items: [
           {
             price_data: {
