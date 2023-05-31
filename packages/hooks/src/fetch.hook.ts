@@ -45,6 +45,26 @@ const protectedGet = async (api_url: string, token: string, setError?: Dispatch<
   }
 }
 
+const protectedGetPdf = async (api_url: string, token: string, setError?: Dispatch<SetStateAction<any>> | any) => {
+  try {
+    const response = await fetch(api_url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if(response.status >= 400) {
+      setError(response)
+    }
+    return response;
+  } catch (err) {
+    console.error(err)
+    // if(setError) {
+    //   setError(err)
+    // }
+  }
+}
+
 const post = async (api_url: string, body: any, setError?: Dispatch<SetStateAction<any>> | any) => {
   try {
     const response = await fetch(api_url, {
@@ -270,6 +290,7 @@ const protectedRemove = async (api_url: string, token: string, setError?: Dispat
 export const useFetch = {
   get,
   protectedGet,
+  protectedGetPdf,
   post,
   postFormData,
   protectedPost,

@@ -1,14 +1,17 @@
 import { Invoice } from "@/../../packages/types/src";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { InvoiceCard } from "../invoiceCard";
+import { set } from "react-hook-form";
 
 interface IProps {
     invoices: Invoice[];
+    setSelectedInvoiceId: Dispatch<SetStateAction<string>>
 }
 
-export const InvoicesList: FC<IProps> = ({ invoices }) => {
+export const InvoicesList: FC<IProps> = ({ invoices, setSelectedInvoiceId }) => {
     return (
-        <ul>
-            {invoices !== null && invoices !== undefined && invoices.map((invoice: Invoice) => <li key={invoice.id} className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:grid xl:grid-cols-12 xl:gap-5 lg:pr-20'></li>)}
+        <ul className="col-span-4 md:col-span-8 xl:col-span-7">
+            {invoices !== null && invoices !== undefined && invoices.map((invoice: Invoice) => <div key={invoice.id} onClick={() => setSelectedInvoiceId(invoice.id)}><InvoiceCard invoice={invoice} /></div>)}
         </ul>
     );
 };

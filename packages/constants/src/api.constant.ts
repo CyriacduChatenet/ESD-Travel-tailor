@@ -28,3 +28,4 @@ export const API_GOOGLE_AUTH = '/auth/google'
 
 export const API_INVOICES_ROUTE = '/payment/invoices/customer'
 export const API_INVOICE_ROUTE = '/payment/invoices'
+export const API_INVOICE_PDF_ROUTE = '/payment/invoices/pdf'
