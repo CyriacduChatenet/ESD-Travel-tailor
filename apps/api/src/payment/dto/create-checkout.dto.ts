@@ -6,4 +6,7 @@ export class CreateCheckoutDto {
 
     @IsNumber()
     amount: number;
+
+    @IsString()
+    customer: string;
 }

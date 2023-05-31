@@ -21,14 +21,15 @@ export class PaymentController {
   ) { }
 
 
-  @Post('checkout')
+  @Post('checkout/:customerId')
   @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
-  async createCheckoutSession(@Body() { amount }: { amount: number }): Promise<{ sessionId: string }> {
+  async createCheckoutSession(@Param('customerId') customerId: string ,@Body() { amount }: { amount: number }): Promise<{ sessionId: string }> {
     // const currency = await this.opencageService.getCurrency({ location });
-    const createCheckoutDto: { currency: string, amount: number } = {
+    const createCheckoutDto: { currency: string, amount: number, customer: string } = {
       currency: 'eur',
       amount,
+      customer: customerId,
     };
     const sessionId = await this.paymentService.createCheckoutSession(createCheckoutDto);
     return { sessionId };
