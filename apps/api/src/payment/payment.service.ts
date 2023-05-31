@@ -1,5 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common'
-import { InjectStripe} from 'nestjs-stripe'
+import { InjectStripe } from 'nestjs-stripe'
 import Stripe from 'stripe'
 import { ConfigService } from '@nestjs/config'
 
@@ -16,6 +16,16 @@ export class PaymentService {
     try {
       const session = await this.stripeClient.checkout.sessions.create({
         payment_method_types: ['card'],
+        customer: createCheckoutDto.customer,
+        invoice_creation: {
+          enabled: true,
+          invoice_data: {
+            description: 'Invoice Description',
+            metadata: {
+              orderId: '123',
+            },
+          }
+        },
         line_items: [
           {
             price_data: {

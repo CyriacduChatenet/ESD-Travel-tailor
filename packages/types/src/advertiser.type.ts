@@ -1,5 +1,4 @@
 import { Activity } from './activity.type'
-import { Customer } from './customer.type'
 import { User } from './user.type'
 
 export type Advertiser = {
@@ -8,7 +7,6 @@ export type Advertiser = {
   location?: string
   user?: User
   activities?: Activity[]
-  customer: Customer
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null

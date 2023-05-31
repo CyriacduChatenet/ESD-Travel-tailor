@@ -63,6 +63,7 @@ export class UserRepository extends Repository<User> {
           return await this.createQueryBuilder('user')
             .where('user.email = :email', { email })
             .leftJoinAndSelect('user.traveler', 'traveler')
+            .leftJoinAndSelect('user.customer', 'customer')
             .leftJoinAndSelect('traveler.travels', 'travels')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.comments', 'comments')

@@ -59,3 +59,4 @@ export type { CreateCustomerDTO, UpdateCustomerDTO, Customer } from './customer.
 export type { CreateTimeSlotDTO, UpdateTimeSlotDTO, TimeSlot } from './time-slot.type'
 export type { CreateCommentMarkDTO, UpdateCommentMarkDTO, CommentMark } from './comment-mark.type'
 export type { CreateActivityMarkDTO, UpdateActivityMarkDTO, ActivityMark } from './activity-mark.type'
+export type {Invoice} from './invoice.type'

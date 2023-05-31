@@ -1,20 +1,27 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import React, { useState } from "react";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { loadStripe } from '@stripe/stripe-js'
 import { usePayment } from '@travel-tailor/hooks'
-import { useUser } from "@travel-tailor/contexts";
-import { Layout } from "@/components/layout";
+import { parse } from "cookie";
+import { jwtDecode } from "@/../../packages/functions/src";
+import { AccessToken, User } from "@/../../packages/types/src";
 
-const AdvertiserPaymentPage: NextPage = () => {
+import { Layout } from "@/components/layout";
+import { UserService } from "@/../../packages/services/src";
+
+interface IProps {
+    stripeCustomerId: string;
+}
+
+const AdvertiserPaymentPage: NextPage<IProps> = ({ stripeCustomerId }) => {
     const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`)
-    const { user } = useUser();
 
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
 
     const handlePayed = async () => {
-        usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripePromise, { location: `Bordeaux, Gironde, France`, amount: 10000 }, setApiErrors)
+        usePayment(`${process.env.NEXT_PUBLIC_API_URL}`, stripeCustomerId, stripePromise, { location: `Bordeaux, Gironde, France`, amount: 10000 }, setApiErrors)
     };
 
     return (
@@ -31,3 +38,25 @@ const AdvertiserPaymentPage: NextPage = () => {
 };
 
 export default AdvertiserPaymentPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const cookies = req.headers.cookie;
+    const parsedCookies = cookies ? parse(cookies) : {};
+    const accessToken = parsedCookies.signinToken;
+    const decodedToken = jwtDecode(accessToken) as AccessToken;
+
+    let user = {} as User;
+    let stripeCustomerId = "";
+    let error = {}
+
+    if (accessToken) {
+        user = await UserService.getUserByToken(`${process.env.API_URL}`, decodedToken.email, error);
+        stripeCustomerId = user.customer.stripeId;
+    }
+
+    return {
+        props: {
+            stripeCustomerId,
+        },
+    };
+};

@@ -43,7 +43,7 @@ export class UserService {
             break;
       }
 
-        return await this.userRepository.createUser({...signupUserDto})
+      return await this.userRepository.save(user)
       } else {
         throw new BadRequestException('email must contain ***@***.***')
       }
