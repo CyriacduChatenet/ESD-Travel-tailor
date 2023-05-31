@@ -25,3 +25,6 @@ export const API_COMMENT_ROUTE = '/comment'
 
 export const API_PAYMENT_CHECKOUT_ROUTE = '/payment/checkout'
 export const API_GOOGLE_AUTH = '/auth/google'
+
+export const API_INVOICES_ROUTE = '/payment/invoices/customer'
+export const API_INVOICE_ROUTE = '/payment/invoices'
