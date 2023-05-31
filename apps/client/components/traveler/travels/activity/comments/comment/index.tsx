@@ -24,6 +24,8 @@ export const Comment: FC<IProps> = ({ author, role, content, createdAt, user, id
     const [apiError, setApiError] = useState({});
     const [editor, setEditor] = useState(false);
 
+    console.log(user);
+
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<ICommentForm>();
 
     const handleDelete = async (id: string) => {
@@ -60,11 +62,11 @@ export const Comment: FC<IProps> = ({ author, role, content, createdAt, user, id
                     </span>
                     <span className="italic text-gray-400">{moment(createdAt).startOf('seconds').fromNow()}</span>
                 </p>
-                <div className="flex">
+                {(user.traveler !== null && user.traveler !== undefined) && user.traveler.comments.find(comment => comment.id === id) && <div className="flex">
                     <button onClick={handleEditor}>{editor ? 'Cancel' : 'Edit'}</button>
                     &nbsp;
                     <button onClick={() => handleDelete(id)}>Delete</button>
-                </div>
+                </div>}
             </div>
             <p className="w-full pt-4 text-justify">{editor === false ? content :
                 <form onSubmit={handleSubmit(handleUpdate)}>

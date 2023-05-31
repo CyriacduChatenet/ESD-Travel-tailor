@@ -31,6 +31,7 @@ export class TravelerRepository extends Repository<Traveler> {
             .leftJoinAndSelect('customer.orders', 'orders')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travel')
+            .leftJoinAndSelect('traveler.comments', 'comment')
             .leftJoinAndSelect('travel.days', 'day')
             .leftJoinAndSelect('traveler.comments', 'comments')
 
@@ -56,6 +57,7 @@ export class TravelerRepository extends Repository<Traveler> {
             .leftJoinAndSelect('customer.orders', 'orders')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travel')
+            .leftJoinAndSelect('traveler.comments', 'comment')
             .leftJoinAndSelect('travel.days', 'day')
             .leftJoinAndSelect('traveler.comments', 'comments')
             .getOne()
