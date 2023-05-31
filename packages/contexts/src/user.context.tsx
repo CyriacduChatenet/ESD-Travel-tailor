@@ -28,6 +28,10 @@ import React, {
         token: '',
         user: '',
       },
+      customer: {
+        id: '',
+        stripeId: '',
+    },
     },
     setUser: () => {},
     findUserInfo: () => {},
@@ -44,6 +48,10 @@ import React, {
         id: '',
         token: '',
         user: '',
+      },
+      customer: {
+        id: '',
+        stripeId: '',
       },
     })
   
