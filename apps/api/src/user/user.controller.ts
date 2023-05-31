@@ -26,25 +26,25 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async create(@Body() signupUserDto: SignupUserInputDTO): Promise<User> {
-    return await this.userService.create(signupUserDto)
+    return await this.userService.create(signupUserDto, signupUserDto.roles as Role)
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.userService.findAll(queries)
   }
 
   @Get(':email')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findOneByEmail(@Param('email') email: string): Promise<User> {
     return await this.userService.findOneByEmail(email)
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   async update(@Param('id') id: string, @Body() signupUserDto: SignupUserInputDTO) {
@@ -52,7 +52,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string): Promise<DeleteResult> {

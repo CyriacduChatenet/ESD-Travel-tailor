@@ -1,7 +1,10 @@
-import { CreateTasteDTO } from '@travel-tailor/types';
-import { IsString } from 'class-validator';
+import { IsObject, IsString } from 'class-validator';
+import { Traveler } from '../../entities/traveler.entity';
 
-export class CreateTasteDto implements CreateTasteDTO {
+export class CreateTasteDto {
   @IsString()
   name: string;
+
+  @IsObject()
+  traveler?: Traveler;
 }

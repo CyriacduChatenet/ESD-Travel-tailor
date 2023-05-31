@@ -3,7 +3,6 @@ import { InjectDataSource } from "@nestjs/typeorm";
 
 import { Advertiser } from "./entities/advertiser.entity";
 import { CreateAdvertiserDto } from "./dto/create-advertiser.dto";
-import { Customer } from "../../payment/customer/entities/customer.entity";
 import { ApiLimitResourceQuery } from "@travel-tailor/types";
 import { UpdateAdvertiserDto } from "./dto/update-advertiser.dto";
 
@@ -12,8 +11,12 @@ export class AdvertiserRepository extends Repository<Advertiser> {
         super(Advertiser, datasource.createEntityManager());
     }
 
-    async createAdvertiser(createAdvertiserDto: CreateAdvertiserDto, customer: Customer) {
-            const advertiser = this.create({...createAdvertiserDto, customer})
+    async createAdvertiser(createAdvertiserDto: CreateAdvertiserDto) {
+            const advertiser = this.create(createAdvertiserDto)
+            return await this.save(advertiser)
+    }
+
+    async saveAdvertiser(advertiser: CreateAdvertiserDto) {
             return await this.save(advertiser)
     }
 
@@ -25,7 +28,6 @@ export class AdvertiserRepository extends Repository<Advertiser> {
             const query = this.createQueryBuilder('advertiser')
                 .leftJoinAndSelect('advertiser.activities', 'activities')
                 .leftJoinAndSelect('advertiser.user', 'user')
-                .leftJoinAndSelect('advertiser.customer', 'customer')
 
             if (sortedBy) {
                 query.orderBy('advertiser.createdAt', sortedBy)
@@ -54,7 +56,6 @@ export class AdvertiserRepository extends Repository<Advertiser> {
                 .where('advertiser.id = :id', { id })
                 .leftJoinAndSelect('advertiser.activities', 'activities')
                 .leftJoinAndSelect('advertiser.user', 'user')
-                .leftJoinAndSelect('advertiser.customer', 'customer')
                 .getOne()
     }
 

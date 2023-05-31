@@ -15,13 +15,19 @@ import { TravelerRepository } from './traveler.repository'
 export class TravelerService {
   constructor(
     private travelerRepository: TravelerRepository,
-    private customerService: CustomerService,
-  ) {}
+  ) { }
 
   async create(createTravelerDto: CreateTravelerDto) {
     try {
-      const customer = await this.customerService.create(createTravelerDto);
-      return await this.travelerRepository.createTraveler(createTravelerDto, customer)
+      return await this.travelerRepository.createTraveler(createTravelerDto)
+    } catch (error) {
+      throw new BadRequestException(error)
+    }
+  }
+
+  async save(traveler: CreateTravelerDto) {
+    try {
+      return await this.travelerRepository.save(traveler)
     } catch (error) {
       throw new BadRequestException(error)
     }

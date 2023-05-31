@@ -1,5 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common'
-import { InjectStripeModuleConfig } from '@golevelup/nestjs-stripe'
+import { InjectStripe} from 'nestjs-stripe'
 import Stripe from 'stripe'
 import { ConfigService } from '@nestjs/config'
 
@@ -8,7 +8,7 @@ import { CreateCheckoutDto } from './dto/create-checkout.dto';
 @Injectable()
 export class PaymentService {
   constructor(
-    @InjectStripeModuleConfig() private readonly stripeClient: Stripe,
+    @InjectStripe() private readonly stripeClient: Stripe,
     private configService: ConfigService,
   ) { }
 
@@ -19,7 +19,7 @@ export class PaymentService {
         line_items: [
           {
             price_data: {
-              currency: createCheckoutDto.currency ? createCheckoutDto.currency : 'eur',
+              currency: 'eur',
               product_data: {
                 name: 'Product Name',
                 description: 'Product Description',

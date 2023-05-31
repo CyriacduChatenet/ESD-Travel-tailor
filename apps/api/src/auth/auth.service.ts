@@ -7,6 +7,8 @@ import { MailService } from '../mail/mail.service'
 import { UserService } from '../user/user.service'
 import { ResetPasswordDTO } from './dto/resetPassword.dto'
 import { ResetPasswordTokenService } from './reset-password-token/reset-password-token.service'
+import { Role } from '../config/enum/role.enum'
+import { Traveler } from '../user/traveler/entities/traveler.entity'
 
 @Injectable()
 export class AuthService {
@@ -65,11 +67,11 @@ export class AuthService {
       }
   
       const password = await bcrypt.hash(signupUserInputDTO.password, 10)
-  
+
       const user = await this.userService.create({
         ...signupUserInputDTO,
         password,
-      })
+      }, signupUserInputDTO.roles as Role)
   
       await this.mailService.sendSignupMail(signupUserInputDTO.email)
   

@@ -20,5 +20,5 @@ export class UpdateUserDTO {
   traveler?: Traveler;
 
   @IsObject()
-  resetPasswordToken: Object;
+  resetPasswordToken?: Object;
 }

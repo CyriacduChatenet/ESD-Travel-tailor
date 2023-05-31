@@ -1,4 +1,5 @@
-import { IsString } from "class-validator";
+import { IsString, IsObject } from "class-validator";
+import { Customer } from "../../payment/customer/entities/customer.entity";
 
 export class SignupUserInputDTO {
   @IsString()
@@ -9,4 +10,10 @@ export class SignupUserInputDTO {
 
   @IsString()
   password?: string;
+
+  @IsString()
+  roles?: string;
+
+  @IsObject()
+  customer?: Customer
 }

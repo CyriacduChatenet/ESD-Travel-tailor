@@ -20,7 +20,7 @@ import { ResetPasswordTokenModule } from './reset-password-token/reset-password-
     }),
     UserModule,
     MailModule,
-    ResetPasswordTokenModule,
+    ResetPasswordTokenModule
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

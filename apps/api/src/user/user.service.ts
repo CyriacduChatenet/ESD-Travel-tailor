@@ -12,15 +12,38 @@ import { UpdateUserDTO } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
 import { testEmailUtil } from '../config/utils/regex-test-email.util'
 import { UserRepository } from './user.repository'
+import { Role } from '../config/enum/role.enum'
+import { Traveler } from './traveler/entities/traveler.entity'
+import { TravelerService } from './traveler/traveler.service'
+import { CustomerService } from '../payment/customer/customer.service'
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository, private travelerService: TravelerService, private customerService: CustomerService) { }
 
-  async create(signupUserDto: SignupUserInputDTO): Promise<User> {
+  async create(signupUserDto: SignupUserInputDTO, roles: Role): Promise<User> {
     try {
-      if(testEmailUtil(signupUserDto.email)) {
-        return await this.userRepository.createUser(signupUserDto)
+      if (testEmailUtil(signupUserDto.email)) {
+        const customer = await this.customerService.createCustomer({ email: signupUserDto.email, name: signupUserDto.username })
+
+        const user = new User()
+        user.username = signupUserDto.username
+        user.email = signupUserDto.email
+        user.password = signupUserDto.password
+        user.roles = roles
+        user.customer = customer
+
+        switch (roles) {
+          case Role.Traveler: {
+            const traveler = new Traveler()
+            user.traveler = traveler
+            await this.travelerService.save(traveler)
+            return await this.userRepository.save(user)
+          }
+            break;
+      }
+
+        return await this.userRepository.createUser({...signupUserDto})
       } else {
         throw new BadRequestException('email must contain ***@***.***')
       }

@@ -25,26 +25,25 @@ export class AdvertiserController {
   constructor(private readonly advertiserService: AdvertiserService) { }
   
   @Post()
-  @Throttle(20, 60)
-  @Roles(Role.Advertiser, Role.Admin)
+  @Throttle(100, 60)
   create(@Body() createAdvertiserDto: CreateAdvertiserDto) {
     return this.advertiserService.create(createAdvertiserDto);
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.advertiserService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findOne(@Param('id') id: string) {
     return await this.advertiserService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async update(
@@ -55,7 +54,7 @@ export class AdvertiserController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string) {

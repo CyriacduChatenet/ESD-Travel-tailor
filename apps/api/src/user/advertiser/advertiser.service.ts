@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -7,26 +8,28 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 import { CreateAdvertiserDto } from './dto/create-advertiser.dto'
 import { UpdateAdvertiserDto } from './dto/update-advertiser.dto'
-import { CustomerService } from '../../payment/customer/customer.service'
 import { AdvertiserRepository } from './advertiser.repository'
 
 @Injectable()
 export class AdvertiserService {
   constructor(
     private advertiserRepository: AdvertiserRepository,
-    private customerService: CustomerService
   ) {}
 
   async create(createAdvertiserDto: CreateAdvertiserDto) {
     try {
-      const customer = await this.customerService.create({
-        address: createAdvertiserDto.location,
-        name: createAdvertiserDto.name,
-      })
-
-      return await this.advertiserRepository.createAdvertiser(createAdvertiserDto, customer)
+      return await this.advertiserRepository.createAdvertiser(createAdvertiserDto)
     } catch (error) {
       throw new UnauthorizedException(error)
+    }
+  }
+
+
+  async save(advertiser: CreateAdvertiserDto) {
+    try {
+      return await this.advertiserRepository.save(advertiser)
+    } catch (error) {
+      throw new BadRequestException(error)
     }
   }
 

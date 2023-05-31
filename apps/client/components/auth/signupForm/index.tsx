@@ -28,17 +28,11 @@ export const SignupForm: FC = () => {
 
     const handleRedirect = async (user: User, data: ISignupForm) => {
         if (data.roles === ROLES.TRAVELER) {
-          const traveler = await TravelerService.createTraveler(`${process.env.NEXT_PUBLIC_API_URL}`, {
-            user: user.id,
-            name: user.username,
-            email: user.email,
-          }, setApiErrors)
-          await UserService.updateUser(`${process.env.NEXT_PUBLIC_API_URL}`, await user.id, { traveler: traveler.id }, setApiErrors)
-          router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${traveler.id}`)
+          router.push(`${ROUTES.TRAVELER.TASTE.CREATE}/${user?.traveler?.id}`)
         }
     
         if (data.roles === ROLES.ADVERTISER) {
-          router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${await user?.id}`)
+          router.push(`${ROUTES.ADVERTISER.CREATE_ADVERTISER}/${user.id}`)
         }
     
         if (data.roles === ROLES.ADMIN) {
@@ -50,7 +44,7 @@ export const SignupForm: FC = () => {
         const response = await AuthService.signup(`${process.env.NEXT_PUBLIC_API_URL}${API_SIGNUP_ROUTE}`, data, setApiErrors);
         if(response) {
             const user = await UserService.getUserInfo(`${process.env.NEXT_PUBLIC_API_URL}`, setApiErrors) as User;
-            await handleRedirect(user, data)
+            await handleRedirect(response, data)
         }
     };
 

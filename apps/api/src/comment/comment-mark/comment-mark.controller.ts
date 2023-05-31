@@ -15,7 +15,7 @@ export class CommentMarkController {
   constructor(private readonly commentMarkService: CommentMarkService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   create(@Body() createCommentMarkDto: CreateCommentMarkDto) {
@@ -23,19 +23,19 @@ export class CommentMarkController {
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   findAll(@Query() query: ApiLimitResourceQuery) {
     return this.commentMarkService.findAll(query);
   }
 
   @Get(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   findOne(@Param('id') id: string) {
     return this.commentMarkService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   update(@Param('id') id: string, @Body() updateCommentMarkDto: UpdateCommentMarkDto) {
@@ -43,7 +43,7 @@ export class CommentMarkController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {

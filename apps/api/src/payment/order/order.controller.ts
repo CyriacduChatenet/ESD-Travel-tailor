@@ -15,26 +15,26 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
   async create(@Body() createOrderDto: CreateOrderDto) {
     return await this.orderService.create(createOrderDto);
   }
 
   @Get()
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.orderService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   async findOne(@Param('id') id: string) {
     return await this.orderService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
@@ -42,7 +42,7 @@ export class OrderController {
   }
 
   @Delete(':id')
-  @Throttle(20, 60)
+  @Throttle(100, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string) {

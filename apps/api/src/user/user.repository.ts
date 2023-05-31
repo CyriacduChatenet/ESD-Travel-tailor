@@ -11,9 +11,13 @@ export class UserRepository extends Repository<User> {
     }
 
     async createUser(signupUserDto: SignupUserInputDTO): Promise<User> {
-        const user = this.create(signupUserDto);
+        const user = this.create({...signupUserDto} as User);
         return await this.save(user);
       }
+
+    async saveUser(user: User) {
+        return await this.save(user)
+    }
     
       async findAllUser(queries: ApiLimitResourceQuery) {
           let { page, limit, sortedBy, username, email, roles } = queries;
@@ -24,7 +28,7 @@ export class UserRepository extends Repository<User> {
             .leftJoinAndSelect('user.traveler', 'traveler')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travels')
-            .leftJoinAndSelect('traveler.customer', 'customer')
+            .leftJoinAndSelect('user.customer', 'customer')
             .leftJoinAndSelect('user.advertiser', 'advertiser')
             .leftJoinAndSelect('user.resetPasswordToken', 'resetPasswordToken')
     

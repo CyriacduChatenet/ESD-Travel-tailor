@@ -3,8 +3,7 @@ import { CreateCustomerDTO } from "@travel-tailor/types";
 
 import { Timestamp } from "../../../config/utils/timestamp.util";
 import { Order } from "../../../payment/order/entities/order.entity";
-import { Advertiser } from "../../../user/advertiser/entities/advertiser.entity";
-import { Traveler } from "../../../user/traveler/entities/traveler.entity";
+import { User } from "../../../user/entities/user.entity";
 
 @Entity()
 export class Customer extends Timestamp implements CreateCustomerDTO {
@@ -26,9 +25,6 @@ export class Customer extends Timestamp implements CreateCustomerDTO {
     @OneToMany(() => Order, (order) => order.customer)
     orders: Order[];
 
-    @OneToOne(() => Advertiser)
-    advertiser: Advertiser;
-  
-    @OneToOne(() => Traveler)
-    traveler: Traveler;
+    @OneToOne(() => User, user => user.customer)
+    user: User;
 }
