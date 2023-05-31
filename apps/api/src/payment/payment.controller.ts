@@ -42,7 +42,7 @@ export class PaymentController {
     return await this.stripeInvoiceService.findAllInvoices(customerId);
   }
 
-  @Get('invoices/customer/:invoiceId')
+  @Get('invoices/:invoiceId')
   @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
   async findOneInvoices(@Param() { invoiceId }: { invoiceId: string }): Promise<Stripe.Invoice> {
