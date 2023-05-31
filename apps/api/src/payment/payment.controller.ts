@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Res, UseGuards } from '@nestjs/common'
 import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
+import { Response } from 'express';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 import { PaymentService } from './payment.service'
@@ -46,7 +47,19 @@ export class PaymentController {
   @Get('invoices/:invoiceId')
   @Throttle(100, 60)
   @Roles(Role.Advertiser, Role.Admin)
-  async findOneInvoices(@Param() { invoiceId }: { invoiceId: string }): Promise<Stripe.Invoice> {
+  async findOneInvoice(@Param() { invoiceId }: { invoiceId: string }): Promise<Stripe.Invoice> {
     return await this.stripeInvoiceService.findOneInvoice(invoiceId);
+  }
+
+  @Get('invoices/pdf/:invoiceId')
+  @Throttle(100, 60)
+  @Roles(Role.Advertiser, Role.Admin)
+  async findOneInvoicePdf(@Param() { invoiceId }: { invoiceId: string }, @Res() res: Response) {
+    const invoicePDF = await this.stripeInvoiceService.findOneInvoicePdf(invoiceId);
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `inline; filename="${invoiceId}.pdf"`,
+    });
+    res.send(invoicePDF);
   }
 }

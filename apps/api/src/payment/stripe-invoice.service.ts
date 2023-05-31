@@ -42,6 +42,21 @@ export class StripeInvoiceService {
         }
     }
 
+    async findOneInvoicePdf(invoiceId: string): Promise<Buffer> {
+        const invoice = await this.stripeClient.invoices.retrieve(invoiceId);
+        const invoicePDFUrl = invoice.invoice_pdf as string;
+    
+        const response = await fetch(invoicePDFUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        });
+    
+        const data = await response.arrayBuffer();
+        return Buffer.from(data);
+      }
+
     async updateInvoice(invoiceId: string): Promise<Stripe.Invoice> {
         try {
             return await this.stripeClient.invoices.update(invoiceId, {
