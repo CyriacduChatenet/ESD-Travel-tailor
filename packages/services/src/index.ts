@@ -15,3 +15,4 @@ export { TravelService } from './travel.service';
 export { GeocoderService } from './geocoder.service';
 export { MapboxService } from './mapbox.service';
 export { PaymentService } from './payment.service';
+export { InvoiceService } from './invoices.service';
