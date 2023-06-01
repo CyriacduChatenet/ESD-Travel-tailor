@@ -7,6 +7,7 @@ import { set, useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { Autocomplete } from "@/components/autocomplete";
 
 interface ICreateActivityForm {
     name: string;
@@ -34,6 +35,7 @@ export const EditActivityForm: FC = () => {
     const [closingDayInput, setClosingDayInput] = useState('');
     const [closingDayCheck, setClosingDayCheck] = useState(false);
     const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
+    const [address, setAddress] = useState('');
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<ICreateActivityForm>();
     const { user } = useUser();
@@ -75,6 +77,11 @@ export const EditActivityForm: FC = () => {
         if (tag) {
             setTags([...tags, tag]);
         }
+    };
+
+    const handleLocationChange = async (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target as HTMLInputElement;
+        setAddress(value);
     };
 
     const onSubmit = async (data: ICreateActivityForm) => {
@@ -171,7 +178,7 @@ export const EditActivityForm: FC = () => {
                     {errors.image && <p className="mt-2 text-red-500 text-xs italic">{errors.image.message?.toString()}</p>}
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="Location" className="block text-gray-700 font-bold mb-2">
+                    <label htmlFor="location" className="block text-gray-700 font-bold mb-2">
                         Location
                     </label>
                     <input
@@ -181,8 +188,10 @@ export const EditActivityForm: FC = () => {
                         id="location"
                         type="text"
                         onClick={() => setApiErrors({})}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        onChange={handleLocationChange}
+                        className={`shadow appearance-none border-t ${address.length === 0 ? 'border-r border-l' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.location ? 'border-red-500' : ''}`}
                     />
+                    <Autocomplete address={address} setAddress={setAddress} />
                     {errors.location && <p className="mt-2 text-red-500 text-xs italic">{errors.location.message?.toString()}</p>}
                 </div>
                 <div className="mb-4">

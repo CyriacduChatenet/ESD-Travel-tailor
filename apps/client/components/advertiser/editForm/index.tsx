@@ -5,8 +5,9 @@ import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROLES, ROUTES } from "@travel-tailor/constants";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { parse } from "cookie";
-import { jwtDecode } from "@/../../packages/functions/src";
+import { ChangeEvent, jwtDecode } from "@/../../packages/functions/src";
 import { AccessToken } from "@/../../packages/types/src";
+import { Autocomplete } from "@/components/autocomplete";
 
 interface IEditAdvertiserForm {
     name: string
@@ -14,18 +15,23 @@ interface IEditAdvertiserForm {
 }
 
 export const EditAdvertiserForm: FC = () => {
-    const [apiErrors, setApiErrors] = useState<Error>({
+    const [apiErrors, setApiErrors] = useState<any>({
         cause: "",
         name: "",
         message: "",
     });
-
     const [submit, setSubmit] = useState<boolean>(false);
+    const [address, setAddress] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm<IEditAdvertiserForm>();
 
     const router = useRouter();
     const params = usePathname();
+
+    const handleLocationChange = async (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target as HTMLInputElement;
+        setAddress(value);
+    };
 
     const handleRedirect = async (advertiserId: string) => {
         const cookies = document.cookie;
@@ -72,18 +78,20 @@ export const EditAdvertiserForm: FC = () => {
                     {errors.name && <p className="mt-2 text-red-500 text-xs italic">{errors.name.message?.toString()}</p>}
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
-                        Address
+                    <label htmlFor="location" className="block text-gray-700 font-bold mb-2">
+                        Location
                     </label>
                     <input
                         {...register("location", {
-                            required: "Address is required",
+                            required: "Location is required",
                         })}
-                        id="name"
+                        id="location"
                         type="text"
-                        onClick={() => setApiErrors({ message: "", name: "", cause: "" })}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        onClick={() => setApiErrors({})}
+                        onChange={handleLocationChange}
+                        className={`shadow appearance-none border-t ${address.length === 0 ? 'border-r border-l' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.location ? 'border-red-500' : ''}`}
                     />
+                    <Autocomplete address={address} setAddress={setAddress} />
                     {errors.location && <p className="mt-2 text-red-500 text-xs italic">{errors.location.message?.toString()}</p>}
                 </div>
                 <div className="flex flex-col items-center justify-between">
