@@ -17,29 +17,16 @@ export class PaymentService {
       const session = await this.stripeClient.checkout.sessions.create({
         payment_method_types: ['card'],
         customer: createCheckoutDto.customer,
-        invoice_creation: {
-          enabled: true,
-          invoice_data: {
-            description: 'Invoice Description',
-            metadata: {
-              orderId: '123',
-            },
-          }
-        },
         line_items: [
           {
-            price_data: {
-              currency: 'eur',
-              product_data: {
-                name: 'Product Name',
-                description: 'Product Description',
-              },
-              unit_amount: createCheckoutDto.amount * 100,
-            },
+            price: 'price_1Mw4OMFXjkZ2xKS6EgnyEo60',
             quantity: 1,
           },
         ],
-        mode: 'payment',
+        mode: 'subscription',
+        subscription_data: {
+          trial_period_days: 30,
+        },
         success_url: `${this.configService.get('CLIENT_APP_URL')}/payment/success`,
         cancel_url: `${this.configService.get('CLIENT_APP_URL')}/payment/cancel`,
       });
