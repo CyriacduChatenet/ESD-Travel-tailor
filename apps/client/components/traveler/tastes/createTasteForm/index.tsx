@@ -1,6 +1,6 @@
 import React, { KeyboardEvent, FC, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { TasteService } from "@travel-tailor/services";
+import { TasteService, TokenService } from "@travel-tailor/services";
 import { Taste } from "@travel-tailor/types";
 import { ROUTES } from "@travel-tailor/constants";
 import { Icon } from "@iconify/react";
@@ -37,7 +37,11 @@ export const CreateTasteForm: FC = () => {
         if (tastes.length > 0) {
             await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, routeParams.substring(23, 100), setApiErrors);
             const timeout = setTimeout(() => {
-                router.push(ROUTES.TRAVELER.DASHBOARD);
+                if(TokenService.getAccessToken()) {
+                    router.push(ROUTES.TRAVELER.DASHBOARD);
+                } else {
+                    router.push(ROUTES.AUTH.SIGNIN);
+                }
             }, 2000);
             return () => clearTimeout(timeout);
         }
