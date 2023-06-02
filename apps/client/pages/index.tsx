@@ -1,9 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
+import { jwtDecode } from '@/../../packages/functions/src'
 import { Layout } from '@/components/layout'
 import { CreateTravelForm } from '@/components/traveler/travels/createForm'
+import { parse } from 'cookie'
+import { GetServerSideProps, NextPage } from 'next'
+import { AccessToken } from '@/../../packages/types/src'
 import Image from 'next/image'
+import { ROLES } from '@/../../packages/constants/src'
 
-export default function Home() {
+interface IProps {
+  role: string
+}
+
+const Home: NextPage<IProps> = ({ role }) => {
   return (
     <Layout title={'Personalized Travel Management: Create Your Perfect Journey | Travel Tailor'} description={'Discover an innovative travel management platform that empowers you to curate your ideal journey based on your unique preferences. Create customized itineraries and explore a wide range of activities tailored to your tastes. Start planning your dream vacation today with our intuitive travel planner.'}>
       <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
@@ -14,7 +23,7 @@ export default function Home() {
               <span className="text-white text-4xl font-bold uppercase pl-6">Bordeaux</span>
             </div>
           </section>
-          <CreateTravelForm />
+          {role === ROLES.TRAVELER && <CreateTravelForm />}
           <section className='w-full grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 min-h-screen'>
             <section className='col-span-4 md:col-span-8 xl:col-span-12 xl:my-12 grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-8'>
               <div className='w-full col-span-4 md:col-span-8 xl:col-span-8'>
@@ -60,3 +69,18 @@ export default function Home() {
     </Layout>
   )
 }
+
+export default Home;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const cookies = req.headers.cookie;
+  const parsedCookies = cookies ? parse(cookies) : {};
+  const accessToken = parsedCookies.accessToken;
+  const decodedToken = jwtDecode(accessToken) as AccessToken;
+
+  return {
+    props: {
+      role: decodedToken.roles
+    }
+  }
+};
