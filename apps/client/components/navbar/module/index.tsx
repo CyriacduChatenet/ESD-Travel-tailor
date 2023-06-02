@@ -54,6 +54,11 @@ export const NavModule: FC<IProps> = ({ accessToken, role }) => {
             )}
             {accessToken && role === ROLES.ADMIN && (
                 <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    <Link href={ROUTES.ADMIN.COMMENTS.INDEX}>Comments</Link>
+                </li>
+            )}
+            {accessToken && role === ROLES.ADMIN && (
+                <li className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                     <Link href={ROUTES.ADMIN.TAGS}>Tags</Link>
                 </li>
             )}

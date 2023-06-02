@@ -5,9 +5,9 @@ import { TokenService } from "./token.service";
 import { Dispatch, SetStateAction } from "react";
 import { API_COMMENT_ROUTE } from "@travel-tailor/constants";
 
-const findAllComments = async (api_url: string,setError: Dispatch<SetStateAction<any>> | any): Promise<Comment[]> => {
-    const data = await useFetch.get(`${api_url}${API_COMMENT_ROUTE}`, setError);
-    return data.data;
+const findAllComments = async (api_url: string,setError: Dispatch<SetStateAction<any>> | any, params: string) => {
+    const data = await useFetch.get(`${api_url}${API_COMMENT_ROUTE}${params}`, setError);
+    return data;
 };
 
 const findCommentById = async (api_url: string, id: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Comment> => {
