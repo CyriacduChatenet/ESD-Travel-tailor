@@ -9,7 +9,7 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 import { CreateCustomerDto } from './dto/create-customer.dto'
 import { UpdateCustomerDto } from './dto/update-customer.dto'
-import { StripeCustomerService } from '../stripe-customer.service'
+import { StripeCustomerService } from '../stripe/customer/stripe-customer.service'
 import { CustomerRepository } from './customer.repository'
 
 @Injectable()

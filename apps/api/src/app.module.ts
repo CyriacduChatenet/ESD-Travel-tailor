@@ -23,7 +23,6 @@ import { PaymentModule } from './payment/payment.module';
 import { DayModule } from './user/traveler/travel/day/day.module';
 import { CustomerModule } from './payment/customer/customer.module';
 import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.module';
-import { OpencageModule } from './opencage/opencage.module';
 import { UploadFileModule } from './upload-file/upload-file.module';
 import { CommentMarkModule } from './comment/comment-mark/comment-mark.module';
 import { APP_GUARD } from '@nestjs/core';
@@ -63,7 +62,6 @@ import { APP_GUARD } from '@nestjs/core';
     DayModule,
     CustomerModule,
     TimeSlotModule,
-    OpencageModule,
     UploadFileModule,
     CommentMarkModule
   ],
