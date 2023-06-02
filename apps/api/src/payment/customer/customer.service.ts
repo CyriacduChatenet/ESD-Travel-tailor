@@ -9,7 +9,7 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 import { CreateCustomerDto } from './dto/create-customer.dto'
 import { UpdateCustomerDto } from './dto/update-customer.dto'
-import { StripeCustomerService } from '../stripe-customer.service'
+import { StripeCustomerService } from '../stripe/customer/stripe-customer.service'
 import { CustomerRepository } from './customer.repository'
 
 @Injectable()
@@ -46,21 +46,7 @@ export class CustomerService {
 
   async update(id: string, updateCustomerDto: UpdateCustomerDto) {
     try {
-      const mapper = (dto: UpdateCustomerDto) => {
-        const { orders, ...rest } = dto
-        return {
-          ...rest,
-          orders: orders
-            ? orders.map((order) =>
-                typeof order === 'string' ? { id: order } : order
-              )
-            : [],
-        }
-      }
-
-      const partialEntity = mapper(updateCustomerDto)
-
-      return this.customerRepository.updateCustomer(id, partialEntity)
+      return await this.customerRepository.updateCustomer(id, updateCustomerDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

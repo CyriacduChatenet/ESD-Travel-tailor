@@ -22,7 +22,6 @@ export class CustomerRepository extends Repository<Customer> {
           limit = limit ? +limit : 10
     
           return await this.createQueryBuilder('customer')
-            .leftJoinAndSelect('customer.orders', 'orders')
             .leftJoinAndSelect('customer.advertiser', 'advertiser')
             .leftJoinAndSelect('customer.traveler', 'traveler')
             .orderBy('customer.createdAt', 'DESC')

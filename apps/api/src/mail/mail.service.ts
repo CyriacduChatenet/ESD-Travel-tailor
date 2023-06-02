@@ -45,24 +45,4 @@ export class MailService {
       }
     })
   }
-
-  public async sendInvoiceMail(reciever: string, attachement: { filename: string, content: Buffer }) {
-    await this.mailerService.sendMail({
-      to: reciever,
-      from: this.configService.get('MAILER_EMAIL'),
-      subject: 'Your invoice',
-      attachments: [
-        attachement
-      ],
-      template: 'invoice',
-      context: {
-        reciever,
-        url: this.configService.get('CLIENT_APP_URL'),
-        invoiceNumber: 2,
-        invoiceDate: new Date().toLocaleDateString(),
-        invoiceAmount: 1000,
-        PaymentMethod: 'Credit card',
-      }
-    })
-  }
 }

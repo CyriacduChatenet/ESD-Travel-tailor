@@ -1,15 +1,14 @@
-import { forwardRef, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { StripeModule } from 'nestjs-stripe';
 import { ConfigModule } from '@nestjs/config';
 
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
-import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
-import { StripeCustomerService } from './stripe-customer.service';
-import { OpencageModule } from '../opencage/opencage.module';
+import { StripeCustomerService } from './stripe/customer/stripe-customer.service';
 import { MailModule } from '../mail/mail.module';
-import { StripeInvoiceService } from './stripe-invoice.service';
+import { StripeInvoiceService } from './stripe/invoices/stripe-invoice.service';
+import { StripeInvoiceController } from './stripe/invoices/stripe-invoice.controller';
 
 @Module({
   imports: [
@@ -19,11 +18,9 @@ import { StripeInvoiceService } from './stripe-invoice.service';
       apiVersion: '2022-11-15',
     }),
     MailModule,
-    OrderModule,
     forwardRef(() => CustomerModule),
-    OpencageModule,
   ],
-  controllers: [PaymentController],
+  controllers: [PaymentController, StripeInvoiceController],
   providers: [PaymentService, StripeCustomerService, StripeInvoiceService],
   exports: [PaymentService, StripeCustomerService, StripeInvoiceService],
 })
