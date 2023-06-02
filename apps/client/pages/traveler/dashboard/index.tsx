@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const response = await TravelService.findTravelsByTravelerId(`${process.env.API_URL}`, String(user?.traveler?.id), error, 1, 10);
     return {
         props: {
-            data: response,
+            data: response !== undefined ? response : {},
             user: user,
         }
     };
