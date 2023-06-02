@@ -8,6 +8,10 @@ export const ROUTES = {
   ADMIN: {
     DASHBOARD: '/admin/dashboard',
     ACTIVITIES: '/admin/activities',
+    COMMENTS: {
+      INDEX: '/admin/comments',
+      EDIT: '/admin/comments/edit',
+    },
     TRAVELER: '/admin/traveler',
     ADVERTISER: '/admin/advertiser',
     TAGS: '/admin/tags',
