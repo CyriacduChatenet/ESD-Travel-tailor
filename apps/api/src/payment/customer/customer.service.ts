@@ -46,21 +46,7 @@ export class CustomerService {
 
   async update(id: string, updateCustomerDto: UpdateCustomerDto) {
     try {
-      const mapper = (dto: UpdateCustomerDto) => {
-        const { orders, ...rest } = dto
-        return {
-          ...rest,
-          orders: orders
-            ? orders.map((order) =>
-                typeof order === 'string' ? { id: order } : order
-              )
-            : [],
-        }
-      }
-
-      const partialEntity = mapper(updateCustomerDto)
-
-      return this.customerRepository.updateCustomer(id, partialEntity)
+      return await this.customerRepository.updateCustomer(id, updateCustomerDto)
     } catch (error) {
       throw new UnauthorizedException(error)
     }

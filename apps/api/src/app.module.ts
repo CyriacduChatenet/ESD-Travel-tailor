@@ -22,7 +22,6 @@ import { ActivityClosingDayModule } from './activity/activity-detail/activity-cl
 import { PaymentModule } from './payment/payment.module';
 import { DayModule } from './user/traveler/travel/day/day.module';
 import { CustomerModule } from './payment/customer/customer.module';
-import { OrderModule } from './payment/order/order.module';
 import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.module';
 import { OpencageModule } from './opencage/opencage.module';
 import { UploadFileModule } from './upload-file/upload-file.module';
@@ -63,7 +62,6 @@ import { APP_GUARD } from '@nestjs/core';
     PaymentModule,
     DayModule,
     CustomerModule,
-    OrderModule,
     TimeSlotModule,
     OpencageModule,
     UploadFileModule,

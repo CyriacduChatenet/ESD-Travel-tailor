@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
-import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
 import { StripeCustomerService } from './stripe-customer.service';
 import { OpencageModule } from '../opencage/opencage.module';
@@ -19,7 +18,6 @@ import { StripeInvoiceService } from './stripe-invoice.service';
       apiVersion: '2022-11-15',
     }),
     MailModule,
-    OrderModule,
     forwardRef(() => CustomerModule),
     OpencageModule,
   ],
