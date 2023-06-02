@@ -76,11 +76,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const cookies = req.headers.cookie;
   const parsedCookies = cookies ? parse(cookies) : {};
   const accessToken = parsedCookies.accessToken;
-  const decodedToken = jwtDecode(accessToken) as AccessToken;
+  let decodedToken: AccessToken = {
+    id: '',
+    username: '',
+    email: '',
+    roles: '',
+    iat: 0,
+    exp: 0
+  }
+
+  if(accessToken) {
+    decodedToken = jwtDecode(accessToken) as AccessToken;
+  }
 
   return {
     props: {
-      role: decodedToken.roles
+      role: accessToken ? decodedToken.roles : null
     }
   }
 };
