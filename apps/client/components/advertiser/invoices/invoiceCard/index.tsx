@@ -1,6 +1,5 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { Invoice } from "@/../../packages/types/src";
-import moment from "moment";
+import { FC } from "react";
+import { Invoice } from "@travel-tailor/types";
 
 interface IProps {
     invoice: Invoice;

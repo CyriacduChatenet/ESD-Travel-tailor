@@ -1,5 +1,5 @@
-import { ROUTES } from "@/../../packages/constants/src";
-import { ActivityTagService } from "@/../../packages/services/src";
+import { ROUTES } from "@travel-tailor/constants";
+import { ActivityTagService } from "@travel-tailor/services";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useState } from "react";

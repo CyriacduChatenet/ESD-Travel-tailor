@@ -2,14 +2,14 @@ import React from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import { parse } from 'cookie';
+import { TravelService, UserService } from "@travel-tailor/services";
+import { jwtDecode } from "@travel-tailor/functions";
+import { AccessToken, Travel, User } from "@travel-tailor/types";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { TravelList } from "@/components/traveler/travels/travelList";
 import { CreateTravelForm } from "@/components/traveler/travels/createForm";
 import { Layout } from "@/components/layout";
-import { TravelService, UserService } from "@/../../packages/services/src";
-import { jwtDecode } from "@/../../packages/functions/src";
-import { AccessToken, Travel, User } from "@/../../packages/types/src";
 
 interface IProps {
     data: {

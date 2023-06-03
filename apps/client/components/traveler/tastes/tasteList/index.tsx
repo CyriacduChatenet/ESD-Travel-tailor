@@ -4,7 +4,7 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import { ROUTES } from '@travel-tailor/constants';
-import { TasteService } from '@/../../packages/services/src';
+import { TasteService } from '@travel-tailor/services';
 
 interface IProps {
     editorMode: boolean;

@@ -2,11 +2,11 @@ import { GetServerSideProps, NextPage } from "next";
 
 import { Layout } from "@/components/layout";
 import { AuthChecker } from "@/components/auth/authChecker";
-import { AccessToken, Traveler, User } from "@/../../packages/types/src";
+import { AccessToken, Traveler, User } from "@travel-tailor/types";
 import { useMemo, useState } from "react";
 import { parse } from "cookie";
-import { jwtDecode } from "@/../../packages/functions/src";
-import { TravelerService, UserService } from "@/../../packages/services/src";
+import { jwtDecode } from "@travel-tailor/functions";
+import { TravelerService, UserService } from "@travel-tailor/services";
 import { TravelerTable } from "@/components/admin/traveler-table";
 import { Paginator } from "@/components/paginator";
 

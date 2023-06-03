@@ -1,5 +1,5 @@
-import { useUser } from "@/../../packages/contexts/src";
-import { TravelService } from "@/../../packages/services/src";
+import { useUser } from "@travel-tailor/contexts";
+import { TravelService } from "@travel-tailor/services";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { FC, useCallback, useState } from "react";
 import { set, useForm } from "react-hook-form";

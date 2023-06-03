@@ -1,4 +1,4 @@
-import { ROUTES } from '@/../../packages/constants/src';
+import { ROUTES } from '@travel-tailor/constants';
 import { Icon } from '@iconify/react';
 import { Day, TimeSlot } from '@travel-tailor/types';
 import Link from 'next/link';

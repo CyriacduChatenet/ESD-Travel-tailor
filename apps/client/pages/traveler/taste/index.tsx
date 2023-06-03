@@ -6,9 +6,9 @@ import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
 import { TasteList } from "@/components/traveler/tastes/tasteList";
 import { TasteToolBar } from "@/components/traveler/tastes/toolBar";
-import { AccessToken, Taste, User } from "@/../../packages/types/src";
-import { jwtDecode } from "@/../../packages/functions/src";
-import { UserService } from "@/../../packages/services/src";
+import { AccessToken, Taste, User } from "@travel-tailor/types";
+import { jwtDecode } from "@travel-tailor/functions";
+import { UserService } from "@travel-tailor/services";
 
 interface IProps {
     user: User;

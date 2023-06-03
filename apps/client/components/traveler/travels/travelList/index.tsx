@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React, { FC, useMemo, useState } from 'react';
 import { TravelService } from '@travel-tailor/services';
 import { Travel, User } from '@travel-tailor/types';
-import { useUser } from '@travel-tailor/contexts';
 import { ROUTES } from '@travel-tailor/constants';
 import { Icon } from '@iconify/react';
 

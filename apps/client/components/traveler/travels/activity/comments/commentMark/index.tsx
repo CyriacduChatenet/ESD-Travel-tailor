@@ -1,6 +1,7 @@
-import { ActivityMark } from "@/../../packages/types/src";
+import { ActivityMark } from "@travel-tailor/types";
 import { Icon } from "@iconify/react";
 import { FC } from "react";
+
 import { Gauge } from "../gauge";
 
 interface IProps {

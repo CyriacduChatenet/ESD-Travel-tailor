@@ -1,6 +1,6 @@
-import { ROUTES } from "@/../../packages/constants/src";
-import { ActivityService } from "@/../../packages/services/src";
-import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag } from "@/../../packages/types/src";
+import { ROUTES } from "@travel-tailor/constants";
+import { ActivityService } from "@travel-tailor/services";
+import { Activity, ActivityClosingDay, ActivitySchedule, ActivityTag } from "@travel-tailor/types";
 import { Icon } from "@iconify/react";
 import moment from "moment";
 import { useRouter } from "next/navigation";

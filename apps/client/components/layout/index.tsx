@@ -13,13 +13,15 @@ interface IProps {
 
 export const Layout: FC<IProps> = ({ children, title, description }) => {
     return (
-        <Context>
-            <PageHeadSeo title={title} description={description} />
-            <Navbar />
-            <div>
-                {children}
-            </div>
-            <Footer />
-        </Context>
+        <>
+            <Context>
+                <PageHeadSeo title={title} description={description} />
+                <Navbar />
+                <div>
+                    {children}
+                </div>
+                <Footer />
+            </Context>
+        </>
     );
 };

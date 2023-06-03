@@ -1,7 +1,6 @@
-import { Invoice } from "@/../../packages/types/src";
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { Invoice } from "@travel-tailor/types";
+import { Dispatch, FC, SetStateAction } from "react";
 import { InvoiceCard } from "../invoiceCard";
-import { set } from "react-hook-form";
 
 interface IProps {
     invoices: Invoice[];

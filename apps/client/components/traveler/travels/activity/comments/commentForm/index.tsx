@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { Activity, Comment } from "@travel-tailor/types";
 import { useUser } from "@travel-tailor/contexts";
-import { CommentService, TravelerService } from "@/../../packages/services/src";
+import { CommentService, TravelerService } from "@travel-tailor/services";
 
 interface IProps {
     data: Activity;

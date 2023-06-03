@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { NavModule } from "./module"
-import { AccessToken } from "@/../../packages/types/src";
-import { jwtDecode } from "@/../../packages/functions/src";
-import { ROLES } from "@/../../packages/constants/src";
-import { TokenService } from "@/../../packages/services/src";
+import { AccessToken } from "@travel-tailor/types";
+import { jwtDecode } from "@travel-tailor/functions";
+import { ROLES } from "@travel-tailor/constants";
+import { TokenService } from "@travel-tailor/services";
 
 export const Navbar: FC = () => {
   const [open, setOpen] = useState(false);

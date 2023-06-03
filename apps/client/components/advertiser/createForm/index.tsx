@@ -1,10 +1,10 @@
 import { useRouter, usePathname } from "next/navigation";
-import { FC, useState } from "react";
+import { FC, useState, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { ChangeEvent } from "@/../../packages/functions/src";
+
 import { Autocomplete } from "@/components/autocomplete";
 
 interface ICreateAdvertiserForm {

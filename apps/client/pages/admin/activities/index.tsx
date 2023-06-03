@@ -1,16 +1,16 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useMemo, useState } from "react";
-import { AccessToken, Activity, User } from "@/../../packages/types/src";
-import { ActivityService, UserService } from "@/../../packages/services/src";
-import { jwtDecode } from "@/../../packages/functions/src";
+import { AccessToken, Activity, User } from "@travel-tailor/types";
+import { ActivityService, UserService } from "@travel-tailor/services";
+import { jwtDecode } from "@travel-tailor/functions";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@travel-tailor/constants";
 import { parse } from "cookie";
 
 import { Layout } from "@/components/layout";
 import { AuthChecker } from "@/components/auth/authChecker";
 import { ActivityTable } from "@/components/admin/activity-table";
 import { Paginator } from "@/components/paginator";
-import { useRouter } from "next/navigation";
-import { ROUTES } from "@/../../packages/constants/src";
 
 interface IProps {
     data: {

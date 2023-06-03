@@ -1,4 +1,4 @@
-import { InvoiceService } from "@/../../packages/services/src";
+import { InvoiceService } from "@travel-tailor/services";
 import { FC, useEffect, useState } from "react";
 
 interface IProps {

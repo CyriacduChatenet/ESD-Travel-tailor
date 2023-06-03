@@ -1,6 +1,6 @@
-import { ROUTES } from "@/../../packages/constants/src";
-import { AdvertiserService } from "@/../../packages/services/src";
-import { Activity, Advertiser } from "@/../../packages/types/src";
+import { ROUTES } from "@travel-tailor/constants";
+import { AdvertiserService } from "@travel-tailor/services";
+import { Activity, Advertiser } from "@travel-tailor/types";
 import { Icon } from "@iconify/react";
 import { parse } from "cookie";
 import moment from "moment";

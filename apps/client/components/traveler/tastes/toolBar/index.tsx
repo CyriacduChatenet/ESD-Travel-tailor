@@ -1,4 +1,4 @@
-import { useUser } from "@/../../packages/contexts/src";
+import { useUser } from "@travel-tailor/contexts";
 import { ROUTES } from "@travel-tailor/constants";
 import Link from "next/link";
 import { Dispatch, FC, SetStateAction } from "react";

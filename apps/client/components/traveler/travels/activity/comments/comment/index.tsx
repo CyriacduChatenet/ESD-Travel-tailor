@@ -1,5 +1,5 @@
-import { CommentService } from "@/../../packages/services/src";
-import { Activity, User } from "@/../../packages/types/src";
+import { CommentService } from "@travel-tailor/services";
+import { Activity, User } from "@travel-tailor/types";
 import { Icon } from "@iconify/react";
 import moment from "moment";
 import { FC, SetStateAction, useState, Dispatch } from "react";

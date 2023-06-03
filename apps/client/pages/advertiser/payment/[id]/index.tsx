@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { loadStripe } from '@stripe/stripe-js'
 import { usePayment } from '@travel-tailor/hooks'
+import { jwtDecode } from "@travel-tailor/functions";
+import { AccessToken, User } from "@travel-tailor/types";
+import { UserService } from "@travel-tailor/services";
 import { parse } from "cookie";
-import { jwtDecode } from "@/../../packages/functions/src";
-import { AccessToken, User } from "@/../../packages/types/src";
 
 import { Layout } from "@/components/layout";
-import { UserService } from "@/../../packages/services/src";
 
 interface IProps {
     stripeCustomerId: string;

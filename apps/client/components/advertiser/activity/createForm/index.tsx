@@ -2,12 +2,13 @@ import { ActivityClosingDay, ActivitySchedule, ActivityTag } from "@travel-tailo
 import { useUser } from "@travel-tailor/contexts";
 import { ActivityClosingDayService, ActivityScheduleService, ActivityService, ActivityTagService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
+import { convertDate } from "@travel-tailor/utils";
 import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { convertDate } from "@/../../packages/utils/src";
+
 import { Autocomplete } from "@/components/autocomplete";
 
 interface ICreateActivityForm {

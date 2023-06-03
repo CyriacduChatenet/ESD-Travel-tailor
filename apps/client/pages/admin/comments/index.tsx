@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useMemo, useState } from "react";
-import { AccessToken, User, Comment } from "@/../../packages/types/src";
-import { CommentService, UserService } from "@/../../packages/services/src";
-import { jwtDecode } from "@/../../packages/functions/src";
+import { AccessToken, User, Comment } from "@travel-tailor/types";
+import { CommentService, UserService } from "@travel-tailor/services";
+import { ROUTES } from "@travel-tailor/constants";
+import { jwtDecode } from "@travel-tailor/functions";
 import { parse } from "cookie";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/../../packages/constants/src";
 
 import { Layout } from "@/components/layout";
 import { AuthChecker } from "@/components/auth/authChecker";

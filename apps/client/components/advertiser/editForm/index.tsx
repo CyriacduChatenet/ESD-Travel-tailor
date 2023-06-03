@@ -3,10 +3,11 @@ import { Dispatch, FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROLES, ROUTES } from "@travel-tailor/constants";
+import { ChangeEvent, jwtDecode } from "@travel-tailor/functions";
+import { AccessToken } from "@travel-tailor/types";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { parse } from "cookie";
-import { ChangeEvent, jwtDecode } from "@/../../packages/functions/src";
-import { AccessToken } from "@/../../packages/types/src";
+
 import { Autocomplete } from "@/components/autocomplete";
 
 interface IEditAdvertiserForm {

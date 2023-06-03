@@ -3,8 +3,8 @@ import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { CommentService } from "@/../../packages/services/src";
-import { ROUTES } from "@/../../packages/constants/src";
+import { CommentService } from "@travel-tailor/services";
+import { ROUTES } from "@travel-tailor/constants";
 
 interface IEditCommentForm {
     content: string;

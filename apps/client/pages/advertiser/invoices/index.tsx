@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { InvoiceService, UserService } from "@/../../packages/services/src";
-import { AccessToken, Invoice, User } from "@/../../packages/types/src";
-import { jwtDecode } from "@/../../packages/functions/src";
+import { InvoiceService, UserService } from "@travel-tailor/services";
+import { AccessToken, Invoice, User } from "@travel-tailor/types";
+import { jwtDecode } from "@travel-tailor/functions";
 import { parse } from "cookie";
 
 

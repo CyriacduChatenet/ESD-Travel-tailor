@@ -1,18 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
+import { AccessToken, Activity, User } from "@travel-tailor/types";
+import { ActivityService, UserService } from "@travel-tailor/services";
+import { jwtDecode } from "@travel-tailor/functions";
+import { useHistory } from "@travel-tailor/contexts";
+import { parse } from "cookie";
+import { useRouter } from "next/router";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
 import { ActivityListPaginator } from "@/components/advertiser/activity/activityListPaginator";
 import { AdvertiserToolBar } from "@/components/advertiser/toolBar";
 import { Paginator } from "@/components/paginator";
-import { AccessToken, Activity, User } from "@/../../packages/types/src";
-import { ActivityService, UserService } from "@/../../packages/services/src";
-import { parse } from "cookie";
-import { jwtDecode } from "@/../../packages/functions/src";
-import { useHistory } from "@/../../packages/contexts/src";
-import { useRouter } from "next/router";
 
 interface IProps {
     res: {
@@ -60,10 +60,10 @@ const AdvertiserDashboardPage: NextPage<IProps> = ({ res, user }) => {
                         <h1 className="font-bold lg:text-2xl">Advertiser Dashboard</h1>
                         <AdvertiserToolBar setEditorMode={setEditorMode} editorMode={editorMode} />
                         <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
-                            {/* <div className="col-span-4 md:col-span-4 xl:col-span-8">
+                            <div className="col-span-4 md:col-span-4 xl:col-span-8">
                                 <ActivityListPaginator editorMode={editorMode} user={user} data={response} setData={setResponse} />
                                 <Paginator pageCurrent={page} setPage={setPage} limit={response.limit} total={response.total} />
-                            </div> */}
+                            </div>
                             <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
                                 <Image src="https://images.unsplash.com/photo-1493564738392-d148cfbd6eda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80" alt="city" width={500} height={500} priority />
                             </div>

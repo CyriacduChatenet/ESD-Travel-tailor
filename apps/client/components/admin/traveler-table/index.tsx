@@ -1,5 +1,5 @@
-import { TravelerService } from "@/../../packages/services/src";
-import { Comment, Taste, Travel, Traveler } from "@/../../packages/types/src";
+import { TravelerService } from "@travel-tailor/services";
+import { Comment, Taste, Travel, Traveler } from "@travel-tailor/types";
 import { Icon } from "@iconify/react";
 import moment from "moment";
 import { useRouter } from "next/navigation";

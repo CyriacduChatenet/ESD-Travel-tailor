@@ -1,4 +1,4 @@
-import { GeocoderService } from "@/../../packages/services/src";
+import { GeocoderService } from "@travel-tailor/services";
 import { FC, useMemo, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 

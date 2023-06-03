@@ -4,7 +4,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Activity, AccessToken, User } from "@travel-tailor/types";
 import { ActivityService, UserService } from "@travel-tailor/services";
 import { parse } from "cookie";
-import { jwtDecode } from "@/../../packages/functions/src";
+import { jwtDecode } from "@travel-tailor/functions";
+
 import { AuthChecker } from "@/components/auth/authChecker";
 import { Layout } from "@/components/layout";
 import { ActivityModule } from "@/components/traveler/travels/activity/module";
