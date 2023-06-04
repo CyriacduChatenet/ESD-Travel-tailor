@@ -16,7 +16,7 @@ export class TravelRepository extends Repository<Travel> {
       }
     
       async findAllTravel(queries: ApiLimitResourceQuery) {
-          let { page, limit, sortedBy, departureCity, destinationCity, departureDate, returnDate } = queries;
+          let { page, limit, sortedBy, departureCity, destinationCity, departureDate, returnDate, validate } = queries;
           page = page ? +page : 1;
           limit = limit ? +limit : 10;
           
@@ -47,6 +47,10 @@ export class TravelRepository extends Repository<Travel> {
     
           if(returnDate) {
             query.andWhere('travel.returnDate = :returnDate', { returnDate })
+          }
+
+          if(validate) {
+            query.andWhere('travel.validate = :validate', { validate })
           }
     
           return {

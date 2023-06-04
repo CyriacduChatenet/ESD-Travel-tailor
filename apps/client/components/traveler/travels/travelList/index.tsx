@@ -39,12 +39,17 @@ export const TravelList: FC<IProps> = ({ data, user }) => {
 
     return (
         <>
+            <h2 className='font-bold text-2xl'>My Travels</h2>
             <ul>
                 {response.data ? response.data.map((travel: Travel, index: number) => (
                     <Link key={index} href={`${ROUTES.TRAVELER.TRAVELER}${ROUTES.TRAVELER.TRAVEL.FIND}/${travel.id}`}>
                         <li className='px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:grid xl:grid-cols-12 xl:gap-5 lg:pr-20'>
-                            <p className='lg:col-span-6'>{travel.destinationCity}</p>
-                            <p className='lg:col-span-5' >{`${new Date(travel.departureDate).toLocaleDateString('fr')}`} - {`${new Date(travel.returnDate).toLocaleDateString('fr')}`}</p>
+                            <p className='lg:col-span-4'>{travel.destinationCity}</p>
+                            <p className='lg:col-span-4' >{`${new Date(travel.departureDate).toLocaleDateString('fr')}`} - {`${new Date(travel.returnDate).toLocaleDateString('fr')}`}</p>
+                            <div className='lg:col-span-3'>
+                                {!travel.validate && <span className='text-red-500 bg-red-100 py-2 px-6 rounded-full'>Not validated</span>}
+                                {travel.validate && <span className='text-green-500 bg-green-100 py-2 px-6 rounded-full'>Validated</span>}
+                            </div>
                             <div className='lg:col-span-1'>
                                 <Icon icon="material-symbols:chevron-right" className='w-6 h-6' />
                             </div>

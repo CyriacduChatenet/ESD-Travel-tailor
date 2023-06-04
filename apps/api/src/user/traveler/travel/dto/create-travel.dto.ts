@@ -1,5 +1,5 @@
 import { CreateTravelDTO } from '@travel-tailor/types';
-import { IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 export class CreateTravelDto implements CreateTravelDTO {
   @IsString()
@@ -13,4 +13,7 @@ export class CreateTravelDto implements CreateTravelDTO {
 
   @IsDate()
   returnDate: Date;
+
+  @IsBoolean()
+  validate: boolean;
 }

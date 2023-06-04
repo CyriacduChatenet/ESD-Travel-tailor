@@ -9,6 +9,7 @@ export type Travel = {
   departureDate: Date
   returnDate: Date
   days: Day[]
+  validate?: boolean
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null
@@ -21,6 +22,7 @@ export type CreateTravelDTO = {
   days?: Day[]
   departureDate?: string | Date
   returnDate?: string | Date
+  validate?: boolean;
 }
 
 export type UpdateTravelDTO = {
@@ -30,4 +32,5 @@ export type UpdateTravelDTO = {
   destinationCity?: string
   departureDate?: Date
   returnDate?: Date
+  validate?: boolean
 }

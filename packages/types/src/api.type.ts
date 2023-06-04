@@ -22,6 +22,7 @@ export type ApiLimitResourceQuery = {
   date?: string;
   startTime?: string;
   endTime?: string;
+  validate?: boolean;
 };
 
 export type ErrorResponse = {
