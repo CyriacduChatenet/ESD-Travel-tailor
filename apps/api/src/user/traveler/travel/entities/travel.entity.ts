@@ -27,6 +27,9 @@ export class Travel extends Timestamp {
   @Column({ nullable: false })
   returnDate: Date;
 
+  @Column({ nullable: false, default: false })
+  validate: boolean;
+
   @ManyToOne(() => Traveler, (traveler) => traveler.travels)
   traveler: Traveler;
 
