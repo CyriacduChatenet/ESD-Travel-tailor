@@ -15,7 +15,7 @@ export class PlanningController {
     @Throttle(100, 60)
     @UseGuards(JwtAuthGuard)
     @Roles(Role.Traveler, Role.Admin)
-    @Patch(':travel_id')
+    @Patch('/activity/:travel_id')
     async updatePlanningActivity(@Param('travel_id') travel_id: string, @Body() updatePlanningActivityDto: UpdatePlanningActivityDto) {
         return await this.planningService.updatePlanningActivity(travel_id, updatePlanningActivityDto);
     }
