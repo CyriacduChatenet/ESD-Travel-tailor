@@ -15,6 +15,7 @@ import { DayService } from '../day/day.service'
 import { TimeSlotService } from '../day/time-slot/time-slot.service'
 import { Activity } from '../../../../activity/entities/activity.entity'
 import { UpdatePlanningActivityDto } from './dto/update-planning-activity.dto'
+import { UpdateTravelDto } from '../dto/update-travel.dto'
 
 const MAX_TIME_SLOTS_PER_DAY = 5
 
@@ -269,5 +270,14 @@ export class PlanningService {
       newActivity.timeSlots = [timeSlot]
     }
     await this.activityService.update(newActivity.id, newActivity)
+  }
+
+  async updateTravelSpec(user: User, travelId: string, updateTravelDto: UpdateTravelDto) {
+    const travel = await this.travelService.findOne(travelId);
+    travel.days = [];
+    await this.travelService.update(travelId, { days: [] });
+    const planning = await this.create(user, travel);
+
+    return await this.travelService.update(travelId, {...updateTravelDto, days: planning});
   }
 }
