@@ -50,6 +50,14 @@ export class DayRepository extends Repository<Day> {
             data: await query.getMany(),
           }
       }
+
+      async findByTravelId(travelId: string): Promise<Day[]> {
+        return await this.createQueryBuilder('day')
+          .leftJoinAndSelect('day.travel', 'travel')
+          .leftJoinAndSelect('day.timeSlots', 'timeSlots')
+          .where('travel.id = :travelId', { travelId })
+          .getMany();
+      }
     
       async findOneDay(id: string) {
           return await this.createQueryBuilder('day')

@@ -4,10 +4,11 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { CreateTimeSlotDto } from './dto/create-time-slot.dto'
 import { UpdateTimeSlotDto } from './dto/update-time-slot.dto'
 import { TimeSlotRepository } from './time-slot.repository'
+import { DayService } from '../day.service'
 
 @Injectable()
 export class TimeSlotService {
-  constructor(private readonly timeSlotRepository: TimeSlotRepository) {}
+  constructor(private readonly timeSlotRepository: TimeSlotRepository, private readonly dayService: DayService) {}
 
   async create(createTimeSlotDto: CreateTimeSlotDto) {
     try {
@@ -47,5 +48,9 @@ export class TimeSlotService {
     } catch (error) {
       throw new UnauthorizedException(error)
     }
+  }
+
+  async deleteByDayId(dayId: string): Promise<void> {
+    await this.timeSlotRepository.delete({ day: { id: dayId } });
   }
 }

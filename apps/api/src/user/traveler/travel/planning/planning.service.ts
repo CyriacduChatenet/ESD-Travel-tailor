@@ -191,4 +191,22 @@ export class PlanningService {
     const activities = await this.filterActivities(travelInDB, tastes, availableActivities);
     return await this.createPlanning(travelInDB, activities);
   }
+
+  async updatePlanning(userConnected: User, travelId: string, tastes: Partial<ActivityTag[]>) {
+    const user = await this.userService.findOneByEmail(userConnected.email);
+    const travel = await this.travelService.findOne(travelId);
+    const availableActivities: Activity[] = [];
+    const activities = await this.filterActivities(travel, tastes, availableActivities);
+  
+    // Supprimer l'ancien planning
+    const days = await this.dayService.findByTravelId(travelId);
+    for (const day of days) {
+      await this.timeSlotService.deleteByDayId(day.id);
+      await this.dayService.remove(day.id);
+    }
+  
+    // Créer un nouveau planning
+    await this.createPlanning(travel, activities);
+  }
+  
 }
