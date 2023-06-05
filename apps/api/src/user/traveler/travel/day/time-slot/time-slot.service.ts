@@ -26,6 +26,15 @@ export class TimeSlotService {
     }
   }
 
+  async findAllByDayId(day_id: string) {
+    try {
+      const day = await this.dayService.findOne(day_id)
+      return day.timeSlots;
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
+  }
+
   async findOne(id: string) {
     try {
       return await this.timeSlotRepository.findOneTimeSlot(id)
@@ -48,9 +57,5 @@ export class TimeSlotService {
     } catch (error) {
       throw new UnauthorizedException(error)
     }
-  }
-
-  async deleteByDayId(dayId: string): Promise<void> {
-    await this.timeSlotRepository.delete({ day: { id: dayId } });
   }
 }

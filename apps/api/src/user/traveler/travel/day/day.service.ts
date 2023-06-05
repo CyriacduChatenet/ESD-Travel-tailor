@@ -4,11 +4,11 @@ import { CreateDayDto } from './dto/create-day.dto'
 import { UpdateDayDto } from './dto/update-day.dto'
 import { ApiLimitResourceQuery } from '@travel-tailor/types'
 import { DayRepository } from './day.repository'
-import { Day } from './entities/day.entity'
+import { TravelService } from '../travel.service'
 
 @Injectable()
 export class DayService {
-  constructor(private readonly dayRepository: DayRepository) {}
+  constructor(private readonly dayRepository: DayRepository, private readonly travelService: TravelService) {}
 
   async create(createDayDto: CreateDayDto) {
     try {
@@ -26,6 +26,15 @@ export class DayService {
     }
   }
 
+  async findAllByTravelId(travel_id: string) {
+    try {
+      const travel = await this.travelService.findOne(travel_id)
+     return await travel.days;
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
+  }
+
   async findOne(id: string) {
     try {
      return await this.dayRepository.findOneDay(id)
@@ -33,15 +42,7 @@ export class DayService {
       throw new NotFoundException(error)
     }
   }
-
-  async findByTravelId(travelId: string): Promise<Day[]> {
-    try {
-      return await this.dayRepository.findByTravelId(travelId);
-    } catch (error) {
-      throw new NotFoundException(error);
-    }
-  }
-
+  
   async update(id: string, updateDayDto: UpdateDayDto) {
     try {
       return await this.dayRepository.updateDay(id, updateDayDto)

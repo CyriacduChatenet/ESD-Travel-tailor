@@ -189,24 +189,101 @@ export class PlanningService {
 
     const availableActivities: Activity[] = [];
     const activities = await this.filterActivities(travelInDB, tastes, availableActivities);
-    return await this.createPlanning(travelInDB, activities);
+    await this.createPlanning(travelInDB, activities);
   }
 
-  async updatePlanning(userConnected: User, travelId: string, tastes: Partial<ActivityTag[]>) {
+  async update(userConnected: User, travel_id: string) {
     const user = await this.userService.findOneByEmail(userConnected.email);
-    const travel = await this.travelService.findOne(travelId);
+    const travelInDB = await this.travelService.findOne(travel_id);
+    const tastes = user.traveler.tastes;
+
     const availableActivities: Activity[] = [];
-    const activities = await this.filterActivities(travel, tastes, availableActivities);
-  
-    // Supprimer l'ancien planning
-    const days = await this.dayService.findByTravelId(travelId);
+    const activities = await this.filterActivities(travelInDB, tastes, availableActivities);
+
+    const days = await this.dayService.findAllByTravelId(travel_id);
+
     for (const day of days) {
-      await this.timeSlotService.deleteByDayId(day.id);
-      await this.dayService.remove(day.id);
+      const timeSlots = await this.timeSlotService.findAllByDayId(day.id);
+
+      // Supprimer les anciens créneaux horaires et activités
+      for (const timeSlot of timeSlots) {
+        await this.timeSlotService.remove(timeSlot.id);
+        const activity = await this.activityService.findOne(timeSlot.activity.id) as any;
+        activity.timeSlots = activity.timeSlots.filter((ts) => ts.id !== timeSlot.id);
+        await this.activityService.update(activity.id, activity);
+      }
+
+      // Ajouter de nouveaux créneaux horaires et activités
+      let previousEndTime = null;
+
+      for (let i = 0; i < MAX_TIME_SLOTS_PER_DAY; i++) {
+        if (activities.length === 0) {
+          break; // Aucune activité disponible
+        }
+
+        const randomIndex = Math.floor(Math.random() * activities.length);
+        const activity = activities[randomIndex];
+        activities.splice(randomIndex, 1);
+
+        const activityInDB = await this.activityService.findOne(activity.id) as any;
+
+        const activityDuration = activity.detail.duration;
+        const openingTime = moment(
+          activity.detail.schedules[0].opening_at,
+          'HH:mm:ss',
+        );
+
+        let startTime;
+        let endTime;
+
+        if (!previousEndTime) {
+          // Premier créneau de la journée
+          startTime = openingTime.toDate();
+          endTime = openingTime.clone().add(activityDuration, 'hours').toDate();
+        } else {
+          // Créneaux suivants
+          startTime = moment(previousEndTime).toDate();
+          endTime = moment(previousEndTime).add(activityDuration, 'hours').toDate();
+        }
+
+        const isOverlapping = timeSlots.some((slot) => {
+          const startTimeOverlap = moment(startTime).isBetween(slot.startTime, slot.endTime, null, '[)');
+          const endTimeOverlap = moment(endTime).isBetween(slot.startTime, slot.endTime, null, '(]');
+          const slotInside = moment(startTime).isSameOrBefore(slot.startTime) && moment(endTime).isSameOrAfter(slot.endTime);
+          return startTimeOverlap || endTimeOverlap || slotInside;
+        });
+
+        if (isOverlapping) {
+          // Gérer les chevauchements de créneaux ici
+          // Par exemple, passer au créneau horaire suivant
+          continue;
+        }
+
+        const createTimeSlotDto = {
+          startTime,
+          endTime,
+          day,
+          activity: activityInDB,
+        };
+
+        const timeSlot = await this.timeSlotService.create(createTimeSlotDto);
+        timeSlots.push(timeSlot);
+
+        if (activityInDB.timeSlots) {
+          activityInDB.timeSlots.push(timeSlot);
+        } else {
+          activityInDB.timeSlots = [timeSlot];
+        }
+
+        await this.activityService.update(activity.id, activityInDB);
+
+        previousEndTime = endTime;
+      }
+
+      if (day.timeSlots) {
+        day.timeSlots.push(...timeSlots);
+        await this.dayService.update(day.id, day);
+      }
     }
-  
-    // Créer un nouveau planning
-    await this.createPlanning(travel, activities);
   }
-  
 }
