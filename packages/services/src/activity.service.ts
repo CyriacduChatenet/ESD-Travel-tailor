@@ -3,13 +3,18 @@ import { Activity, ActivityTag, Comment, CreateActivityDTO, UpdateActivityDTO } 
 import { ActivityDetailService } from './activity-detail.service'
 import { CommentService } from './comment.service'
 import { Dispatch, SetStateAction } from 'react'
-import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE } from '@travel-tailor/constants'
+import { API_ACTIVITY_BY_NAME_ROUTE, API_ACTIVITY_ROUTE, API_ACTIVITY_BY_NAME_LIST_ROUTE } from '@travel-tailor/constants'
 
 import { TokenService } from './token.service'
 import { TravelerService } from './traveler.service'
 
 const findAllActivities = async (api_url: string, setError: any, params: string) => {
   const data = await useFetch.get(`${api_url}${API_ACTIVITY_ROUTE}${params}`, setError)
+  return data;
+}
+
+const findAllActivitiesLikeName = async (api_url: string, setError: any, name: string) => {
+  const data = await useFetch.get(`${api_url}${API_ACTIVITY_BY_NAME_LIST_ROUTE}/${name}`, setError)
   return data;
 }
 
@@ -139,6 +144,7 @@ export const ActivityService = {
   findAllActivities,
   findActivityById,
   findActivityBySlug,
+  findAllActivitiesLikeName,
   findActivityBySlugWithRelations,
   findActivitiesByAdvertiserId,
   createActivity,

@@ -51,6 +51,14 @@ export class ActivityService {
     }
     }
 
+    async findAllActivitiesLikeName(name: string) {
+      try {
+      return await this.activityRepository.findAllActivitiesLikeName(name)
+      } catch (error) {
+      throw new NotFoundException(error)
+      }
+      }
+
   async findAllByAdvertiserId(advertiserId: string, page: number, limit: number) {
     try {
       return await this.activityRepository.findAllActivityByAdvertiserId(advertiserId, page, limit)

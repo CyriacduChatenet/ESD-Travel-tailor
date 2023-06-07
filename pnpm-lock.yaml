@@ -239,6 +239,9 @@ importers:
       '@types/cookie':
         specifier: ^0.5.1
         version: 0.5.1
+      '@types/js-cookie':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@types/mapbox-gl':
         specifier: ^2.7.10
         version: 2.7.10
@@ -269,6 +272,9 @@ importers:
       eslint-config-next:
         specifier: 13.4.2
         version: 13.4.2(eslint@8.40.0)(typescript@5.0.4)
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       mapbox-gl:
         specifier: ^2.13.0
         version: 2.13.0

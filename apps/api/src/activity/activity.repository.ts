@@ -101,6 +101,23 @@ export class ActivityRepository extends Repository<Activity> {
         .getMany()
         }
 
+        async findAllActivitiesLikeName(name: string) {
+          return await this.createQueryBuilder('activity')
+          .leftJoinAndSelect('activity.image', 'image')
+          .leftJoinAndSelect('activity.marks', 'marks')
+          .leftJoinAndSelect('image.uploadFile', 'uploadFile')
+          .leftJoinAndSelect('activity.comments', 'comments')
+          .leftJoinAndSelect("comments.marks", "commentMark")
+          .leftJoinAndSelect('activity.advertiser', 'advertiser')
+          .leftJoinAndSelect('activity.tags', 'tag')
+          .leftJoinAndSelect('activity.timeSlots', 'timeSlot')
+          .leftJoinAndSelect('activity.detail', 'detail')
+          .leftJoinAndSelect("detail.closingDays", "closingDay")
+          .leftJoinAndSelect("detail.schedules", "schedule")
+          .andWhere('activity.name LIKE :name', { name: `%${name}%` })
+          .getMany()
+        }
+
         async findAllActivityByAdvertiserId(advertiserId: string, page: number, limit: number) {
           const skip = (page - 1) * limit;
           const take = limit;

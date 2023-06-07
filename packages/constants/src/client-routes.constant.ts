@@ -30,6 +30,7 @@ export const ROUTES = {
       FIND: '/travel',
       ACTIVITY: '/traveler/travel/activity',
       PAYMENT: '/travel/payment',
+      EDIT_ACTIVITY: '/traveler/travel/activity/edit',
     }
   },
   ADVERTISER: {

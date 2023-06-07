@@ -7,6 +7,7 @@ import { TravelerModule } from '../../traveler.module'
 import { TravelModule } from '../travel.module'
 import { ActivityModule } from '../../../../activity/activity.module'
 import { TimeSlotModule } from '../day/time-slot/time-slot.module'
+import { PlanningController } from './planning.controller'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TimeSlotModule } from '../day/time-slot/time-slot.module'
     TimeSlotModule,
     forwardRef(() => TravelModule),
   ],
+  controllers: [PlanningController],
   providers: [PlanningService],
   exports: [PlanningService],
 })
