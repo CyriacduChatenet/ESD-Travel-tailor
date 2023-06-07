@@ -26,7 +26,7 @@ export class PlanningController {
     @UseGuards(JwtAuthGuard)
     @Roles(Role.Traveler, Role.Admin)
     @Patch(':travel_id')
-    async updateTravelSpec(@User() user, @Param('travel_id') travel_id: string, updateTravelDto: UpdateTravelDto) {
+    async updateTravelSpec(@User() user, @Param('travel_id') travel_id: string, @Body() updateTravelDto: UpdateTravelDto) {
         return await this.planningService.updateTravelSpec(user, travel_id, updateTravelDto);
     }
 }

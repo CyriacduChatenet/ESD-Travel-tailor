@@ -14,6 +14,8 @@ import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
 import { ActivityList } from "@/components/traveler/travels/activity/activityList";
 import { Layout } from "@/components/layout";
 import { useHistory } from "@/../../packages/contexts/src";
+import Link from "next/link";
+import { ROUTES } from "@/../../packages/constants/src";
 
 interface IProps {
   data: Travel;
@@ -38,7 +40,7 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
   };
 
   useEffect(() => {
-    if(window) {
+    if (window) {
       setPathname(window.location.pathname);
       Cookies.set("travel_id", window.location.pathname.split("/")[3]);
     }
@@ -71,15 +73,28 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
                       validate travel
                     </button>
                     <button
-                      className={`${editorMode ? "bg-red-500 hover:bg-red-700": "bg-blue-500 hover:bg-blue-700"} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8`}
+                      className={`${
+                        editorMode
+                          ? "bg-red-500 hover:bg-red-700"
+                          : "bg-blue-500 hover:bg-blue-700"
+                      } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8`}
                       onClick={() => setEditorMode(!editorMode)}
                     >
-                      {editorMode ? "cancel" : "edit travel"}
+                      {editorMode ? "cancel" : "edit travel activities"}
                     </button>
+                    <Link href={`${ROUTES.TRAVELER.TRAVEL.EDIT}/${window.location.pathname.split("/")[3]}`}>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8">
+                        edit travel
+                      </button>
+                    </Link>
                   </div>
                 )}
                 <DayNavbar days={data.days} dayCurrent={day} setDay={setDay} />
-                <ActivityList days={data.days} dayCurrent={day} editorMode={editorMode} />
+                <ActivityList
+                  days={data.days}
+                  dayCurrent={day}
+                  editorMode={editorMode}
+                />
               </div>
               <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
                 <Mapbox

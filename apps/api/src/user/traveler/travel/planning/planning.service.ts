@@ -275,7 +275,7 @@ export class PlanningService {
   async updateTravelSpec(user: User, travelId: string, updateTravelDto: UpdateTravelDto) {
     const travel = await this.travelService.findOne(travelId);
     travel.days = [];
-    await this.travelService.update(travelId, { days: [] });
+    await this.travelService.save(travel);
     const planning = await this.create(user, travel);
 
     return await this.travelService.update(travelId, {...updateTravelDto, days: planning});

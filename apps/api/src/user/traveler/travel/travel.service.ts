@@ -22,6 +22,11 @@ export class TravelService {
     }
   }
 
+
+  async save(data: CreateTravelDto) {
+    return this.travelRepository.save(data)
+  }
+
   async findAll(queries: ApiLimitResourceQuery) {
     try {
       return await this.travelRepository.findAllTravel(queries);

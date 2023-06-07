@@ -1,7 +1,7 @@
 import { useUser } from "@travel-tailor/contexts";
-import { PlanningService, TravelService } from "@travel-tailor/services";
+import { PlanningService } from "@travel-tailor/services";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/../../packages/constants/src";
@@ -17,6 +17,7 @@ interface IEditTravelForm {
 export const EditTravelForm: FC = () => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
     const [submit, setSubmit] = useState<boolean>(false);
+    const [travel_id, setTravel_id] = useState("");
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<IEditTravelForm>();
     const { user, setUser } = useUser();
@@ -24,12 +25,16 @@ export const EditTravelForm: FC = () => {
 
     const onSubmit = useCallback(async (data: IEditTravelForm) => {
         setSubmit(true);
-        const response = await PlanningService.updateTravelSpec(`${process.env.NEXT_PUBLIC_API_URL}`, `${window.location.pathname.split('/')[3]}`, data)
+        const response = await PlanningService.updateTravelSpec(`${process.env.NEXT_PUBLIC_API_URL}`, `${travel_id}`, data)
         if(response) {
             setSubmit(false);
             router.push(ROUTES.TRAVELER.DASHBOARD)
         }
     }, [user]);
+
+    useEffect(() => {
+        setTravel_id(window.location.pathname.split('/')[4]);
+    }, [])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col lg:justify-between lg:items-center py-8">

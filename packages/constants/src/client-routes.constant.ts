@@ -27,6 +27,7 @@ export const ROUTES = {
     },
     TRAVELER: '/traveler',
     TRAVEL: {
+      EDIT: '/traveler/travel/edit',
       FIND: '/travel',
       ACTIVITY: '/traveler/travel/activity',
       PAYMENT: '/travel/payment',
