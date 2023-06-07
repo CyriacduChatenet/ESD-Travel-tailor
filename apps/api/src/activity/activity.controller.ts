@@ -42,6 +42,11 @@ export class ActivityController {
     return this.activityService.findAll(queries)
   }
 
+  @Get('name/list/:name')
+  findAllActivitiesLikeName(@Param('name') name: string) {
+    return this.activityService.findAllActivitiesLikeName(name)
+  }
+
   @Get(':id')
   findOneByName(@Param('id') id: string) {
     return this.activityService.findOne(id)
