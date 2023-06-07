@@ -3,17 +3,17 @@ import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 export class UpdateTravelDto implements UpdateTravelDTO {
   @IsString()
-  departureCity: string;
+  departureCity?: string;
 
   @IsString()
-  destinationCity: string;
+  destinationCity?: string;
 
   @IsDate()
-  departureDate: Date;
+  departureDate?: Date;
 
   @IsDate()
-  returnDate: Date;
+  returnDate?: Date;
 
   @IsBoolean()
-  validate: boolean;
+  validate?: boolean;
 }
