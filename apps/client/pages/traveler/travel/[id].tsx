@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { TravelService } from "@travel-tailor/services";
 import { Travel } from "@travel-tailor/types";
@@ -12,21 +12,37 @@ const Mapbox: any = dynamic(
 import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
 import { ActivityList } from "@/components/traveler/travels/activity/activityList";
 import { Layout } from "@/components/layout";
+import { useHistory, useTravel } from "@/../../packages/contexts/src";
 
 interface IProps {
   data: Travel;
 }
 
 const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
-    const [apiErrors, setApiErrors] = useState({});
+  const [apiErrors, setApiErrors] = useState({});
   const [day, setDay] = useState<Date>(new Date());
+  const [editorMode, setEditorMode] = useState<boolean>(false);
+  const { setPathname } = useHistory();
+  const { setTravel_id } = useTravel();
 
   const handleValidateTravel = async () => {
-    const response = await TravelService.updateTravel(`${process.env.NEXT_PUBLIC_API_URL}`, data.id, { validate: true }, setApiErrors);
+    const response = await TravelService.updateTravel(
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      data.id,
+      { validate: true },
+      setApiErrors
+    );
     if (response) {
-        window.location.reload();
-        }
+      window.location.reload();
+    }
   };
+
+  useEffect(() => {
+    if(window) {
+      setPathname(window.location.pathname);
+      setTravel_id(window.location.pathname.split('/')[3]);
+    }
+  }, []);
   return (
     <AuthChecker>
       <Layout
@@ -48,13 +64,22 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
               <div className="col-span-4 md:col-span-4 xl:col-span-8">
                 {!data.validate && (
                   <div className="lg:mt-8">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8" onClick={() => handleValidateTravel()}>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+                      onClick={() => handleValidateTravel()}
+                    >
                       validate travel
+                    </button>
+                    <button
+                      className={`${editorMode ? "bg-red-500 hover:bg-red-700": "bg-blue-500 hover:bg-blue-700"} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8`}
+                      onClick={() => setEditorMode(!editorMode)}
+                    >
+                      {editorMode ? "cancel" : "edit travel"}
                     </button>
                   </div>
                 )}
                 <DayNavbar days={data.days} dayCurrent={day} setDay={setDay} />
-                <ActivityList days={data.days} dayCurrent={day} />
+                <ActivityList days={data.days} dayCurrent={day} editorMode={editorMode} />
               </div>
               <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
                 <Mapbox

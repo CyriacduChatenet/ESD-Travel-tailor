@@ -15,6 +15,7 @@ export const API_USER_ROUTE = '/user'
 
 export const API_ACTIVITY_ROUTE = '/activity'
 export const API_ACTIVITY_BY_NAME_ROUTE = '/activity/name'
+export const API_ACTIVITY_BY_NAME_LIST_ROUTE = '/activity/name/list'
 export const API_ACTIVITY_CLOSING_DAY_ROUTE = '/activity-closing-day'
 export const API_ACTIVITY_DETAIL_ROUTE = '/activity-detail'
 export const API_ACTIVITY_IMAGE_ROUTE = '/activity-image'
