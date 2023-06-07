@@ -3,6 +3,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { TravelService } from "@travel-tailor/services";
 import { Travel } from "@travel-tailor/types";
 import dynamic from "next/dynamic";
+import Cookies from "js-cookie";
 
 import { AuthChecker } from "@/components/auth/authChecker";
 const Mapbox: any = dynamic(
@@ -12,7 +13,7 @@ const Mapbox: any = dynamic(
 import { DayNavbar } from "@/components/traveler/travels/dayNavbar";
 import { ActivityList } from "@/components/traveler/travels/activity/activityList";
 import { Layout } from "@/components/layout";
-import { useHistory, useTravel } from "@/../../packages/contexts/src";
+import { useHistory } from "@/../../packages/contexts/src";
 
 interface IProps {
   data: Travel;
@@ -23,7 +24,6 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
   const [day, setDay] = useState<Date>(new Date());
   const [editorMode, setEditorMode] = useState<boolean>(false);
   const { setPathname } = useHistory();
-  const { setTravel_id } = useTravel();
 
   const handleValidateTravel = async () => {
     const response = await TravelService.updateTravel(
@@ -40,7 +40,7 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
   useEffect(() => {
     if(window) {
       setPathname(window.location.pathname);
-      setTravel_id(window.location.pathname.split('/')[3]);
+      Cookies.set("travel_id", window.location.pathname.split("/")[3]);
     }
   }, []);
   return (

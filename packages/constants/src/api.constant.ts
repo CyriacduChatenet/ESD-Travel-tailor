@@ -9,6 +9,8 @@ export const API_TRAVELER_ROUTE = '/traveler'
 
 export const API_TRAVEL_ROUTE = '/travel'
 
+export const API_TIMESLOT_ROUTE = '/time-slot'
+
 export const API_TASTE_ROUTE = '/taste'
 
 export const API_USER_ROUTE = '/user'

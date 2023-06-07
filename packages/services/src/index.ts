@@ -17,3 +17,4 @@ export { MapboxService } from './mapbox.service';
 export { PaymentService } from './payment.service';
 export { InvoiceService } from './invoices.service';
 export { PlanningService } from './planning.service';
+export {TimeSlotService} from './timeSlot.service';

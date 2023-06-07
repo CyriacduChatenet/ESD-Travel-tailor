@@ -94,7 +94,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         user = await UserService.getUserByToken(`${process.env.API_URL}`, decodedToken.email, error);
 
         response = await ActivityService.findActivitiesByAdvertiserId(`${process.env.API_URL}`, String(user?.advertiser?.id), error, 1, 10);
-        console.log(response);
     }
     return {
         props: {

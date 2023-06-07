@@ -23,9 +23,11 @@ export const Autocomplete: FC<IProps> = ({ address, setAddress }) => {
     const [results, setResults] = useState<any[]>([]);
 
     useMemo(async () => {
-        const tiimeout = setTimeout(async () => {
+        const timeout = setTimeout(async () => {
             await GeocoderService.searchCity(address, `${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`, setResults);
         }, 1000);
+
+        clearTimeout(timeout);
     }, [address]);
 
     return (
