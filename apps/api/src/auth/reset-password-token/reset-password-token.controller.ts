@@ -28,7 +28,7 @@ export class ResetPasswordTokenController {
   }
 
   @Patch(':id')
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Traveler, Role.Admin)
   async update(@Param('id') id: string, @Body() updateResetPasswordTokenDto: UpdateResetPasswordTokenDto) {
@@ -36,7 +36,7 @@ export class ResetPasswordTokenController {
   }
 
   @Delete(':id')
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {

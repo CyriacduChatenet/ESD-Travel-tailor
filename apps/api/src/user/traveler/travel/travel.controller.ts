@@ -32,7 +32,7 @@ export class TravelController {
   ) {}
 
   @Post()
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async create(@Body() createTravelDto: CreateTravelDto, @User() user: UserType) {
@@ -49,25 +49,25 @@ export class TravelController {
   }
 
   @Get()
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.travelService.findAll(queries)
   }
 
   @Get('/traveler/:id')
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   async findAllByTraveler(@Param('id') travelerId: string, @Query('page') page = 1, @Query('limit') limit = 10) {
     return await this.travelService.findAllByTravelerId(travelerId, page, limit);
   };
 
   @Get(':id')
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   async findOne(@Param('id') id: string) {
     return await this.travelService.findOne(id)
   }
 
   @Patch(':id')
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto) {
@@ -75,7 +75,7 @@ export class TravelController {
   }
 
   @Delete(':id')
-  @Throttle(100, 60)
+  @Throttle(500, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {

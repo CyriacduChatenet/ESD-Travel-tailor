@@ -14,7 +14,7 @@ import { UpdateTravelDto } from "../dto/update-travel.dto";
 export class PlanningController {
     constructor(private readonly planningService: PlanningService) {}
 
-    @Throttle(100, 60)
+    @Throttle(500, 60)
     @UseGuards(JwtAuthGuard)
     @Roles(Role.Traveler, Role.Admin)
     @Patch('/activity/:travel_id')
@@ -22,7 +22,7 @@ export class PlanningController {
         return await this.planningService.updatePlanningActivity(travel_id, updatePlanningActivityDto);
     }
 
-    @Throttle(100, 60)
+    @Throttle(500, 60)
     @UseGuards(JwtAuthGuard)
     @Roles(Role.Traveler, Role.Admin)
     @Patch(':travel_id')
