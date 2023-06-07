@@ -7,7 +7,7 @@ const updatePlanningActivity = async (api_url: string, travel_id: string, day_id
 };
 
 const updateTravelSpec = async (api_url: string, travel_id: string, updateTravelDto: UpdateTravelDTO) => {
-    return await useFetch.protectedPatch(`${api_url}/planning/${travel_id}`, updateTravelDto, `${TokenService.getAccessToken()}`, {})
+    return await useFetch.protectedPatch(`${api_url}/planning/${travel_id}`, {...updateTravelDto, validate: false}, `${TokenService.getAccessToken()}`, {})
 };
 
 export const PlanningService = {
