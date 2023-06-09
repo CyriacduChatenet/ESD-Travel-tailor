@@ -2,8 +2,8 @@ import { GetServerSideProps, NextPage } from "next";
 import { AccessToken, Travel, User } from "@travel-tailor/types";
 import { TravelService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
-import { jwtDecode } from "@travel-tailor/functions";
-import { useMemo, useState } from "react";
+import { SetStateAction, jwtDecode } from "@travel-tailor/functions";
+import { Dispatch, useMemo, useState } from "react";
 import { parse } from "cookie";
 import { useRouter } from "next/navigation";
 
@@ -60,7 +60,7 @@ const AdminDashboardTravelPage: NextPage<IProps> = ({ data, user }) => {
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleCreate()}>Create</button>
                             <br />
                             <br />
-                            <TravelTable data={response} setData={setResponse}/>
+                            <TravelTable data={response.data} setData={setResponse as Dispatch<SetStateAction<{data: Travel[]}>>}/>
                         </section>
                         <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />
                     </section>
