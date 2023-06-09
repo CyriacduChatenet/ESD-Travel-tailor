@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { NextPage } from "next";
 
 import { Layout } from "@/components/layout";
