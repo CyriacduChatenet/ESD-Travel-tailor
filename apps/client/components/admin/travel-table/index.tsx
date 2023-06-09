@@ -47,8 +47,8 @@ export const TravelTable: FC<IProps> = ({ data, setData }) => {
                 {data.map((travel: Travel) =>
                     <tr key={travel.id}>
                         <td className="py-2 px-4 border-b">{travel.id}</td>
-                        <td className="py-2 px-4 border-b">{travel.departureDate}</td>
-                        <td className="py-2 px-4 border-b">{travel.returnDate}</td>
+                        <td className="py-2 px-4 border-b">{moment(travel.departureDate).format('DD/MM/YYYY')}</td>
+                        <td className="py-2 px-4 border-b">{moment(travel.returnDate).format('DD/MM/YYYY')}</td>
                         <td className="py-2 px-4 border-b">{travel.departureCity}</td>
                         <td className="py-2 px-4 border-b">{travel.destinationCity}</td>
                         <td className="py-2 px-4 border-b">{moment(travel.createdAt).format('DD/MM/YYYY')}</td>
