@@ -13,6 +13,7 @@ export const ROUTES = {
       EDIT: '/admin/comments/edit',
     },
     TRAVELER: '/admin/traveler',
+    TRAVEL: '/admin/travel',
     ADVERTISER: '/admin/advertiser',
     TAGS: '/admin/tags',
   },

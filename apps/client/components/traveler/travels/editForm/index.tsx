@@ -4,7 +4,10 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { FC, useCallback, useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/../../packages/constants/src";
+import { ACCESS_TOKEN, ROLES, ROUTES } from "@travel-tailor/constants";
+import Cookies from "js-cookie";
+import { jwtDecode } from "@/../../packages/functions/src";
+import { AccessToken } from "@/../../packages/types/src";
 
 interface IEditTravelForm {
     departureCity: string
@@ -28,7 +31,15 @@ export const EditTravelForm: FC = () => {
         const response = await PlanningService.updateTravelSpec(`${process.env.NEXT_PUBLIC_API_URL}`, `${travel_id}`, data)
         if(response) {
             setSubmit(false);
-            router.push(ROUTES.TRAVELER.DASHBOARD)
+            const token = jwtDecode(`${Cookies.get(ACCESS_TOKEN)}`) as AccessToken;
+
+            if(token.roles === ROLES.TRAVELER) {
+                router.push(ROUTES.TRAVELER.DASHBOARD)
+            }
+
+            if(token.roles === ROLES.ADMIN) {
+                router.push(ROUTES.ADMIN.TRAVEL)
+            }
         }
     }, [user]);
 

@@ -5,8 +5,8 @@ import { API_TRAVELER_ROUTE, API_TRAVEL_ROUTE } from '@travel-tailor/constants';
 import { TokenService } from './token.service';
 import { Dispatch, SetStateAction } from '@travel-tailor/functions';
 
-const findAllTravels = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any): Promise<Travel[]> => {
-  const data = await useFetch.get(`${api_url}${API_TRAVEL_ROUTE}`, setError);
+const findAllTravels = async (api_url: string, setError: Dispatch<SetStateAction<any>> | any, params: string) => {
+  const data = await useFetch.get(`${api_url}${API_TRAVEL_ROUTE}${params}`, setError);
   return data.data
 };
 
