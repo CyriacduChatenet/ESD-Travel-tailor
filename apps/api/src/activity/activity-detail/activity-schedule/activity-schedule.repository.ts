@@ -70,10 +70,12 @@ export class ActivityScheduleRepository extends Repository<ActivitySchedule> {
     
       async updateActivitySchedule(id: string, updateActivityScheduleDto: UpdateActivityScheduleDto) {
         try {
-          return await this.update(
+          await this.update(
             id,
             updateActivityScheduleDto,
           );
+
+          return await this.findOneActivitySchedule(id);
         } catch (error) {
           throw new UnauthorizedException(error);
         }
