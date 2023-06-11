@@ -52,7 +52,8 @@ export class ActivityClosingDayRepository extends Repository<ActivityClosingDay>
     }
 
     async updateActivityClosingDay(id: string, updateActivityClosingDayDto: UpdateActivityClosingDayDto) {
-        return await this.update(id, updateActivityClosingDayDto);
+        await this.update(id, updateActivityClosingDayDto)
+        return await this.findOneActivityClosingDay(id);
     }
 
     async removeActivityClosingDay(id: string) {
