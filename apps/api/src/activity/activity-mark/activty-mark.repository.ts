@@ -45,7 +45,8 @@ export class ActivityMarkRepository extends Repository<ActivityMark> {
     }
 
     async updateActivityMark(id: string, updateActivityMarkDto: UpdateActivityMarkDto) {
-        return await this.update(id, updateActivityMarkDto);
+        await this.update(id, updateActivityMarkDto);
+        return await this.findOneActivityMark(id);
     }
 
     async removeActivityMark(id: string) {
