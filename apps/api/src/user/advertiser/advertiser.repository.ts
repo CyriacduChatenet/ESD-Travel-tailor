@@ -60,7 +60,8 @@ export class AdvertiserRepository extends Repository<Advertiser> {
     }
 
     async updateAdvertiser(id: string, updateAdvertiserDto: UpdateAdvertiserDto) {
-            return await this.update(id, updateAdvertiserDto)
+            await this.update(id, updateAdvertiserDto)
+            return await this.findOneAdvertiser(id)
     }
 
     async removeAdvertiser(id: string) {
