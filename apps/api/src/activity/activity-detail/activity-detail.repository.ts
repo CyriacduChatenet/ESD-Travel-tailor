@@ -59,7 +59,8 @@ export class ActivityDetailRepository extends Repository<ActivityDetail> {
     }
 
     async updateActivityDetail(id: string, updateActivityDetailDto: UpdateActivityDetailDto) {
-            return await this.update(id, updateActivityDetailDto);
+            await this.update(id, updateActivityDetailDto);
+            return await this.findOneActivityDetail(id);
     }
 
     async removeActivityDetail(id: string) {

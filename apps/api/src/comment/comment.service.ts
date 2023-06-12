@@ -3,7 +3,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common'
-import { ApiLimitResourceQuery, UpdateActivityDTO } from '@travel-tailor/types'
+import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'
