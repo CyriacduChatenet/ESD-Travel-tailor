@@ -6,7 +6,7 @@ import { JwtAuthGuard } from "../../../../auth/guards/jwt-auth.guard";
 import { Role } from "../../../../config/enum/role.enum";
 import { Roles } from "../../../../config/decorators/roles.decorator";
 import { UpdatePlanningActivityDto } from "./dto/update-planning-activity.dto";
-import { User } from "src/config/decorators/user.decorator";
+import { User } from "./../../../../config/decorators/user.decorator";
 import { UpdateTravelDto } from "../dto/update-travel.dto";
 
 @Controller("planning")
