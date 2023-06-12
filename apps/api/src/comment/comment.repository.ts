@@ -81,7 +81,8 @@ export class CommentRepository extends Repository<Comment> {
     }
 
     async updateComment(id: string, updateCommentDto: UpdateCommentDto) {
-        return this.update(id, updateCommentDto)
+        await this.update(id, updateCommentDto);
+        return await this.findOneComment(id)
     }
 
     async removeComment(id: string) {
