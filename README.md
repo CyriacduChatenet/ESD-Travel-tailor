@@ -18,7 +18,7 @@
 [![aws s3](https://img.shields.io/badge/AWS%20s3-F69220?style=for-the-badge&logo=amazon&logoColor=white)](https://aws.amazon.com)
 [![supabase](https://img.shields.io/badge/Supabase-32B67B?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
 
-[![cypress](https://img.shields.io/badge/Cypress-1C1E2E?style=for-the-badge&logo=cypress&logoColor=28E79B)](https://www.cypress.io/)
+[![jest](https://img.shields.io/badge/Jest-99425B?style=for-the-badge&logo=jest&logoColor=FFFFFF)](https://jestjs.io/fr/)
 
 <br/>
 
