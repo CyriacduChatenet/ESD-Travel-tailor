@@ -49,7 +49,8 @@ export class TasteRepository extends Repository<Taste> {
       }
     
       async updateTaste(id: string, updateTasteDto: UpdateTasteDto) {
-          return this.update(id, updateTasteDto);
+          await this.update(id, updateTasteDto);
+          return this.findOneTaste(id);
       }
     
       async removeTaste(id: string) {
