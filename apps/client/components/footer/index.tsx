@@ -11,23 +11,23 @@ export const Footer: FC = () => {
                 <p>© {new Date().getFullYear()} Travel Tailor, Inc</p>
             </div>
             <ul className="col-span-4 md:col-span-3 lg:col-span-4 flex flex-col lg:flex-row items-center lg:justify-around my-8 md:my-0">
-                <li className="my-2">
+                {/* <li className="my-2">
                     <Link href={ROUTES.SITE_MAP}>Site map</Link>
-                </li>
+                </li> */}
                 <li className="my-2">
                     <Link href={ROUTES.TERMS_AND_CONDITIONS}>Terms And Conditions</Link>
                 </li>
-                <li className="my-2">
+                {/* <li className="my-2">
                     <Link href={ROUTES.ABOUT_US}>About project</Link>
-                </li>
+                </li> */}
             </ul>
-            <div className="col-span-4 md:col-span-2 lg:col-span-4 flex justify-center items-center">
+            {/* <div className="col-span-4 md:col-span-2 lg:col-span-4 flex justify-center items-center">
                 <Link href={''}>
                     <button>
                         <Icon icon="mdi:chevron-up" className="w-10 h-10" />
                     </button>
                 </Link>
-            </div>
+            </div> */}
         </footer>
     );
 };
