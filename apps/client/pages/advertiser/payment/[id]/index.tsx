@@ -27,7 +27,7 @@ const AdvertiserPaymentPage: NextPage<IProps> = ({ stripeCustomerId }) => {
     return (
         <Layout title={""} description={""}>
             <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
-                <h1>Advertiser Payment</h1>
+                <h1 className="font-bold lg:text-2xl col-span-4 lg:col-span-8 xl:col-span-12 text-center">Advertiser Payment</h1>
                 <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
                     <p>amount : 1000€</p>
                     <button onClick={handlePayed} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Payer</button>
