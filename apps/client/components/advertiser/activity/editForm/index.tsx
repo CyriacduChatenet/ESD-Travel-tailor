@@ -18,6 +18,7 @@ interface ICreateActivityForm {
     opening_at: string;
     closing_at: string;
     date: string;
+    description: string;
     recurrence: boolean;
 }
 
@@ -97,6 +98,7 @@ export const EditActivityForm: FC = () => {
             formData.append('name', data.name);
             formData.append('detail[location]', data.location);
             formData.append('detail[duration]', data.duration.toString());
+            formData.append('detail[description]', data.description.toString());
             schedules.forEach((schedule: ActivitySchedule, index: number) => {
                 formData.append(`detail[schedules][${index}][opening_at]`, schedule.opening_at);
                 formData.append(`detail[schedules][${index}][closing_at]`, schedule.closing_at);
@@ -151,6 +153,20 @@ export const EditActivityForm: FC = () => {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.name && <p className="mt-2 text-red-500 text-xs italic">{errors.name.message?.toString()}</p>}
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="Description" className="block text-gray-700 font-bold mb-2">
+                        Description
+                    </label>
+                    <textarea
+                        {...register("description", {
+                            required: "Description is required",
+                        })}
+                        id="description"
+                        onClick={() => setApiErrors({})}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    ></textarea>
+                    {errors.description && <p className="mt-2 text-red-500 text-xs italic">{errors.description.message?.toString()}</p>}
                 </div>
                 <div className="mb-4">
                     <label htmlFor="Image" className="block text-gray-700 font-bold mb-2">

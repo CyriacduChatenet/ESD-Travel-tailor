@@ -33,6 +33,7 @@ export class ActivityRepository extends Repository<Activity> {
             .leftJoinAndSelect('image.uploadFile', 'uploadFile')
             .leftJoinAndSelect('activity.comments', 'comments')
             .leftJoinAndSelect("comments.marks", "commentMark")
+            .leftJoinAndSelect("activity.marks", "activityMark")
             .leftJoinAndSelect('activity.advertiser', 'advertiser')
             .leftJoinAndSelect('activity.tags', 'tag')
             .leftJoinAndSelect('activity.timeSlots', 'timeSlot')

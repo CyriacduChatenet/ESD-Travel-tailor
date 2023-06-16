@@ -20,6 +20,9 @@ export class ActivityDetail extends Timestamp {
   @Column({ nullable: false})
   duration: number;
 
+  @Column()
+  description: string;
+
   @Column({ nullable: false})
   location: string;
 

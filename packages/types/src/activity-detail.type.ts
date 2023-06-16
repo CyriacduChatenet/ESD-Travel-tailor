@@ -6,6 +6,7 @@ export type ActivityDetail = {
   id: string
   duration: number
   location: string
+  description: string
   activity?: Activity
   schedules?: ActivitySchedule[]
   closingDays?: ActivityClosingDay[]
@@ -14,6 +15,7 @@ export type ActivityDetail = {
 export type CreateActivityDetailDTO = {
   duration: number
   location: string
+  description: string
   activity?: Activity
   schedules?: ActivitySchedule[]
   closingDays?: ActivityClosingDay[]
@@ -22,6 +24,7 @@ export type CreateActivityDetailDTO = {
 export type UpdateActivityDetailDTO = {
   duration: number
   location: string
+  description: string
   activity?: Activity
   schedules?: ActivitySchedule[]
   closingDays?: ActivityClosingDay[]

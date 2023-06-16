@@ -7,4 +7,7 @@ export class UpdateActivityDetailDto implements UpdateActivityDetailDTO {
 
   @IsString()
   location: string;
+
+  @IsString()
+  description: string;
 }

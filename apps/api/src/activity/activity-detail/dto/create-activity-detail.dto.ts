@@ -7,4 +7,7 @@ export class CreateActivityDetailDto implements CreateActivityDetailDTO {
 
   @IsString()
   location: string;
+
+  @IsString()
+  description: string;
 }
