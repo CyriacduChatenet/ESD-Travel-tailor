@@ -58,7 +58,7 @@ const AdvertiserDashboardPage: NextPage<IProps> = ({ res, user }) => {
                 <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
                     <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
                         <h1 className="font-bold lg:text-2xl">Advertiser Dashboard</h1>
-                        <AdvertiserToolBar setEditorMode={setEditorMode} editorMode={editorMode} />
+                        <AdvertiserToolBar setEditorMode={setEditorMode} editorMode={editorMode} data={response.data} />
                         <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                             <div className="col-span-4 md:col-span-4 xl:col-span-8">
                                 <ActivityListPaginator editorMode={editorMode} user={user} data={response} setData={setResponse} />
