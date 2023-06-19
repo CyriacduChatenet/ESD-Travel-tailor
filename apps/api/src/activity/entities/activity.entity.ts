@@ -27,6 +27,9 @@ export class Activity extends Timestamp {
   @Column({ nullable: false})
   name: string;
 
+  @Column({ nullable: false})
+  description: string;
+
   @Column({
     unique: true,
   })

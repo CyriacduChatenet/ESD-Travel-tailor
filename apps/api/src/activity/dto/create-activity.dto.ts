@@ -8,6 +8,9 @@ export class CreateActivityDto {
   @IsString()
   name: string
 
+  @IsString()
+  description: string
+
   @IsObject()
   marks?: CreateActivityMarkDto
 
