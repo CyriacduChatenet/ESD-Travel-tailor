@@ -34,6 +34,7 @@ export class CommentService {
       const marks = await this.activityMarkService.calculateActivityMarks(commentsAndTotal)
 
       await this.activityService.update(activityId, {
+        description: activity.description,
         comments: activity.comments, 
         marks: { 
           rentability: Number(marks.place), 

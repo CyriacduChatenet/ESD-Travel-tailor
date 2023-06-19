@@ -12,6 +12,9 @@ export class UpdateActivityDto {
   @IsString()
   name?: string
 
+  @IsString()
+  description: string
+
   @IsObject()
   marks?: UpdateActivityMarkDto
 
