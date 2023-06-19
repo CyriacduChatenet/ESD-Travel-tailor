@@ -36,7 +36,7 @@ export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsI
                 <div className="col-span-4 md:col-span-4 xl:col-span-4 hidden md:block">
                     <Mapbox
                         mapboxApiAccessToken={`${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
-                        addresse={`Bordeaux, Gironde, France`}
+                        addresse={location}
                     />
                 </div>
             </section>
