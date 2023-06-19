@@ -15,9 +15,10 @@ interface IProps {
     date: Date;
     setDisplayCommentModule: Dispatch<SetStateAction<boolean>>;
     programmingAt: Date;
+    description: string;
 }
 
-export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsIndex, date, setDisplayCommentModule }) => {
+export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsIndex, date, setDisplayCommentModule, description }) => {
     const { pathname } = useHistory();
     return (
         <>
@@ -25,7 +26,7 @@ export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsI
             <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                 <div className="col-span-4 md:col-span-4 xl:col-span-8">
                     <Toast message={`Open: 09:00 - 12:00`} status={'info'} />
-                    <p className="mt-4 lg:mt-8">description</p>
+                    <p className="mt-4 lg:mt-8">{description}</p>
                     <div className="py-4 lg:py-8 w-full flex justify-around items-center">
                         <Link href={pathname}>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</button>

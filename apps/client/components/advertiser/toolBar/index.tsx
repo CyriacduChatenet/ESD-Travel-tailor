@@ -24,7 +24,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
           add Activity
         </button>
       </Link>
-      {data.length > 0 && (
+      {data && data.length > 0 && (
         <>
           {editorMode === false && (
             <button
