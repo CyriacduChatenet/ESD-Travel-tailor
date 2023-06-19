@@ -1,8 +1,9 @@
 import { useUser } from "@travel-tailor/contexts";
 import { TravelService } from "@travel-tailor/services";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { FC, useCallback, useState } from "react";
+import { FC, SetStateAction, useCallback, useState, Dispatch } from "react";
 import { set, useForm } from "react-hook-form";
+import { Travel } from "@travel-tailor/types";
 
 interface ICreateTravelForm {
     departureCity: string
@@ -11,19 +12,34 @@ interface ICreateTravelForm {
     returnDate: Date
 }
 
+interface IProps {
+    data: {
+        page: number;
+        limit: number;
+        total: number;
+        data: Travel[];
+      };
+      setData: Dispatch<SetStateAction<{
+        page: number;
+        limit: number;
+        total: number;
+        data: Travel[];
+      }>>;
+}
 
-export const CreateTravelForm: FC = () => {
+
+export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
     const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
     const [submit, setSubmit] = useState<boolean>(false);
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<ICreateTravelForm>();
     const { user, setUser } = useUser();
 
-    const onSubmit = useCallback(async (data: ICreateTravelForm) => {
+    const onSubmit = useCallback(async (d: ICreateTravelForm) => {
         setSubmit(true);
-        await TravelService.createTravel(`${process.env.NEXT_PUBLIC_API_URL}`, {...data, traveler: user?.traveler?.id}, setApiErrors);
-        const travels = await TravelService.findTravelsByTravelerId(`${process.env.NEXT_PUBLIC_API_URL}`, String(user?.traveler?.id), setApiErrors, 1, 10);
-        setUser({...user, travels: travels?.data?.travels});
+        const t = await TravelService.createTravel(`${process.env.NEXT_PUBLIC_API_URL}`, {...d, traveler: user?.traveler?.id}, setApiErrors);
+        setData({...data, data: [t, ...data.data]});
+        setUser({...user, travels: data.data});
         setValue("departureCity", "");
         setValue("destinationCity", "");
         setSubmit(false);

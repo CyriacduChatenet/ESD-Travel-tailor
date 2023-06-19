@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { FC, useMemo, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useMemo, useState } from "react";
 import { TravelService } from "@travel-tailor/services";
 import { Travel, User } from "@travel-tailor/types";
 import { ROUTES } from "@travel-tailor/constants";
@@ -15,17 +15,17 @@ interface IProps {
     total: number;
     data: Travel[];
   };
-  user: User;
-}
-
-export const TravelList: FC<IProps> = ({ data, user }) => {
-  const [page, setPage] = useState(1);
-  const [response, setResponse] = useState<{
+  setData: Dispatch<SetStateAction<{
     page: number;
     limit: number;
     total: number;
     data: Travel[];
-  }>(data);
+  }>>;
+  user: User;
+}
+
+export const TravelList: FC<IProps> = ({ data, setData, user }) => {
+  const [page, setPage] = useState(1);
   const error = {};
 
   const handleFetch = async () => {
@@ -35,7 +35,7 @@ export const TravelList: FC<IProps> = ({ data, user }) => {
       error,
       page
     );
-    if (res) setResponse(res);
+    if (res) setData(res);
   };
 
   const handleDelete = async (id: string) => {
@@ -51,8 +51,8 @@ export const TravelList: FC<IProps> = ({ data, user }) => {
     <>
       <h2 className="font-bold text-2xl">My Travels</h2>
       <ul>
-        {response.data ? (
-          response.data.map((travel: Travel, index: number) => (
+        {data.data ? (
+          data.data.map((travel: Travel, index: number) => (
             <li
               key={index}
               className="px-4 py-4 my-4 xl:mr-8 bg-gray-100 rounded-lg blue flex flex-col xl:grid xl:grid-cols-12 xl:gap-5 lg:pr-20"
