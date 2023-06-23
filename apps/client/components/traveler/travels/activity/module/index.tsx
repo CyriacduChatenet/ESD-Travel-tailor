@@ -16,16 +16,18 @@ interface IProps {
     setDisplayCommentModule: Dispatch<SetStateAction<boolean>>;
     programmingAt: Date;
     description: string;
+    open: string;
+    close: string;
 }
 
-export const ActivityModule: FC<IProps> = ({ location, duration, mark, commentsIndex, date, setDisplayCommentModule, description }) => {
+export const ActivityModule: FC<IProps> = ({ location, duration, open, close, mark, commentsIndex, date, setDisplayCommentModule, description }) => {
     const { pathname } = useHistory();
     return (
         <>
             <ActivityToolbar location={location} duration={duration} mark={mark} commentsIndex={commentsIndex} programmingAt={date} setDisplayCommentModule={setDisplayCommentModule} />
             <section className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12">
                 <div className="col-span-4 md:col-span-4 xl:col-span-8">
-                    <Toast message={`Open: 09:00 - 12:00`} status={'info'} />
+                    <Toast message={`Open: ${open} - ${close}`} status={'info'} />
                     <p className="mt-4 lg:mt-8">{description}</p>
                     <div className="py-4 lg:py-8 w-full flex justify-around items-center">
                         <Link href={pathname}>
