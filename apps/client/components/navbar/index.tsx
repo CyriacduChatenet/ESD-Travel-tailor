@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
-import { NavModule } from "./module"
+import { NavModule } from "./module";
 import { AccessToken } from "@travel-tailor/types";
 import { jwtDecode } from "@travel-tailor/functions";
 import { ROLES } from "@travel-tailor/constants";
@@ -11,11 +11,13 @@ export const Navbar: FC = () => {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [role, setRole] = useState("");
-  const [accessToken, setAccessToken] = useState<string>(`${TokenService.getAccessToken() ? TokenService.getAccessToken() : ""}`)
+  const [accessToken, setAccessToken] = useState<string>("");
 
   const handleFetch = async () => {
-    if (accessToken.length > 0) {
-      const decodedToken = jwtDecode(accessToken) as AccessToken;
+    const token = TokenService.getAccessToken();
+    if (token) {
+      setAccessToken(token);
+      const decodedToken = jwtDecode(token) as AccessToken;
       switch (decodedToken.roles) {
         case ROLES.ADVERTISER:
           setRole(ROLES.ADVERTISER);
@@ -35,6 +37,7 @@ export const Navbar: FC = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -45,9 +48,7 @@ export const Navbar: FC = () => {
     <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6 fixed w-full z-10">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <Link href="/">
-          <span className="font-semibold text-xl tracking-tight">
-            Travel Tailor
-          </span>
+          <p className="font-semibold text-xl tracking-tight">Travel Tailor</p>
         </Link>
       </div>
       <div className="block lg:hidden">
