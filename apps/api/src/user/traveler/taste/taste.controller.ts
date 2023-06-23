@@ -25,26 +25,26 @@ export class TasteController {
   constructor(private readonly tasteService: TasteService) { }
 
   @Post()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @Roles(Role.Traveler, Role.Admin)
   async create(@Body() createTasteDto: CreateTasteDto) {
     return this.tasteService.create(createTasteDto);
   }
 
   @Get()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.tasteService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   async findOne(@Param('id') id: string) {
     return this.tasteService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async update(
@@ -55,7 +55,7 @@ export class TasteController {
   }
 
   @Delete(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async remove(@Param('id') id: string) {

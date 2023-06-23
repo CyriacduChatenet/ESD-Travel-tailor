@@ -25,7 +25,7 @@ export class ActivityTagController {
   constructor(private readonly activityTagService: ActivityTagService) {}
 
   @Post()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createActivityTagDto: CreateActivityTagDto) {
@@ -43,7 +43,7 @@ export class ActivityTagController {
   }
 
   @Patch(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   update(
@@ -54,7 +54,7 @@ export class ActivityTagController {
   }
 
   @Delete(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {

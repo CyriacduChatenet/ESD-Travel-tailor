@@ -24,7 +24,7 @@ export class ActivityClosingDayController {
   constructor(private readonly activityClosingDayService: ActivityClosingDayService) {}
 
   @Post()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
   create(@Body() createActivityClosingDayDto: CreateActivityClosingDayDto) {
     return this.activityClosingDayService.create(createActivityClosingDayDto);
@@ -41,7 +41,7 @@ export class ActivityClosingDayController {
   }
 
   @Patch(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
   update(@Param('id') id: string, @Body() updateActivityClosingDayDto: UpdateActivityClosingDayDto) {
     return this.activityClosingDayService.update(
@@ -51,7 +51,7 @@ export class ActivityClosingDayController {
   }
 
   @Delete(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {
     return this.activityClosingDayService.remove(id);

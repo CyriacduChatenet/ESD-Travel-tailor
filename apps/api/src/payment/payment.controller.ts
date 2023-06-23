@@ -14,7 +14,7 @@ export class PaymentController {
 
 
   @Post('checkout/:customerId')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
   async createCheckoutSession(@Param('customerId') customerId: string ,@Body() { amount }: { amount: number }): Promise<{ sessionId: string }> {
     const createCheckoutDto: { currency: string, amount: number, customer: string } = {

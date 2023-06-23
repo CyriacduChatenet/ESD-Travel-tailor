@@ -13,7 +13,7 @@ export class StripeInvoiceController {
     constructor(private readonly stripeInvoiceService: StripeInvoiceService) { }
 
     @Get('customer/:customerId')
-    @Throttle(500, 60)
+    @Throttle(1000, 60)
     @UseGuards(JwtAuthGuard)
     @Roles(Role.Advertiser, Role.Admin)
     async findAllInvoices(@Param() { customerId }: { customerId: string }): Promise<Stripe.Invoice[]> {
@@ -21,14 +21,14 @@ export class StripeInvoiceController {
     }
   
     @Get(':invoiceId')
-    @Throttle(500, 60)
+    @Throttle(1000, 60)
     @Roles(Role.Advertiser, Role.Admin)
     async findOneInvoice(@Param() { invoiceId }: { invoiceId: string }): Promise<Stripe.Invoice> {
       return await this.stripeInvoiceService.findOneInvoice(invoiceId);
     }
   
     @Get('pdf/:invoiceId')
-    @Throttle(500, 60)
+    @Throttle(1000, 60)
     @Roles(Role.Advertiser, Role.Admin)
     async findOneInvoicePdf(@Param() { invoiceId }: { invoiceId: string }, @Res() res: Response) {
       const invoicePDF = await this.stripeInvoiceService.findOneInvoicePdf(invoiceId);

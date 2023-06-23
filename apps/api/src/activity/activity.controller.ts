@@ -29,7 +29,7 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @Post()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   @UseInterceptors(FilesInterceptor('image'))
@@ -63,7 +63,7 @@ export class ActivityController {
   };
 
   @Patch(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   update(
@@ -74,7 +74,7 @@ export class ActivityController {
   }
 
   @Delete(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   remove(@Param('id') id: string) {

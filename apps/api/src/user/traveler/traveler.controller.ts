@@ -25,25 +25,25 @@ export class TravelerController {
   constructor(private readonly travelerService: TravelerService) {}
 
   @Post()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   async create(@Body() createTravelerDto: CreateTravelerDto) {
     return await this.travelerService.create(createTravelerDto);
   }
 
   @Get()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.travelerService.findAll(queries);
   }
 
   @Get(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   async findOne(@Param('id') id: string) {
     return await this.travelerService.findOne(id);
   }
 
   @Patch(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Admin)
   async update(
@@ -54,7 +54,7 @@ export class TravelerController {
   }
 
   @Delete(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Admin)
   async remove(@Param('id') id: string) {

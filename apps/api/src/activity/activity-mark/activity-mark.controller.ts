@@ -15,7 +15,7 @@ export class ActivityMarkController {
   constructor(private readonly activityMarkService: ActivityMarkService) {}
 
   @Post()
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async create(@Body() createActivityMarkDto: CreateActivityMarkDto) {
@@ -33,7 +33,7 @@ export class ActivityMarkController {
   }
 
   @Patch(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async update(@Param('id') id: string, @Body() updateActivityMarkDto: UpdateActivityMarkDto) {
@@ -41,7 +41,7 @@ export class ActivityMarkController {
   }
 
   @Delete(':id')
-  @Throttle(500, 60)
+  @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   async remove(@Param('id') id: string) {
