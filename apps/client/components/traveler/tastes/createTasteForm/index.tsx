@@ -36,14 +36,11 @@ export const CreateTasteForm: FC = () => {
         setSubmit(true);
         if (tastes.length > 0) {
             await TasteService.createTasteWithRelation(`${process.env.NEXT_PUBLIC_API_URL}`, tastes, routeParams.substring(23, 100), setApiErrors);
-            const timeout = setTimeout(() => {
                 if(TokenService.getAccessToken()) {
                     router.push(ROUTES.TRAVELER.DASHBOARD);
                 } else {
                     router.push(ROUTES.AUTH.SIGNIN);
                 }
-            }, 2000);
-            return () => clearTimeout(timeout);
         }
     };
 
