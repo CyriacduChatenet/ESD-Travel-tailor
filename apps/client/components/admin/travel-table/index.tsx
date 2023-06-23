@@ -10,9 +10,7 @@ import { Dispatch, FC, SetStateAction, useState } from "react";
 
 interface IProps {
         data: Travel[];
-    setData: Dispatch<SetStateAction<{
-        data: Travel[];
-    }>>
+    setData: Dispatch<SetStateAction<Travel[]>>
 }
 
 export const TravelTable: FC<IProps> = ({ data, setData }) => {
@@ -22,7 +20,7 @@ export const TravelTable: FC<IProps> = ({ data, setData }) => {
     const handleDelete = async (id: string) => {
         const response = await TravelService.deleteTravel(`${process.env.NEXT_PUBLIC_API_URL}`,id, setErrors);
         if(response) {
-            setData({...data, data: data.filter((travel: Travel) => travel.id !== id)});
+            setData(data.filter((travel: Travel) => travel.id !== id));
         }
     };
 
@@ -44,7 +42,7 @@ export const TravelTable: FC<IProps> = ({ data, setData }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((travel: Travel) =>
+                {data && data.map((travel: Travel) =>
                     <tr key={travel.id}>
                         <td className="py-2 px-4 border-b">{travel.id}</td>
                         <td className="py-2 px-4 border-b">{moment(travel.departureDate).format('DD/MM/YYYY')}</td>

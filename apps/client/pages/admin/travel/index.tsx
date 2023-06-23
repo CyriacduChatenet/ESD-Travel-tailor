@@ -13,23 +13,13 @@ import { Paginator } from "@/components/paginator";
 import { TravelTable } from "@/components/admin/travel-table";
 
 interface IProps {
-    data: {
-        page: number;
-        limit: number;
-        total: number;
-        data: Travel[];
-    },
+    data: Travel[];
     user: User;
 }
 
 const AdminDashboardTravelPage: NextPage<IProps> = ({ data, user }) => {
     const [page, setPage] = useState(1);
-    const [response, setResponse] = useState<{
-        page: number;
-        limit: number;
-        total: number;
-        data: Travel[];
-    }>(data);
+    const [response, setResponse] = useState<Travel[]>(data);
     const router = useRouter();
     const error = {};
 
@@ -60,9 +50,9 @@ const AdminDashboardTravelPage: NextPage<IProps> = ({ data, user }) => {
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleCreate()}>Create</button>
                             <br />
                             <br />
-                            <TravelTable data={response.data} setData={setResponse as Dispatch<SetStateAction<{data: Travel[]}>>}/>
+                            <TravelTable data={response} setData={setResponse as Dispatch<SetStateAction<Travel[]>>}/>
                         </section>
-                        <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.total} />
+                        <Paginator pageCurrent={page} setPage={setPage} limit={10} total={response.length} />
                     </section>
                 </main>
             </Layout>
