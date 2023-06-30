@@ -1,14 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { ActivityTagQuery } from '@travel-tailor/types';
 
@@ -21,6 +12,7 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @Controller('activity-tag')
 @UseGuards(ThrottlerGuard)
+@ApiTags('Activity Tag')
 export class ActivityTagController {
   constructor(private readonly activityTagService: ActivityTagService) {}
 
@@ -28,17 +20,25 @@ export class ActivityTagController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
-  create(@Body() createActivityTagDto: CreateActivityTagDto) {
+  @ApiOperation({ summary: 'Create an activity tag' })
+  @ApiCreatedResponse({ description: 'Activity tag created successfully' })
+  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  async create(@Body() createActivityTagDto: CreateActivityTagDto) {
     return this.activityTagService.create(createActivityTagDto);
   }
 
   @Get()
-  findAll(@Query() queries: ActivityTagQuery) {
+  @ApiOperation({ summary: 'Get all activity tags' })
+  @ApiOkResponse({ description: 'Successful operation' })
+  async findAll(@Query() queries: ActivityTagQuery) {
     return this.activityTagService.findAll(queries);
   }
 
   @Get(':name')
-  findOne(@Param('name') name: string) {
+  @ApiOperation({ summary: 'Get an activity tag by name' })
+  @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'Activity tag not found' })
+  async findOne(@Param('name') name: string) {
     return this.activityTagService.findOne(name);
   }
 
@@ -46,10 +46,11 @@ export class ActivityTagController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
-  update(
-    @Param('id') id: string,
-    @Body() updateActivityTagDto: UpdateActivityTagDto,
-  ) {
+  @ApiOperation({ summary: 'Update an activity tag' })
+  @ApiOkResponse({ description: 'Activity tag updated successfully' })
+  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  async update(@Param('id') id: string, @Body() updateActivityTagDto: UpdateActivityTagDto) {
     return this.activityTagService.update(id, updateActivityTagDto);
   }
 
@@ -57,7 +58,11 @@ export class ActivityTagController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
-  remove(@Param('id') id: string) {
+  @ApiOperation({ summary: 'Delete an activity tag' })
+  @ApiOkResponse({ description: 'Activity tag deleted successfully' })
+  @ApiNotFoundResponse({ description: 'Activity tag not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  async remove(@Param('id') id: string) {
     return this.activityTagService.remove(id);
   }
 }
