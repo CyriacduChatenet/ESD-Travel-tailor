@@ -11,7 +11,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Travel tailor API')
     .setDescription('The travel tailor API')
-    .setVersion('1.2')
+    .setVersion('1.12.10')
     .addTag('travel tailor')
     .build();
 
