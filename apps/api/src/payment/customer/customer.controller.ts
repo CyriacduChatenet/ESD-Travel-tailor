@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
@@ -45,6 +45,7 @@ export class CustomerController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Customer updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data or customer ID' })
   async update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
@@ -55,6 +56,7 @@ export class CustomerController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Customer deleted successfully' })
   @ApiBadRequestResponse({ description: 'Invalid customer ID' })
   async remove(@Param('id') id: string) {
