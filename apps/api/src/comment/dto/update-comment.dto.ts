@@ -1,10 +1,23 @@
-import { UpdateCommentDTO } from '@travel-tailor/types';
-import { IsNumber, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'
+import { UpdateCommentDTO } from '@travel-tailor/types'
+import { IsNumber, IsString } from 'class-validator'
 
 export class UpdateCommentDto implements UpdateCommentDTO {
   @IsString()
-  content: string;
+  @ApiProperty({
+    description: 'Content',
+    type: String,
+    default: 'Content',
+    example: 'Content',
+  })
+  content: string
 
-  @IsNumber()
-  likes: number;
+  @IsString()
+  @ApiProperty({
+    description: 'Activity',
+    type: String,
+    default: 'Activity',
+    example: 'Activity',
+  })
+  likes: number
 }
