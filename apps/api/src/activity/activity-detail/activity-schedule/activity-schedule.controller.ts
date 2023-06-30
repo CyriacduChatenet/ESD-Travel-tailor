@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { Role } from '../../../config/enum/role.enum';
@@ -18,6 +18,7 @@ export class ActivityScheduleController {
   @Post()
   @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity schedule' })
   @ApiCreatedResponse({ description: 'Activity schedule created successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -43,6 +44,7 @@ export class ActivityScheduleController {
   @Patch(':id')
   @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity schedule' })
   @ApiOkResponse({ description: 'Activity schedule updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -57,6 +59,7 @@ export class ActivityScheduleController {
   @Delete(':id')
   @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity schedule' })
   @ApiOkResponse({ description: 'Activity schedule deleted successfully' })
   @ApiNotFoundResponse({ description: 'Activity schedule not found' })

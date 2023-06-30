@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { ActivityTagQuery } from '@travel-tailor/types';
 
@@ -20,6 +20,7 @@ export class ActivityTagController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity tag' })
   @ApiCreatedResponse({ description: 'Activity tag created successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -46,6 +47,7 @@ export class ActivityTagController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity tag' })
   @ApiOkResponse({ description: 'Activity tag updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -58,6 +60,7 @@ export class ActivityTagController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity tag' })
   @ApiOkResponse({ description: 'Activity tag deleted successfully' })
   @ApiNotFoundResponse({ description: 'Activity tag not found' })

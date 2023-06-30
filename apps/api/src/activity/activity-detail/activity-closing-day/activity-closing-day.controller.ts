@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { ActivityClosingDayService } from './activity-closing-day.service';
@@ -28,6 +28,7 @@ export class ActivityClosingDayController {
   @Post()
   @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity closing day' })
   @ApiCreatedResponse({ description: 'Activity closing day created successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -53,6 +54,7 @@ export class ActivityClosingDayController {
   @Patch(':id')
   @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity closing day' })
   @ApiOkResponse({ description: 'Activity closing day updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -64,6 +66,7 @@ export class ActivityClosingDayController {
   @Delete(':id')
   @Throttle(1000, 60)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity closing day' })
   @ApiOkResponse({ description: 'Activity closing day deleted successfully' })
   @ApiNotFoundResponse({ description: 'Activity closing day not found' })

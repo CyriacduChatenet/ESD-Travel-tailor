@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { CommentMarkService } from './comment-mark.service';
@@ -20,6 +20,7 @@ export class CommentMarkController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment mark created successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
   create(@Body() createCommentMarkDto: CreateCommentMarkDto) {
@@ -47,6 +48,7 @@ export class CommentMarkController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment mark updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data or comment mark ID' })
   update(@Param('id') id: string, @Body() updateCommentMarkDto: UpdateCommentMarkDto) {
@@ -57,6 +59,7 @@ export class CommentMarkController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment mark deleted successfully' })
   @ApiBadRequestResponse({ description: 'Invalid comment mark ID' })
   remove(@Param('id') id: string) {

@@ -11,7 +11,7 @@ import {
   UseInterceptors,
   UploadedFiles,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiConsumes } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ActivityQuery } from '@travel-tailor/types';
@@ -35,6 +35,7 @@ export class ActivityController {
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   @UseInterceptors(FilesInterceptor('image'))
+  @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Create an activity' })
   @ApiCreatedResponse({ description: 'Activity created successfully' })
@@ -88,6 +89,7 @@ export class ActivityController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Update an activity' })
   @ApiOkResponse({ description: 'Activity updated successfully' })
@@ -103,6 +105,7 @@ export class ActivityController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity' })
   @ApiOkResponse({ description: 'Activity deleted successfully' })
   @ApiNotFoundResponse({ description: 'Activity not found' })

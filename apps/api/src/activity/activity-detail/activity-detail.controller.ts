@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { Role } from '../../config/enum/role.enum';
@@ -20,6 +20,7 @@ export class ActivityDetailController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity detail' })
   @ApiCreatedResponse({ description: 'Activity detail created successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -48,6 +49,7 @@ export class ActivityDetailController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity detail' })
   @ApiOkResponse({ description: 'Activity detail updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
@@ -63,6 +65,7 @@ export class ActivityDetailController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity detail' })
   @ApiOkResponse({ description: 'Activity detail deleted successfully' })
   @ApiNotFoundResponse({ description: 'Activity detail not found' })

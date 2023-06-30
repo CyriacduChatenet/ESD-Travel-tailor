@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -30,6 +30,7 @@ export class CommentController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment created successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data' })
   create(@Body() createCommentDto: CreateCommentDto, @Body('activity') activity: string) {
@@ -64,6 +65,7 @@ export class CommentController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment updated successfully' })
   @ApiBadRequestResponse({ description: 'Invalid input data or comment ID' })
   update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
@@ -74,6 +76,7 @@ export class CommentController {
   @Throttle(1000, 60)
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment deleted successfully' })
   @ApiBadRequestResponse({ description: 'Invalid comment ID' })
   remove(@Param('id') id: string) {
