@@ -48,7 +48,7 @@ export const CreateActivityForm: FC = () => {
   const [closingDayCheck, setClosingDayCheck] = useState(false);
   const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
   const [address, setAddress] = useState("");
-  const [user, setUser] = useState<User>({});
+  const [user, setUser] = useState<User | any>({});
 
   const {
     register,
@@ -189,7 +189,6 @@ export const CreateActivityForm: FC = () => {
   useEffect(() => {
     handleFetchUser();
   }, []);
-  
   return (
     <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
       <form onSubmit={handleSubmit(onSubmit)}>
