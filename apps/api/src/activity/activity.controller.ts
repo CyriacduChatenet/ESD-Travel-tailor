@@ -35,11 +35,11 @@ export class ActivityController {
   @UseGuards(JwtAuthGuard)
   @Roles(Role.Advertiser, Role.Admin)
   @UseInterceptors(FilesInterceptor('image'))
-  @ApiBearerAuth()
-  @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Create an activity' })
-  @ApiCreatedResponse({ description: 'Activity created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  // @ApiBearerAuth()
+  // @ApiConsumes('multipart/form-data')
+  // @ApiOperation({ summary: 'Create an activity' })
+  // @ApiCreatedResponse({ description: 'Activity created successfully' })
+  // @ApiBadRequestResponse({ description: 'Invalid input data' })
   async create(@Body() createActivityDto: CreateActivityDto, @User() user, @UploadedFiles() files) {
     return this.activityService.create(createActivityDto, user, files);
   }

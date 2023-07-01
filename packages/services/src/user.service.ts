@@ -16,11 +16,12 @@ const getUserByToken = async (api_url: string, email: string, setError: Dispatch
   return await useFetch.get(`${api_url}${API_USER_ROUTE}/${email}`, setError)
 }
 
-const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<Error>> | any) => {
+const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<Error>> | any): Promise<User> => {
   const token = TokenService.getAccessToken()
   const signinToken = TokenService.getSigninToken()
   const decodedToken = jwtDecode(String(signinToken ? signinToken : token)) as { email: string, roles: string, exp: number, iat: number }
   const user = await getUserByToken(api_url, decodedToken.email, setError)
+  let object: User | any = {}
 
   if ((user.roles) === ROLES.TRAVELER) {
     const traveler = await TravelerService.findTravelerById(
@@ -28,7 +29,7 @@ const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<Er
       `${user?.traveler?.id}`,
       setError
     )
-    return { ...user, ...traveler }
+    return object = { ...user, ...traveler }
   }
 
   if ((user.roles) === ROLES.ADVERTISER) {
@@ -38,9 +39,10 @@ const getUserInfo = async (api_url: string, setError: Dispatch<SetStateAction<Er
         `${user?.advertiser?.id}`,
         setError
       )
-      return { ...user, ...advertiser }
+      return object = { ...user, ...advertiser }
     }
   }
+  return object as User
 }
 
 export const UserService = {

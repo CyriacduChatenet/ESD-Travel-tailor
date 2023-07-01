@@ -8,8 +8,8 @@ import { ApiLimitResourceQuery } from '@travel-tailor/types'
 
 import { CreateTravelerDto } from './dto/create-traveler.dto'
 import { UpdateTravelerDTO } from './dto/update-traveler.dto'
-import { CustomerService } from '../../payment/customer/customer.service'
 import { TravelerRepository } from './traveler.repository'
+import { Traveler } from './entities/traveler.entity'
 
 @Injectable()
 export class TravelerService {
@@ -50,11 +50,11 @@ export class TravelerService {
   }
 
   async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
-    try {
+    // try {
       return await this.travelerRepository.updateTraveler(id, updateTravelerDto)
-    } catch (error) {
-      throw new UnauthorizedException(error)
-    }
+    // } catch (error) {
+    //   throw new UnauthorizedException(error)
+    // }
   }
 
   async remove(id: string) {
@@ -62,6 +62,14 @@ export class TravelerService {
       return await this.travelerRepository.removeTraveler(id)
     } catch (error) {
       throw new UnauthorizedException(error)
+    }
+  }
+
+  async saveTraveler (traveler: Traveler) {
+    try {
+      return await this.travelerRepository.saveTraveler(traveler)
+    } catch (error) {
+      throw new BadRequestException(error)
     }
   }
 }

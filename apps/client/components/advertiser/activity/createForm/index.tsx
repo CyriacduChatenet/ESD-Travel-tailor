@@ -2,23 +2,25 @@ import {
   ActivityClosingDay,
   ActivitySchedule,
   ActivityTag,
+  User,
 } from "@travel-tailor/types";
-import { useUser } from "@travel-tailor/contexts";
 import {
   ActivityClosingDayService,
   ActivityScheduleService,
   ActivityService,
   ActivityTagService,
+  UserService,
 } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
 import { convertDate } from "@travel-tailor/utils";
-import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
+import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
 
 import { Autocomplete } from "@/components/autocomplete";
+import Cookies from "js-cookie";
 
 interface ICreateActivityForm {
   name: string;
@@ -46,6 +48,7 @@ export const CreateActivityForm: FC = () => {
   const [closingDayCheck, setClosingDayCheck] = useState(false);
   const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
   const [address, setAddress] = useState("");
+  const [user, setUser] = useState<User | any>({});
 
   const {
     register,
@@ -53,8 +56,14 @@ export const CreateActivityForm: FC = () => {
     setValue,
     formState: { errors },
   } = useForm<ICreateActivityForm>();
-  const { user } = useUser();
   const router = useRouter();
+
+  const handleFetchUser = async () => {
+    const u = await UserService.getUserByToken(`${process.env.NEXT_PUBLIC_API_URL}`, `${Cookies.get('userEmail')}`, {})
+    if (u) {
+      setUser(u);
+    }
+  };
 
   const handleScheduleInputChange = async () => {
     const s = await ActivityScheduleService.createActivitySchedule(
@@ -176,6 +185,10 @@ export const CreateActivityForm: FC = () => {
       }
     }
   };
+
+  useEffect(() => {
+    handleFetchUser();
+  }, []);
   return (
     <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
       <form onSubmit={handleSubmit(onSubmit)}>

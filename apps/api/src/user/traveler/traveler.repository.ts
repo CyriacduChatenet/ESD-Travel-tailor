@@ -53,7 +53,6 @@ export class TravelerRepository extends Repository<Traveler> {
             .where('traveler.id = :id', { id })
             .leftJoinAndSelect('traveler.user', 'user')
             .leftJoinAndSelect('user.customer', 'customer')
-            .leftJoinAndSelect('customer.orders', 'orders')
             .leftJoinAndSelect('traveler.tastes', 'tastes')
             .leftJoinAndSelect('traveler.travels', 'travel')
             .leftJoinAndSelect('traveler.comments', 'comment')
