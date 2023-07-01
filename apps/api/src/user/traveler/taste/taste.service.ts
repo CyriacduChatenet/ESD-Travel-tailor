@@ -9,6 +9,7 @@ import { CreateTasteDto } from './dto/create-taste.dto';
 import { UpdateTasteDto } from './dto/update-taste.dto';
 import { TasteRepository } from './taste.repository';
 import { TravelerService } from '../traveler.service';
+import { Taste } from './entities/taste.entity';
 
 @Injectable()
 export class TasteService {
@@ -18,15 +19,15 @@ export class TasteService {
   ) {}
 
   async create(createTasteDto: CreateTasteDto) {
-    try {
-      const taste = await this.tasteRepository.createTaste(createTasteDto);
-      const traveler = await this.travelerService.findOne(createTasteDto.traveler.id);
-      const tastes = [...traveler.tastes, taste];
-      await this.travelerService.update(createTasteDto.traveler.id, { tastes });
-      return taste;
-    } catch (error) {
-      throw new UnauthorizedException(error);
+    const traveler = await this.travelerService.findOne(String(createTasteDto.traveler));
+    if (!traveler) {
+      throw new NotFoundException(`Traveler with id ${createTasteDto.traveler} not found`);
     }
+    const taste = await this.tasteRepository.createTaste(createTasteDto);
+    const tastes = traveler?.tastes || [];
+    tastes.push(taste);
+    traveler.tastes = tastes;
+    return await this.travelerService.saveTraveler(traveler);
   }
 
   async findAll(queries: ApiLimitResourceQuery) {
