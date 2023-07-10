@@ -40,9 +40,9 @@ jobs:
         with:
           node-version: 18
       - name: install dependencies
-        run: npm i
+        run: cd apps/api && npm i
       - name: test
-        run: cd apps/api && npm run test
+        run: npm run test
 
   lint:
     runs-on: ubuntu-latest
@@ -61,9 +61,9 @@ jobs:
         with:
           node-version: 18
       - name: install dependencies
-        run: npm i
+        run: cd apps/api && npm i
       - name: lint
-        run: cd apps/api && npm run lint
+        run: npm run lint
 
   semantic-release:
     runs-on: ubuntu-latest
