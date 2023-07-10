@@ -39,6 +39,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           node-version: 18
+      - name: install dependencies
+        run: npm i
       - name: test
         run: cd apps/api && npm run test
 
@@ -58,7 +60,9 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           node-version: 18
-      - name: test
+      - name: install dependencies
+        run: npm i
+      - name: lint
         run: cd apps/api && npm run lint
 
   semantic-release:
