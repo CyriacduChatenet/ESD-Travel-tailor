@@ -12,7 +12,7 @@ const AdvertiserEditActivityPage: NextPage = () => {
         <AuthChecker>
             <Layout title={""} description={""}>
             <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
-                    <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around">
+                    <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around py-10">
                         <Link href={ROUTES.ADVERTISER.DASHBOARD}>
                             <button
                                 type="submit"
@@ -21,7 +21,7 @@ const AdvertiserEditActivityPage: NextPage = () => {
                                 Return
                             </button>
                         </Link>
-                        <h1>Advertiser Edit Activity</h1>
+                        <h1 className="font-bold text-2xl col-span-4 lg:col-span-8 xl:col-span-12 xl:row-span-1 text-center">Edit Activity</h1>
                     </div>
                     <EditActivityForm />
                 </main>

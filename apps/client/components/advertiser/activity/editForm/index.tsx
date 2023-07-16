@@ -209,7 +209,7 @@ export const EditActivityForm: FC = () => {
   }, [handleFetch]);
 
   return (
-    <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
+    <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:mb-16">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label htmlFor="Name" className="block text-gray-700 font-bold mb-2">

@@ -47,7 +47,7 @@ export const SigninForm: FC = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
+        <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
             <form onSubmit={handleSubmit(onSubmit)}>
                 {apiErrors?.message && <p className="mb-2 text-red-500 text-xs italic">User is&apos;t exist</p>}
                 <div className="mb-4">

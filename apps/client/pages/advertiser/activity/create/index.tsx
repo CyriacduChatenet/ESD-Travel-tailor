@@ -12,7 +12,7 @@ const AdvertiserCreateActivityPage: NextPage = () => {
         <AuthChecker>
             <Layout title={"Create Customized Activities for Your Dream Vacation | Travel Tailor"} description={"Design your perfect travel itinerary with personalized activities tailored to your preferences. Discover our travel manager's activity creation page and curate a memorable journey based on your unique interests and tastes"}>
                 <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
-                    <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around">
+                    <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around xl:py-10">
                         <Link href={ROUTES.ADVERTISER.DASHBOARD}>
                             <button
                                 type="submit"
@@ -21,7 +21,7 @@ const AdvertiserCreateActivityPage: NextPage = () => {
                                 Return
                             </button>
                         </Link>
-                        <h1>Advertiser Create Activity</h1>
+                        <h1 className="font-bold text-2xl col-span-4 lg:col-span-8 xl:col-span-12 xl:row-span-1 text-center">Create Activity</h1>
                     </div>
                     <CreateActivityForm />
                 </main>
