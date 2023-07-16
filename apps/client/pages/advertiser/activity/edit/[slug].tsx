@@ -21,7 +21,7 @@ const AdvertiserEditActivityPage: NextPage = () => {
                                 Return
                             </button>
                         </Link>
-                        <h1>Advertiser Edit Activity</h1>
+                        <h1 className="font-bold text-2xl col-span-4 lg:col-span-8 xl:col-span-12 xl:row-span-1 text-center">Edit Activity</h1>
                     </div>
                     <EditActivityForm />
                 </main>

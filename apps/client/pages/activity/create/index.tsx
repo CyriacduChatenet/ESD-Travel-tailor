@@ -21,7 +21,7 @@ const AdvertiserCreateActivityPage: NextPage = () => {
                                 Return
                             </button>
                         </Link>
-                        <h1>Advertiser Create Activity</h1>
+                        <h1>Create Activity</h1>
                     </div>
                     <CreateActivityForm />
                 </main>
