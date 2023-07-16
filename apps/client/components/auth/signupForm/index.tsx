@@ -49,7 +49,7 @@ export const SignupForm: FC = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12">
+        <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
