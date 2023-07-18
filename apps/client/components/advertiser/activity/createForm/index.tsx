@@ -418,7 +418,7 @@ export const CreateActivityForm: FC = () => {
           </div>
           {schedules.length === 0 && (
             <p className="mt-2 text-red-500 text-xs italic">
-              {errors.opening_at?.message?.toString()} &{" "}
+              {errors.opening_at?.message ? `${errors.opening_at?.message?.toString()} & ` : ""}
               {errors.closing_at?.message?.toString()}
             </p>
           )}
@@ -495,7 +495,7 @@ export const CreateActivityForm: FC = () => {
           </div>
           {closingDays.length === 0 && (
             <p className="mt-2 text-red-500 text-xs italic">
-              {errors.recurrence?.message?.toString()} &{" "}
+              {errors.recurrence?.message ? `${errors.recurrence?.message?.toString()} & `: ""}
               {errors.date?.message?.toString()}
             </p>
           )}
