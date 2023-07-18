@@ -17,7 +17,6 @@ export class PictureService {
 
     private async findPicture(city: string) {
         try {
-            console.log(city);
             const response = await fetch(`https://unsplash.com/napi/search/photos?query=${city}&per_page=20&xp=search-synonym%3Acontrol&orientation=landscape`);
             const data: UnsplashPictureArray = await response.json();
             return data.results[1].urls.regular;

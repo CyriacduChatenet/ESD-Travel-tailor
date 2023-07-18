@@ -35,3 +35,5 @@ export const API_INVOICE_PDF_ROUTE = '/payment/invoice/pdf'
 
 export const API_EDIT_PLANNING_ACTIVITY_ROUTE = '/planning/activity'
 export const API_EDIT_PLANNING_ROUTE = '/planning'
+
+export const API_PICTURE_ROUTE = '/picture'
