@@ -5,17 +5,20 @@ import { UnsplashPictureArray } from '@travel-tailor/types';
 
 @Injectable()
 export class PictureService {
+
+    private city = '';
     
     async findHomeBannerContent() {
         return {
             city: await this.findCity(),
-            picture_url: await this.findPicture(await this.findCity()),
+            picture_url: await this.findPicture(await this.city),
         }
     }
 
     private async findPicture(city: string) {
         try {
-            const response = await fetch(`https://unsplash.com/napi/search/photos?query=${city}&per_page=20&xp=search-synonym%3Acontrol`);
+            console.log(city);
+            const response = await fetch(`https://unsplash.com/napi/search/photos?query=${city}&per_page=20&xp=search-synonym%3Acontrol&orientation=landscape`);
             const data: UnsplashPictureArray = await response.json();
             return data.results[1].urls.regular;
         } catch (error) {
@@ -27,8 +30,7 @@ export class PictureService {
         try {
             const data = await this.loadCitiesSync();
             const randomCity = data.geonames.geoname[Math.floor(Math.random() * data.geonames.geoname.length)];
-            console.log(randomCity);
-            return randomCity.name;
+            return this.city = randomCity.name;
         } catch(error) {
             throw new Error(error);
         }
