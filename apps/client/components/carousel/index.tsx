@@ -11,16 +11,16 @@ export const Carousel: FC = () => {
   const [error, setError] = useState({});
   const [show, setShow] = useState(false);
 
-  const handleFetch = async () => {
-    setInterval(async () => {
+  useEffect(() => {
+    const interval = setInterval(async () => {
       const response = await PictureService.findPicture(process.env.NEXT_PUBLIC_API_URL as string, setError);
       setData(response);
       setShow(true);
     }, 10000);
-  };
 
-  useEffect(() => {
-    handleFetch();
+    return () => {
+      clearInterval(interval);
+    }
   }, []);
   
   return (
