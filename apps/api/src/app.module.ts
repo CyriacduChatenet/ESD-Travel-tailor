@@ -26,6 +26,7 @@ import { TimeSlotModule } from './user/traveler/travel/day/time-slot/time-slot.m
 import { UploadFileModule } from './upload-file/upload-file.module';
 import { CommentMarkModule } from './comment/comment-mark/comment-mark.module';
 import { APP_GUARD } from '@nestjs/core';
+import { PictureModule } from './picture/picture.module';
 
 @Module({
   imports: [
@@ -63,7 +64,8 @@ import { APP_GUARD } from '@nestjs/core';
     CustomerModule,
     TimeSlotModule,
     UploadFileModule,
-    CommentMarkModule
+    CommentMarkModule,
+    PictureModule
   ],
   controllers: [AppController],
   providers: [AppService, {
