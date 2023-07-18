@@ -3,18 +3,14 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 
 import { Layout } from '@/components/layout'
+import { Carousel } from '@/components/carousel'
 
 const Home: NextPage = () => {
   return (
     <Layout title={'Personalized Travel Management: Create Your Perfect Journey | Travel Tailor'} description={'Discover an innovative travel management platform that empowers you to curate your ideal journey based on your unique preferences. Create customized itineraries and explore a wide range of activities tailored to your tastes. Start planning your dream vacation today with our intuitive travel planner.'}>
       <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
         <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
-          <section className='w-full h-96 relative'>
-            <div className={`w-full h-96 bg-[url('https://images.unsplash.com/photo-1493564738392-d148cfbd6eda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80')] -z-20 bg-cover bg-center blur-[1px]`}></div>
-            <div className="absolute bottom-0 left-0">
-              <span className="text-white text-4xl font-bold uppercase pl-6">Bordeaux</span>
-            </div>
-          </section>
+          <Carousel />
           <section className='w-full grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 min-h-screen'>
             <section className='col-span-4 md:col-span-8 xl:col-span-12 xl:my-12 grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-8'>
               <div className='w-full col-span-4 md:col-span-8 xl:col-span-8'>

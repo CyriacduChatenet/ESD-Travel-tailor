@@ -60,3 +60,5 @@ export type { CreateTimeSlotDTO, UpdateTimeSlotDTO, TimeSlot } from './time-slot
 export type { CreateCommentMarkDTO, UpdateCommentMarkDTO, CommentMark } from './comment-mark.type'
 export type { CreateActivityMarkDTO, UpdateActivityMarkDTO, ActivityMark } from './activity-mark.type'
 export type {Invoice} from './invoice.type'
+export type { UnsplashPictureArray } from './unsplash-picture.type'
+export type { Picture } from './picture.type'
