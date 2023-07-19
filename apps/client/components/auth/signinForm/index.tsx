@@ -48,7 +48,7 @@ export const SigninForm: FC = () => {
       data,
       setApiErrors
     );
-    if (response && apiErrors.message === undefined) {
+    if (response) {
       Cookies.set("userEmail", response.email);
       handleRedirect(response);
     }
