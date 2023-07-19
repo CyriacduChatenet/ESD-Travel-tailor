@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { PhotoIcon } from "@heroicons/react/24/solid";
 
 import { Autocomplete } from "@/components/autocomplete";
 import Cookies from "js-cookie";
@@ -49,6 +50,7 @@ export const CreateActivityForm: FC = () => {
   const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
   const [address, setAddress] = useState("");
   const [user, setUser] = useState<User | any>({});
+  const [agreed, setAgreed] = useState(false);
 
   const {
     register,
@@ -59,7 +61,11 @@ export const CreateActivityForm: FC = () => {
   const router = useRouter();
 
   const handleFetchUser = async () => {
-    const u = await UserService.getUserByToken(`${process.env.NEXT_PUBLIC_API_URL}`, `${Cookies.get('userEmail')}`, {})
+    const u = await UserService.getUserByToken(
+      `${process.env.NEXT_PUBLIC_API_URL}`,
+      `${Cookies.get("userEmail")}`,
+      {}
+    );
     if (u) {
       setUser(u);
     }
@@ -190,319 +196,401 @@ export const CreateActivityForm: FC = () => {
     handleFetchUser();
   }, []);
   return (
-    <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:mb-16">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <label htmlFor="Name" className="block text-gray-700 font-bold mb-2">
-            Name
-          </label>
-          <input
-            {...register("name", {
-              required: "Name is required",
-            })}
-            id="name"
-            type="text"
-            onClick={() => setApiErrors({})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          {errors.name && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.name.message?.toString()}
-            </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="Description"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Description
-          </label>
-          <textarea
-            {...register("description", {
-              required: "Description is required",
-            })}
-            name="description"
-            id="description"
-            cols={30}
-            rows={10}
-            onClick={() => setApiErrors({})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          ></textarea>
-          {errors.description && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.description.message?.toString()}
-            </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="Image" className="block text-gray-700 font-bold mb-2">
-            Image
-          </label>
-          <input
-            {...register("image", {
-              required: "Image is required",
-              validate: {
-                validFileType: (value) => {
-                  const allowedTypes = [
-                    "image/jpeg",
-                    "image/png",
-                    "image/jpg",
-                    "image/webp",
-                  ];
-                  const fileType = value[0]?.type;
-                  if (fileType && !allowedTypes.includes(fileType)) {
-                    return "File type not supported";
-                  }
-                  return true;
-                },
-              },
-            })}
-            id="Image"
-            type="file"
-            onClick={() => setApiErrors({})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          {errors.image && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.image.message?.toString()}
-            </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="location"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Location
-          </label>
-          <input
-            {...register("location", {
-              required: "Location is required",
-            })}
-            id="location"
-            type="text"
-            onClick={() => setApiErrors({})}
-            onChange={handleLocationChange}
-            className={`shadow appearance-none border-t ${
-              address.length === 0 ? "border-r border-l" : ""
-            } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              errors.location ? "border-red-500" : ""
-            }`}
-          />
-          <Autocomplete address={address} setAddress={setAddress} />
-          {errors.location && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.location.message?.toString()}
-            </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="Duration"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Duration
-          </label>
-          <input
-            {...register("duration", {
-              required: "Duration is required",
-            })}
-            id="duration"
-            type="number"
-            onClick={() => setApiErrors({})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          {errors.duration && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.duration.message?.toString()}
-            </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="Tags" className="block text-gray-700 font-bold mb-2">
-            Tags
-          </label>
-          <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <div>
-              {tags.map((tag: ActivityTag, index: number) => (
-                <div
-                  key={index}
-                  className="flex justify-around items-center rounded-full bg-blue-500 text-white my-2"
-                >
-                  <p>{tag.name}</p>
-                  <button
-                    className="text-white font-bold py-2 px-4"
-                    onClick={() => handleTagDelete(`${String(tag.id)}`, index)}
-                  >
-                    <Icon icon="material-symbols:close-rounded" />
-                  </button>
-                </div>
-              ))}
+    <form
+      className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:mb-16"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="space-y-12">
+        <div className="border-b border-gray-900/10 pb-12">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="col-span-full">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Name
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  {...register("name", {
+                    required: "Name is required",
+                  })}
+                  name="name"
+                  id="name"
+                  autoComplete="name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.name && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.name.message?.toString()}
+                </p>
+              )}
             </div>
-            <div>
-              <input
-                {...register("content", {
-                  required: "Tag is required",
-                })}
-                id="tag_content"
-                type="text"
-                onClick={() => setApiErrors({})}
-                onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
-                  setTimeout(() => {
-                    handleTagInputChange(e);
-                  }, 2000);
-                }}
-              />
+
+            <div className="col-span-full">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Description
+              </label>
+              <div className="mt-2">
+                <textarea
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
+                  id="description"
+                  name="description"
+                  rows={3}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  defaultValue={""}
+                />
+              </div>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                Write a few sentences about activity.
+              </p>
+              {errors.description && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.description.message?.toString()}
+                </p>
+              )}
             </div>
-          </div>
-          {tags.length === 0 && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.content?.message?.toString()}
-            </p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="Schedules"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Schedules
-          </label>
-          <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <div>
-              {schedules.map((schedule: ActivitySchedule, index: number) => (
-                <div
-                  key={index}
-                  className="flex justify-around items-center rounded-full bg-blue-500 text-white my-2"
-                >
-                  <p>
-                    {schedule.opening_at} - {schedule.closing_at}
+
+            <div className="col-span-full">
+              <label
+                htmlFor="cover-photo"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Cover photo
+              </label>
+              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="text-center">
+                  <PhotoIcon
+                    className="mx-auto h-12 w-12 text-gray-300"
+                    aria-hidden="true"
+                  />
+                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                    <label
+                      htmlFor="file-upload"
+                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        id="file-upload"
+                        type="file"
+                        {...register("image", {
+                          required: "Image is required",
+                          validate: {
+                            validFileType: (value) => {
+                              const allowedTypes = [
+                                "image/jpeg",
+                                "image/png",
+                                "image/jpg",
+                                "image/webp",
+                              ];
+                              const fileType = value[0]?.type;
+                              if (
+                                fileType &&
+                                !allowedTypes.includes(fileType)
+                              ) {
+                                return "File type not supported";
+                              }
+                              return true;
+                            },
+                          },
+                        })}
+                        className="sr-only"
+                      />
+                    </label>
+                    <p className="pl-1">or drag and drop</p>
+                  </div>
+                  <p className="text-xs leading-5 text-gray-600">
+                    PNG, JPG, GIF up to 10MB
                   </p>
-                  <button
-                    className="text-white font-bold py-2 px-4"
-                    onClick={() =>
-                      handleScheduleDelete(`${String(schedule.id)}`, index)
-                    }
-                  >
-                    <Icon icon="material-symbols:close-rounded" />
-                  </button>
                 </div>
-              ))}
-            </div>
-            <div>
-              <input
-                {...register("opening_at", {
-                  required: "Opening time is required",
-                })}
-                id="schedule_opening_at"
-                type="time"
-                onClick={() => setApiErrors({})}
-                onChange={(e) => setOpenSchedule(e.target.value)}
-              />
-              <input
-                {...register("closing_at", {
-                  required: "Closing time is required",
-                })}
-                id="schedule_closing_at"
-                type="time"
-                onClick={() => setApiErrors({})}
-                onChange={(e) => setCloseSchedule(e.target.value)}
-                onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
-                  setTimeout(() => {
-                    handleScheduleInputChange();
-                  }, DEFAULT_INPUT_TIMER);
-                }}
-              />
+              </div>
+              {errors.image && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.image.message?.toString()}
+                </p>
+              )}
             </div>
           </div>
-          {schedules.length === 0 && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.opening_at?.message ? `${errors.opening_at?.message?.toString()} & ` : ""}
-              {errors.closing_at?.message?.toString()}
-            </p>
-          )}
         </div>
-        <div className="mb-4">
-          <label
-            htmlFor="Closing_Days"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Closing days
-          </label>
-          <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <div>
-              {closingDays.map(
-                (closingDay: ActivityClosingDay, index: number) => (
+
+        <div className="border-b border-gray-900/10 pb-12">
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
+            Activity Information
+          </h2>
+
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="location"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Location
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  id="location"
+                  {...register("location", {
+                    required: "Location is required",
+                  })}
+                  onChange={handleLocationChange}
+                  autoComplete="location"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.location && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.location.message?.toString()}
+                </p>
+              )}
+            </div>
+
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="duration"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Duration in hours
+              </label>
+              <div className="mt-2">
+                <input
+                  type="number"
+                  {...register("duration", {
+                    required: "Duration is required",
+                  })}
+                  id="duration"
+                  autoComplete="duration"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.duration && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.duration.message?.toString()}
+                </p>
+              )}
+            </div>
+
+            <div className="col-span-full">
+              <label
+                htmlFor="tags"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Tags
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  {...register("content", {
+                    required: "Tag is required",
+                  })}
+                  id="tag-content"
+                  autoComplete="tag_content"
+                  onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
+                    setTimeout(() => {
+                      handleTagInputChange(e);
+                    }, 2000);
+                  }}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {tags.length === 0 && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.content?.message?.toString()}
+                </p>
+              )}
+              <div>
+                {tags.map((tag: ActivityTag, index: number) => (
                   <div
                     key={index}
-                    className="flex justify-around items-center rounded-full bg-blue-500 text-white my-2"
+                    className="flex justify-around items-center rounded-full bg-indigo-600 text-white my-2"
                   >
-                    <p>
-                      {new Date(closingDay.date).toLocaleDateString("fr")} -
-                      recurrence: {closingDay.recurrence ? "true" : "false"}
-                    </p>
+                    <p>{tag.name}</p>
                     <button
                       className="text-white font-bold py-2 px-4"
                       onClick={() =>
-                        handleClosingDayDelete(
-                          `${String(closingDay.id)}`,
-                          index
-                        )
+                        handleTagDelete(`${String(tag.id)}`, index)
                       }
                     >
                       <Icon icon="material-symbols:close-rounded" />
                     </button>
                   </div>
-                )
-              )}
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex justify-between items-center w-5/12">
-                <p>Recurrence</p>
-                <input
-                  {...register("recurrence", {
-                    required: "Recurrence is required",
-                  })}
-                  id="closing_day_recurrence"
-                  type="checkbox"
-                  onClick={() => setApiErrors({})}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setClosingDayCheck(e.target.checked)
-                  }
-                />
+                ))}
               </div>
-              <div className="flex justify-between items-center w-6/12">
-                <p>Date</p>
+            </div>
+
+            <div className="col-span-full">
+              <label
+                htmlFor="schedules"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Schedules
+              </label>
+              <div className="mt-2 flex">
                 <input
-                  {...register("date", {
-                    required: "Date is required",
+                  type="time"
+                  id="schedule_opening_at"
+                  {...register("opening_at", {
+                    required: "Opening time is required",
                   })}
-                  id="closing_day_date"
-                  type="date"
+                  onChange={(e) => setOpenSchedule(e.target.value)}
                   onClick={() => setApiErrors({})}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setClosingDayInput(e.target.value)
-                  }
-                  onKeyUp={() => {
+                  autoComplete="schedule_opening_at"
+                  className="block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <input
+                  type="time"
+                  {...register("closing_at", {
+                    required: "Closing time is required",
+                  })}
+                  id="schedule_closing_at"
+                  onClick={() => setApiErrors({})}
+                  onChange={(e) => setCloseSchedule(e.target.value)}
+                  onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
                     setTimeout(() => {
-                      handleClosingDayInputChange();
+                      handleScheduleInputChange();
                     }, DEFAULT_INPUT_TIMER);
                   }}
+                  autoComplete="schedule_closing_at"
+                  className="block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+              </div>
+              {schedules.length === 0 && (
+                <p className="mt-2 text-red-500 text-xs italic">
+                  {errors.opening_at?.message
+                    ? `${errors.opening_at?.message?.toString()} & `
+                    : ""}
+                  {errors.closing_at?.message?.toString()}
+                </p>
+              )}
+              <div>
+                {schedules.map((schedule: ActivitySchedule, index: number) => (
+                  <div
+                    key={index}
+                    className="flex justify-around items-center rounded-full bg-indigo-600 text-white my-2"
+                  >
+                    <p>
+                      {schedule.opening_at} - {schedule.closing_at}
+                    </p>
+                    <button
+                      className="text-white font-bold py-2 px-4"
+                      onClick={() =>
+                        handleScheduleDelete(`${String(schedule.id)}`, index)
+                      }
+                    >
+                      <Icon icon="material-symbols:close-rounded" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="col-span-full flex">
+              <div className="w-1/4">
+                <label
+                  htmlFor="reccurence"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Reccurence
+                </label>
+                <div className="mt-2 flex items-center h-1/3">
+                  <input
+                    {...register("recurrence", {
+                      required: false,
+                    })}
+                    id="closing_day_recurrence"
+                    type="checkbox"
+                    onClick={() => setApiErrors({})}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setClosingDayCheck(e.target.checked)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="w-3/4">
+                <label
+                  htmlFor="date"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Date
+                </label>
+                <div className="mt-2">
+                  <input
+                    {...register("date", {
+                      required: "Date is required",
+                    })}
+                    id="closing_day_date"
+                    type="date"
+                    onClick={() => setApiErrors({})}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setClosingDayInput(e.target.value)
+                    }
+                    onKeyUp={() => {
+                      setTimeout(() => {
+                        handleClosingDayInputChange();
+                      }, DEFAULT_INPUT_TIMER);
+                    }}
+                    autoComplete="date"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                  {closingDays.length === 0 && (
+                    <p className="mt-2 text-red-500 text-xs italic">
+                      {errors.recurrence?.message
+                        ? `${errors.recurrence?.message?.toString()} & `
+                        : ""}
+                      {errors.date?.message?.toString()}
+                    </p>
+                  )}
+                  <div>
+                    {closingDays.map(
+                      (closingDay: ActivityClosingDay, index: number) => (
+                        <div
+                          key={index}
+                          className="flex justify-around items-center rounded-full bg-indigo-600 text-white my-2"
+                        >
+                          <p>
+                            {new Date(closingDay.date).toLocaleDateString("fr")}{" "}
+                            - recurrence:{" "}
+                            {closingDay.recurrence ? "true" : "false"}
+                          </p>
+                          <button
+                            className="text-white font-bold py-2 px-4"
+                            onClick={() =>
+                              handleClosingDayDelete(
+                                `${String(closingDay.id)}`,
+                                index
+                              )
+                            }
+                          >
+                            <Icon icon="material-symbols:close-rounded" />
+                          </button>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          {closingDays.length === 0 && (
-            <p className="mt-2 text-red-500 text-xs italic">
-              {errors.recurrence?.message ? `${errors.recurrence?.message?.toString()} & `: ""}
-              {errors.date?.message?.toString()}
-            </p>
-          )}
         </div>
+      </div>
+
+      <div className="mt-6 flex items-center justify-end gap-x-6">
+        <button
+          type="button"
+          className="text-sm font-semibold leading-6 text-gray-900"
+        >
+          Cancel
+        </button>
         <button
           type="submit"
-          className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           {submit ? (
             <Player
@@ -515,7 +603,7 @@ export const CreateActivityForm: FC = () => {
             <>Create Activity</>
           )}
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
