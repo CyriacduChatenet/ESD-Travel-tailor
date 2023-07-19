@@ -140,6 +140,20 @@ export const Navbar: FC = () => {
         adminNavigation[5].current = false;
         adminNavigation[6].current = true;
         break;
+
+      default:
+        advertiserNavigation[0].current = false;
+        advertiserNavigation[1].current = false;
+        travelerNavigation[0].current = false;
+        travelerNavigation[1].current = false;
+        adminNavigation[0].current = false;
+        adminNavigation[1].current = false;
+        adminNavigation[2].current = false;
+        adminNavigation[3].current = false;
+        adminNavigation[4].current = false;
+        adminNavigation[5].current = false;
+        adminNavigation[6].current = false;
+        break;
     }
   }, [params]);
 

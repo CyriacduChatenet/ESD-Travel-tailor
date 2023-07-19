@@ -19,7 +19,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
       <Link href={ROUTES.ADVERTISER.ACTIVITY.CREATE_ACTIVITY}>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-8"
         >
           add Activity
         </button>
@@ -29,7 +29,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
           {editorMode === false && (
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-8"
               onClick={() => setEditorMode(true)}
             >
               Edit Activities
@@ -38,7 +38,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
           {editorMode && (
             <button
               type="submit"
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+              className="rounded-md bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
               onClick={() => setEditorMode(false)}
             >
               Cancel
