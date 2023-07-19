@@ -144,52 +144,5 @@ export const CreateTasteForm: FC = () => {
         </div>
       </form>
     </div>
-    // <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
-    //     <label htmlFor="tastes" className="block text-gray-700 font-bold mb-2">
-    //         Tastes
-    //     </label>
-    //     <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
-    //         <form action="">
-    //             <div>
-    //                 {tastes.map((taste: Taste, index: number) => (
-    //                     <div key={index} className="flex justify-around items-center rounded-full bg-blue-500 text-white my-2">
-    //                         <p>{taste.name}</p>
-    //                         <button
-    //                             className="text-white font-bold py-2 px-4"
-    //                             onClick={() => handleDelete(`${String(taste.id)}`, index)}
-    //                         >
-    //                             <Icon icon="material-symbols:close-rounded" />
-    //                         </button>
-    //                     </div>
-    //                 ))}
-    //             </div>
-    //             <div>
-    //                 <input
-    //                     {...register("name", {
-    //                         required: "Taste is required",
-    //                     })}
-    //                     id="name"
-    //                     type="text"
-    //                     onClick={() => setApiErrors({})}
-    //                     onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => { setTimeout(() => { handleTasteInputChange(e) }, 2000) }}
-    //                 />
-    //             </div>
-    //         </form>
-    //     </div>
-    //     {submit === true && tastes.length === 0 ? (
-    //         <p className="text-red-500 text-xs italic">Tags musn&apos;t be empty</p>
-    //     ) : null}
-    //     <button
-    //         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    //         onClick={handleSubmit(onSubmit)}
-    //     >
-    //         {submit ? <Player
-    //             src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
-    //             className="w-12 h-12"
-    //             loop
-    //             autoplay
-    //         /> : <>Add Taste</>}
-    //     </button>
-    // </div>
   );
 };
