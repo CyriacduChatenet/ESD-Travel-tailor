@@ -28,7 +28,7 @@ export const ActivityToolbar: FC<IProps> = ({ location, duration, mark, comments
                 </div>
                 <div className="flex">
                     <Icon icon="material-symbols:mode-comment-rounded" className='w-6 h-6 mr-4' />
-                    <p className="text-blue-500 hover:text-blue-700" onClick={() => setDisplayCommentModule(true)}>Comments( {commentsIndex} )</p>
+                    <p className="text-indigo-600 hover:text-indigo-500" onClick={() => setDisplayCommentModule(true)}>Comments( {commentsIndex} )</p>
                 </div>
             </div>
             {/* <div className="flex lg:col-span-4 lg:flex lg:justify-center lg:items-center">

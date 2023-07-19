@@ -80,7 +80,7 @@ export const Comment: FC<IProps> = ({ author, role, content, createdAt, user, id
                     <div className="flex justify-end items-center">
                         <button
                             type="submit"
-                            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+                            className={`bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
                         ><Icon icon="ic:sharp-send" />
                         </button>
                     </div>

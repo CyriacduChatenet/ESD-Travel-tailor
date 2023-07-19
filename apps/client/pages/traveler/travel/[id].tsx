@@ -67,7 +67,7 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
                 {!data.validate && (
                   <div className="lg:mt-8">
                     <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+                      className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
                       onClick={() => handleValidateTravel()}
                     >
                       validate travel
@@ -76,14 +76,14 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
                       className={`${
                         editorMode
                           ? "bg-red-500 hover:bg-red-700"
-                          : "bg-blue-500 hover:bg-blue-700"
+                          : "bg-indigo-600 hover:bg-indigo-500"
                       } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8`}
                       onClick={() => setEditorMode(!editorMode)}
                     >
                       {editorMode ? "cancel" : "edit travel activities"}
                     </button>
                     <Link href={`${ROUTES.TRAVELER.TRAVEL.EDIT}/${window.location.pathname.split("/")[3]}`}>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8">
+                      <button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8">
                         edit travel
                       </button>
                     </Link>

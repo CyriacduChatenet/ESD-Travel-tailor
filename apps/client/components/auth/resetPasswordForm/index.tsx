@@ -25,36 +25,58 @@ export const ResetPasswordForm: FC = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-4 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-4">
-                    <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
-                        Password
-                    </label>
-                    <input
-                        {...register("password", { required: "Password is required" })}
-                        id="password"
-                        type="password"
-                        onClick={() => setApiErrors({})}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                    {errors.password && <p className="mt-2 text-red-500 text-xs italic">{errors.password.message?.toString()}</p>}
-                </div>
-                <div className="flex flex-col items-center justify-between">
-                    <button
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    >
-                        {submit ? <Player
-                            src='https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json'
-                            className="w-5 h-5"
-                            loop
-                            autoplay
-                        /> : <>Reset Password</>}
-                    </button>
-                </div>
-            </form>
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Reset password
+          </h2>
         </div>
-
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  {...register("password", { required: "Password is required" })}
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {errors.password && (
+                  <p className="mt-2 text-red-500 text-xs italic">
+                    {errors.password.message?.toString()}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                {submit ? (
+                  <Player
+                    src="https://assets5.lottiefiles.com/packages/lf20_jk6c1n2n.json"
+                    className="w-5 h-5"
+                    loop
+                    autoplay
+                  />
+                ) : (
+                  <>Reset password</>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     );
 };

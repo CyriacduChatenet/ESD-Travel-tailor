@@ -31,7 +31,7 @@ export const ActivityModule: FC<IProps> = ({ location, duration, open, close, ma
                     <p className="mt-4 lg:mt-8">{description}</p>
                     <div className="py-4 lg:py-8 w-full flex justify-around items-center">
                         <Link href={pathname}>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</button>
+                            <button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</button>
                         </Link>
                     </div>
                 </div>
