@@ -22,7 +22,7 @@ export const CommentToolbar: FC<IProps> = ({ setDisplayCommentModule }) => {
     return (
         <div className="py-4 lg:py-8 w-full flex flex-col xl:grid xl:grid-cols-12">
             <div className="lg:col-span-2 flex lg:items-center">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => setDisplayCommentModule(false)}>Return</button>
+                <button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => setDisplayCommentModule(false)}>Return</button>
             </div>
             {/* <div className="lg:col-span-10 flex flex-col lg:flex-row lg:items-center lg:grid lg:grid-cols-10">
                 <p className="lg:col-span-1 my-4 lg:my-0">Filters:</p>
