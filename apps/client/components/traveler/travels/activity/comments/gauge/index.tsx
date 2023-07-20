@@ -12,7 +12,7 @@ export const Gauge: FC<IProps> = ({ percentage }) => {
     }, [percentage]);
 
     return (
-        <div className="relative w-32 h-1.5 bg-indigo-200 rounded-full">
+        <div className="relative w-32 h-1.5 bg-sky-100 rounded-full">
             <div
                 className="absolute top-0 left-0 h-full bg-cyan-600 rounded-full"
                 style={{ width: `${filledPercentage}%` }}

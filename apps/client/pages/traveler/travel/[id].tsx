@@ -67,23 +67,23 @@ const TravelerTravelPage: NextPage<IProps> = ({ data }) => {
                 {!data.validate && (
                   <div className="lg:mt-8">
                     <button
-                      className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+                      className="rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                       onClick={() => handleValidateTravel()}
                     >
                       validate travel
                     </button>
                     <button
-                      className={`${
+                      className={`rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 mx-12 ${
                         editorMode
                           ? "bg-red-500 hover:bg-red-700"
                           : "bg-cyan-600 hover:bg-cyan-500"
-                      } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8`}
+                      }`}
                       onClick={() => setEditorMode(!editorMode)}
                     >
                       {editorMode ? "cancel" : "edit travel activities"}
                     </button>
                     <Link href={`${ROUTES.TRAVELER.TRAVEL.EDIT}/${window.location.pathname.split("/")[3]}`}>
-                      <button className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8">
+                      <button className="rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600">
                         edit travel
                       </button>
                     </Link>

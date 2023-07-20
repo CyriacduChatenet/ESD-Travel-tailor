@@ -21,7 +21,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
           type="submit"
           className="rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 mr-8"
         >
-          add Activity
+          Add activity
         </button>
       </Link>
       {data && data.length > 0 && (
@@ -32,7 +32,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
               className="rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 mr-8"
               onClick={() => setEditorMode(true)}
             >
-              Edit Activities
+              Edit activities
             </button>
           )}
           {editorMode && (

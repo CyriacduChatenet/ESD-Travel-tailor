@@ -19,18 +19,15 @@ const EditTravelActivityPage: NextPage = () => {
       >
         <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20">
           <section className="col-span-4 md:col-span-8 xl:col-span-12 pt-4 md:pt-8">
-          <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around">
-                        <Link href={ROUTES.ADVERTISER.DASHBOARD}>
-                            <button
-                                type="submit"
-                                className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
-                                Return
-                            </button>
-                        </Link>
-                        <h1 className="text-2xl font-bold">Travel edit activity</h1>
-                        <EditActivityForm />
-                    </div>
+            <div className="col-span-4 md:col-span-8 xl:col-span-12 flex items-center justify-around">
+              <Link href={ROUTES.ADVERTISER.DASHBOARD}>
+                <button className="rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600">
+                  Return
+                </button>
+              </Link>
+              <h1 className="text-2xl font-bold">Travel edit activity</h1>
+              <EditActivityForm />
+            </div>
           </section>
         </main>
       </Layout>

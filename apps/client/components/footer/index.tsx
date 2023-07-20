@@ -14,7 +14,7 @@ export const Footer: FC = () => {
         <p>© {new Date().getFullYear()} Travel Tailor, Inc. All rights reserved.</p>
       <ul className="col-span-4 md:col-span-3 lg:col-span-4 mt-6">
         <li className="my-2">
-          <Link href={ROUTES.TERMS_AND_CONDITIONS} className="font-semibold hover:text-cyan-600">Terms And Conditions</Link>
+          <Link href={ROUTES.TERMS_AND_CONDITIONS} className="font-semibold hover:text-cyan-500">Terms And Conditions</Link>
         </li>
       </ul>
     </footer>

@@ -279,7 +279,7 @@ export const Navbar: FC = () => {
                             <a
                               href="#"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-100 hover:text-cyan-500" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
@@ -292,7 +292,7 @@ export const Navbar: FC = () => {
                             <a
                               href="#"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-100 hover:text-cyan-500" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
@@ -306,7 +306,7 @@ export const Navbar: FC = () => {
                               href={ROUTES.AUTH.SIGNIN}
                               onClick={() => TokenService.removeAccessToken()}
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "bg-gray-100 hover:text-cyan-500" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
@@ -319,7 +319,7 @@ export const Navbar: FC = () => {
                   </Menu>
                 </div>
               ) : (
-                <Link href={ROUTES.AUTH.SIGNIN} className="text-white">
+                <Link href={ROUTES.AUTH.SIGNIN} className="text-white hover:text-cyan-500">
                   Sign in
                 </Link>
               )}

@@ -47,9 +47,9 @@ export const TravelerTable: FC<IProps> = ({ data, setData }) => {
                 {data.data.map((traveler: Traveler) =>
                     <tr key={traveler.id}>
                         <td className="py-2 px-4 border-b">{traveler.id}</td>
-                        <td className="py-2 px-4 border-b">{traveler.tastes.map((taste: Taste) => <span key={taste.id} className="bg-indigo-100 rounded-lg text-cyan-600 py-1 px-2">{taste.id}</span>)}</td>
-                        <td className="py-2 px-4 border-b">{traveler.travels.map((travel: Travel) => <span key={travel.id} className="bg-indigo-100 rounded-lg text-cyan-600 py-1 px-2">{travel.id}</span>)}</td>
-                        <td className="py-2 px-4 border-b">{traveler.comments.map((comment: Comment) => <span key={comment.id} className="bg-indigo-100 rounded-lg text-cyan-600 py-1 px-2">{comment.id}</span>)}</td>
+                        <td className="py-2 px-4 border-b">{traveler.tastes.map((taste: Taste) => <span key={taste.id} className="bg-cyan-100 rounded-lg text-cyan-600 py-1 px-2">{taste.id}</span>)}</td>
+                        <td className="py-2 px-4 border-b">{traveler.travels.map((travel: Travel) => <span key={travel.id} className="bg-cyan-100 rounded-lg text-cyan-600 py-1 px-2">{travel.id}</span>)}</td>
+                        <td className="py-2 px-4 border-b">{traveler.comments.map((comment: Comment) => <span key={comment.id} className="bg-cyan-100 rounded-lg text-cyan-600 py-1 px-2">{comment.id}</span>)}</td>
                         <td className="py-2 px-4 border-b">{moment(traveler.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">

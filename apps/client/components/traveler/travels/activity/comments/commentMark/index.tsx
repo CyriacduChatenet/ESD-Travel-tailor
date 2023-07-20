@@ -11,7 +11,7 @@ interface IProps {
 
 export const CommentMark: FC<IProps> = ({ commentsLength, marks }) => {
     return (
-        <div className="lg:col-span-4 col-span-8 flex flex-col items-center justify-center w-full lg:h-full h-9/12 bg-indigo-100 py-8">
+        <div className="lg:col-span-4 col-span-8 flex flex-col items-center justify-center w-full lg:h-full h-9/12 bg-sky-50 py-8">
             <p className="font-bold flex items-center justify-around">
                 <Icon icon="material-symbols:star-rate" />
                 &nbsp;

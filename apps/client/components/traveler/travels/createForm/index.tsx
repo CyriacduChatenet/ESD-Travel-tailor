@@ -6,46 +6,59 @@ import { set, useForm } from "react-hook-form";
 import { Travel } from "@travel-tailor/types";
 
 interface ICreateTravelForm {
-    departureCity: string
-    destinationCity: string
-    departureDate: Date
-    returnDate: Date
+  departureCity: string;
+  destinationCity: string;
+  departureDate: Date;
+  returnDate: Date;
 }
 
 interface IProps {
-    data: {
-        page: number;
-        limit: number;
-        total: number;
-        data: Travel[];
-      };
-      setData: Dispatch<SetStateAction<{
-        page: number;
-        limit: number;
-        total: number;
-        data: Travel[];
-      }>>;
+  data: {
+    page: number;
+    limit: number;
+    total: number;
+    data: Travel[];
+  };
+  setData: Dispatch<
+    SetStateAction<{
+      page: number;
+      limit: number;
+      total: number;
+      data: Travel[];
+    }>
+  >;
 }
 
-
 export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
-    const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
-    const [submit, setSubmit] = useState<boolean>(false);
+  const [apiErrors, setApiErrors] = useState<{ status?: number }>({});
+  const [submit, setSubmit] = useState<boolean>(false);
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ICreateTravelForm>();
-    const { user, setUser } = useUser();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ICreateTravelForm>();
+  const { user, setUser } = useUser();
 
-    const onSubmit = useCallback(async (d: ICreateTravelForm) => {
-        setSubmit(true);
-        const t = await TravelService.createTravel(`${process.env.NEXT_PUBLIC_API_URL}`, {...d, traveler: user?.traveler?.id}, setApiErrors);
-        setData({...data, data: [t, ...data.data]});
-        setUser({...user, travels: data.data});
-        setValue("departureCity", "");
-        setValue("destinationCity", "");
-        setSubmit(false);
-    }, [user]);
+  const onSubmit = useCallback(
+    async (d: ICreateTravelForm) => {
+      setSubmit(true);
+      const t = await TravelService.createTravel(
+        `${process.env.NEXT_PUBLIC_API_URL}`,
+        { ...d, traveler: user?.traveler?.id },
+        setApiErrors
+      );
+      setData({ ...data, data: [t, ...data.data] });
+      setUser({ ...user, travels: data.data });
+      setValue("departureCity", "");
+      setValue("destinationCity", "");
+      setSubmit(false);
+    },
+    [user]
+  );
 
-    return (
+  return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col xl:flex-row lg:justify-between lg:items-center py-8">
         <div className="mb-4">
             <label htmlFor="departureCity" className="block text-gray-700 font-bold mb-2">
@@ -121,5 +134,5 @@ export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
             </button>
         </div>
     </form>
-    );
+  );
 };
