@@ -48,7 +48,7 @@ export const EditTasteForm: FC = () => {
                 </div>
                 <button
                     type="submit"
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     onClick={handleSubmit(onSubmit)}
                 >
                     {submit ? <Player

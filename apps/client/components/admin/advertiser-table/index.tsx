@@ -57,7 +57,7 @@ export const AdvertiserTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{advertiser.id}</td>
                         <td className="py-2 px-4 border-b">{advertiser.name}</td>
                         <td className="py-2 px-4 border-b">{advertiser.location}</td>
-                        <td className="py-2 px-4 border-b">{advertiser.activities?.map((activity: Activity) => <><Link href={ROUTES.ADMIN.ACTIVITIES} className="text-indigo-600 hover:text-indigo-500 underline" key={activity.id}>{activity.id}</Link><br /></>)}</td>
+                        <td className="py-2 px-4 border-b">{advertiser.activities?.map((activity: Activity) => <><Link href={ROUTES.ADMIN.ACTIVITIES} className="text-cyan-600 hover:text-cyan-500 underline" key={activity.id}>{activity.id}</Link><br /></>)}</td>
                         <td className="py-2 px-4 border-b">{moment(advertiser.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-2 px-4 border-b">
                             <div className="w-full h-full flex">

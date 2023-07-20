@@ -153,7 +153,7 @@ const TermsAndConditionsPage: NextPage = () => {
           <p className="text-sm text-gray-600">
             If you have any questions regarding these Terms, please contact us
             at the following address:{" "}
-            <span className="text-indigo-600 underline">
+            <span className="text-cyan-600 underline">
               support@travel-tailor.com
             </span>
           </p>

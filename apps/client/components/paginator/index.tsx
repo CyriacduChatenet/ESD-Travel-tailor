@@ -16,7 +16,7 @@ export const Paginator: FC<IProps> = ({ pageCurrent, setPage, limit, total }) =>
           <button
             key={page}
             onClick={() => setPage(page)}
-            className={`rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2 mb-2 sm:mb-0 my-2 ${page === pageCurrent ? 'focus-visible:outline-indigo-600 text-white' : 'text-black bg-gray-100'}`}
+            className={`rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 mr-2 mb-2 sm:mb-0 my-2 ${page === pageCurrent ? 'focus-visible:outline-cyan-600 text-white' : 'text-black bg-gray-100'}`}
           >
             {page}
           </button>

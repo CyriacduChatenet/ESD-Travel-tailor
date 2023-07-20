@@ -219,7 +219,7 @@ export const CreateActivityForm: FC = () => {
                   name="name"
                   id="name"
                   autoComplete="name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                 />
               </div>
               {errors.name && (
@@ -244,7 +244,7 @@ export const CreateActivityForm: FC = () => {
                   id="description"
                   name="description"
                   rows={3}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                   defaultValue={""}
                 />
               </div>
@@ -274,7 +274,7 @@ export const CreateActivityForm: FC = () => {
                   <div className="mt-4 flex text-sm leading-6 text-gray-600">
                     <label
                       htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                      className="relative cursor-pointer rounded-md bg-white font-semibold text-cyan-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-cyan-600 focus-within:ring-offset-2 hover:text-cyan-500"
                     >
                       <span>Upload a file</span>
                       <input
@@ -342,7 +342,7 @@ export const CreateActivityForm: FC = () => {
                   })}
                   onChange={handleLocationChange}
                   autoComplete="location"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                 />
               </div>
               {errors.location && (
@@ -367,7 +367,7 @@ export const CreateActivityForm: FC = () => {
                   })}
                   id="duration"
                   autoComplete="duration"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                 />
               </div>
               {errors.duration && (
@@ -397,7 +397,7 @@ export const CreateActivityForm: FC = () => {
                       handleTagInputChange(e);
                     }, 2000);
                   }}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                 />
               </div>
               {tags.length === 0 && (
@@ -409,7 +409,7 @@ export const CreateActivityForm: FC = () => {
                 {tags.map((tag: ActivityTag, index: number) => (
                   <div
                     key={index}
-                    className="flex justify-around items-center rounded-full bg-indigo-600 text-white my-2"
+                    className="flex justify-around items-center rounded-full bg-cyan-600 text-white my-2"
                   >
                     <p>{tag.name}</p>
                     <button
@@ -442,7 +442,7 @@ export const CreateActivityForm: FC = () => {
                   onChange={(e) => setOpenSchedule(e.target.value)}
                   onClick={() => setApiErrors({})}
                   autoComplete="schedule_opening_at"
-                  className="block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                 />
                 <input
                   type="time"
@@ -458,7 +458,7 @@ export const CreateActivityForm: FC = () => {
                     }, DEFAULT_INPUT_TIMER);
                   }}
                   autoComplete="schedule_closing_at"
-                  className="block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                 />
               </div>
               {schedules.length === 0 && (
@@ -473,7 +473,7 @@ export const CreateActivityForm: FC = () => {
                 {schedules.map((schedule: ActivitySchedule, index: number) => (
                   <div
                     key={index}
-                    className="flex justify-around items-center rounded-full bg-indigo-600 text-white my-2"
+                    className="flex justify-around items-center rounded-full bg-cyan-600 text-white my-2"
                   >
                     <p>
                       {schedule.opening_at} - {schedule.closing_at}
@@ -537,7 +537,7 @@ export const CreateActivityForm: FC = () => {
                       }, DEFAULT_INPUT_TIMER);
                     }}
                     autoComplete="date"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                   />
                   {closingDays.length === 0 && (
                     <p className="mt-2 text-red-500 text-xs italic">
@@ -552,7 +552,7 @@ export const CreateActivityForm: FC = () => {
                       (closingDay: ActivityClosingDay, index: number) => (
                         <div
                           key={index}
-                          className="flex justify-around items-center rounded-full bg-indigo-600 text-white my-2"
+                          className="flex justify-around items-center rounded-full bg-cyan-600 text-white my-2"
                         >
                           <p>
                             {new Date(closingDay.date).toLocaleDateString("fr")}{" "}
@@ -590,7 +590,7 @@ export const CreateActivityForm: FC = () => {
         </button>
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
         >
           {submit ? (
             <Player
