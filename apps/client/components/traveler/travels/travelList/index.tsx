@@ -64,12 +64,12 @@ export const TravelList: FC<IProps> = ({ data, setData, user }) => {
               </p>
               <div className="lg:col-span-3">
                 {!travel.validate && (
-                  <span className="text-red-500 bg-red-100 py-2 px-6 rounded-full">
+                  <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                     Not validated
                   </span>
                 )}
                 {travel.validate && (
-                  <span className="text-green-500 bg-green-100 py-2 px-6 rounded-full">
+                  <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
                     Validated
                   </span>
                 )}
