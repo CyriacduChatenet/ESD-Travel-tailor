@@ -1,5 +1,4 @@
 import { ROUTES } from "@travel-tailor/constants";
-import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -8,7 +7,7 @@ export const Footer: FC = () => {
     <footer className="flex flex-col justify-center items-center h-60 bg-gray-800 text-white">
                 <img
           className="h-12 w-auto my-4"
-          src="https://tailwindui.com/img/logos/mark.svg?color=cyan&shade=500"
+          src="../../public/logo.svg"
           alt="Your Company"
         />
         <p>© {new Date().getFullYear()} Travel Tailor, Inc. All rights reserved.</p>
