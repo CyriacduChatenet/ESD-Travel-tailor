@@ -72,10 +72,10 @@ export const CreateActivityForm: FC = () => {
     }
   };
 
-  const handleScheduleInputChange = async () => {
+  const handleScheduleInputChange = async (schedule: string) => {
     const s = await ActivityScheduleService.createActivitySchedule(
       `${process.env.NEXT_PUBLIC_API_URL}`,
-      { opening_at: openSchedule, closing_at: closeSchedule },
+      { opening_at: openSchedule, closing_at: schedule },
       setApiErrors
     );
     if (s) {
@@ -92,10 +92,11 @@ export const CreateActivityForm: FC = () => {
     setSchedules(schedules.filter((_, i) => i !== index));
   };
 
-  const handleClosingDayInputChange = async () => {
+  const handleClosingDayInputChange = async (e: any) => {
+    const d = new Date(e);
     const closing_d = await ActivityClosingDayService.createActivityClosingDay(
       `${process.env.NEXT_PUBLIC_API_URL}`,
-      { date: convertDate(closingDayInput), recurrence: closingDayCheck },
+      { date: d, recurrence: closingDayCheck },
       setApiErrors
     );
     if (closing_d) {
@@ -459,10 +460,10 @@ export const CreateActivityForm: FC = () => {
                       })}
                       id="schedule_closing_at"
                       onClick={() => setApiErrors({})}
-                      onChange={(e) => setCloseSchedule(e.target.value)}
-                      onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
+                      onChange={(e) => {
+                        setCloseSchedule(e.target.value);
                         setTimeout(() => {
-                          handleScheduleInputChange();
+                          handleScheduleInputChange(e.target.value);
                         }, DEFAULT_INPUT_TIMER);
                       }}
                       autoComplete="schedule_closing_at"
@@ -541,12 +542,10 @@ export const CreateActivityForm: FC = () => {
                         id="closing_day_date"
                         type="date"
                         onClick={() => setApiErrors({})}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                          setClosingDayInput(e.target.value)
-                        }
-                        onKeyUp={() => {
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                          setClosingDayInput(e.target.value);
                           setTimeout(() => {
-                            handleClosingDayInputChange();
+                            handleClosingDayInputChange(e.target.value);
                           }, DEFAULT_INPUT_TIMER);
                         }}
                         autoComplete="date"
