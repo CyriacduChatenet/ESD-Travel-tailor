@@ -3,11 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { AuthService, UserService } from "@travel-tailor/services";
+import { AuthService } from "@travel-tailor/services";
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
-import { AccessToken, User } from "@travel-tailor/types";
+import { AccessToken } from "@travel-tailor/types";
 import Cookies from "js-cookie";
-import { jwtDecode } from "@travel-tailor/functions";
 
 interface ISigninForm {
   email: string;
@@ -59,7 +58,7 @@ export const SigninForm: FC = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           className="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=cyan&shade=600"
+          src="../../../../public/logo.svg"
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

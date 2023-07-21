@@ -183,7 +183,7 @@ export const Navbar: FC = () => {
                   <Link href={ROUTES.ROOT}>
                     <img
                       className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=cyan&shade=500"
+                      src="../../../../logo.svg"
                       alt="Your Company"
                     />
                   </Link>
