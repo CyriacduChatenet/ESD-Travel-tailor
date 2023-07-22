@@ -23,7 +23,7 @@ export class ActivityTagController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity tag' })
   @ApiCreatedResponse({ description: 'Activity tag created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create activity tag' })
   async create(@Body() createActivityTagDto: CreateActivityTagDto) {
     return this.activityTagService.create(createActivityTagDto);
   }
@@ -31,6 +31,7 @@ export class ActivityTagController {
   @Get()
   @ApiOperation({ summary: 'Get all activity tags' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of activity tags not found' })
   async findAll(@Query() queries: ActivityTagQuery) {
     return this.activityTagService.findAll(queries);
   }
@@ -50,8 +51,7 @@ export class ActivityTagController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity tag' })
   @ApiOkResponse({ description: 'Activity tag updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update activity tag' })
   async update(@Param('id') id: string, @Body() updateActivityTagDto: UpdateActivityTagDto) {
     return this.activityTagService.update(id, updateActivityTagDto);
   }
@@ -63,8 +63,7 @@ export class ActivityTagController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity tag' })
   @ApiOkResponse({ description: 'Activity tag deleted successfully' })
-  @ApiNotFoundResponse({ description: 'Activity tag not found' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete activity tag' })
   async remove(@Param('id') id: string) {
     return this.activityTagService.remove(id);
   }
