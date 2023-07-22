@@ -23,7 +23,7 @@ export class ActivityDetailController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity detail' })
   @ApiCreatedResponse({ description: 'Activity detail created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create ActivityDetail' })
   create(@Body() createActivityDetailDto: CreateActivityDetailDto) {
     return this.activityDetailService.create(createActivityDetailDto);
   }
@@ -32,6 +32,7 @@ export class ActivityDetailController {
   @Throttle(1000, 60)
   @ApiOperation({ summary: 'Get all activity details' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of ActivityDetail not found' })
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.activityDetailService.findAll(queries);
   }
@@ -52,8 +53,7 @@ export class ActivityDetailController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity detail' })
   @ApiOkResponse({ description: 'Activity detail updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update ActivityDetail' })
   update(
     @Param('id') id: string,
     @Body() updateActivityDetailDto: UpdateActivityDetailDto,
@@ -68,8 +68,7 @@ export class ActivityDetailController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity detail' })
   @ApiOkResponse({ description: 'Activity detail deleted successfully' })
-  @ApiNotFoundResponse({ description: 'Activity detail not found' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete ActivityDetail' })
   remove(@Param('id') id: string) {
     return this.activityDetailService.remove(id);
   }
