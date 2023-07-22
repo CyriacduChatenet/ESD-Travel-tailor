@@ -22,13 +22,14 @@ import {
   useEffect,
   useState,
 } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { ROUTES } from "@travel-tailor/constants";
+import Image from "next/image";
 
 interface ICreateActivityForm {
   name: string;
@@ -58,6 +59,7 @@ export const EditActivityForm: FC = () => {
   const [closingDayCheck, setClosingDayCheck] = useState(false);
   const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
   const [address, setAddress] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const {
     register,
@@ -136,6 +138,19 @@ export const EditActivityForm: FC = () => {
     setAddress(value);
   };
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event?.target?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader?.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewUrl(null);
+    }
+  };
+
   const onSubmit = async (data: ICreateActivityForm) => {
     if (user) {
       setSubmit(true);
@@ -197,10 +212,6 @@ export const EditActivityForm: FC = () => {
         setComments,
         setApiErrors
       );
-      setValue("name", String(response?.name));
-      setValue("description", String(response?.description));
-      setValue("location", String(response?.detail?.location));
-      setValue("duration", Number(response?.detail?.duration));
       setTags(response?.tags || []);
       setSchedules(response?.detail?.schedules || []);
       setClosingDays(response?.detail?.closingDays || []);
@@ -243,6 +254,7 @@ export const EditActivityForm: FC = () => {
                       name="name"
                       id="name"
                       autoComplete="name"
+                      defaultValue={response?.name}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -269,7 +281,7 @@ export const EditActivityForm: FC = () => {
                       name="description"
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
-                      defaultValue={""}
+                      defaultValue={response?.description}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -291,10 +303,20 @@ export const EditActivityForm: FC = () => {
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div className="text-center">
-                      <PhotoIcon
-                        className="mx-auto h-12 w-12 text-gray-300"
-                        aria-hidden="true"
-                      />
+                      {previewUrl ? (
+                        <Image
+                          src={previewUrl}
+                          alt="Preview"
+                          className="mx-auto h-40"
+                          width={200}
+                          height={20}
+                        />
+                      ) : (
+                        <PhotoIcon
+                          className="mx-auto h-12 w-12 text-gray-300"
+                          aria-hidden="true"
+                        />
+                      )}
                       <div className="mt-4 flex text-sm leading-6 text-gray-600">
                         <label
                           htmlFor="file-upload"
@@ -325,6 +347,8 @@ export const EditActivityForm: FC = () => {
                                 },
                               },
                             })}
+                            onChange={handleFileChange}
+                            defaultValue={response?.image?.source}
                             className="sr-only"
                           />
                         </label>
@@ -365,6 +389,7 @@ export const EditActivityForm: FC = () => {
                         required: "Location is required",
                       })}
                       onChange={handleLocationChange}
+                      defaultValue={response?.detail?.location}
                       autoComplete="location"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                     />
@@ -391,6 +416,7 @@ export const EditActivityForm: FC = () => {
                       })}
                       id="duration"
                       autoComplete="duration"
+                      defaultValue={response?.detail?.duration}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -437,6 +463,7 @@ export const EditActivityForm: FC = () => {
                       >
                         <p>{tag.name}</p>
                         <button
+                          type="button"
                           className="text-white font-bold py-2 px-4"
                           onClick={() =>
                             handleTagDelete(`${String(tag.id)}`, index)
@@ -504,6 +531,7 @@ export const EditActivityForm: FC = () => {
                             {schedule.opening_at} - {schedule.closing_at}
                           </p>
                           <button
+                            type="button"
                             className="text-white font-bold py-2 px-4"
                             onClick={() =>
                               handleScheduleDelete(
@@ -589,6 +617,7 @@ export const EditActivityForm: FC = () => {
                                 {closingDay.recurrence ? "true" : "false"}
                               </p>
                               <button
+                                type="button"
                                 className="text-white font-bold py-2 px-4"
                                 onClick={() =>
                                   handleClosingDayDelete(

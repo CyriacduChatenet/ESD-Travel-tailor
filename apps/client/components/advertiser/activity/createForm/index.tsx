@@ -23,6 +23,7 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 import { Autocomplete } from "@/components/autocomplete";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ICreateActivityForm {
   name: string;
@@ -51,7 +52,7 @@ export const CreateActivityForm: FC = () => {
   const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
   const [address, setAddress] = useState("");
   const [user, setUser] = useState<User | any>({});
-  const [agreed, setAgreed] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const {
     register,
@@ -138,6 +139,19 @@ export const CreateActivityForm: FC = () => {
   const handleLocationChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;
     setAddress(value);
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event?.target?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader?.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewUrl(null);
+    }
   };
 
   const onSubmit = async (data: ICreateActivityForm) => {
@@ -276,10 +290,20 @@ export const CreateActivityForm: FC = () => {
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div className="text-center">
-                      <PhotoIcon
-                        className="mx-auto h-12 w-12 text-gray-300"
-                        aria-hidden="true"
-                      />
+                      {previewUrl ? (
+                        <Image
+                          src={previewUrl}
+                          alt="Preview"
+                          className="mx-auto h-40"
+                          width={200}
+                          height={20}
+                        />
+                      ) : (
+                        <PhotoIcon
+                          className="mx-auto h-12 w-12 text-gray-300"
+                          aria-hidden="true"
+                        />
+                      )}
                       <div className="mt-4 flex text-sm leading-6 text-gray-600">
                         <label
                           htmlFor="file-upload"
@@ -311,6 +335,7 @@ export const CreateActivityForm: FC = () => {
                               },
                             })}
                             className="sr-only"
+                            onChange={handleFileChange}
                           />
                         </label>
                         <p className="pl-1">or drag and drop</p>
@@ -422,6 +447,7 @@ export const CreateActivityForm: FC = () => {
                       >
                         <p>{tag.name}</p>
                         <button
+                          type="button"
                           className="text-white font-bold py-2 px-4"
                           onClick={() =>
                             handleTagDelete(`${String(tag.id)}`, index)
@@ -489,6 +515,7 @@ export const CreateActivityForm: FC = () => {
                             {schedule.opening_at} - {schedule.closing_at}
                           </p>
                           <button
+                            type="button"
                             className="text-white font-bold py-2 px-4"
                             onClick={() =>
                               handleScheduleDelete(
@@ -574,6 +601,7 @@ export const CreateActivityForm: FC = () => {
                                 {closingDay.recurrence ? "true" : "false"}
                               </p>
                               <button
+                                type="button"
                                 className="text-white font-bold py-2 px-4"
                                 onClick={() =>
                                   handleClosingDayDelete(
