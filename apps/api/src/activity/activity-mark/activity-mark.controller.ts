@@ -23,7 +23,7 @@ export class ActivityMarkController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity mark' })
   @ApiCreatedResponse({ description: 'Activity mark created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create ActivityMark' })
   async create(@Body() createActivityMarkDto: CreateActivityMarkDto) {
     return await this.activityMarkService.create(createActivityMarkDto);
   }
@@ -31,6 +31,7 @@ export class ActivityMarkController {
   @Get()
   @ApiOperation({ summary: 'Get all activity marks' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of ActivityMark not found' })
   async findAll(@Query() query: ApiLimitResourceQuery) {
     return await this.activityMarkService.findAll(query);
   }
@@ -50,8 +51,7 @@ export class ActivityMarkController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity mark' })
   @ApiOkResponse({ description: 'Activity mark updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update ActivityMark' })
   async update(@Param('id') id: string, @Body() updateActivityMarkDto: UpdateActivityMarkDto) {
     return await this.activityMarkService.update(id, updateActivityMarkDto);
   }
@@ -63,8 +63,7 @@ export class ActivityMarkController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity mark' })
   @ApiOkResponse({ description: 'Activity mark deleted successfully' })
-  @ApiNotFoundResponse({ description: 'Activity mark not found' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete ActivityMark' })
   async remove(@Param('id') id: string) {
     return await this.activityMarkService.remove(id);
   }
