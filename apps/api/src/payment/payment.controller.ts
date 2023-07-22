@@ -4,6 +4,7 @@ import {
   ApiTags,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger'
 
 import { PaymentService } from './payment.service'
@@ -23,7 +24,7 @@ export class PaymentController {
     description: 'Checkout session created successfully',
     type: () => ({ sessionId: String }),
   })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create checkout' })
   async createCheckoutSession(
     @Param('customerId') customerId: string,
     @Body() { amount }: { amount: number }
