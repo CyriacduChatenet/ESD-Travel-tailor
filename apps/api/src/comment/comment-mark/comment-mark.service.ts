@@ -17,7 +17,10 @@ export class CommentMarkService {
 
       return await this.commentMarkRepository.createCommentMark({...createCommentMarkDto, global: parseFloat(globalFixed)});
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create comment mark',
+        error
+      });
     }
   }
 
@@ -25,7 +28,10 @@ export class CommentMarkService {
     try {
       return await this.commentMarkRepository.findAllCommentMark(query);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: 'List of comments mark not found',
+        error
+      });
     }
   }
 
@@ -33,7 +39,10 @@ export class CommentMarkService {
     try {
       return await this.commentMarkRepository.findOneCommentMark(id);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: 'Comment mark not found',
+        error
+      });
     }
   }
 
@@ -45,7 +54,10 @@ export class CommentMarkService {
 
       return await this.commentMarkRepository.updateCommentMark(id, {...updateCommentMarkDto, global: parseFloat(globalFixed)});
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to update comment mark',
+        error
+      });
     }
   }
 
@@ -53,7 +65,10 @@ export class CommentMarkService {
     try {
       return await this.commentMarkRepository.removeCommentMark(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to remove comment mark',
+        error
+      });
     }
   }
 }
