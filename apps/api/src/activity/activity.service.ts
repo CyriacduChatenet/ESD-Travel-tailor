@@ -31,7 +31,10 @@ export class ActivityService {
 
       return await this.activityRepository.createActivity(createActivityDto, activityImage, slug)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create activity',
+        error
+      })
     }
   }
 
@@ -39,7 +42,10 @@ export class ActivityService {
     try {
       return await this.activityRepository.findAllActivity(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of Activity not found',
+        error
+      })
     }
   }
 
@@ -47,7 +53,10 @@ export class ActivityService {
     try {
     return await this.activityRepository.findAllActivityByTags(tags)
     } catch (error) {
-    throw new NotFoundException(error)
+    throw new NotFoundException({
+      message: `List of Activity by tags not found with tag: ${tags} `,
+      error
+    })
     }
     }
 
@@ -55,7 +64,10 @@ export class ActivityService {
       try {
       return await this.activityRepository.findAllActivitiesLikeName(name)
       } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `List of Activity by name not found with name: ${name}`,
+        error
+      })
       }
       }
 
@@ -63,7 +75,10 @@ export class ActivityService {
     try {
       return await this.activityRepository.findAllActivityByAdvertiserId(advertiserId, page, limit)
     } catch(err) {
-      throw new NotFoundException(err);
+      throw new NotFoundException({
+        message: `List of Activity by advertiser id not found with id: ${advertiserId}`,
+        err
+      });
     }
   }
 
@@ -71,7 +86,10 @@ export class ActivityService {
     try {
       return await this.activityRepository.findOneActivity(id)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Activity not found with id: ${id}`,
+        error
+      })
     }
   }
 
@@ -79,7 +97,10 @@ export class ActivityService {
     try {
       return await this.activityRepository.findOneActivityByName(slug)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Activity not found with slug: ${slug}`,
+        error
+      })
     }
   }
 
@@ -87,7 +108,10 @@ export class ActivityService {
     try {
       return await this.activityRepository.updateActivity(id, updateActivityDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update activity with id: ${id}`,
+        error
+      })
     }
   }
 
@@ -95,7 +119,10 @@ export class ActivityService {
     try {
       return await this.activityRepository.removeActivity(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove activity with id: ${id}`,
+        error
+      })
     }
   }
 }
