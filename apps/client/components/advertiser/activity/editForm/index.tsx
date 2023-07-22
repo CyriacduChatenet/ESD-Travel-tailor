@@ -22,13 +22,14 @@ import {
   useEffect,
   useState,
 } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { ROUTES } from "@travel-tailor/constants";
+import Image from "next/image";
 
 interface ICreateActivityForm {
   name: string;
@@ -58,6 +59,7 @@ export const EditActivityForm: FC = () => {
   const [closingDayCheck, setClosingDayCheck] = useState(false);
   const [closingDays, setClosingDays] = useState<ActivityClosingDay[]>([]);
   const [address, setAddress] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const {
     register,
@@ -134,6 +136,19 @@ export const EditActivityForm: FC = () => {
   const handleLocationChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;
     setAddress(value);
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event?.target?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader?.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewUrl(null);
+    }
   };
 
   const onSubmit = async (data: ICreateActivityForm) => {
@@ -291,10 +306,20 @@ export const EditActivityForm: FC = () => {
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div className="text-center">
-                      <PhotoIcon
-                        className="mx-auto h-12 w-12 text-gray-300"
-                        aria-hidden="true"
-                      />
+                      {previewUrl ? (
+                        <Image
+                          src={previewUrl}
+                          alt="Preview"
+                          className="mx-auto h-40"
+                          width={200}
+                          height={20}
+                        />
+                      ) : (
+                        <PhotoIcon
+                          className="mx-auto h-12 w-12 text-gray-300"
+                          aria-hidden="true"
+                        />
+                      )}
                       <div className="mt-4 flex text-sm leading-6 text-gray-600">
                         <label
                           htmlFor="file-upload"
