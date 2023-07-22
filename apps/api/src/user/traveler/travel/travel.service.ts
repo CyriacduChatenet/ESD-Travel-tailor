@@ -18,7 +18,10 @@ export class TravelService {
     try {
       return await this.travelRepository.createTravel(createTravelDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create travel',
+        error,
+      });
     }
   }
 
@@ -31,7 +34,10 @@ export class TravelService {
     try {
       return await this.travelRepository.findAllTravel(queries);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: 'List of travels not found',
+        error,
+      });
     }
   }
 
@@ -39,7 +45,10 @@ export class TravelService {
     try {
      return await this.travelRepository.findAllTravelByTravelerId(travelerId, page, limit);
     } catch(err) {
-      throw new NotFoundException(err);
+      throw new NotFoundException({
+        message: `List of travels by traver id ${travelerId} not found`,
+        err,
+      });
     }
   }
 
@@ -47,7 +56,10 @@ export class TravelService {
     try {
       return await this.travelRepository.findOneTravel(id);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: `Travel with id ${id} not found`,
+        error,
+      });
     }
   }
 
@@ -55,7 +67,10 @@ export class TravelService {
     try {
       return await this.travelRepository.updateTravel(id, updateTravelDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to update travel with id ${id}`,
+        error,
+      });
     }
   }
 
@@ -63,7 +78,10 @@ export class TravelService {
     try {
       return await this.travelRepository.removeTravel(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove travel with id ${id}`,
+        error,
+      });
     }
   }
 }
