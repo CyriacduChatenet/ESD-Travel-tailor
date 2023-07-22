@@ -20,7 +20,10 @@ export class AdvertiserService {
     try {
       return await this.advertiserRepository.createAdvertiser(createAdvertiserDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create advertiser',
+        error,
+      })
     }
   }
 
@@ -29,7 +32,10 @@ export class AdvertiserService {
     try {
       return await this.advertiserRepository.save(advertiser)
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new BadRequestException({
+        message: 'Bad request to save advertiser',
+        error,
+      })
     }
   }
 
@@ -37,7 +43,10 @@ export class AdvertiserService {
     try {
       return  await this.advertiserRepository.findAllAdvertiser(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of advertisers not found',
+        error,
+      })
     }
   }
 
@@ -45,7 +54,10 @@ export class AdvertiserService {
     try {
      return await this.advertiserRepository.findOneAdvertiser(id)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Advertiser with id ${id} not found`,
+        error,
+      })
     }
   }
 
@@ -53,7 +65,10 @@ export class AdvertiserService {
     try {
      return await this.advertiserRepository.updateAdvertiser(id, updateAdvertiserDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update advertiser with id ${id}`,
+        error,
+      })
     }
   }
 
@@ -61,7 +76,10 @@ export class AdvertiserService {
     try {
       return await this.advertiserRepository.removeAdvertiser(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove advertiser with id ${id}`,
+        error,
+      })
     }
   }
 }
