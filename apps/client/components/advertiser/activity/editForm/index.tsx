@@ -437,6 +437,7 @@ export const EditActivityForm: FC = () => {
                       >
                         <p>{tag.name}</p>
                         <button
+                          type="button"
                           className="text-white font-bold py-2 px-4"
                           onClick={() =>
                             handleTagDelete(`${String(tag.id)}`, index)
@@ -504,6 +505,7 @@ export const EditActivityForm: FC = () => {
                             {schedule.opening_at} - {schedule.closing_at}
                           </p>
                           <button
+                            type="button"
                             className="text-white font-bold py-2 px-4"
                             onClick={() =>
                               handleScheduleDelete(
@@ -589,6 +591,7 @@ export const EditActivityForm: FC = () => {
                                 {closingDay.recurrence ? "true" : "false"}
                               </p>
                               <button
+                                type="button"
                                 className="text-white font-bold py-2 px-4"
                                 onClick={() =>
                                   handleClosingDayDelete(
