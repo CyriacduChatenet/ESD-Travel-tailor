@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiOkResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOkResponse, ApiInternalServerErrorResponse, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
@@ -19,7 +19,7 @@ export class TravelerController {
   @Post()
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Created traveler successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create traveler' })
   async create(@Body() createTravelerDto: CreateTravelerDto) {
     return await this.travelerService.create(createTravelerDto);
   }
@@ -27,7 +27,7 @@ export class TravelerController {
   @Get()
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved all travelers successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'List of travelers not found' })
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.travelerService.findAll(queries);
   }
@@ -35,7 +35,7 @@ export class TravelerController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved traveler by ID successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'Traveler not found' })
   async findOne(@Param('id') id: string) {
     return await this.travelerService.findOne(id);
   }
@@ -46,7 +46,7 @@ export class TravelerController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Updated traveler successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update traveler' })
   async update(
     @Param('id') id: string,
     @Body() updateTravelerDto: UpdateTravelerDTO,
@@ -60,7 +60,7 @@ export class TravelerController {
   @Roles(Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Deleted traveler successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete traveler' })
   async remove(@Param('id') id: string) {
     return await this.travelerService.remove(id);
   }

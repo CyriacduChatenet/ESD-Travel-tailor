@@ -21,7 +21,10 @@ export class TravelerService {
     try {
       return await this.travelerRepository.createTraveler(createTravelerDto)
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create traveler',
+        error
+      })
     }
   }
 
@@ -29,7 +32,10 @@ export class TravelerService {
     try {
       return await this.travelerRepository.save(traveler)
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new BadRequestException({
+        message: 'Bad request to save traveler',
+        error
+      })
     }
   }
 
@@ -37,7 +43,10 @@ export class TravelerService {
     try {
       return await this.travelerRepository.findAllTraveler(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'Not found to find all traveler',
+        error
+      })
     }
   }
 
@@ -45,23 +54,32 @@ export class TravelerService {
     try {
       return await this.travelerRepository.findOneTraveler(id)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Not found to find one traveler with id ${id}`,
+        error
+      })
     }
   }
 
   async update(id: string, updateTravelerDto: UpdateTravelerDTO) {
-    // try {
+    try {
       return await this.travelerRepository.updateTraveler(id, updateTravelerDto)
-    // } catch (error) {
-    //   throw new UnauthorizedException(error)
-    // }
+    } catch (error) {
+      throw new UnauthorizedException({
+        message: `Unauthorized to update traveler with id ${id}`,
+        error
+      })
+    }
   }
 
   async remove(id: string) {
     try {
       return await this.travelerRepository.removeTraveler(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove traveler with id ${id}`,
+        error
+      })
     }
   }
 
@@ -69,7 +87,10 @@ export class TravelerService {
     try {
       return await this.travelerRepository.saveTraveler(traveler)
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new BadRequestException({
+        message: 'Bad request to save traveler',
+        error
+      })
     }
   }
 }
