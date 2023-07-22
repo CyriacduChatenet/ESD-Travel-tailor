@@ -23,7 +23,10 @@ export class UploadFileService {
       const file = await this.uploadFileAws(user, filesData)
       return await this.uploadFileRepository.createUploadFile(file, activityImage)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create upload file',
+        error,
+      })
     }
   }
 
@@ -38,7 +41,10 @@ export class UploadFileService {
   
       return this.s3.upload(uploadParams).promise()
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to upload file aws',
+        error,
+      })
     }
   }
 
@@ -46,7 +52,10 @@ export class UploadFileService {
     try {
       return await this.uploadFileRepository.updateUploadFile(id, updateUploadFileDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to update upload file',
+        error,
+      })
     }
   }
 }
