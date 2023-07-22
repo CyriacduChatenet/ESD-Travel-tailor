@@ -50,7 +50,10 @@ export class AuthService {
       accessToken: this.jwtService.sign(payload),
     }
     } catch (err) {
-      throw new UnauthorizedException(err)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to signin',
+        err,
+      })
     }
   }
 
@@ -86,7 +89,10 @@ export class AuthService {
         user,
       }
     } catch (err) {
-      throw new UnauthorizedException(err)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to signup',
+        err,
+      })
     }
   }
 

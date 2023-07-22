@@ -20,8 +20,7 @@ export class AuthController {
   @Throttle(1000, 60)
   @ApiOperation({ summary: 'Sign in' })
   @ApiOkResponse({ description: 'Successful login' })
-  @ApiBadRequestResponse({ description: 'Invalid credentials' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to signin' })
   public async signin(@Body() signinUserInputDTO: SigninDTO) {
     return this.authService.signin(signinUserInputDTO)
   }
@@ -29,7 +28,7 @@ export class AuthController {
   @Post('signup')
   @ApiOperation({ summary: 'Sign up' })
   @ApiOkResponse({ description: 'Successful registration' })
-  @ApiUnauthorizedResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to signup' })
   @Throttle(1000, 60)
   public signup(@Body() signupUserInputDTO: SignupDTO) {
     return this.authService.signup(signupUserInputDTO)
@@ -39,7 +38,7 @@ export class AuthController {
   @Throttle(1000, 60)
   @ApiOperation({ summary: 'Forgot password' })
   @ApiOkResponse({ description: 'Password reset email sent' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiBadRequestResponse({ description: 'User with this email does not exist' })
   public forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDTO) {
     return this.authService.forgotPassword(forgotPasswordDto)
   }
@@ -47,7 +46,7 @@ export class AuthController {
   @Post('reset-password/:token')
   @ApiOperation({ summary: 'Reset password' })
   @ApiOkResponse({ description: 'Password successfully reset' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiBadRequestResponse({ description: 'Invalid token' })
   @Throttle(1000, 60)
   public resetPassword(@Param('token') token: string, @Body() resetPasswordDto: ResetPasswordDTO) {
     return this.authService.resetPassword(token, resetPasswordDto)
