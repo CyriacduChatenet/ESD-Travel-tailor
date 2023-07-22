@@ -33,7 +33,7 @@ export class PaymentService {
 
       return session.id;
     } catch (err) {
-      throw new HttpException(err.message, 402);
+      throw new HttpException('Failed to recieve payment', 402);
     }
   }
 }
