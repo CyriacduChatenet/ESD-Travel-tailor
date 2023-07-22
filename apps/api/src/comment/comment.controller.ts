@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -32,14 +32,14 @@ export class CommentController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create comment' })
   create(@Body() createCommentDto: CreateCommentDto, @Body('activity') activity: string) {
     return this.commentService.create(createCommentDto, activity);
   }
 
   @Get()
   @ApiCreatedResponse({ description: 'Comments found successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid comment ID' })
+  @ApiNotFoundResponse({ description: 'List of comments not found' })
   @Throttle(1000, 60)// Assuming you have defined this decorator to document the query parameters
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.commentService.findAll(queries);
@@ -47,7 +47,7 @@ export class CommentController {
 
   @Get('/activity/:id')
   @ApiCreatedResponse({ description: 'Comments found successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid comment ID' })
+  @ApiNotFoundResponse({ description: 'List of comments not found' })
   @Throttle(1000, 60)// Assuming you have defined this decorator to document the query parameters
   findAllByActivityId(@Query() queries: ApiLimitResourceQuery, @Param('id') activityId: string) {
     return this.commentService.findAllByActivityId(queries, activityId);
@@ -56,7 +56,7 @@ export class CommentController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiCreatedResponse({ description: 'Comment found successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid comment ID' })
+  @ApiNotFoundResponse({ description: 'Comment not found' })
   findOne(@Param('id') id: string) {
     return this.commentService.findOne(id);
   }
@@ -67,7 +67,7 @@ export class CommentController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data or comment ID' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update comment' })
   update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
     return this.commentService.update(id, updateCommentDto);
   }
@@ -78,7 +78,7 @@ export class CommentController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment deleted successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid comment ID' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete comment' })
   remove(@Param('id') id: string) {
     return this.commentService.remove(id);
   }
