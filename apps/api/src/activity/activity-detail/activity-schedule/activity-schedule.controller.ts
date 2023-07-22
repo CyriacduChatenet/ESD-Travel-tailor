@@ -21,7 +21,7 @@ export class ActivityScheduleController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity schedule' })
   @ApiCreatedResponse({ description: 'Activity schedule created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create ActivitySchedule' })
   create(@Body() createActivityScheduleDto: CreateActivityScheduleDto) {
     return this.activityScheduleService.create(createActivityScheduleDto);
   }
@@ -29,6 +29,7 @@ export class ActivityScheduleController {
   @Get()
   @ApiOperation({ summary: 'Get all activity schedules' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of ActivitySchedule not found' })
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.activityScheduleService.findAll(queries);
   }
@@ -47,8 +48,7 @@ export class ActivityScheduleController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity schedule' })
   @ApiOkResponse({ description: 'Activity schedule updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update ActivitySchedule' })
   update(
     @Param('id') id: string,
     @Body() updateActivityScheduleDto: UpdateActivityScheduleDto,
@@ -62,8 +62,7 @@ export class ActivityScheduleController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity schedule' })
   @ApiOkResponse({ description: 'Activity schedule deleted successfully' })
-  @ApiNotFoundResponse({ description: 'Activity schedule not found' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete ActivitySchedule' })
   remove(@Param('id') id: string) {
     return this.activityScheduleService.remove(id);
   }
