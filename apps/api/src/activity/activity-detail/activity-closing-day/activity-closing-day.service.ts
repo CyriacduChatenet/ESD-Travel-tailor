@@ -13,7 +13,10 @@ export class ActivityClosingDayService {
     try {
       return await this.activityClosingDayRepository.createActivityClosingDay(createActivityClosingDayDto)
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create ActivityClosingDay',
+        error,
+      });
     }
   }
 
@@ -21,7 +24,7 @@ export class ActivityClosingDayService {
     try {
       return await this.activityClosingDayRepository.findAllActivityClosingDay(queries);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException('List of ActivityClosingDay not found');
     }
   }
 
@@ -29,7 +32,7 @@ export class ActivityClosingDayService {
     try {
       return await this.activityClosingDayRepository.findOneActivityClosingDay(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new NotFoundException(`ActivityClosingDay not found with id: ${id}`);
     }
   }
 
@@ -37,7 +40,10 @@ export class ActivityClosingDayService {
     try {
       return await this.activityClosingDayRepository.updateActivityClosingDay(id, updateActivityClosingDayDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to update ActivityClosingDay with id: ${id}`,
+        error,
+      });
     }
   }
 
@@ -45,7 +51,10 @@ export class ActivityClosingDayService {
     try {
       return await this.activityClosingDayRepository.removeActivityClosingDay(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to delete ActivityClosingDay with id: ${id}`,
+        error
+      });
     }
   }
 }

@@ -26,7 +26,10 @@ export class ResetPasswordTokenService {
       ).digest('hex')
       return await this.resetTokenPasswordRepository.save({token, userId})
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new BadRequestException({
+        message: 'Bad request to create reset password token',
+        error,
+      })
     }
   }
 
@@ -38,7 +41,10 @@ export class ResetPasswordTokenService {
         .orderBy('resetPasswordToken.createdAt', 'DESC')
         .getMany()
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of reset password token not found',
+        error,
+      })
     }
   }
 
@@ -50,7 +56,10 @@ export class ResetPasswordTokenService {
         .leftJoinAndSelect('resetPasswordToken.user', 'user')
         .getOne()
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Reset password token not found with token: ${token}`,
+        error,
+      })
     }
   }
 
@@ -64,7 +73,10 @@ export class ResetPasswordTokenService {
         updateResetPasswordTokenDto
       )
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update reset password token with id: ${id}`,
+        error,
+      })
     }
   }
 
@@ -72,7 +84,10 @@ export class ResetPasswordTokenService {
     try {
       return await this.resetTokenPasswordRepository.softDelete(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to delete reset password token with id: ${id}`,
+        error,
+      })
     }
   }
 }

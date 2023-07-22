@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 
 import { CommentMarkService } from './comment-mark.service';
@@ -22,7 +22,7 @@ export class CommentMarkController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment mark created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create comment mark' })
   create(@Body() createCommentMarkDto: CreateCommentMarkDto) {
     return this.commentMarkService.create(createCommentMarkDto);
   }
@@ -30,8 +30,7 @@ export class CommentMarkController {
   @Get()
   @Throttle(1000, 60)
   @ApiCreatedResponse({ description: 'Comments mark found successfully' })
-  @ApiNotFoundResponse({ description: 'Invalid input data' })
-  // Assuming you have defined this decorator to document the query parameters
+  @ApiNotFoundResponse({ description: 'List of comments mark not found' })
   findAll(@Query() query: ApiLimitResourceQuery) {
     return this.commentMarkService.findAll(query);
   }
@@ -39,7 +38,7 @@ export class CommentMarkController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiCreatedResponse({ description: 'Comment mark found successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid comment mark ID' })
+  @ApiNotFoundResponse({ description: 'Comment mark not found' })
   findOne(@Param('id') id: string) {
     return this.commentMarkService.findOne(id);
   }
@@ -50,7 +49,7 @@ export class CommentMarkController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment mark updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data or comment mark ID' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update comment mark' })
   update(@Param('id') id: string, @Body() updateCommentMarkDto: UpdateCommentMarkDto) {
     return this.commentMarkService.update(id, updateCommentMarkDto);
   }
@@ -61,7 +60,7 @@ export class CommentMarkController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Comment mark deleted successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid comment mark ID' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete comment mark' })
   remove(@Param('id') id: string) {
     return this.commentMarkService.remove(id);
   }

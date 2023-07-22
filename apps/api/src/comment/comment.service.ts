@@ -47,7 +47,10 @@ export class CommentService {
 
       return comment
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create comment',
+        error,
+      })
     }
   }
 
@@ -55,7 +58,10 @@ export class CommentService {
     try {
       return await this.commentRepository.findAllComment(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of comments not found',
+        error,
+      })
     }
   }
 
@@ -63,7 +69,10 @@ export class CommentService {
     try {
       return await this.commentRepository.findAllCommentByActivityId(queries, activityId)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of comments not found',
+        error,
+      })
     }
   }
 
@@ -71,7 +80,10 @@ export class CommentService {
     try {
       return await this.commentRepository.findOneComment(id)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Comment with id ${id} not found`,
+        error,
+      })
     }
   }
 
@@ -79,7 +91,10 @@ export class CommentService {
     try {
       return this.commentRepository.updateComment(id, updateCommentDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update comment with id ${id}`,
+        error
+      })
     }
   }
 
@@ -87,7 +102,10 @@ export class CommentService {
     try {
       return await this.commentRepository.removeComment(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to delete comment with id ${id}`,
+        error
+      })
     }
   }
 

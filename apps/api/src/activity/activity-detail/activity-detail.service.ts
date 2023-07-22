@@ -13,7 +13,10 @@ export class ActivityDetailService {
     try {
       return await this.activityDetailRepository.createActivityDetail(createActivityDetailDto)
     } catch (err) {
-      throw new UnauthorizedException(err);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create ActivityDetail',
+        err,
+      });
     }
   }
 
@@ -21,7 +24,10 @@ export class ActivityDetailService {
     try {
       return await this.activityDetailRepository.findAllActivityDetail(queries);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: 'List of ActivityDetail not found',
+        error,
+      });
     }
   }
 
@@ -29,7 +35,10 @@ export class ActivityDetailService {
     try {
       return await this.activityDetailRepository.findOneActivityDetail(id);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: `ActivityDetail not found with id: ${id}`,
+        error,
+      });
     }
   }
 
@@ -37,7 +46,10 @@ export class ActivityDetailService {
     try {
       return await this.activityDetailRepository.updateActivityDetail(id, updateActivityDetailDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to update ActivityDetail with id: ${id}`,
+        error,
+      });
     }
   }
 
@@ -45,7 +57,10 @@ export class ActivityDetailService {
     try {
       return await this.activityDetailRepository.removeActivityDetail(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove ActivityDetail with id: ${id}`,
+        error,
+      });
     }
   }
 }

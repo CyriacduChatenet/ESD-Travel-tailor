@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { ApiLimitResourceQuery } from '@travel-tailor/types';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
@@ -20,14 +20,14 @@ export class CustomerController {
   @Throttle(1000, 60)
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiCreatedResponse({ description: 'Customer created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create customer' })
   async createCustomer(@Body() createCustomerDto: CreateCustomerDto) {
     return await this.customerService.createCustomer(createCustomerDto);
   }
 
   @Get()
   @ApiCreatedResponse({ description: 'Customers found successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid customer ID' })
+  @ApiNotFoundResponse({ description: 'List of customers not found' })
   @Throttle(1000, 60)// Assuming you have defined this decorator to document the query parameters
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.customerService.findAll(queries);
@@ -36,7 +36,7 @@ export class CustomerController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiCreatedResponse({ description: 'Customer found successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid customer ID' })
+  @ApiNotFoundResponse({ description: 'Customer not found' })
   async findOne(@Param('id') id: string) {
     return await this.customerService.findOne(id);
   }
@@ -47,7 +47,7 @@ export class CustomerController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Customer updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data or customer ID' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update customer' })
   async update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
     return await this.customerService.update(id, updateCustomerDto);
   }
@@ -58,7 +58,7 @@ export class CustomerController {
   @Roles(Role.Traveler, Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Customer deleted successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid customer ID' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete customer' })
   async remove(@Param('id') id: string) {
     return await this.customerService.remove(id);
   }

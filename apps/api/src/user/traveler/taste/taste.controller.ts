@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiInternalServerErrorResponse, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
 import { TasteService } from './taste.service';
 import { CreateTasteDto } from './dto/create-taste.dto';
@@ -21,7 +21,7 @@ export class TasteController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Taste created successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create taste' })
   async create(@Body() createTasteDto: CreateTasteDto) {
     return this.tasteService.create(createTasteDto);
   }
@@ -29,7 +29,7 @@ export class TasteController {
   @Get()
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved all tastes successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'List of tastes not found' })
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.tasteService.findAll(queries);
   }
@@ -37,7 +37,7 @@ export class TasteController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved taste successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'Taste not found' })
   async findOne(@Param('id') id: string) {
     return this.tasteService.findOne(id);
   }
@@ -48,7 +48,7 @@ export class TasteController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Updated taste successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update taste' })
   async update(
     @Param('id') id: string,
     @Body() updateTasteDto: UpdateTasteDto,
@@ -62,7 +62,7 @@ export class TasteController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Deleted taste successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete taste' })
   async remove(@Param('id') id: string) {
     return this.tasteService.remove(id);
   }

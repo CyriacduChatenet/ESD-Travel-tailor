@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiInternalServerErrorResponse, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { Role } from '../../config/enum/role.enum';
@@ -20,7 +20,7 @@ export class AdvertiserController {
   @Throttle(1000, 60)
   @ApiBearerAuth()
   @ApiCreatedResponse({ description: 'Advertiser created successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create advertiser' })
   create(@Body() createAdvertiserDto: CreateAdvertiserDto) {
     return this.advertiserService.create(createAdvertiserDto);
   }
@@ -28,7 +28,7 @@ export class AdvertiserController {
   @Get()
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved all advertisers successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'List of advertisers not found' })
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.advertiserService.findAll(queries);
   }
@@ -36,7 +36,7 @@ export class AdvertiserController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved advertiser successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'Advertiser not found' })
   async findOne(@Param('id') id: string) {
     return await this.advertiserService.findOne(id);
   }
@@ -47,7 +47,7 @@ export class AdvertiserController {
   @Roles(Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Updated advertiser successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update advertiser' })
   async update(
     @Param('id') id: string,
     @Body() updateAdvertiserDto: UpdateAdvertiserDto,
@@ -61,7 +61,7 @@ export class AdvertiserController {
   @Roles(Role.Advertiser, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Deleted advertiser successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete advertiser' })
   async remove(@Param('id') id: string) {
     return await this.advertiserService.remove(id);
   }

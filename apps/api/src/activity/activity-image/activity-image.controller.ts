@@ -23,7 +23,7 @@ export class ActivityImageController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity image' })
   @ApiCreatedResponse({ description: 'Activity image created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create ActivityImage' })
   create(@Body() createActivityImageDto: CreateActivityImageDto) {
     return this.activityImageService.create(createActivityImageDto);
   }
@@ -31,6 +31,7 @@ export class ActivityImageController {
   @Get()
   @ApiOperation({ summary: 'Get all activity images' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of ActivityImage not found' })
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.activityImageService.findAll(queries);
   }
@@ -50,8 +51,7 @@ export class ActivityImageController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity image' })
   @ApiOkResponse({ description: 'Activity image updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update ActivityImage' })
   update(
     @Param('id') id: string,
     @Body() updateActivityImageDto: UpdateActivityImageDto,
@@ -66,8 +66,7 @@ export class ActivityImageController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity image' })
   @ApiOkResponse({ description: 'Activity image deleted successfully' })
-  @ApiNotFoundResponse({ description: 'Activity image not found' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete ActivityImage' })
   remove(@Param('id') id: string) {
     return this.activityImageService.remove(id);
   }

@@ -17,7 +17,10 @@ export class ActivityImageService {
     try {
       return await this.activityImageRepository.createActivityImage(createActivityImageDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create ActivityImage',
+        error,
+      });
     }
   }
 
@@ -25,7 +28,10 @@ export class ActivityImageService {
     try {
       return await this.activityImageRepository.findAllActivityImage(queries);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: 'List of ActivityImage not found',
+        error,
+      });
     }
   }
 
@@ -33,7 +39,10 @@ export class ActivityImageService {
     try {
       return this.activityImageRepository.findOneActivityImage(id);
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException({
+        message: `ActivityImage not found with id: ${id}`,
+        error,
+      });
     }
   }
 
@@ -41,7 +50,10 @@ export class ActivityImageService {
     try {
       return this.activityImageRepository.updateActivityImage(id, updateActivityImageDto);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to update ActivityImage with id: ${id}`,
+        error,
+      });
     }
   }
 
@@ -49,7 +61,10 @@ export class ActivityImageService {
     try {
       return this.activityImageRepository.removeActivityImage(id);
     } catch (error) {
-      throw new UnauthorizedException(error);
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove ActivityImage with id: ${id}`,
+        error,
+      });
     }
   }
 }

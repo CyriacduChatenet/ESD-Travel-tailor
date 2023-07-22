@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-import { ApiTags, ApiBearerAuth, ApiOkResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOkResponse, ApiInternalServerErrorResponse, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { ApiLimitResourceQuery, User as UserType } from '@travel-tailor/types';
 
 import { TravelService } from './travel.service';
@@ -29,7 +29,7 @@ export class TravelController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Created travel successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create travel' })
   async create(@Body() createTravelDto: CreateTravelDto, @User() user: UserType) {
     const userInDB = await this.userService.findOneByEmail(user.email);
 
@@ -46,7 +46,7 @@ export class TravelController {
   @Get()
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved all travels successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'List of travels not found' })
   async findAll(@Query() queries: ApiLimitResourceQuery) {
     return await this.travelService.findAll(queries);
   }
@@ -54,7 +54,7 @@ export class TravelController {
   @Get('/traveler/:id')
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved travels by traveler ID successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'List of travels not found' })
   async findAllByTraveler(
     @Param('id') travelerId: string,
     @Query('page') page = 1,
@@ -66,7 +66,7 @@ export class TravelController {
   @Get(':id')
   @Throttle(1000, 60)
   @ApiOkResponse({ description: 'Retrieved travel by ID successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiNotFoundResponse({ description: 'Travel not found' })
   async findOne(@Param('id') id: string) {
     return await this.travelService.findOne(id);
   }
@@ -77,7 +77,7 @@ export class TravelController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Updated travel successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update travel' })
   async update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto) {
     return await this.travelService.update(id, updateTravelDto);
   }
@@ -88,7 +88,7 @@ export class TravelController {
   @Roles(Role.Traveler, Role.Admin)
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'Deleted travel successfully' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete travel' })
   async remove(@Param('id') id: string) {
     return await this.travelService.remove(id);
   }

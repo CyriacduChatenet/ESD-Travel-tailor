@@ -17,7 +17,10 @@ export class ActivityTagService {
     try {
       return await this.activityTagRepository.createActivityTag(createActivityTagDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create activity tag',
+        error
+      })
     }
   }
 
@@ -25,7 +28,10 @@ export class ActivityTagService {
     try {
       return await this.activityTagRepository.findAllActivityTag(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of Activity tag not found',
+        error
+      })
     }
   }
 
@@ -33,7 +39,10 @@ export class ActivityTagService {
     try {
       return this.activityTagRepository.findOneActivityTag(name)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Activity tag not found with name: ${name}`,
+        error
+      })
     }
   }
 
@@ -41,7 +50,10 @@ export class ActivityTagService {
     try {
       return await this.activityTagRepository.updateActivityTag(id, updateActivityTagDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update activity tag with id: ${id}`,
+        error
+      })
     }
   }
 
@@ -49,7 +61,10 @@ export class ActivityTagService {
     try {
       return this.activityTagRepository.removeActivityTag(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove activity tag with id: ${id}`,
+        error
+      })
     }
   }
 }

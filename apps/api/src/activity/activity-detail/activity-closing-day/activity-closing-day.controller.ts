@@ -31,7 +31,7 @@ export class ActivityClosingDayController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an activity closing day' })
   @ApiCreatedResponse({ description: 'Activity closing day created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiBadRequestResponse({ description: 'Unauthorized to create ActivityClosingDay' })
   create(@Body() createActivityClosingDayDto: CreateActivityClosingDayDto) {
     return this.activityClosingDayService.create(createActivityClosingDayDto);
   }
@@ -39,6 +39,7 @@ export class ActivityClosingDayController {
   @Get()
   @ApiOperation({ summary: 'Get all activity closing days' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of ActivityClosingDay not found' })
   findAll(@Query() queries: ApiLimitResourceQuery) {
     return this.activityClosingDayService.findAll(queries);
   }
@@ -57,8 +58,7 @@ export class ActivityClosingDayController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an activity closing day' })
   @ApiOkResponse({ description: 'Activity closing day updated successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update ActivityClosingDay' })
   update(@Param('id') id: string, @Body() updateActivityClosingDayDto: UpdateActivityClosingDayDto) {
     return this.activityClosingDayService.update(id, updateActivityClosingDayDto);
   }
@@ -70,7 +70,7 @@ export class ActivityClosingDayController {
   @ApiOperation({ summary: 'Delete an activity closing day' })
   @ApiOkResponse({ description: 'Activity closing day deleted successfully' })
   @ApiNotFoundResponse({ description: 'Activity closing day not found' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete ActivityClosingDay' })
   remove(@Param('id') id: string) {
     return this.activityClosingDayService.remove(id);
   }

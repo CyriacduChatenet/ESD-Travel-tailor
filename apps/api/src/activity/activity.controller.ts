@@ -11,7 +11,7 @@ import {
   UseInterceptors,
   UploadedFiles,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiConsumes, ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ActivityQuery } from '@travel-tailor/types';
@@ -39,7 +39,7 @@ export class ActivityController {
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Create an activity' })
   @ApiCreatedResponse({ description: 'Activity created successfully' })
-  @ApiBadRequestResponse({ description: 'Invalid input data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to create activity' })
   async create(@Body() createActivityDto: CreateActivityDto, @User() user, @UploadedFiles() files) {
     return this.activityService.create(createActivityDto, user, files);
   }
@@ -47,6 +47,7 @@ export class ActivityController {
   @Get()
   @ApiOperation({ summary: 'Get all activities' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of activities not found' })
   async findAll(@Query() queries: ActivityQuery) {
     return this.activityService.findAll(queries);
   }
@@ -54,6 +55,7 @@ export class ActivityController {
   @Get('name/list/:name')
   @ApiOperation({ summary: 'Get activities by name' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of activities not found' })
   async findAllActivitiesLikeName(@Param('name') name: string) {
     return this.activityService.findAllActivitiesLikeName(name);
   }
@@ -77,6 +79,7 @@ export class ActivityController {
   @Get('/advertiser/:id')
   @ApiOperation({ summary: 'Get activities by advertiser' })
   @ApiOkResponse({ description: 'Successful operation' })
+  @ApiNotFoundResponse({ description: 'List of activities not found' })
   async findAllByTraveler(
     @Param('id') advertiserId: string,
     @Query('page') page = 1,
@@ -93,7 +96,7 @@ export class ActivityController {
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Update an activity' })
   @ApiOkResponse({ description: 'Activity updated successfully' })
-  @ApiNotFoundResponse({ description: 'Activity not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to update activity' })
   async update(
     @Param('id') id: string,
     @Body() updateActivityDto: UpdateActivityDto
@@ -108,7 +111,7 @@ export class ActivityController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an activity' })
   @ApiOkResponse({ description: 'Activity deleted successfully' })
-  @ApiNotFoundResponse({ description: 'Activity not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized to delete activity' })
   async remove(@Param('id') id: string) {
     return this.activityService.remove(id);
   }
