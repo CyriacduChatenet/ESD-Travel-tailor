@@ -48,7 +48,10 @@ export class UserService {
         throw new BadRequestException('email must contain ***@***.***')
       }
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create user',
+        error
+      })
     }
   }
 
@@ -56,7 +59,10 @@ export class UserService {
     try {
       return await this.userRepository.findAllUser(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of users not found',
+        error
+      })
     }
   }
 
@@ -64,7 +70,10 @@ export class UserService {
     try {
       return await this.userRepository.findOneUserByEmail(email)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `User not found with email: ${email}`,
+        error
+      })
     }
   }
 
@@ -72,7 +81,10 @@ export class UserService {
     try {
       return await this.userRepository.updateUser(id, signupUserDto)
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update user with id: ${id}`,
+        error
+      })
     }
   }
 
@@ -80,7 +92,10 @@ export class UserService {
     try {
       return await this.userRepository.removeUser(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to delete user with id: ${id}`,
+        error
+      })
     }
   }
 }
