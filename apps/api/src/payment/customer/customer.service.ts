@@ -24,7 +24,10 @@ export class CustomerService {
       const stripeCustomer = await this.stripeCustomerService.createStripeCustomer({ email: createCustomerDto.email, name: createCustomerDto.name })
       return await this.customerRepository.createCustomer(createCustomerDto, stripeCustomer)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: 'Unauthorized to create customer',
+        error,
+      })
     }
   }
 
@@ -32,7 +35,10 @@ export class CustomerService {
     try {
       return await this.customerRepository.findAllCustomer(queries)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: 'List of customers not found',
+        error,
+      })
     }
   }
 
@@ -40,7 +46,10 @@ export class CustomerService {
     try {
       return await this.customerRepository.findOneCustomer(id)
     } catch (error) {
-      throw new NotFoundException(error)
+      throw new NotFoundException({
+        message: `Customer with id ${id} not found`,
+        error,
+      })
     }
   }
 
@@ -48,7 +57,10 @@ export class CustomerService {
     try {
       return await this.customerRepository.updateCustomer(id, updateCustomerDto)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to update customer with id ${id}`,
+        error
+      })
     }
   }
 
@@ -56,7 +68,10 @@ export class CustomerService {
     try {
       return await this.customerRepository.removeCustomer(id)
     } catch (error) {
-      throw new UnauthorizedException(error)
+      throw new UnauthorizedException({
+        message: `Unauthorized to remove customer with id ${id}`,
+        error
+      })
     }
   }
 }
