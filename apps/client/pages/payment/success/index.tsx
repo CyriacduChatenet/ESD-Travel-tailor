@@ -15,7 +15,7 @@ const PaymentSuccessPage: NextPage = () => {
       <main className="px-9 lg:px-32 min-h-screen grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 pt-20 place-items-center bg-white py-24 sm:py-32">
         <div className="text-center col-span-4 md:col-span-8 xl:col-span-12">
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Page accepted
+            Payment accepted
           </h1>
           <p className="mt-6 text-base leading-7 text-gray-600">
             Your subscription is already active.
