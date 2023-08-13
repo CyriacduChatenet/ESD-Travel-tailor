@@ -37,7 +37,7 @@ export const Carousel: FC = () => {
         ></div>
       </CSSTransition>
       <div className="absolute bottom-0 left-0">
-        <span className="text-white text-4xl font-bold uppercase pl-6">
+        <span className="text-white text-4xl font-bold uppercase pl-6" aria-label={`City: ${data.city}`}>
           {data.city}
         </span>
       </div>
