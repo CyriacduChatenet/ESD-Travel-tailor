@@ -61,15 +61,16 @@ export const ActivityListPaginator: FC<IProps> = ({
                   <div className={"flex"}>
                     <Link
                       href={`${ROUTES.ADVERTISER.ACTIVITY.UPDATE_ACTIVITY}/${activity.slug}`}
+                      aria-label={`View activity ${activity.name}`}
                     >
-                      <button>
+                      <button aria-label={`Edit activity ${activity.name}`}>
                         <Icon
                           icon="akar-icons:edit"
                           className="w-6 h-6 mr-12"
                         />
                       </button>
                     </Link>
-                    <button onClick={() => handleDelete(activity.id)}>
+                    <button onClick={() => handleDelete(activity.id)}    aria-label={`Delete activity ${activity.name}`}>
                       <Icon
                         icon="material-symbols:delete"
                         className="w-6 h-6"

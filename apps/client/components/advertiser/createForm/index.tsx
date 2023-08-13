@@ -5,8 +5,6 @@ import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
 import { Player } from "@lottiefiles/react-lottie-player";
 
-import { Autocomplete } from "@/components/autocomplete";
-
 interface ICreateAdvertiserForm {
   name: string;
   location: string;
@@ -129,6 +127,8 @@ export const CreateAdvertiserForm: FC<IProps> = ({ token }) => {
         <div className="mt-10">
           <button
             type="submit"
+            aria-live="assertive"
+            aria-label="Create advertiser"
             className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
           >
             {submit ? (

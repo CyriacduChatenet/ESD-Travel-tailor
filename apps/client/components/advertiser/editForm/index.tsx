@@ -1,5 +1,5 @@
 import { useRouter, usePathname } from "next/navigation";
-import { Dispatch, FC, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROLES, ROUTES } from "@travel-tailor/constants";
@@ -98,6 +98,8 @@ export const EditAdvertiserForm: FC = () => {
                 <div className="flex flex-col items-center justify-between">
                     <button
                         type="submit"
+                        aria-label="Edit advertiser"
+                        aria-live="assertive"
                         className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                         {submit ? <Player

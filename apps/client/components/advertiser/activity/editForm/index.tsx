@@ -640,7 +640,7 @@ export const EditActivityForm: FC = () => {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link href={ROUTES.ADVERTISER.DASHBOARD}>
+            <Link href={ROUTES.ADVERTISER.DASHBOARD} aria-label="Cancel and go back to advertiser dashboard">
               <button
                 type="button"
                 className="text-sm font-semibold leading-6 text-gray-900"
@@ -650,6 +650,8 @@ export const EditActivityForm: FC = () => {
             </Link>
             <button
               type="submit"
+              aria-live="assertive"
+              aria-label="Edit activity"
               className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
             >
               {submit ? (

@@ -12,15 +12,12 @@ import {
   UserService,
 } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
-import { convertDate } from "@travel-tailor/utils";
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { PhotoIcon } from "@heroicons/react/24/solid";
-
-import { Autocomplete } from "@/components/autocomplete";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
@@ -624,16 +621,19 @@ export const CreateActivityForm: FC = () => {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link href={ROUTES.ADVERTISER.DASHBOARD}>
+            <Link href={ROUTES.ADVERTISER.DASHBOARD} aria-label={`View advertiser dashboard`}>
               <button
                 type="button"
                 className="text-sm font-semibold leading-6 text-gray-900"
+                aria-label={`Cancel and go back to advertiser dashboard`}
               >
                 Cancel
               </button>
             </Link>
             <button
               type="submit"
+              aria-label={`Create activity`}
+              aria-live="assertive"
               className="rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
             >
               {submit ? (
