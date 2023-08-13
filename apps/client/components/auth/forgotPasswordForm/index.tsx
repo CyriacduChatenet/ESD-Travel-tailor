@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { AuthService } from "@travel-tailor/services";
 import { useRouter } from "next/navigation";
@@ -82,6 +81,8 @@ export const ForgotPasswordForm: FC = () => {
       <div className="mt-10">
         <button
           type="submit"
+          aria-live="assertive"
+          aria-label="Forgot password"
           className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
         >
           {submit ? (

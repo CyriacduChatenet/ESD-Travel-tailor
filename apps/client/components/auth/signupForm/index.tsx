@@ -1,12 +1,10 @@
 import React, { FC, useState } from "react";
 import Link from "next/link";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Switch } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
   AuthService,
-  TravelerService,
   UserService,
 } from "@travel-tailor/services";
 import { API_SIGNUP_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
@@ -61,10 +59,10 @@ export const SignupForm: FC = () => {
       setApiErrors
     );
     if (response) {
-      const user = (await UserService.getUserInfo(
+      await UserService.getUserInfo(
         `${process.env.NEXT_PUBLIC_API_URL}`,
         setApiErrors
-      )) as User;
+      ) as User;
       await handleRedirect(response, data);
     }
   };
@@ -209,6 +207,8 @@ export const SignupForm: FC = () => {
         <div className="mt-10">
           <button
             type="submit"
+            aria-live="assertive"
+            aria-label="Signup"
             className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
           >
             {submit ? (
