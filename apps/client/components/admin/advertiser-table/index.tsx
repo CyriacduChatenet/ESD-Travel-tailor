@@ -61,10 +61,10 @@ export const AdvertiserTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(advertiser.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-2 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button onClick={() => handleUpdate(String(advertiser.id))}>
+                                <button onClick={() => handleUpdate(String(advertiser.id))} aria-label={`Edit advertiser ${advertiser.name}`}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button onClick={() => handleDelete(String(advertiser.id))}>
+                                <button onClick={() => handleDelete(String(advertiser.id))} aria-label={`Delete advertiser ${advertiser.name}`}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

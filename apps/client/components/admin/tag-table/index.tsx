@@ -57,10 +57,10 @@ export const TagTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(tag.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button onClick={() => handleUpdate(tag.id)}>
+                                <button onClick={() => handleUpdate(tag.id)} aria-label={`Edit tag ${tag.name}`}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button onClick={() => handleDelete(tag.id)}>
+                                <button onClick={() => handleDelete(tag.id)} aria-label={`Delete tag ${tag.name}`}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

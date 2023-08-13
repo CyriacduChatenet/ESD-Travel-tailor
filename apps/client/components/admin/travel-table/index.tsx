@@ -1,10 +1,8 @@
 import { ROUTES } from "@travel-tailor/constants";
-import { AdvertiserService, TravelService } from "@travel-tailor/services";
-import { Activity, Advertiser, Travel } from "@travel-tailor/types";
+import { TravelService } from "@travel-tailor/services";
+import { Travel } from "@travel-tailor/types";
 import { Icon } from "@iconify/react";
-import { parse } from "cookie";
 import moment from "moment";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 
@@ -52,10 +50,10 @@ export const TravelTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(travel.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-2 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button onClick={() => handleUpdate(String(travel.id))}>
+                                <button onClick={() => handleUpdate(String(travel.id))} aria-label={`Edit travel ${travel.id}`}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button onClick={() => handleDelete(String(travel.id))}>
+                                <button onClick={() => handleDelete(String(travel.id))} aria-label={`Delete travel ${travel.id}`}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

@@ -70,10 +70,10 @@ export const ActivityTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(activity.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button onClick={() => handleUpdate(activity.slug)}>
+                                <button onClick={() => handleUpdate(activity.slug)} aria-label={`Edit ${activity.name}`}>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button onClick={() => handleDelete(activity.id)}>
+                                <button onClick={() => handleDelete(activity.id)} aria-label={`Delete ${activity.name}`}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>
