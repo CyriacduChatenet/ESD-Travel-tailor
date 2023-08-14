@@ -49,7 +49,7 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
                             required: "Rentability is required",
                         })} className="w-6" />
                         /5</p>
-                    <Icon icon="material-symbols:star-rate" />
+                    <Icon icon="material-symbols:star-rate" aria-label="Star Icon" />
                 </li>
                 <li className="flex justify-between items-center xl:w-5/12 xl:mr-8 mb-4 lg:mb-0 w-full">
                     <p>Place</p>
@@ -121,8 +121,10 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
             <div className="flex justify-end items-center">
                 <button
                     type="submit"
+                    aria-live="assertive"
+                    aria-label="Send comment"
                     className={`bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
-                ><Icon icon="ic:sharp-send" />
+                ><Icon icon="ic:sharp-send" aria-label="Send Icon" />
                 </button>
             </div>
         </form>

@@ -81,6 +81,7 @@ export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
               name="departureCity"
               id="departureCity"
               autoComplete="departureCity"
+              aria-label="Departure city input"
               className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
             />
           </div>
@@ -104,6 +105,7 @@ export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
               {...register("destinationCity", {
                 required: "Destination city is required",
               })}
+              aria-label="Destination city input"
               type="text"
               name="destinationCity"
               id="destinationCity"
@@ -132,6 +134,7 @@ export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
                 required: "Departure date is required",
               })}
               type="date"
+              aria-aria-label="Departure date input"
               name="departureDate"
               id="departureDate"
               autoComplete="departureDate"
@@ -159,6 +162,7 @@ export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
                 required: "Return date is required",
               })}
               type="date"
+              aria-label="Return date input"
               name="returnDate"
               id="returnDate"
               autoComplete="returnDate"
@@ -175,6 +179,8 @@ export const CreateTravelForm: FC<IProps> = ({ data, setData }) => {
       <div className="mt-10">
         <button
           type="submit"
+          aria-live="assertive"
+          aria-label="Create travel"
           className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
         >
           {submit ? (

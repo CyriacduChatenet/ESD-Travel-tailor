@@ -59,6 +59,7 @@ export const EditTravelForm: FC = () => {
                 })}
                 id="departureCity"
                 type="text"
+                aria-label="Departure city input"
                 onClick={() => setApiErrors({})}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -74,6 +75,7 @@ export const EditTravelForm: FC = () => {
                 })}
                 id="destinationCity"
                 type="text"
+                aria-label="Destination city input"
                 onClick={() => setApiErrors({})}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -89,6 +91,7 @@ export const EditTravelForm: FC = () => {
                 })}
                 id="departureDate"
                 type="date"
+                aria-label="Departure date input"
                 onClick={() => setApiErrors({})}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -104,6 +107,7 @@ export const EditTravelForm: FC = () => {
                 })}
                 id="returnDate"
                 type="date"
+                aria-label="Return date input"
                 onClick={() => setApiErrors({})}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -112,6 +116,8 @@ export const EditTravelForm: FC = () => {
         <div className="flex flex-col items-center justify-between">
             <button
                 type="submit"
+                aria-live="assertive"
+                aria-label="Edit travel"
                 className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
                 {submit ? <Player

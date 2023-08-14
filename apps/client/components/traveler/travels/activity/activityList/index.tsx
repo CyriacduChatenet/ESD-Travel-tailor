@@ -33,9 +33,9 @@ export const ActivityList: FC<IProps> = ({ days, dayCurrent, editorMode }) => {
     <ul>
       {day[0]?.timeSlots?.map((timeSlot: TimeSlot) => (
         <li key={timeSlot.id}>
-          <li className="px-4 py-4 my-4 xl:mr-8 rounded-lg flex flex-col xl:grid lg:grid-cols-12 bg-gray-100 blue lg:pr-20">
+          <li className="px-4 py-4 my-4 xl:mr-8 rounded-lg flex flex-col xl:grid lg:grid-cols-12 bg-gray-100 blue lg:pr-20" role="listitem">
             <div className="flex justify-between items-center lg:col-span-2">
-              <Icon icon="mdi:clock" className="w-6 h-6" />
+              <Icon icon="mdi:clock" className="w-6 h-6" aria-label="Clock Icon" />
               <p>
                 {new Date(timeSlot?.startTime).getHours()}h -{" "}
                 {new Date(timeSlot?.endTime).getHours()}h
@@ -59,6 +59,7 @@ export const ActivityList: FC<IProps> = ({ days, dayCurrent, editorMode }) => {
                   >
                     <Icon
                       icon="akar-icons:edit"
+                      aria-label="Edit Icon"
                       className="w-6 h-6"
                       onMouseEnter={() => handleEditClick(timeSlot.id)}
                     />
@@ -70,6 +71,7 @@ export const ActivityList: FC<IProps> = ({ days, dayCurrent, editorMode }) => {
                     <Icon
                       icon="material-symbols:chevron-right"
                       className="w-6 h-6"
+                      aria-label="Right Arrow Icon"
                     />
                   </Link>
                 )}

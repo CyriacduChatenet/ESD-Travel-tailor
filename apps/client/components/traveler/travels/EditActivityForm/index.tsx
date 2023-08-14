@@ -63,6 +63,7 @@ export const EditActivityForm: FC = () => {
           placeholder="Activity id"
           value={credentials.activity}
           onChange={handleChange}
+          aria-label="Activity id input"
         />
       </div>
       <ul>
