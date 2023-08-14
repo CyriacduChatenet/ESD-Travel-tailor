@@ -33,12 +33,12 @@ export const TravelerTable: FC<IProps> = ({ data, setData }) => {
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
                 <tr>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Id</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Tastes</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Travels</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Comments</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Created</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b"></th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Id</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Tastes</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Travels</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Comments</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Created</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b"></th>
                 </tr>
             </thead>
             <tbody>

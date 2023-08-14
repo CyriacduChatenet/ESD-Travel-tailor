@@ -41,6 +41,7 @@ export const EditTasteForm: FC = () => {
                         })}
                         id="name"
                         type="text"
+                        aria-label="Taste"
                         onClick={() => setApiErrors({})}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
                     />
@@ -48,6 +49,8 @@ export const EditTasteForm: FC = () => {
                 </div>
                 <button
                     type="submit"
+                    aria-label="Submit"
+                    aria-live="assertive"
                     className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     onClick={handleSubmit(onSubmit)}
                 >

@@ -73,6 +73,7 @@ export const EditAdvertiserForm: FC = () => {
                         })}
                         id="name"
                         type="text"
+                        aria-label="Name input"
                         onClick={() => setApiErrors({ message: "", name: "", cause: "" })}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
@@ -88,6 +89,7 @@ export const EditAdvertiserForm: FC = () => {
                         })}
                         id="location"
                         type="text"
+                        aria-label="Location input"
                         onClick={() => setApiErrors({})}
                         onChange={handleLocationChange}
                         className={`shadow appearance-none border-t ${address.length === 0 ? 'border-r border-l' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.location ? 'border-red-500' : ''}`}

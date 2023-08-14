@@ -47,7 +47,7 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
                             min: 0,
                             max: 5,
                             required: "Rentability is required",
-                        })} className="w-6" />
+                        })} className="w-6" aria-label="Rentability mark" />
                         /5</p>
                     <Icon icon="material-symbols:star-rate" aria-label="Star Icon" />
                 </li>
@@ -59,7 +59,7 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
                             min: 0,
                             max: 5,
                             required: "Place is required",
-                        })} className="w-6" />
+                        })} className="w-6" aria-label="Place mark" />
                         /5</p>
                     <Icon icon="material-symbols:star-rate" />
                 </li>
@@ -71,7 +71,7 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
                             min: 0,
                             max: 5,
                             required: "Waiting is required",
-                        })} className="w-6" />
+                        })} className="w-6" aria-label="Waiting mark" />
                         /5</p>
                     <Icon icon="material-symbols:star-rate" />
                 </li>
@@ -83,7 +83,7 @@ export const CommentForm: FC<IProps> = ({ data, setData, comments }) => {
                             min: 0,
                             max: 5,
                             required: "Explanation is required",
-                        })} className="w-6" />/5</p>
+                        })} className="w-6" aria-label="Explanation mark" />/5</p>
                     <Icon icon="material-symbols:star-rate" />
                 </li>
                 <li className="flex justify-between items-center xl:w-5/12 w-full">

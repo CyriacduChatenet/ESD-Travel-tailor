@@ -46,7 +46,7 @@ export const ActivityListPaginator: FC<IProps> = ({
   };
 
   return (
-    <>
+    <nav>
       <ul>
         {data.data ? (
           data.data.map((activity: Activity, index: number) => (
@@ -97,6 +97,6 @@ export const ActivityListPaginator: FC<IProps> = ({
           />
         )}
       </ul>
-    </>
+    </nav>
   );
 };

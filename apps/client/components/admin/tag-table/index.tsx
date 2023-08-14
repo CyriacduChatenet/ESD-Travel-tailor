@@ -41,11 +41,11 @@ export const TagTable: FC<IProps> = ({ data, setData }) => {
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
                 <tr>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Id</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Name</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Activities</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Created</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b"></th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Id</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Name</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Activities</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Created</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b"></th>
                 </tr>
             </thead>
             <tbody>
