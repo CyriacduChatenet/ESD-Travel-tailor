@@ -5,8 +5,6 @@ import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROUTES } from "@travel-tailor/constants";
 import { Player } from "@lottiefiles/react-lottie-player";
 
-import { Autocomplete } from "@/components/autocomplete";
-
 interface ICreateAdvertiserForm {
   name: string;
   location: string;
@@ -89,6 +87,7 @@ export const CreateAdvertiserForm: FC<IProps> = ({ token }) => {
                 type="text"
                 name="name"
                 id="name"
+                aria-label="Name input"
                 autoComplete="name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
               />
@@ -115,6 +114,7 @@ export const CreateAdvertiserForm: FC<IProps> = ({ token }) => {
                 name="location"
                 id="location"
                 autoComplete="location"
+                aria-label="Location input"
                 onChange={handleLocationChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
               />
@@ -129,6 +129,8 @@ export const CreateAdvertiserForm: FC<IProps> = ({ token }) => {
         <div className="mt-10">
           <button
             type="submit"
+            aria-live="assertive"
+            aria-label="Create advertiser"
             className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
           >
             {submit ? (

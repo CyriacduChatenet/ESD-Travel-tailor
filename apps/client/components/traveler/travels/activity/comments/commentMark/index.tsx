@@ -13,7 +13,7 @@ export const CommentMark: FC<IProps> = ({ commentsLength, marks }) => {
     return (
         <div className="lg:col-span-4 col-span-8 flex flex-col items-center justify-center w-full lg:h-full h-9/12 bg-sky-50 py-8">
             <p className="font-bold flex items-center justify-around">
-                <Icon icon="material-symbols:star-rate" />
+                <Icon icon="material-symbols:star-rate" aria-label="star icon" />
                 &nbsp;
                 <span className="font-normal">{marks && marks.global}&nbsp;/&nbsp;5</span>
                 &nbsp;

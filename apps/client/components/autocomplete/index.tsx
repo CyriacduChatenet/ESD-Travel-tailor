@@ -31,8 +31,8 @@ export const Autocomplete: FC<IProps> = ({ address, setAddress }) => {
     }, [address]);
 
     return (
-        <ul className={`shadow ${address.length > 0 ? 'border-l border-r border-b rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' : ''}`}>
-            {results.map((result) => <li key={result.id} className="my-2 hover:bg-blue-100" onClick={() => setAddress('location', result.place_name)}>
+        <ul className={`shadow ${address.length > 0 ? 'border-l border-r border-b rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' : ''}`} aria-label="Search results">
+            {results.map((result) => <li key={result.id} aria-label={result.place_name} className="my-2 hover:bg-blue-100" onClick={() => setAddress('location', result.place_name)}>
                 {result.place_name}
             </li>)}
         </ul>

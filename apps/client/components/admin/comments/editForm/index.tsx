@@ -62,6 +62,7 @@ export const EditCommentForm: FC = () => {
                 </div>
                 <button
                     type="submit"
+                    aria-live="assertive"
                     className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
                     {submit ? <Player

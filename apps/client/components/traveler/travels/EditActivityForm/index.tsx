@@ -63,6 +63,7 @@ export const EditActivityForm: FC = () => {
           placeholder="Activity id"
           value={credentials.activity}
           onChange={handleChange}
+          aria-label="Activity id input"
         />
       </div>
       <ul>
@@ -80,6 +81,8 @@ export const EditActivityForm: FC = () => {
       </ul>
       <button
         type="submit"
+        aria-live="assertive"
+        aria-label="Edit activity"
         className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
         Edit Activity

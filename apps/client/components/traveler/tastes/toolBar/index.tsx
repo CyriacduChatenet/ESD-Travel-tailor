@@ -16,12 +16,16 @@ export const TasteToolBar: FC<IProps> = ({ setEditorMode, editorMode }) => {
                 <button
                     type="submit"
                     className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
+                    aria-label="Add Taste"
+                    aria-live="assertive"
                 >
                     Add Taste
                 </button>
             </Link>
             {editorMode === false && <button
                 type="submit"
+                aria-label="Edit Taste"
+                aria-live="assertive"
                 className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
                 onClick={() => setEditorMode(true)}
             >
@@ -29,6 +33,8 @@ export const TasteToolBar: FC<IProps> = ({ setEditorMode, editorMode }) => {
             </button>}
             {editorMode && <button
                 type="submit"
+                aria-label="Delete Taste"
+                aria-live="assertive"
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-8"
                 onClick={() => setEditorMode(false)}
             >

@@ -40,11 +40,11 @@ export const CommentTable: FC<IProps> = ({ data, setData }) => {
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
                 <tr>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Id</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Name</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Content</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Created</th>
-                    <th className="py-2 px-4 bg-gray-100 text-gray-500 border-b"></th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Id</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Name</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Content</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b">Created</th>
+                    <th scope="col" className="py-2 px-4 bg-gray-100 text-gray-500 border-b"></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,10 +56,12 @@ export const CommentTable: FC<IProps> = ({ data, setData }) => {
                         <td className="py-2 px-4 border-b">{moment(comment.createdAt).format('DD/MM/YYYY')}</td>
                         <td className="py-8 px-4 border-b">
                             <div className="w-full h-full flex">
-                                <button onClick={() => handleUpdate(comment.id)}>
+                                <button onClick={() => handleUpdate(comment.id)} aria-label={`Edit comment ${comment.id}`}
+>
                                     <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                 </button>
-                                <button onClick={() => handleDelete(comment.id)}>
+                                <button onClick={() => handleDelete(comment.id)} aria-label={`Delete comment ${comment.id}`}
+>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>

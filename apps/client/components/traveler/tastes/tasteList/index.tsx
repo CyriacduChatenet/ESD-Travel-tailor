@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Taste, User } from '@travel-tailor/types';
+import { Taste } from '@travel-tailor/types';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
@@ -32,11 +32,11 @@ export const TasteList: FC<IProps> = ({ editorMode, data }) => {
                         <div className='lg:col-span-2'>
                             {editorMode && <div className={'flex'}>
                                 <Link href={`${ROUTES.TRAVELER.TASTE.EDIT}/${taste.id}`}>
-                                    <button>
+                                    <button aria-label={`Edit ${taste.name}`}>
                                         <Icon icon="akar-icons:edit" className="w-6 h-6 mr-12" />
                                     </button>
                                 </Link>
-                                <button onClick={() => handleDelete(String(taste.id))}>
+                                <button onClick={() => handleDelete(String(taste.id))} aria-label={`Delete ${taste.name}`}>
                                     <Icon icon="material-symbols:delete" className="w-6 h-6" />
                                 </button>
                             </div>}

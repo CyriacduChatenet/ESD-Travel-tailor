@@ -24,6 +24,8 @@ export const PageHeadSeo: FC<IProps> = ({ title, description }) => {
             <link rel="icon" href="/favicon.ico" />
             <link rel="apple-touch-icon" href="/favicon.ico" />
             <link rel="manifest" href="/manifest.json" />
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={description} />
         </Head>
     );
 };

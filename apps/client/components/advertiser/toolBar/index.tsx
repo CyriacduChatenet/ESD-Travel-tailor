@@ -19,6 +19,8 @@ export const AdvertiserToolBar: FC<IProps> = ({
       <Link href={ROUTES.ADVERTISER.ACTIVITY.CREATE_ACTIVITY}>
         <button
           type="submit"
+          aria-live="assertive"
+          aria-label="Add activity"
           className="rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 mr-8"
         >
           Add activity
@@ -29,6 +31,8 @@ export const AdvertiserToolBar: FC<IProps> = ({
           {editorMode === false && (
             <button
               type="submit"
+              aria-live="assertive"
+              aria-label="Edit activities"
               className="rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 mr-8"
               onClick={() => setEditorMode(true)}
             >
@@ -38,6 +42,7 @@ export const AdvertiserToolBar: FC<IProps> = ({
           {editorMode && (
             <button
               type="submit"
+              aria-label="Cancel"
               className="rounded-md bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
               onClick={() => setEditorMode(false)}
             >

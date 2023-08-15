@@ -1,12 +1,10 @@
 import React, { FC, useState } from "react";
 import Link from "next/link";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Switch } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
   AuthService,
-  TravelerService,
   UserService,
 } from "@travel-tailor/services";
 import { API_SIGNUP_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
@@ -61,10 +59,10 @@ export const SignupForm: FC = () => {
       setApiErrors
     );
     if (response) {
-      const user = (await UserService.getUserInfo(
+      await UserService.getUserInfo(
         `${process.env.NEXT_PUBLIC_API_URL}`,
         setApiErrors
-      )) as User;
+      ) as User;
       await handleRedirect(response, data);
     }
   };
@@ -126,6 +124,7 @@ export const SignupForm: FC = () => {
                     message: "Email is invalid",
                   },
                 })}
+                aria-label="Email address input"
                 type="email"
                 name="email"
                 id="email"
@@ -152,6 +151,7 @@ export const SignupForm: FC = () => {
                 type="password"
                 name="password"
                 id="password"
+                aria-label="Password input"
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
               />
@@ -209,6 +209,8 @@ export const SignupForm: FC = () => {
         <div className="mt-10">
           <button
             type="submit"
+            aria-live="assertive"
+            aria-label="Signup"
             className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
           >
             {submit ? (

@@ -1,5 +1,5 @@
 import { useRouter, usePathname } from "next/navigation";
-import { Dispatch, FC, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AdvertiserService, UserService } from "@travel-tailor/services";
 import { ROLES, ROUTES } from "@travel-tailor/constants";
@@ -73,6 +73,7 @@ export const EditAdvertiserForm: FC = () => {
                         })}
                         id="name"
                         type="text"
+                        aria-label="Name input"
                         onClick={() => setApiErrors({ message: "", name: "", cause: "" })}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
@@ -88,6 +89,7 @@ export const EditAdvertiserForm: FC = () => {
                         })}
                         id="location"
                         type="text"
+                        aria-label="Location input"
                         onClick={() => setApiErrors({})}
                         onChange={handleLocationChange}
                         className={`shadow appearance-none border-t ${address.length === 0 ? 'border-r border-l' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.location ? 'border-red-500' : ''}`}
@@ -98,6 +100,8 @@ export const EditAdvertiserForm: FC = () => {
                 <div className="flex flex-col items-center justify-between">
                     <button
                         type="submit"
+                        aria-label="Edit advertiser"
+                        aria-live="assertive"
                         className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                         {submit ? <Player
