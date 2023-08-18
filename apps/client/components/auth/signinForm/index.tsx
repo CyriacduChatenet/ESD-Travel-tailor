@@ -47,8 +47,9 @@ export const SigninForm: FC = () => {
       data,
       setApiErrors
     );
+    await sessionStorage.setItem('signinEmail', data.email)
     if (response) {
-      Cookies.set("userEmail", response.email);
+      Cookies.set("userEmail", data.email);
       handleRedirect(response);
     }
   };

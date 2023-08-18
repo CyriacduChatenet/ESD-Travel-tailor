@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthService } from "@travel-tailor/services";
 import { useRouter } from "next/navigation";
@@ -12,10 +12,12 @@ interface IForgotPasswordForm {
 export const ForgotPasswordForm: FC = () => {
   const [apiErrors, setApiErrors] = useState<{ message?: string }>({});
   const [submit, setSubmit] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IForgotPasswordForm>();
   const router = useRouter();
@@ -31,6 +33,18 @@ export const ForgotPasswordForm: FC = () => {
       router.push("/signin");
     }
   };
+
+  const handleLoad = () => {
+    if (sessionStorage.getItem("signinEmail")) {
+      const mail = sessionStorage.getItem("signinEmail") + "";
+      setEmail(mail);
+      setValue("email", mail)
+    }
+  };
+
+  useEffect(() => {
+    handleLoad();
+  }, []);
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
