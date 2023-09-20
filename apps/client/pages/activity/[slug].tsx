@@ -54,7 +54,7 @@ const ActivityPage: NextPage<IProps> = ({ activity, user }) => {
                     location={data.detail.location}
                     duration={data.detail.duration}
                     open={String(data?.detail?.schedules?.[0]?.opening_at)}
-                    close={(String(data?.detail?.schedules?.[0]?.closing_at))}
+                    close={(String(data?.detail?.schedules?.[data?.detail?.schedules.length - 1]?.closing_at))}
                     mark={Number(data?.marks?.global && data?.marks?.global)}
                     commentsIndex={data.comments.length}
                     programmingAt={new Date()}
