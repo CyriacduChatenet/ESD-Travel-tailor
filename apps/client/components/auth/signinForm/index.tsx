@@ -7,6 +7,7 @@ import { AuthService } from "@travel-tailor/services";
 import { API_SIGNIN_ROUTE, ROLES, ROUTES } from "@travel-tailor/constants";
 import { AccessToken } from "@travel-tailor/types";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 interface ISigninForm {
   email: string;
@@ -56,10 +57,12 @@ export const SigninForm: FC = () => {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 col-span-4 md:col-span-8 xl:col-span-12 xl:row-span-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
+        <Image
           className="mx-auto h-10 w-auto"
-          src="../../../../public/logo.svg"
+          src="/logo.svg"
           alt="Your Company"
+          width={200}
+          height={50}
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
