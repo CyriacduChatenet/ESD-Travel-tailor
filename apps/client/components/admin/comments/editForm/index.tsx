@@ -56,7 +56,7 @@ export const EditCommentForm: FC = () => {
                         id="name"
                         type="text"
                         onClick={() => setApiErrors({})}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full px-3.5 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.content && <p className="mt-2 text-red-500 text-xs italic">{errors.content.message?.toString()}</p>}
                 </div>

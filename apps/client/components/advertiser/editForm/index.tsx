@@ -75,7 +75,7 @@ export const EditAdvertiserForm: FC = () => {
                         type="text"
                         aria-label="Name input"
                         onClick={() => setApiErrors({ message: "", name: "", cause: "" })}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full px-3.5 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                     {errors.name && <p className="mt-2 text-red-500 text-xs italic">{errors.name.message?.toString()}</p>}
                 </div>
@@ -92,7 +92,7 @@ export const EditAdvertiserForm: FC = () => {
                         aria-label="Location input"
                         onClick={() => setApiErrors({})}
                         onChange={handleLocationChange}
-                        className={`shadow appearance-none border-t ${address.length === 0 ? 'border-r border-l' : ''} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.location ? 'border-red-500' : ''}`}
+                        className={`shadow appearance-none border-t ${address.length === 0 ? 'border-r border-l' : ''} rounded w-full px-3.5 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.location ? 'border-red-500' : ''}`}
                     />
                     <Autocomplete address={address} setAddress={setAddress} />
                     {errors.location && <p className="mt-2 text-red-500 text-xs italic">{errors.location.message?.toString()}</p>}
